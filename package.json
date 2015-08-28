@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/eeroan/tennishelsinki/issues"
   },
-  "homepage": "https://github.com/eeroan/tennishelsinki"
+  "homepage": "https://github.com/eeroan/tennishelsinki",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "express": "^4.13.3",
+    "request": "^2.61.0"
+  }
 }
