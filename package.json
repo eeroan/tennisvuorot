@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/eeroan/tennishelsinki",
   "dependencies": {
+    "baconjs": "^0.7.71",
     "cheerio": "^0.19.0",
     "express": "^4.13.3",
     "request": "^2.61.0"
