@@ -1,0 +1,19 @@
+{
+  "name": "tennishelsinki",
+  "version": "1.0.0",
+  "description": "Lists tennis courts of helsinki in one view",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eeroan/tennishelsinki.git"
+  },
+  "author": "eea@iki.fi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eeroan/tennishelsinki/issues"
+  },
+  "homepage": "https://github.com/eeroan/tennishelsinki"
+}
