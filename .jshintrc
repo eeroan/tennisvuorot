@@ -1,0 +1,36 @@
+{
+  "eqeqeq": true,
+  "quotmark": "single",
+  "undef": true,
+  "unused": true,
+  "asi": true,
+  "node": true,
+  // Custom globals.
+  "predef": [
+    "module",
+    "require",
+    "describe",
+    "before",
+    "it",
+    "after",
+    "beforeEach",
+    "afterEach",
+    "expect",
+    "be",
+    "have",
+    "testName",
+    "document",
+    "window",
+    "navigator",
+    "history"
+  ],
+  "esnext": true,
+  "debug": false,
+  // Allow debugger statements e.g. browser breakpoints.
+  "devel": false,
+  // Allow developments statements e.g. `console.log();`.
+  "asi": true,
+  "indent": 4,
+  "camelcase": false,
+  "multistr": true
+}
