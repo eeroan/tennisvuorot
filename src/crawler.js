@@ -11,11 +11,25 @@ module.exports = {
 }
 
 function getMeilahti(isoDate) {
-    return getSlSystemsTable(isoDate, 'meilahti').map(withMeilahtiFieldNames)
+    return getSlSystemsTable(isoDate, 'meilahti').map(function (res) {
+        return _.map(res, function (obj) {
+            var index = obj.res
+            obj.field = (index > 5 ? 'Sisä' : 'Kupla') + ' K' + index
+            obj.location = 'meilahti'
+            return obj
+        })
+    })
 }
 
 function getHerttoniemi(isoDate) {
-    return getSlSystemsTable(isoDate, 'fite')
+    return getSlSystemsTable(isoDate, 'fite').map(function (res) {
+        return _.map(res, function (obj) {
+            var index = obj.res
+            obj.field = (index > 9 ? 'Massakupla' : (index > 6 ? 'Janus' : 'Sisä')) + ' K' + index
+            obj.location = 'herttoniemi'
+            return obj
+        })
+    })
 }
 
 function getSlSystemsTable(isoDate, client) {
@@ -28,14 +42,6 @@ function fromSlSystemsTable(html) {
     return html.match(/res=[^"]+/g).map(function (el) {
         return url.parse('?' + el, true).query
     }).map(fromSlSystemsResult)
-}
-
-function withMeilahtiFieldNames(list) {
-    return _.map(list, function (obj) {
-        var index = obj.res
-        obj.field = (index > 5 ? 'Sisä' : 'Kupla') + ' K' + index
-        return obj
-    })
 }
 
 function fromSlSystemsResult(item) {
