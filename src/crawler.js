@@ -2,21 +2,47 @@
 var url = require('url')
 var request = require('request')
 var Bacon = require('baconjs').Bacon
+var _ = require('lodash')
 
 module.exports = {
     getMeilahti: getMeilahti,
-    table:       table
+    getHerttoniemi: getHerttoniemi,
+    table: fromSlSystemsTable
 }
 
-//Format: 2015-08-28
 function getMeilahti(isoDate) {
-    return Bacon.fromNodeCallback(request.get, {
-        url: 'https://www.slsystems.fi/meilahti/ftpages/ft-varaus-table-01.php?laji=1&pvm=' + isoDate + '&goto=0'
-    }).map('.body').map(table)
+    return getSlSystemsTable(isoDate, 'meilahti').map(withMeilahtiFieldNames)
 }
 
-function table(html) {
+function getHerttoniemi(isoDate) {
+    return getSlSystemsTable(isoDate, 'fite')
+}
+
+function getSlSystemsTable(isoDate, client) {
+    return Bacon.fromNodeCallback(request.get, {
+        url: 'https://www.slsystems.fi/' + client + '/ftpages/ft-varaus-table-01.php?laji=1&pvm=' + isoDate + '&goto=0'
+    }).map('.body').map(fromSlSystemsTable)
+}
+
+function fromSlSystemsTable(html) {
     return html.match(/res=[^"]+/g).map(function (el) {
         return url.parse('?' + el, true).query
+    }).map(fromSlSystemsResult)
+}
+
+function withMeilahtiFieldNames(list) {
+    return _.map(list, function (obj) {
+        var index = obj.res
+        obj.field = (index > 5 ? 'Sisä' : 'Kupla') + ' K' + index
+        return obj
     })
+}
+
+function fromSlSystemsResult(item) {
+    return {
+        duration: item.kesto,
+        time: item.klo.substring(0, 5),
+        date: item.pvm,
+        res: Number(item.res)
+    }
 }

@@ -1,15 +1,5 @@
 $.getJSON('/courts', function (data) {
-
-    var modified = data.map(function (item) {
-        return {
-            duration: item.kesto,
-            time: item.klo.substring(0,5),
-            date: item.pvm,
-            field: meilahtiFieldName(item.res)
-        }
-    })
-
-    var sameDates = _.groupBy(modified, 'date')
+    var sameDates = _.groupBy(data, 'date')
 
     var list = []
     _.forEach(sameDates, function (times, isoDate) {
@@ -26,8 +16,3 @@ $.getJSON('/courts', function (data) {
     $('.schedule').html(list.join(''))
 })
 
-
-function meilahtiFieldName(index) {
-    index = Number(index)
-    return (index > 5 ? 'Sisä' : 'Kupla') + ' K' + index
-}
