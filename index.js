@@ -5,7 +5,6 @@ var crawler = require('./src/crawler')
 var Bacon = require('baconjs').Bacon
 
 app.use(express.static(__dirname + '/public'))
-
 app.get('/courts', function (req, res) {
     var now = new Date()
     var isoDateTime = now.toISOString();
