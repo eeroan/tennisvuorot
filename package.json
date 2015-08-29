@@ -2,10 +2,10 @@
   "name": "tennishelsinki",
   "version": "1.0.0",
   "description": "Lists tennis courts of helsinki in one view",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "start":"node ./index.js"
+    "start":"node ./server.js"
   },
   "repository": {
     "type": "git",
