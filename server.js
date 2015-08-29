@@ -19,7 +19,7 @@ app.get('/courts', function (req, res) {
         res.send(obj)
     })
 });
-var port = 5000
+var port = process.env.PORT || 5000
 var server = app.listen(port, function () {
     console.log('Server started at localhost:' + port)
 })
