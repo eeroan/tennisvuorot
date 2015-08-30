@@ -10,13 +10,27 @@ $.getJSON('/courts', function (allData) {
             var isoTime = timeObject.key
             var fields = timeObject.val
             return '<p><span class="time">' + isoTime + '</span>' +
-            fields.map(function (field) {
-                return '<button type="button" class="btn btn-' +
-                    (field.location === 'meilahti' ? 'primary' : 'success') +
-                    ' btn-xs">' + field.field + '</button>'
-            }).join('')+'</p>'
+            groupBySortedAsList(fields, 'location').map(function(locationFields) {
+                var location = locationFields.key
+                var fields = locationFields.val
+                return '<span class="locationBoxes"><button type="button" class="locationLabel btn btn-' +
+                    (location === 'meilahti' ? 'primary' : 'success') +
+                    ' btn-xs">' + location + ' (' + fields.length +')</button>' +
+                fields.map(function (field) {
+                    return '<button type="button" class="fieldLabel btn btn-' +
+                        (field.location === 'meilahti' ? 'primary' : 'success') +
+                        ' btn-xs">' + field.field + '</button>'
+                }).join('')+'</span>'
+            }).join('') + '</p>'
         }).join('')
     }).join(''))
+})
+
+$('.schedule').on('click', '.locationLabel', function(e) {
+    console.log('click')
+    var $locationLabel = $(e.currentTarget)
+    $locationLabel.slideToggle()
+    $locationLabel.parent().find('.fieldLabel').slideToggle()
 })
 
 function groupBySortedAsList(list, key) { return _.sortBy(_.map(_.groupBy(list, key), objectToArray), 'key')}
