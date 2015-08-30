@@ -1,12 +1,12 @@
 $.getJSON('/courts', function (allData) {
     var data = [].concat(allData.meilahti, allData.herttoniemi)
-    var sameDates = _.sortBy(_.map(_.groupBy(data, 'date'), objectToArray), 'key')
+    var sameDates = groupBySortedAsList(data, 'date')
 
     $('.schedule').html(sameDates.map(function (dateObject) {
         var isoDate = dateObject.key
         var times = dateObject.val
         return '<h4>' + new Date(isoDate).toDateString() + '</h4>' +
-        _.sortBy(_.map(_.groupBy(times, 'time'), objectToArray), 'key') .map(function (timeObject) {
+        groupBySortedAsList(times, 'time').map(function (timeObject) {
             var isoTime = timeObject.key
             var fields = timeObject.val
             return '<p><span class="time">' + isoTime + '</span>' +
@@ -19,5 +19,6 @@ $.getJSON('/courts', function (allData) {
     }).join(''))
 })
 
+function groupBySortedAsList(list, key) { return _.sortBy(_.map(_.groupBy(list, key), objectToArray), 'key')}
 
 function objectToArray(val, key) { return { key: key, val:val}}
