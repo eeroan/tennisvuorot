@@ -29,8 +29,8 @@ $.getJSON('/courts', function (allData) {
 $('.schedule').on('click', '.locationLabel', function(e) {
     console.log('click')
     var $locationLabel = $(e.currentTarget)
-    $locationLabel.slideToggle()
-    $locationLabel.parent().find('.fieldLabel').slideToggle()
+    $locationLabel.toggle()
+    $locationLabel.parent().find('.fieldLabel').toggle()
 })
 
 function groupBySortedAsList(list, key) { return _.sortBy(_.map(_.groupBy(list, key), objectToArray), 'key')}
