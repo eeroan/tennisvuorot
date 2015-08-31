@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "start":"node ./server.js"
+    "start": "node ./server.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
     "baconjs": "^0.7.71",
     "cheerio": "^0.19.0",
     "express": "^4.13.3",
+    "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "request": "^2.61.0"
   },

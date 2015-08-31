@@ -1,3 +1,58 @@
+var courts = {
+    tali: {
+        url: 'https://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST',
+        address: 'Kutomokuja 4, 00381 Helsinki'
+    },
+    taivallahti: {
+        url: 'https://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST',
+        address: 'Hiekkarannantie 2, 00100 Helsinki'
+    },
+    meilahti: {
+        url: 'https://www.slsystems.fi/meilahti/',
+        address: 'Meilahden Liikuntapuisto, 00250 Helsinki'
+    },
+    puistola: {
+        url: 'https://oma.enkora.fi/tapanila/reservations2/reservations/25/-/-/-',
+        address: 'Tapulikaupungintie 4, 00750 Helsinki'
+    },
+    herttoniemi: {
+        url: 'https://www.slsystems.fi/fite/',
+        address: 'Varikkotie 4, 00900 Helsinki'
+    },
+    kulosaari: {
+        url: 'http://www.slsystems.fi/puhoscenter/',
+        address: 'Kulosaarentie 2, 00570 Helsinki'
+    },
+    viikki: {
+        tel: '02941 58702'
+    },
+    merihaka: {
+        url: 'https://www.slsystems.fi/meripeli/'
+    },
+    esport: {
+        url: 'http://varaus.esportcenter.fi/index.php?pageId=11&func=mod_rc_v2&tac='
+    },
+    hiekkaharju: {
+        url: 'https://www.slsystems.fi/hiekkaharjuntenniskeskus/'
+    },
+    kalastajatorppa: {
+        tel: '010 423 9960',
+        address: 'Kärkitie 4, 00330 Helsinki'
+    },
+    laajasalo: {
+        url: 'http://www.slsystems.fi/laajasalonpalloiluhallit/',
+        address: 'Sarvastonkaari 23, 00840 Helsinki'
+    },
+    varmatennis: {
+        tel: '+358 9 548 6101',
+        address: 'Ruosilankuja 12, 00390 Helsinki'
+    },
+    metsälä: {
+        address: 'Krämertintie 6, 00620 Helsinki',
+        tel: '09 798 521'
+    }
+}
+
 $.getJSON('/courts', function (allData) {
     var data = [].concat(allData.meilahti, allData.herttoniemi)
     var sameDates = groupBySortedAsList(data, 'date')
