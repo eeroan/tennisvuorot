@@ -46,7 +46,7 @@ var courts = {
     hiekkaharju: {
         url: 'https://www.slsystems.fi/hiekkaharjuntenniskeskus/',
         address: 'Tennistie 5, 01370 Vantaa',
-        tel:'09 8731923'
+        tel: '09 8731923'
     },
     kalastajatorppa: {
         tel: '010 423 9960',
@@ -68,11 +68,9 @@ var courts = {
 }
 
 $('.information tbody').html(_.map(courts, objectToArray).map(function (obj) {
-    return '<tr><td class="place">' + (obj.val.url ? '<a target="_blank" href="' + obj.val.url + '">' + obj.key + '</a>' : obj.key) + '</td>' +
-        '<td><a target="_blank" href="http://maps.google.com/?q=' + obj.val.address + '">' + (obj.val.address || '') + '</a></td>' +
-        '<td>' +
-        (obj.val.tel ? ('<a href="tel:' + obj.val.tel + '">' + obj.val.tel + '</a>') : '') +
-        '</td></tr>'
+    var address = obj.val.address;
+    return '<tr><td class="place">' + (obj.val.url ? '<a target="_blank" href="' + obj.val.url + '">' + obj.key + '</a>' : obj.key) + '</td>' + '<td><a target="_blank" href="http://maps.google.com/?q=' + address + '">' + address + '</a></td>' +
+        '<td><a href="tel:' + obj.val.tel + '">' + obj.val.tel + '</a></td></tr>'
 
 }).join(''))
 
