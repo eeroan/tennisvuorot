@@ -53,6 +53,19 @@ var courts = {
     }
 }
 
+$('.information tbody').html(_.map(courts, objectToArray).map(function (obj) {
+    return '<tr><td class="place">' + (obj.val.url ? '<a target="_blank" href="' + obj.val.url + '">' + obj.key + '</a>' : obj.key) + '</td>' +
+        '<td><a target="_blank" href="http://maps.google.com/?q=' + obj.val.address + '">' + (obj.val.address || '') + '</a></td>' +
+        '<td>' +
+        (obj.val.tel ? ('<a href="tel:' + obj.val.tel + '">' + obj.val.tel + '</a>') : '') +
+        '</td></tr>'
+
+}).join(''))
+
+$('.toggleInformation').click(function () {
+    $('.information').slideToggle()
+})
+
 $.getJSON('/courts', function (allData) {
     var data = [].concat(allData.meilahti, allData.herttoniemi)
     var sameDates = groupBySortedAsList(data, 'date')
