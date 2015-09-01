@@ -64,6 +64,11 @@ var courts = {
     metsälä: {
         address: 'Krämertintie 6, 00620 Helsinki',
         tel: '09 798 521'
+    },
+    kaisaniemi: {
+        url: 'https://www.slsystems.fi/fite/',
+        address: 'Kaisaniemen puisto',
+        tel: '09 341 7130'
     }
 }
 
