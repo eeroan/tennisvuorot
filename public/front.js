@@ -12,9 +12,8 @@ $('.toggleInformation').click(function () {
 
 $.getJSON('/courts', function (allData) {
     var data = [].concat(allData.meilahti, allData.herttoniemi)
-    var sameDates = groupBySortedAsList(data, 'date')
-
-    $('.schedule').html(sameDates.map(function (dateObject) {
+    $('.schedule').html(
+        groupBySortedAsList(data, 'date').map(function (dateObject) {
         var isoDate = dateObject.key
         var times = dateObject.val
         return '<h4>' + new Date(isoDate).toDateString() + '</h4>' +
