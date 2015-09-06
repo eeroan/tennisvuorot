@@ -25,6 +25,7 @@
     </p>
 
     <button type="button" class="btn btn-xs toggleInformation">Näytä kenttien yhteystiedot</button>
+    <button type="button" class="btn btn-xs toggleMapInformation">Näytä kentät kartalla</button>
     <table class="table information" style="display: none">
         <thead>
         <tr>
@@ -35,7 +36,7 @@
         </thead>
         <tbody></tbody>
     </table>
-    <div id="map_wrapper">
+    <div id="map_wrapper" style="display: none">
         <div id="map_canvas" class="mapping"></div>
     </div>
     <section class="schedule">
@@ -44,7 +45,7 @@
 <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize"></script>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="front.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
