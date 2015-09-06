@@ -1,4 +1,4 @@
-window.courts = {
+module.exports = {
     tali: {
         url: 'https://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST',
         address: 'Kutomokuja 4, 00381 Helsinki',
