@@ -7,8 +7,7 @@ $('.toggleMapInformation').click(function () {
 })
 
 $.getJSON('/courts', function (allData) {
-    //var data = [].concat(_.map(allData, _.identity)
-    var data = [].concat(allData.meilahti, allData.herttoniemi, allData.kulosaari)
+    var data = _.flatten((_.map(allData, _.identity)))
     $('.schedule').html(groupBySortedAsList(data, 'date').map(toDateSection).join(''))
 })
 
