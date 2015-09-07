@@ -11,22 +11,17 @@ app.get('/courts', function (req, res) {
     var now = new Date()
     var isoDateTime = now.toISOString();
     var isoDate = isoDateTime.split('T')[0]
-    var meilahti = crawler.getMeilahti(isoDate)
-    var herttoniemi = crawler.getHerttoniemi(isoDate)
     Bacon.combineTemplate({
-        meilahti: meilahti,
-        herttoniemi: herttoniemi
-    }).onValue(function (obj) {
-
-        res.send(obj)
-    })
+        meilahti:    crawler.getMeilahti(isoDate),
+        herttoniemi: crawler.getHerttoniemi(isoDate)
+    }).onValue(function (obj) { res.send(obj) })
 });
 app.get('/locations', function (req, res) {
-    Bacon.combineAsArray(_.map(courts, function(val, key) {
-        return getLocation(val.address).map(function(location) {return _.extend({title:key}, location, val)})
-    })).onValue(function(val) {
-        res.send(val)
-    })
+    Bacon.combineAsArray(_.map(courts, function (val, key) {
+        return getLocation(val.address).map(function (location) {
+            return _.extend({title: key}, location, val)
+        })
+    })).onValue(function (val) { res.send(val) })
 })
 
 function getLocation(address) {
