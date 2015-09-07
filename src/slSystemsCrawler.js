@@ -8,11 +8,12 @@ module.exports = {
     getMeilahti:    getMeilahti,
     getHerttoniemi: getHerttoniemi,
     getKulosaari:   getKulosaari,
+    getMerihaka:    getMerihaka,
     table:          fromSlSystemsTable
 }
 
 function getMeilahti(isoDate) {
-    return getSlSystemsTable(isoDate, 'meilahti').map(function (res) {
+    return getSlSystemsTable(isoDate, 'meilahti', 1).map(function (res) {
         return _.map(res, function (obj) {
             var index = obj.res
             obj.field = (index > 5 ? 'Sisä' : 'Kupla') + ' K' + index
@@ -23,7 +24,7 @@ function getMeilahti(isoDate) {
 }
 
 function getHerttoniemi(isoDate) {
-    return getSlSystemsTable(isoDate, 'fite').map(function (res) {
+    return getSlSystemsTable(isoDate, 'fite', 1).map(function (res) {
         return _.map(res, function (obj) {
             var index = obj.res
             obj.field = (index > 9 ? 'Massakupla' : (index > 6 ? 'Janus' : 'Sisä')) + ' K' + index
@@ -34,7 +35,7 @@ function getHerttoniemi(isoDate) {
 }
 
 function getKulosaari(isoDate) {
-    return getSlSystemsTable(isoDate, 'puhoscenter').map(function (res) {
+    return getSlSystemsTable(isoDate, 'puhoscenter', 1).map(function (res) {
         return _.map(res, function (obj) {
             var index = obj.res
             obj.field = (index > 2 ? 'Green set' : 'Bolltex' ) + ' Te' + index
@@ -44,9 +45,21 @@ function getKulosaari(isoDate) {
     })
 }
 
-function getSlSystemsTable(isoDate, client) {
+function getMerihaka(isoDate) {
+    return getSlSystemsTable(isoDate, 'meripeli', 3).map(function (res) {
+        return _.map(res, function (obj) {
+            var index = obj.res
+            obj.field = 'K1'
+            obj.location = 'merihaka'
+            return obj
+        })
+    })
+}
+
+function getSlSystemsTable(isoDate, client, sportTypeId) {
     return Bacon.fromNodeCallback(request.get, {
-        url: 'https://www.slsystems.fi/' + client + '/ftpages/ft-varaus-table-01.php?laji=1&pvm=' + isoDate + '&goto=0'
+        url: 'https://www.slsystems.fi/' + client + '/ftpages/ft-varaus-table-01.php?laji=' + sportTypeId +
+             '&pvm=' + isoDate + '&goto=0'
     }).map('.body').map(fromSlSystemsTable)
 }
 

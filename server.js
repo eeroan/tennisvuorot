@@ -14,7 +14,8 @@ app.get('/courts', function (req, res) {
     Bacon.combineTemplate({
         meilahti:    slSystems.getMeilahti(isoDate),
         herttoniemi: slSystems.getHerttoniemi(isoDate),
-        kulosaari:   slSystems.getKulosaari(isoDate)
+        kulosaari:   slSystems.getKulosaari(isoDate),
+        merihaka:    slSystems.getMerihaka(isoDate)
     }).onValue(function (obj) { res.send(obj) })
 });
 app.get('/locations', function (req, res) {
