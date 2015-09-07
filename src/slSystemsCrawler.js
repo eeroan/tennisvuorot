@@ -13,46 +13,44 @@ module.exports = {
 }
 
 function getMeilahti(isoDate) {
-    return getSlSystemsTable(isoDate, 'meilahti', 1).map(function (res) {
-        return _.map(res, function (obj) {
-            var index = obj.res
-            obj.field = (index > 5 ? 'Sisä' : 'Kupla') + ' K' + index
-            obj.location = 'meilahti'
-            return obj
-        })
+    return getTableWithMapper(isoDate, 'meilahti', 1, function (obj) {
+        var index = obj.res
+        obj.field = (index > 5 ? 'Sisä' : 'Kupla') + ' K' + index
+        obj.location = 'meilahti'
+        return obj
     })
 }
 
 function getHerttoniemi(isoDate) {
-    return getSlSystemsTable(isoDate, 'fite', 1).map(function (res) {
-        return _.map(res, function (obj) {
-            var index = obj.res
-            obj.field = (index > 9 ? 'Massakupla' : (index > 6 ? 'Janus' : 'Sisä')) + ' K' + index
-            obj.location = 'herttoniemi'
-            return obj
-        })
+    return getTableWithMapper(isoDate, 'fite', 1, function (obj) {
+        var index = obj.res
+        obj.field = (index > 9 ? 'Massakupla' : (index > 6 ? 'Janus' : 'Sisä')) + ' K' + index
+        obj.location = 'herttoniemi'
+        return obj
     })
 }
 
 function getKulosaari(isoDate) {
-    return getSlSystemsTable(isoDate, 'puhoscenter', 1).map(function (res) {
-        return _.map(res, function (obj) {
-            var index = obj.res
-            obj.field = (index > 2 ? 'Green set' : 'Bolltex' ) + ' Te' + index
-            obj.location = 'kulosaari'
-            return obj
-        })
+    return getTableWithMapper(isoDate, 'puhoscenter', 1, function (obj) {
+        var index = obj.res
+        obj.field = (index > 2 ? 'Green set' : 'Bolltex' ) + ' Te' + index
+        obj.location = 'kulosaari'
+        return obj
     })
 }
 
 function getMerihaka(isoDate) {
-    return getSlSystemsTable(isoDate, 'meripeli', 3).map(function (res) {
-        return _.map(res, function (obj) {
-            var index = obj.res
-            obj.field = 'K1'
-            obj.location = 'merihaka'
-            return obj
-        })
+    return getTableWithMapper(isoDate, 'meripeli', 3, function (obj) {
+        var index = obj.res
+        obj.field = 'K1'
+        obj.location = 'merihaka'
+        return obj
+    })
+}
+
+function getTableWithMapper(isoDate, client, sportTypeId, fn) {
+    return getSlSystemsTable(isoDate, client, sportTypeId).map(function (res) {
+        return _.map(res, fn)
     })
 }
 
