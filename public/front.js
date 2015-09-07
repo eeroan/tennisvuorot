@@ -12,7 +12,6 @@ $.getJSON('/courts', function (allData) {
 })
 
 $('.schedule').on('click', '.locationLabel', function (e) {
-    console.log('click')
     var $locationLabel = $(e.currentTarget)
     $locationLabel.toggle()
     $locationLabel.parent().find('.fieldLabel').toggle()
