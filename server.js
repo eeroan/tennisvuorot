@@ -8,9 +8,7 @@ var _ = require('lodash')
 var courts = require('./public/courts')
 app.use(express.static(__dirname + '/public'))
 app.get('/courts', function (req, res) {
-    var now = new Date()
-    var isoDateTime = now.toISOString();
-    var isoDate = isoDateTime.split('T')[0]
+    var isoDate = req.query.date || todayIsoDate()
     Bacon.combineTemplate({
         meilahti:    slSystems.getMeilahti(isoDate),
         herttoniemi: slSystems.getHerttoniemi(isoDate),
@@ -18,6 +16,13 @@ app.get('/courts', function (req, res) {
         merihaka:    slSystems.getMerihaka(isoDate)
     }).onValue(function (obj) { res.send(obj) })
 });
+
+function todayIsoDate() {
+    var now = new Date()
+    var isoDateTime = now.toISOString()
+    return isoDateTime.split('T')[0]
+}
+
 app.get('/locations', function (req, res) {
     Bacon.combineAsArray(_.map(courts, function (val, key) {
         return getLocation(val.address).map(function (location) {

@@ -6,7 +6,7 @@ $('.toggleMapInformation').click(function () {
     _.once(renderMap)()
 })
 
-$.getJSON('/courts', function (allData) {
+$.getJSON('/courts?date=' + todayIsoDate(), function (allData) {
     var data = _.flatten((_.map(allData, _.identity)))
     $('.schedule').html(groupBySortedAsList(data, 'date').map(toDateSection).join(''))
 })
@@ -28,6 +28,16 @@ $.getJSON('/locations', function (locations) {
             '<td><a href="tel:' + tel + '">' + tel + '</a></td></tr>'
     }).join(''))
 })
+
+function todayIsoDate(delta) {
+    var now = new Date()
+    if (delta) {
+        now.setDate(now.getDate() + delta)
+    }
+    var isoDateTime = now.toISOString()
+    return isoDateTime.split('T')[0]
+}
+
 function renderMap() {
     var bounds = new google.maps.LatLngBounds()
     var map = new google.maps.Map(document.getElementById("map_canvas"), {mapTypeId: 'roadmap'})
