@@ -2,7 +2,7 @@
 var express = require('express')
 var request = require('request')
 var app = express()
-var crawler = require('./src/crawler')
+var slSystems = require('./src/slSystemsCrawler')
 var Bacon = require('baconjs').Bacon
 var _ = require('lodash')
 var courts = require('./public/courts')
@@ -12,8 +12,8 @@ app.get('/courts', function (req, res) {
     var isoDateTime = now.toISOString();
     var isoDate = isoDateTime.split('T')[0]
     Bacon.combineTemplate({
-        meilahti:    crawler.getMeilahti(isoDate),
-        herttoniemi: crawler.getHerttoniemi(isoDate)
+        meilahti:    slSystems.getMeilahti(isoDate),
+        herttoniemi: slSystems.getHerttoniemi(isoDate)
     }).onValue(function (obj) { res.send(obj) })
 });
 app.get('/locations', function (req, res) {
