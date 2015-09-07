@@ -5,9 +5,10 @@ var Bacon = require('baconjs').Bacon
 var _ = require('lodash')
 
 module.exports = {
-    getMeilahti: getMeilahti,
+    getMeilahti:    getMeilahti,
     getHerttoniemi: getHerttoniemi,
-    table: fromSlSystemsTable
+    getKulosaari:   getKulosaari,
+    table:          fromSlSystemsTable
 }
 
 function getMeilahti(isoDate) {
@@ -32,6 +33,17 @@ function getHerttoniemi(isoDate) {
     })
 }
 
+function getKulosaari(isoDate) {
+    return getSlSystemsTable(isoDate, 'puhoscenter').map(function (res) {
+        return _.map(res, function (obj) {
+            var index = obj.res
+            obj.field = (index > 2 ? 'Green set' : 'Bolltex' ) + ' Te' + index
+            obj.location = 'kulosaari'
+            return obj
+        })
+    })
+}
+
 function getSlSystemsTable(isoDate, client) {
     return Bacon.fromNodeCallback(request.get, {
         url: 'https://www.slsystems.fi/' + client + '/ftpages/ft-varaus-table-01.php?laji=1&pvm=' + isoDate + '&goto=0'
@@ -47,8 +59,8 @@ function fromSlSystemsTable(html) {
 function fromSlSystemsResult(item) {
     return {
         duration: item.kesto,
-        time: item.klo.substring(0, 5),
-        date: item.pvm,
-        res: Number(item.res)
+        time:     item.klo.substring(0, 5),
+        date:     item.pvm,
+        res:      Number(item.res)
     }
 }

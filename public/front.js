@@ -7,7 +7,8 @@ $('.toggleMapInformation').click(function () {
 })
 
 $.getJSON('/courts', function (allData) {
-    var data = [].concat(allData.meilahti, allData.herttoniemi)
+    //var data = [].concat(_.map(allData, _.identity)
+    var data = [].concat(allData.meilahti, allData.herttoniemi, allData.kulosaari)
     $('.schedule').html(groupBySortedAsList(data, 'date').map(toDateSection).join(''))
 })
 
@@ -24,7 +25,8 @@ $.getJSON('/locations', function (locations) {
         var url = obj.url
         var title = obj.title
         var tel = obj.tel
-        return '<tr><td class="place">' + (url ? '<a target="_blank" href="' + url + '">' + title + '</a>' : title) + '</td>' + '<td><a target="_blank" href="http://maps.google.com/?q=' + address + '">' + address + '</a></td>' +
+        return '<tr><td class="place">' + (url ? '<a target="_blank" href="' + url + '">' + title + '</a>' : title) + '</td>' +
+            '<td><a target="_blank" href="http://maps.google.com/?q=' + address + '">' + address + '</a></td>' +
             '<td><a href="tel:' + tel + '">' + tel + '</a></td></tr>'
     }).join(''))
 })
@@ -40,8 +42,8 @@ function renderMap() {
         bounds.extend(position)
         var marker = new google.maps.Marker({
             position: position,
-            map: map,
-            title: loc.title
+            map:      map,
+            title:    loc.title
         })
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
@@ -76,16 +78,14 @@ function toTimeRow(timeObject) {
 function toLocationButtonGroup(locationFields) {
     var location = locationFields.key
     var fields = locationFields.val
-    return '<span class="locationBoxes"><button type="button" class="locationLabel btn btn-' +
-        (location === 'meilahti' ? 'primary' : 'success') +
+    return '<span class="locationBoxes"><button type="button" class="locationLabel btn ' +
+        location +
         ' btn-xs">' + location + ' (' + fields.length + ')</button>' +
         fields.map(toButtonMarkup).join('') + '</span>'
 }
 
 function toButtonMarkup(field) {
-    return '<button type="button" class="fieldLabel btn btn-' +
-        (field.location === 'meilahti' ? 'primary' : 'success') +
-        ' btn-xs">' + field.field + '</button>'
+    return '<button type="button" class="fieldLabel btn ' + field.location + ' btn-xs">' + field.field + '</button>'
 }
 
 function groupBySortedAsList(list, key) {

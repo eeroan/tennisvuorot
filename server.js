@@ -13,7 +13,8 @@ app.get('/courts', function (req, res) {
     var isoDate = isoDateTime.split('T')[0]
     Bacon.combineTemplate({
         meilahti:    slSystems.getMeilahti(isoDate),
-        herttoniemi: slSystems.getHerttoniemi(isoDate)
+        herttoniemi: slSystems.getHerttoniemi(isoDate),
+        kulosaari:   slSystems.getKulosaari(isoDate)
     }).onValue(function (obj) { res.send(obj) })
 });
 app.get('/locations', function (req, res) {
