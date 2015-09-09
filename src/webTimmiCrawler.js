@@ -5,7 +5,7 @@ var Bacon = require('baconjs').Bacon
 var _ = require('lodash')
 
 module.exports = {
-    getTali:getTali
+    getTali: getTali
 }
 
 var cmbProfile = {
@@ -23,9 +23,10 @@ var cmbProfile = {
     2189: 'TAIVALLAHTI 2'
 }
 
-function getTali() {
+function getTali(isoDate) {
+    var fieldGroup = 2186
     return login().flatMap(getWeek).flatMap(function (obj) {
-        return weekView(obj.cookie, obj.token)
+        return weekView(obj.cookie, obj.token, fieldGroup, isoDate)
     })
 }
 
@@ -49,7 +50,13 @@ function getWeek(cookie) {
     })
 }
 
-function weekView(cookie, token) {
+function weekView(cookie, token, fieldGroup, isoDate) {
+    var split = isoDate.split('-')
+    var year = split[0]
+    var month = split[1]
+    var day = split[2]
+    var date = day + '.' + month + '.' + year
+    console.log(date)
     return Bacon.fromNodeCallback(request.post, {
         url:     'http://webtimmi.talintenniskeskus.fi/weekViewMenu.do',
         headers: {
@@ -59,40 +66,31 @@ function weekView(cookie, token) {
             'org.apache.struts.taglib.html.TOKEN': token,
             //roomPartIds:'5743|5744|5745|5746|5799|5800|5846|5847|5848|',
             roomPartIds:                           '',
-            actionType:                            '',
-            weekNum:                               '36',
-            date:                                  '09.09.2015',
-            periodTime:                            '01:00',
-            additionalAction:                      '',
-            cmbProfile:                            '1018',
+            //date:                                  date,
+            //periodTime:                            '01:00',
+            cmbProfile:                            fieldGroup,
             action:                                'Hae',
-            selMonth:                              '09',
-            selYear:                               '2015',
-            wednesdaySelected:                     'on',
+            //week number and date matters
+            weekNum:                               '36',
+            thursdaySelected:                      'on',
             startTime:                             '06:30',
             endTime:                               '22:30',
-            textTaskSubject:                       '',
-            textTaskInfo:                          '',
             taskBookingClassification:             '0',
             taskMemoClassification:                '0',
-            taskOrderDepartment:                   '0',
-            taskDate:                              '',
-            taskStartTime:                         '',
-            taskEndTime:                           '',
-            taskDueDate:                           ''
+            taskOrderDepartment:                   '0'
         }
     }).map('.body').map(function (markup) {
         return markup.match(/getCreateBooking.do[^,"']+/g).map(function (el) {
             return url.parse(el, true).query
-        }).map(function(obj) {
+        }).map(function (obj) {
             var startDateTime = obj.startTime.split(' ')
-            var endDateTime = obj['amp;endTime'].split(' ')
             return {
-                duration: 1,
-                time:     startDateTime[1],
-                date:     startDateTime[0],
-                res:      obj['amp;roomPartId']
+                time: startDateTime[1],
+                date: startDateTime[0],
+                res:  obj['amp;roomPartId']
             }
         })
     })
 }
+
+getTali('2015-09-10').log()

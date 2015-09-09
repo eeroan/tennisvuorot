@@ -6,6 +6,7 @@ var slSystems = require('./src/slSystemsCrawler')
 var Bacon = require('baconjs').Bacon
 var _ = require('lodash')
 var courts = require('./public/courts')
+var webTimmi = require('./src/webTimmiCrawler')
 app.use(express.static(__dirname + '/public'))
 app.get('/courts', function (req, res) {
     var isoDate = req.query.date || todayIsoDate()
@@ -13,7 +14,8 @@ app.get('/courts', function (req, res) {
         meilahti:    slSystems.getMeilahti(isoDate),
         herttoniemi: slSystems.getHerttoniemi(isoDate),
         kulosaari:   slSystems.getKulosaari(isoDate),
-        merihaka:    slSystems.getMerihaka(isoDate)
+        merihaka:    slSystems.getMerihaka(isoDate),
+        tali:        webTimmi.getTali(isoDate)
     }).onValue(function (obj) { res.send(obj) })
 });
 
