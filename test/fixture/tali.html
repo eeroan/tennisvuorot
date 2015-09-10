@@ -1,0 +1,1088 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+
+
+    <link rel="stylesheet" href="css/webtimmi.css" type="text/css" />
+    <link rel="stylesheet" href="css/timmiStructure.css" type="text/css" />
+    <link rel="stylesheet" href="css/timmiScreen.css" type="text/css" />
+    <link rel="stylesheet" href="js/jquery_dialog/css/jquery-ui.custom.css" type="text/css" />
+    <link rel="stylesheet" href="js/jquery_dialog/css/jquery-dialog.custom.css" type="text/css" />
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery_dialog/js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+
+    <script type="text/javascript" src="js/ajax/prototype-1.6.0.3.js"></script>
+
+
+
+    <script type="text/javascript" language="javascript">
+        var bookingAllowed = false;
+
+
+        bookingAllowed = true;
+
+
+        function showSchedules() {
+            var eform = frames['roomParts'].document.weekViewMenuActionForm;
+            var i = 0;
+            var rpIds = '';
+
+            for (var c = 0; c < eform.elements.length; c++) {
+                if (eform.elements[c].type == 'checkbox') {
+                    if ((eform.elements[c].name != 'checkAll1') && (eform.elements[c].name != 'checkAll2')) {
+                        if (eform.elements[c].checked) {
+                            if (rpIds == '') {
+                                if (eform.selRoomPartIds[i])
+                                    rpIds = rpIds + eform.selRoomPartIds[i].value;
+                                else
+                                    rpIds = rpIds + eform.selRoomPartIds.value;
+                            }
+                            else {
+                                if (eform.selRoomPartIds[i])
+                                    rpIds = rpIds + '|' + eform.selRoomPartIds[i].value;
+                                else
+                                    rpIds = rpIds + '|' + eform.selRoomPartIds.value;
+                            }
+                        }
+                        i++;
+                    }
+                }
+            }
+
+            if (rpIds == '') {
+                alert('Tiloja tai tilan osia ei ole valittuna');
+                return false;
+            }
+            //open('showSchedules.do?roomPartIds='+rpIds, '','scrollbars=yes,toolbar=no,resizable=yes,height=600,width=940');
+            open('getSchedulesPrinterSettings.do?roomPartIds='+rpIds, '','scrollbars=yes,toolbar=no,resizable=yes,height=600,width=940');
+        }
+    </script>
+    <script type="text/javascript" language="javascript" src="js/calendar_fixed.js">
+    </script>
+    <script type="text/javascript" language="javascript" src="js/eventMenu.js">
+    </script>
+    <script type="text/javascript" language="javascript" src="js/weekView.js">
+    </script>
+    <script type="text/javascript" src="js/ajax/stripes.js">
+    </script>
+    <script type="text/javascript" language="javascript" src="js/priceQueryDialog.js">
+    </script>
+    <script type="text/javascript" language="javascript">
+    </script>
+
+    <script type="text/javascript" language="javascript" src="js/supercomps/checkTime.js"></script>
+    <script type="text/javascript" language="javascript" src="js/supercomps/checkDate.js"></script>
+    <script type="text/javascript" language="javascript" src="js/supercomps/balloons.js"></script>
+    <script type="text/javascript" language="javascript" src="js/timeValidator.js"></script>
+    <script type="text/javascript" language="javascript" src="js/supercomps/numericOnly.js"></script>
+
+</head>
+
+
+<body oncontextmenu="return false;" topmargin="0" leftmargin="0" bgcolor="#FFFFFF" onload="init('10.09.2015'); initCalendarMenu(); initAdditionalDivs(); checkWeekdayBoxes();">
+
+
+
+<form name="weekViewMenuActionForm" method="post" action="/weekViewMenu.do" target="contents"><input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="bfb4bb2edaa652003575a72f973c11cc">
+    <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td valign="top" width="195" align="left" class="calendarFrameLeft">
+                <input type="hidden" name="roomPartIds" value="">
+                <input type="hidden" name="actionType" value="" id="actionType">
+                <input type="hidden" name="weekNum" value="37">
+                <input type="hidden" name="date" value="10.09.2015" id="weekViewDate">
+                <input type="hidden" name="periodTime" value="01:00">
+                <input type="hidden" name="additionalAction" />
+                <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="3" rowspan="20"><img src="pics/px.gif" width="3" height="1" alt=""></td>
+                    </tr>
+                    <tr>
+                        <td valign="top"><img src="pics/px.gif" width="1" height="5" alt=""></td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <select name="cmbProfile" style="width:142px" class="formBg"><option value="0">Valitse tilaryhm�</option>
+                                <option value="1018">TALI SIS�TENNIS 1</option>
+                                <option value="1019">TALI SIS�TENNIS 2</option>
+                                <option value="1020">TALI SULKAPALLO</option>
+                                <option value="1016">TALI HIEKKA 1-2</option>
+                                <option value="1017">TALI HIEKKA 3-5</option>
+                                <option value="1021">TALI KES� 1</option>
+                                <option value="1022">TALI KES� 2</option>
+                                <option value="1023">TALI KES�SULKAPALLO</option>
+                                <option value="1024">TALI MASSA 6-8</option>
+                                <option value="1025">TALI MASSA 9-11</option>
+                                <option value="2186" selected="selected">TAIVALLAHTI 1</option>
+                                <option value="2189">TAIVALLAHTI 2</option></select>
+                            <input type="submit" name="action" value="Hae" onclick="setCursorWait();" style="width:40px;" class="button"> <br>
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td valign="top"><img src="pics/px.gif" width="1" height="5" alt=""></td>
+                    </tr>
+                    <tr>
+                        <td valign="top"><iframe name="roomParts" src="getRoomParts.do?type=roomParts" width="185" height="180" class="iframe" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td valign="top"><img src="pics/px.gif" width="1" height="5" alt=""></td>
+                    </tr>
+
+
+                    <tr>
+                        <td valign="top">
+                            <table border="0" width="187" cellpadding="1" cellspacing="0" class="tableBorder">
+                                <tr>
+                                    <td>
+                                        <table border="0" width="185" cellpadding="0" cellspacing="0" class="fixedCalTable">
+                                            <tr>
+                                                <td>
+                                                    <div id="calendar_fixed">
+                                                        <table cellpadding="0" cellspacing="0" border="0" width="185" height="100%">
+                                                            <tr>
+                                                                <td colspan="8" height="3"><img src="pics/px.gif" width="1" height="3" border="0" alt=""></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="8">
+                                                                    <table cellpadding="2" cellspacing="0" border="0" width="100%">
+                                                                        <tr>
+                                                                            <td align="left"><img src="pics/px.gif" width="1" height="3" border="0" alt=""> <a href="javascript: setMonth(-1)"><img
+                                                                                    src="pics/arrow_left.gif" height="16" width="9" border="0" alt="<<" align="top"></a> <select name="selMonth" class="sel"
+                                                                                                                                                                                 onchange="showMonth(this)">
+                                                                                <option value="01" id="m1">Tammikuu</option>
+                                                                                <option value="02" id="m2">Helmikuu</option>
+                                                                                <option value="03" id="m3">Maaliskuu</option>
+                                                                                <option value="04" id="m4">Huhtikuu</option>
+                                                                                <option value="05" id="m5">Toukokuu</option>
+                                                                                <option value="06" id="m6">Kes�kuu</option>
+                                                                                <option value="07" id="m7">Hein�kuu</option>
+                                                                                <option value="08" id="m8">Elokuu</option>
+                                                                                <option value="09" id="m9">Syyskuu</option>
+                                                                                <option value="10" id="m10">Lokakuu</option>
+                                                                                <option value="11" id="m11">Marraskuu</option>
+                                                                                <option value="12" id="m12">Joulukuu</option>
+                                                                            </select> <a href="javascript: setMonth(1);"><img src="pics/arrow_right.gif" border="0" height="16" width="9" alt=">>" align="top"></a></td>
+                                                                            <td align="right"><select name="selYear" class="sel" onchange="showMonth_y(this)">
+                                                                                <option value="1997" id="y1997">1997</option>
+                                                                                <option value="1998" id="y1998">1998</option>
+                                                                                <option value="1999" id="y1999">1999</option>
+                                                                                <option value="2000" id="y2000">2000</option>
+                                                                                <option value="2001" id="y2001">2001</option>
+                                                                                <option value="2002" id="y2002">2002</option>
+                                                                                <option value="2003" id="y2003">2003</option>
+                                                                                <option value="2004" id="y2004">2004</option>
+                                                                                <option value="2005" id="y2005">2005</option>
+                                                                                <option value="2006" id="y2006">2006</option>
+                                                                                <option value="2007" id="y2007">2007</option>
+                                                                                <option value="2008" id="y2008">2008</option>
+                                                                                <option value="2009" id="y2009">2009</option>
+                                                                                <option value="2010" id="y2010">2010</option>
+                                                                                <option value="2011" id="y2011">2011</option>
+                                                                                <option value="2012" id="y2012">2012</option>
+                                                                                <option value="2013" id="y2013">2013</option>
+                                                                                <option value="2014" id="y2014">2014</option>
+                                                                                <option value="2015" id="y2015">2015</option>
+                                                                                <option value="2016" id="y2016">2016</option>
+                                                                                <option value="2017" id="y2017">2017</option>
+                                                                                <option value="2018" id="y2018">2018</option>
+                                                                                <option value="2019" id="y2019">2019</option>
+                                                                                <option value="2020" id="y2020">2020</option>
+                                                                                <option value="2021" id="y2021">2021</option>
+                                                                                <option value="2022" id="y2022">2022</option>
+                                                                                <option value="2023" id="y2023">2023</option>
+                                                                                <option value="2024" id="y2024">2024</option>
+                                                                                <option value="2025" id="y2025">2025</option>
+                                                                            </select></td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="8" align="right" height="2"><img src="pics/px.gif" width="1" height="2" border="0" alt=""></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="8">
+                                                                    <table cellpadding="1" cellspacing="0" border="0" width="100%">
+                                                                        <tr height="8">
+                                                                            <td class="weekday" align="center" valign="bottom" width="23"></td>
+                                                                            <td class="weekday" align="center" valign="bottom">Ma</td>
+                                                                            <td class="weekday" align="center" valign="bottom">Ti</td>
+                                                                            <td class="weekday" align="center" valign="bottom">Ke</td>
+                                                                            <td class="weekday" align="center" valign="bottom">To</td>
+                                                                            <td class="weekday" align="center" valign="bottom">Pe</td>
+                                                                            <td class="weekday" align="center" valign="bottom">La</td>
+                                                                            <td class="weekday" align="center" valign="bottom">Su</td>
+                                                                        </tr>
+                                                                        <tr height="10">
+                                                                            <td align="center" valign="top"><a href="#" onclick="checkAllWeekDays(document.weekViewMenuActionForm); false;"><img
+                                                                                    src="pics/check.gif" width="15" height="15" border="0" alt=" X " align="middle"></a></td>
+                                                                            <td class="weekday" align="center" valign="top"><input type="checkbox" name="mondaySelected" value="on"></td>
+                                                                            <td class="weekday" align="center" valign="top"><input type="checkbox" name="tuesdaySelected" value="on"></td>
+                                                                            <td class="weekday" align="center" valign="top"><input type="checkbox" name="wednesdaySelected" value="on"></td>
+                                                                            <td class="weekday" align="center" valign="top"><input type="checkbox" name="thursdaySelected" value="on" checked="checked"></td>
+                                                                            <td class="weekday" align="center" valign="top"><input type="checkbox" name="fridaySelected" value="on"></td>
+                                                                            <td class="weekday" align="center" valign="top"><input type="checkbox" name="saturdaySelected" value="on"></td>
+                                                                            <td class="weekday" align="center" valign="top"><input type="checkbox" name="sundaySelected" value="on"></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center">
+                                                                                <div id="week1"></div>
+                                                                            </td>
+                                                                            <td id="td_day00"><a href="#" onmouseover="changeIn(0)" onmouseout="changeOut(0)" onclick="pickDay(0)"><img src="pics/day00.gif"
+                                                                                                                                                                                        name="pic00" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day01"><a href="#" onmouseover="changeIn(1)" onmouseout="changeOut(1)" onclick="pickDay(1)"><img src="pics/day00.gif"
+                                                                                                                                                                                        name="pic01" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day02"><a href="#" onmouseover="changeIn(2)" onmouseout="changeOut(2)" onclick="pickDay(2)"><img src="pics/day00.gif"
+                                                                                                                                                                                        name="pic02" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day03"><a href="#" onmouseover="changeIn(3)" onmouseout="changeOut(3)" onclick="pickDay(3)"><img src="pics/day00.gif"
+                                                                                                                                                                                        name="pic03" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day04"><a href="#" onmouseover="changeIn(4)" onmouseout="changeOut(4)" onclick="pickDay(4)"><img src="pics/day00.gif"
+                                                                                                                                                                                        name="pic04" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day05"><a href="#" onmouseover="changeIn(5)" onmouseout="changeOut(5)" onclick="pickDay(5)"><img src="pics/day00.gif"
+                                                                                                                                                                                        name="pic05" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day06"><a href="#" onmouseover="changeIn(6)" onmouseout="changeOut(6)" onclick="pickDay(6)"><img src="pics/day00.gif"
+                                                                                                                                                                                        name="pic06" width="20" height="13" border="0" alt=""></a></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center">
+                                                                                <div id="week2"></div>
+                                                                            </td>
+                                                                            <td id="td_day07"><a href="#" onmouseover="changeIn(7)" onmouseout="changeOut(7)" onclick="pickDay(7)"><img src="pics/day00.gif"
+                                                                                                                                                                                        name="pic07" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day08"><a href="#" onmouseover="changeIn(8)" onmouseout="changeOut(8)" onclick="pickDay(8)"><img src="pics/day00.gif"
+                                                                                                                                                                                        name="pic08" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day09"><a href="#" onmouseover="changeIn(9)" onmouseout="changeOut(9)" onclick="pickDay(9)"><img src="pics/day00.gif"
+                                                                                                                                                                                        name="pic09" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day10"><a href="#" onmouseover="changeIn(10)" onmouseout="changeOut(10)" onclick="pickDay(10)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic10" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day11"><a href="#" onmouseover="changeIn(11)" onmouseout="changeOut(11)" onclick="pickDay(11)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic11" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day12"><a href="#" onmouseover="changeIn(12)" onmouseout="changeOut(12)" onclick="pickDay(12)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic12" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day13"><a href="#" onmouseover="changeIn(13)" onmouseout="changeOut(13)" onclick="pickDay(13)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic13" width="20" height="13" border="0" alt=""></a></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center">
+                                                                                <div id="week3"></div>
+                                                                            </td>
+                                                                            <td id="td_day14"><a href="#" onmouseover="changeIn(14)" onmouseout="changeOut(14)" onclick="pickDay(14)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic14" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day15"><a href="#" onmouseover="changeIn(15)" onmouseout="changeOut(15)" onclick="pickDay(15)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic15" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day16"><a href="#" onmouseover="changeIn(16)" onmouseout="changeOut(16)" onclick="pickDay(16)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic16" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day17"><a href="#" onmouseover="changeIn(17)" onmouseout="changeOut(17)" onclick="pickDay(17)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic17" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day18"><a href="#" onmouseover="changeIn(18)" onmouseout="changeOut(18)" onclick="pickDay(18)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic18" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day19"><a href="#" onmouseover="changeIn(19)" onmouseout="changeOut(19)" onclick="pickDay(19)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic19" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day20"><a href="#" onmouseover="changeIn(20)" onmouseout="changeOut(20)" onclick="pickDay(20)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic20" width="20" height="13" border="0" alt=""></a></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center">
+                                                                                <div id="week4"></div>
+                                                                            </td>
+                                                                            <td id="td_day21"><a href="#" onmouseover="changeIn(21)" onmouseout="changeOut(21)" onclick="pickDay(21)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic21" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day22"><a href="#" onmouseover="changeIn(22)" onmouseout="changeOut(22)" onclick="pickDay(22)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic22" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day23"><a href="#" onmouseover="changeIn(23)" onmouseout="changeOut(23)" onclick="pickDay(23)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic23" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day24"><a href="#" onmouseover="changeIn(24)" onmouseout="changeOut(24)" onclick="pickDay(24)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic24" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day25"><a href="#" onmouseover="changeIn(25)" onmouseout="changeOut(25)" onclick="pickDay(25)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic25" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day26"><a href="#" onmouseover="changeIn(26)" onmouseout="changeOut(26)" onclick="pickDay(26)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic26" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day27"><a href="#" onmouseover="changeIn(27)" onmouseout="changeOut(27)" onclick="pickDay(27)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic27" width="20" height="13" border="0" alt=""></a></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center">
+                                                                                <div id="week5"></div>
+                                                                            </td>
+                                                                            <td id="td_day28"><a href="#" onmouseover="changeIn(28)" onmouseout="changeOut(28)" onclick="pickDay(28)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic28" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day29"><a href="#" onmouseover="changeIn(29)" onmouseout="changeOut(29)" onclick="pickDay(29)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic29" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day30"><a href="#" onmouseover="changeIn(30)" onmouseout="changeOut(30)" onclick="pickDay(30)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic30" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day31"><a href="#" onmouseover="changeIn(31)" onmouseout="changeOut(31)" onclick="pickDay(31)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic31" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day32"><a href="#" onmouseover="changeIn(32)" onmouseout="changeOut(32)" onclick="pickDay(32)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic32" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day33"><a href="#" onmouseover="changeIn(33)" onmouseout="changeOut(33)" onclick="pickDay(33)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic33" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day34"><a href="#" onmouseover="changeIn(34)" onmouseout="changeOut(34)" onclick="pickDay(34)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic34" width="20" height="13" border="0" alt=""></a></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center">
+                                                                                <div id="week6"></div>
+                                                                            </td>
+                                                                            <td id="td_day35"><a href="#" onmouseover="changeIn(35)" onmouseout="changeOut(35)" onclick="pickDay(35)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic35" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day36"><a href="#" onmouseover="changeIn(36)" onmouseout="changeOut(36)" onclick="pickDay(36)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic36" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day37"><a href="#" onmouseover="changeIn(37)" onmouseout="changeOut(37)" onclick="pickDay(37)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic37" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day38"><a href="#" onmouseover="changeIn(38)" onmouseout="changeOut(38)" onclick="pickDay(38)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic38" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day39"><a href="#" onmouseover="changeIn(39)" onmouseout="changeOut(39)" onclick="pickDay(39)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic39" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day40"><a href="#" onmouseover="changeIn(40)" onmouseout="changeOut(40)" onclick="pickDay(40)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic40" width="20" height="13" border="0" alt=""></a></td>
+                                                                            <td id="td_day41"><a href="#" onmouseover="changeIn(41)" onmouseout="changeOut(41)" onclick="pickDay(41)"><img src="pics/day00.gif"
+                                                                                                                                                                                           name="pic41" width="20" height="13" border="0" alt=""></a></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="8"><img src="pics/px.gif" width="1" height="3" alt=""></td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="5"><img src="pics/px.gif" width="1" height="5" alt=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                        <tr>
+                                                            <td width="3"><img src="pics/px.gif" width="3" height="1" alt=""></td>
+                                                            <td align="left">
+
+
+                                                                <input type="text" name="startTime" size="4" value="06:30" style="width:40px;" class="formBg">&nbsp;-&nbsp;
+                                                                <input type="text" name="endTime" size="4" value="23:30" style="width:40px;" class="formBg">
+
+                                                            </td>
+                                                            <td align="right"><input type="button" value="Nyt" class="button" style="width: 54px;" onclick="pickNow()"></td>
+                                                            <td width="3"><img src="pics/px.gif" width="3" height="1" alt=""></td>
+                                                        </tr>
+
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><img src="pics/px.gif" width="1" height="3" alt=""></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+
+
+
+
+                    <tr>
+                        <td valign="top"><img src="pics/px.gif" width="1" height="5" alt=""></td>
+                    </tr>
+
+
+                    <tr>
+                        <td><input type="submit" ID="btnUpdate" name="action" value="P�ivit� kalenteri" class="button" style="width: 187px;"
+                                   onclick="getCheckedRoomParts(); setCursorWait(); this.form.actionType.value='updateCalendar';"></td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="pics/px.gif" width="1" height="4" alt=""></td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <table border="0" width="187" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td background="pics/dotline.gif" style="background-repeat: repeat-x"><img src="pics/px.gif" width="1" height="5" alt=""></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td colspan="2"><a href="getSelectRoomParts.do">Valitse tiloja �</a></td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td><img src="pics/px.gif" width="1" height="4" alt=""></td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td valign="top" align="left"><a href="#" onclick="showSchedules();">Tulosta kalenteri �</a></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+
+                        </td>
+                    </tr>
+
+
+                </table></td>
+            <td valign="top">
+                <p>
+                    <img src="pics/px.gif" width="1" height="5" alt="">
+                    <br>
+                    <img src="pics/px.gif" width="1" height="3" alt="" align="left">
+                    <image src="makeImage.do?action=drawImageFromSession&rand=0.8554655198848371" usemap="#imageMap1" border="0">
+                        <MAP NAME="imageMap1">
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 11:30&amp;endTime=10.09.2015 12:30&amp;roomPartId=5811','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=11:30&amp;basketBookingEndTime=12:30&amp;basketBookingRoomPartId=5811',''); showCalendarMenu(332, 188, a);"
+                                  onmouseover="additionalText('10.09.2015 11:30-12:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="99,188,332,210"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 11:30&amp;endTime=10.09.2015 12:30&amp;roomPartId=5811">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 17:30&amp;endTime=10.09.2015 18:30&amp;roomPartId=5811','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=17:30&amp;basketBookingEndTime=18:30&amp;basketBookingRoomPartId=5811',''); showCalendarMenu(332, 318, a);"
+                                  onmouseover="additionalText('10.09.2015 17:30-18:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="99,318,332,340"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 17:30&amp;endTime=10.09.2015 18:30&amp;roomPartId=5811">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 21:30&amp;endTime=10.09.2015 22:30&amp;roomPartId=5811','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=21:30&amp;basketBookingEndTime=22:30&amp;basketBookingRoomPartId=5811',''); showCalendarMenu(332, 405, a);"
+                                  onmouseover="additionalText('10.09.2015 21:30-22:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="99,405,332,427"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 21:30&amp;endTime=10.09.2015 22:30&amp;roomPartId=5811">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 22:30&amp;endTime=10.09.2015 23:30&amp;roomPartId=5811','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=22:30&amp;basketBookingEndTime=23:30&amp;basketBookingRoomPartId=5811',''); showCalendarMenu(332, 427, a);"
+                                  onmouseover="additionalText('10.09.2015 22:30-23:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="99,427,332,449"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 22:30&amp;endTime=10.09.2015 23:30&amp;roomPartId=5811">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 06:30&amp;endTime=10.09.2015 07:30&amp;roomPartId=5812','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=06:30&amp;basketBookingEndTime=07:30&amp;basketBookingRoomPartId=5812',''); showCalendarMenu(565, 79, a);"
+                                  onmouseover="additionalText('10.09.2015 06:30-07:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="332,79,565,101"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 06:30&amp;endTime=10.09.2015 07:30&amp;roomPartId=5812">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 07:30&amp;endTime=10.09.2015 08:30&amp;roomPartId=5812','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=07:30&amp;basketBookingEndTime=08:30&amp;basketBookingRoomPartId=5812',''); showCalendarMenu(565, 101, a);"
+                                  onmouseover="additionalText('10.09.2015 07:30-08:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="332,101,565,123"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 07:30&amp;endTime=10.09.2015 08:30&amp;roomPartId=5812">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 19:30&amp;endTime=10.09.2015 20:30&amp;roomPartId=5812','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=19:30&amp;basketBookingEndTime=20:30&amp;basketBookingRoomPartId=5812',''); showCalendarMenu(565, 362, a);"
+                                  onmouseover="additionalText('10.09.2015 19:30-20:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="332,362,565,384"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 19:30&amp;endTime=10.09.2015 20:30&amp;roomPartId=5812">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 21:30&amp;endTime=10.09.2015 22:30&amp;roomPartId=5812','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=21:30&amp;basketBookingEndTime=22:30&amp;basketBookingRoomPartId=5812',''); showCalendarMenu(565, 405, a);"
+                                  onmouseover="additionalText('10.09.2015 21:30-22:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="332,405,565,427"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 21:30&amp;endTime=10.09.2015 22:30&amp;roomPartId=5812">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 22:30&amp;endTime=10.09.2015 23:30&amp;roomPartId=5812','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=22:30&amp;basketBookingEndTime=23:30&amp;basketBookingRoomPartId=5812',''); showCalendarMenu(565, 427, a);"
+                                  onmouseover="additionalText('10.09.2015 22:30-23:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="332,427,565,449"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 22:30&amp;endTime=10.09.2015 23:30&amp;roomPartId=5812">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 11:00&amp;endTime=10.09.2015 11:30&amp;roomPartId=5813','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=11:00&amp;basketBookingEndTime=11:30&amp;basketBookingRoomPartId=5813',''); showCalendarMenu(799, 177, a);"
+                                  onmouseover="additionalText('10.09.2015 11:00-11:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="565,177,799,188"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 11:00&amp;endTime=10.09.2015 11:30&amp;roomPartId=5813">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 12:30&amp;endTime=10.09.2015 13:30&amp;roomPartId=5813','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=12:30&amp;basketBookingEndTime=13:30&amp;basketBookingRoomPartId=5813',''); showCalendarMenu(799, 210, a);"
+                                  onmouseover="additionalText('10.09.2015 12:30-13:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="565,210,799,231"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 12:30&amp;endTime=10.09.2015 13:30&amp;roomPartId=5813">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 13:30&amp;endTime=10.09.2015 14:30&amp;roomPartId=5813','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=13:30&amp;basketBookingEndTime=14:30&amp;basketBookingRoomPartId=5813',''); showCalendarMenu(799, 231, a);"
+                                  onmouseover="additionalText('10.09.2015 13:30-14:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="565,231,799,253"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 13:30&amp;endTime=10.09.2015 14:30&amp;roomPartId=5813">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 14:30&amp;endTime=10.09.2015 15:30&amp;roomPartId=5813','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=14:30&amp;basketBookingEndTime=15:30&amp;basketBookingRoomPartId=5813',''); showCalendarMenu(799, 253, a);"
+                                  onmouseover="additionalText('10.09.2015 14:30-15:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="565,253,799,275"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 14:30&amp;endTime=10.09.2015 15:30&amp;roomPartId=5813">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 21:30&amp;endTime=10.09.2015 22:30&amp;roomPartId=5813','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=21:30&amp;basketBookingEndTime=22:30&amp;basketBookingRoomPartId=5813',''); showCalendarMenu(799, 405, a);"
+                                  onmouseover="additionalText('10.09.2015 21:30-22:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="565,405,799,427"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 21:30&amp;endTime=10.09.2015 22:30&amp;roomPartId=5813">
+
+
+
+
+
+                            <AREA onclick="document.body.style.cursor='wait';"
+                                  onmousedown="onCalendar=true; var a = new Array('Luo varaus','getCreateBooking.do?startTime=10.09.2015 22:30&amp;endTime=10.09.2015 23:30&amp;roomPartId=5813','Lis�� vapaa aika koriin','addToBasketAction.do?basketBookingDate=10.09.2015&amp;basketBookingStartTime=22:30&amp;basketBookingEndTime=23:30&amp;basketBookingRoomPartId=5813',''); showCalendarMenu(799, 427, a);"
+                                  onmouseover="additionalText('10.09.2015 22:30-23:30&lt;br&gt;')" onmouseout="additionalText('&nbsp;')" SHAPE="RECT"
+                                  COORDS="565,427,799,449"
+                                  HREF="getCreateBooking.do?startTime=10.09.2015 22:30&amp;endTime=10.09.2015 23:30&amp;roomPartId=5813">
+
+
+
+
+                        </MAP>
+                        <img src="pics/px.gif" width="1" height="3" alt="" align="left">
+                        <table border="0" width="800" height="60" cellpadding="0" cellspacing="0">
+                            <tr>
+
+
+                                <td valign="top">
+                                    <table border="0" width="800" height="60" class="tableBorder" cellpadding="1" cellspacing="0">
+                                        <tr>
+                                            <td>
+                                                <table border="0" width="100%" height="100%" class="bookingInfoTable" cellpadding="3" cellspacing="0">
+                                                    <tr>
+                                                        <td valign="top" align="left">
+                                                            <div id="addtext"></div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+
+
+
+
+
+                            </tr>
+                        </table>
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    <div id="eventMenu" class="calTable"
+         onmouseout="if (event.toElement) {if (!this.contains(event.toElement)) closeCalendarMenu();} else if (event.relatedTarget) { if (eventMenu == event.relatedTarget) { closeCalendarMenu();}}">
+        <table cellpadding="0" cellspacing="2" border="0" width="160" height="100%">
+            <tr>
+                <td colspan="8" align="right" height="3"><img src="pics/px.gif" width="1" height="3" border="0" alt=""></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td align="left">
+                                <div id="link0"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link1"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link2"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link3"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link4"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link5"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link6"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link7"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link8"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link9"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link10"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link11"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link12"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link13"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link14"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link15"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link16"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link17"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link18"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link19"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <div id="link20"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8" align="right" height="3"><img src="pics/px.gif" width="1" border="0" alt=""></td>
+            </tr>
+            <tr>
+        </table>
+    </div>
+    <!-- Lis�valinnat-div include start -->
+
+
+
+
+
+
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <script type="text/javascript" src="js/jquery/jquery.timepicker.js"></script>
+
+
+    <script type="text/javascript">
+        var timesValidText = 'Korjaa aikav�li!';
+    </script>
+
+
+
+
+    <div id="additionalDialog">
+
+        <h1>Uusi teht�v�</h1>
+
+
+
+        <p style="float: left; clear: both; width: 100%">
+
+            &nbsp;
+        </p>
+
+
+
+
+        <div style="position:relative; float:left; width:370px;">
+            <p style="float: left; clear: both; width: 100%;">
+                <label style="width: 300px">
+                    Ty�jono<br />
+                    <select name="taskBookingQueue" style="width: 170px" class="formBg"></select>
+                </label>
+            </p>
+
+            <p style="float: left; clear: both; width: 100%">
+                <label>Otsikko<br />
+                    <input type="text" name="textTaskSubject" size="40" value="" style="width: 300px;" class="formBg" id="textTaskSubject">
+                </label>
+            </p>
+
+            <p style="float: left; clear: both; width: 100%">
+                <label>Lis�tieto<br />
+                    <textarea name="textTaskInfo" cols="31" rows="5" style="width: 300px;" class="formBg" id="textTaskInfo"></textarea>
+                </label>
+            </p>
+
+            <p style="float: left; clear: both; width: 100%;">
+                <label style="width: 300px">
+                    Varauksen luokittelu<br />
+                    <select name="taskBookingClassification" style="width: 170px" class="formBg"><option value="0" selected="selected">Valitse</option>
+                        <option value="1042">1/1 MAKSETTU</option>
+                        <option value="1024">1/2 MAKSETTU</option>
+                        <option value="1030">1/4 MAKSETTU</option>
+                        <option value="1031">3/4 MAKSETTU</option>
+                        <option value="1021">ALUSTAVA (KELTAINEN)</option>
+                        <option value="1032">HALLIYHTI�</option>
+                        <option value="1038">HVS KILPAVALMENNUS</option>
+                        <option value="1037">HVS MINIT TAPSA</option>
+                        <option value="1039">HVS TENNISKOULU</option>
+                        <option value="1029">KAUSILASKUTUS</option>
+                        <option value="1027">KILPAILUVARAUS</option>
+                        <option value="1043">KUITTAUSLISTA</option>
+                        <option value="1041">LIIGAVARAUS</option>
+                        <option value="1035">MAKSETTU 1/2 TUNTIA PELISETELEILL�</option>
+                        <option value="1036">MAKSETTU 1/4 TUNTIA PELISETELEILL�</option>
+                        <option value="1034">MAKSETTU KOKO TUNTI PELISETELEILL�</option>
+                        <option value="1026">OSALASKUTUS (ORANSSI)</option>
+                        <option value="1033">SOPIMUS PUUTTUU</option>
+                        <option value="1028">TAPAHTUMAVARAUS</option>
+                        <option value="1040">TE-TUNTI</option>
+                        <option value="1025">VAKIOVARAUS NORMAALI (VIHRE�)</option>
+                        <option value="1023">VAKIOVARAUS OSAKAS (SININEN)</option>
+                        <option value="1022">VAPAA (VALKOINEN)</option></select>
+                </label>
+            </p>
+
+            <p style="float: left; clear: both; width: 100%;">
+                <label style="width: 300px">
+                    Muistiinpanon luokittelu<br />
+                    <select name="taskMemoClassification" style="width: 170px" class="formBg"><option value="0" selected="selected">Valitse</option></select>
+                </label>
+            </p>
+
+            <p style="float: left; clear: both; width: 100%;">
+                <label style="width: 300px">
+                    Tilauksen osasto<br />
+                    <select name="taskOrderDepartment" style="width: 170px" class="formBg"><option value="0" selected="selected">Valitse</option></select>
+                </label>
+            </p>
+
+
+        </div>
+
+        <div style="position:relative; float:right; width:370px;">
+            <p style="float: left; clear: both; width: 100%">
+                <label>P�iv�m��r�<br />
+                    <input type="text" name="taskDate" size="30" value="" onkeyup="disableAbc(this.id, '.')" style="width: 170px;" class="formBg" id="taskDate">
+                </label>
+            </p>
+
+            <label for="default" style="float: left;">Aikav�li<br/></label>
+            <p style="float: left; clear: both; width: 100%">
+                <input type="text" name="taskStartTime" size="10" value="" onkeyup="disableAbc(this.id, ':');" onblur="correctTime(this.id); timesValid(timesValidText);" style="width:78px" class="formBg" id="taskStartTime">
+                -
+                <input type="text" name="taskEndTime" size="10" value="" onkeyup="disableAbc(this.id, ':');" onblur="correctTime(this.id); timesValid(timesValidText);" style="width:78px" class="formBg" id="taskEndTime">
+            </p>
+
+            <label for="default" style="float: left;">Deadline<br /></label>
+            <p style="float: left; clear: both; width: 100%">
+                <input type="text" name="taskDueDate" size="30" value="" onkeyup="disableAbc(this.id, '.')" style="width: 170px;" class="formBg" id="taskDueDate">
+                <input type="checkbox" name="taskReminder" value="1" onclick="disableReminderTime();" id="taskReminder">
+                Muistutus
+            </p>
+
+            <label for="default" style="float: left;">Muistutusaika<br /></label>
+            <p style="float: left; clear: both; width: 100%">
+                <input type="text" name="taskReminderTime" size="10" value="" onkeyup="disableAbc(this.id, ':');" onblur="correctTime(this.id); timesValid(timesValidText);" disabled="disabled" style="width:78px" class="formBg" id="taskReminderTime">
+            </p>
+
+            <div id="buttons" style="float: left; margin-top: 50px;">
+                <input type="submit" class="button" name="action" value="Luo uusi teht�v�" style="width: 150px" onclick="this.form.actionType.value='save';"/>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+    <div id="additionalDialog2">
+
+        <h1>Valitse aikav�li</h1>
+
+        <p style="float: left; clear: both; width: 100%">
+            &nbsp;
+        </p>
+
+        <p style="clear: both; width: 100%; color: #FF0000; display: none" id="errorMessage">
+            Aikav�li on jo varattu. Aikav�lin valitseminen ei onnistu.
+        </p>
+
+        <p style="clear: both; width: 100%; color: #FF0000; display: none" id="errorMessage2">
+            Virheellinen aikav�li
+        </p>
+
+        <p style="clear: both; width: 100%">
+            <label>Aikav�li<br />
+                <input type="hidden" name="chooseTimeSpanRoomPartId" value="0" id="chooseTimeSpanRoomPartId">
+                <input type="hidden" name="chooseTimeSpanStartDate" value="" id="chooseTimeSpanStartDate">
+                <input type="text" name="chooseTimeSpanStartTime" maxlength="5" size="5" value="" onkeyup="disableAbc(this.id, ':')" class="formBg" id="chooseTimeSpanStartTime"> -
+                <input type="text" name="chooseTimeSpanEndTime" maxlength="5" size="5" value="" onkeyup="disableAbc(this.id, ':')" class="formBg" id="chooseTimeSpanEndTime">
+            </label>
+        </p>
+
+        <p style="float: left; clear: both; width: 100%; margin-top: 10px">
+            <input type="button" name="btnChooseTime" value="Valitse aika" onclick="chooseTimeSpan();" class="button" id="btnChooseTime">
+        </p>
+
+        <div>
+            <span id="dataLoading" style="display: none;"><img style="margin: 0; padding:0; border: 0; float: left;" src="/pics/loading.gif" width="140px" alt="Loading..." /></span>&nbsp;
+        </div>
+    </div>
+
+    <div id="additionalDialog3">
+
+        <h1>Luo tilan k�ytt�aikarajoite</h1>
+
+        <p style="float: left; clear: both; width: 100%">
+            &nbsp;
+        </p>
+
+        <p style="clear: both; width: 100%; color: #FF0000; display: none" id="errorMessage3">
+            Virheellinen p�iv�m��r�v�li
+        </p>
+
+        <p style="clear: both; width: 100%; color: #FF0000; display: none" id="errorMessage4">
+            Virheellinen nimi
+        </p>
+
+        <p style="clear: both; width: 100%; color: #FF0000; display: none" id="errorMessage5">
+            K�ytt�aikarajoitteen luonti ei onnistunut seuraavien rakennuksen k�ytt�aikarajoitteiden vuoksi:
+        </p>
+        <p style="clear: both; width: 100%; color: #FF0000; display: none" id="errorMessage51" />
+
+        <p style="clear: both; width: 100%; margin-top: 5px">
+            <input type="hidden" name="createTimeRestrictionRoomPartId" value="0" id="createTimeRestrictionRoomPartId">
+            <label>Nimi<br />
+                <input type="text" name="createTimeRestrictionName" maxlength="20" size="30" value="" class="formBg" id="createTimeRestrictionName">
+            </label>
+        </p>
+
+        <p style="clear: both; width: 100%; margin-top: 5px">
+            <label class="multi">P�iv�m��r�v�li</label>
+        <p>
+            <input type="text" name="createTimeRestrictionStartDate" maxlength="10" size="10" value="" onkeyup="disableAbc(this.id, '.')" class="formBg" id="createTimeRestrictionStartDate"> -
+            <input type="text" name="createTimeRestrictionEndDate" maxlength="10" size="10" value="" onkeyup="disableAbc(this.id, '.')" class="formBg" id="createTimeRestrictionEndDate">
+        </p>
+        </p>
+
+        <p style="float: left; clear: both; width: 100%">
+            &nbsp;
+        </p>
+
+        <p style="float: left; clear: both; width: 100%; margin-top: 10px">
+            <input type="button" name="btnCreateTimeRestriction" value="Luo k�ytt�aikarajoite" onclick="createTimeRestriction();" class="button" id="btnChooseTime">
+        </p>
+
+        <p style="float: left; clear: both; width: 100%">
+            &nbsp;
+        </p>
+
+        <div>
+            <span id="dataLoading2" style="display: none;"><img style="margin: 0; padding:0; border: 0; float: left;" src="/pics/loading.gif" width="140px" alt="Loading..." /></span>&nbsp;
+        </div>
+    </div>
+
+
+
+
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+    <div id="priceQueryDialog">
+
+        <script type="text/javascript" language="javascript">
+            var msgNoPrice = 'Hintaa ei l�ydy';
+            var msgValueAddedTax = 'ALV';
+        </script>
+
+        <h1>Hinnastokysely</h1>
+
+        <p style="float: left; clear: both; width: 100%">
+            &nbsp;
+        </p>
+
+        <p style="float: left; clear: both; width: 100%; color: #FF0000; display: none" id="pqErrorMessage">
+            Hinnastokysely ep�onnistui
+        </p>
+
+        <div>
+            <span id="pqLoading"><img style="margin: 0; padding:0; border: 0; float: left;" src="/pics/loading.gif" width="140px" alt="Loading..." /></span>&nbsp;
+        </div>
+
+        <table id="priceQueryList" class="courseReservationDatalist">
+            <thead>
+            <th>
+                Selite
+            </th>
+            <th>
+                Kellonaika
+            </th>
+            <th>
+                P�iv�m��r�
+            </th>
+            <th>
+                A-hinta
+            </th>
+            <th>
+                Kpl
+            </th>
+            <th>
+                Yhteens�
+            </th>
+            <th>
+                Sopimushinta
+            </th>
+            </thead>
+
+            <tbody id="priceQueryListBody">
+            </tbody>
+
+            <tbody class="sumRows">
+            <tr class="cellLabel" id="taxFreeRow">
+                <td colspan="5">
+                    <strong>Veroton hinta</strong>
+                </td>
+                <td id="pqTaxFreePrice" style="font-weight: bold;"></td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            </tbody>
+
+            <tbody id="priceQueryListVat">
+            </tbody>
+
+            <tbody>
+            <tr style="text-align: right;" id="totalRow">
+                <td colspan="5">
+                    <strong>Yhteens�</strong>
+                </td>
+                <td id="pqTotalPrice" style="font-weight: bold;"></td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Lis�valinnat-div include end -->
+</form>
+</body>
+</html>
