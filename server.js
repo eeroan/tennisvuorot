@@ -15,8 +15,8 @@ app.get('/courts', function (req, res) {
         herttoniemi:  slSystems.getHerttoniemi(isoDate),
         kulosaari:    slSystems.getKulosaari(isoDate),
         merihaka:     slSystems.getMerihaka(isoDate),
-        //tali1:        webTimmi.getTali1(isoDate),
-        //tali2:        webTimmi.getTali2(isoDate),
+        tali1:        webTimmi.getTali1(isoDate),
+        tali2:        webTimmi.getTali2(isoDate),
         taivallahti1: webTimmi.getTaivallahti1(isoDate),
         taivallahti2: webTimmi.getTaivallahti2(isoDate)
     }).onValue(function (obj) { res.send(obj) })
