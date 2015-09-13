@@ -93,4 +93,11 @@ function weekView(cookie, token, fieldGroup, isoDate) {
     })
 }
 
+function courtsTableToObj($table) {
+    return $table.filter(':first tr').map(function (tr) {
+        var tds = $(this).find('td');
+        return {id: tds.find('input').val(), type: tds.eq(1).text(), name: tds.eq(3).text()}
+    }).toArray()
+}
+
 getTali('2015-09-10').log()
