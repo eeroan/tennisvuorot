@@ -4,12 +4,48 @@ var request = require('request')
 var Bacon = require('baconjs').Bacon
 var _ = require('lodash')
 var webTimmiResources = require('./webTimmiResources')
+var DateTime = require('dateutils').DateTime
+var DateFormat = require('dateutils').DateFormat
+var DateLocale= require('dateutils').DateLocale
 module.exports = {
-    getTali: getTali
+    getTali1: getTali1,
+    getTali2: getTali2,
+    getTaivallahti1: getTaivallahti1,
+    getTaivallahti2: getTaivallahti2
 }
 
-function getTali(isoDate) {
-    var fieldGroup = 2186
+var cmbProfile = {
+    1018: 'TALI SISÄTENNIS 1',
+    1019: 'TALI SISÄTENNIS 2',
+    1020: 'TALI SULKAPALLO',
+    1016: 'TALI HIEKKA 1-2',
+    1017: 'TALI HIEKKA 3-5',
+    1021: 'TALI KESÄ 1',
+    1022: 'TALI KESÄ 2',
+    1023: 'TALI KESÄSULKAPALLO',
+    1024: 'TALI MASSA 6-8',
+    1025: 'TALI MASSA 9-11',
+    2186: 'TAIVALLAHTI 1',
+    2189: 'TAIVALLAHTI 2'
+}
+
+function getTali1(isoDate) {
+    return getFieldsForGroup(1018, isoDate)
+}
+
+function getTali2(isoDate) {
+    return getFieldsForGroup(1019, isoDate)
+}
+
+function getTaivallahti1(isoDate) {
+    return getFieldsForGroup(2186, isoDate)
+}
+
+function getTaivallahti2(isoDate) {
+    return getFieldsForGroup(2189, isoDate)
+}
+
+function getFieldsForGroup(fieldGroup, isoDate) {
     return login().flatMap(getWeek).flatMap(function (obj) {
         return weekView(obj.cookie, obj.token, fieldGroup, isoDate)
     })
@@ -36,40 +72,41 @@ function getWeek(cookie) {
 }
 
 function weekView(cookie, token, fieldGroup, isoDate) {
-    var split = isoDate.split('-')
-    var year = split[0]
-    var month = split[1]
-    var day = split[2]
-    var date = day + '.' + month + '.' + year
-    console.log(date)
+    var dateTime = DateTime.fromIsoDate(isoDate)
+    var fiDate = DateFormat.format(dateTime, 'd.m.Y', DateLocale.FI)
+    var dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase()+'Selected'
+    console.log(dayName)
+    console.log(fiDate)
+    var week = dateTime.getWeekInYear('ISO')
+    console.log(week)
+    var form = {
+        'org.apache.struts.taglib.html.TOKEN': token,
+        //roomPartIds:'5743|5744|5745|5746|5799|5800|5846|5847|5848|',
+        roomPartIds:                           '',
+        date:                                  fiDate,
+        //periodTime:                            '01:00',
+        cmbProfile:                            fieldGroup,
+        action:                                'Hae',
+        //week number and date matters
+        weekNum:                               week,
+        startTime:                             '06:30',
+        endTime:                               '22:30',
+        taskBookingClassification:             '0',
+        taskMemoClassification:                '0',
+        taskOrderDepartment:                   '0'
+    }
+    form[dayName] = 'on'
     return Bacon.fromNodeCallback(request.post, {
         url:     'http://webtimmi.talintenniskeskus.fi/weekViewMenu.do',
         headers: {
             Cookie: cookie
         },
-        form:    {
-            'org.apache.struts.taglib.html.TOKEN': token,
-            //roomPartIds:'5743|5744|5745|5746|5799|5800|5846|5847|5848|',
-            roomPartIds:                           '',
-            //date:                                  date,
-            //periodTime:                            '01:00',
-            cmbProfile:                            fieldGroup,
-            action:                                'Hae',
-            //week number and date matters
-            weekNum:                               '36',
-            thursdaySelected:                      'on',
-            startTime:                             '06:30',
-            endTime:                               '22:30',
-            taskBookingClassification:             '0',
-            taskMemoClassification:                '0',
-            taskOrderDepartment:                   '0'
-        }
+        form:    form
     }).map('.body').map(function (markup) {
-        return markup.match(/getCreateBooking.do[^,"']+/g).map(function (el) {
+        return _.uniq(markup.match(/getCreateBooking.do[^,"']+/g).map(function (el) {
             return url.parse(el, true).query
         }).map(function (obj) {
             var startDateTime = obj.startTime.split(' ')
-
             var courtName = webTimmiResources[obj['amp;roomPartId']]
             var startDate = startDateTime[0].split('.')
             var isoDate = startDate[2] + '-' + startDate[1] + '-' + startDate[0]
@@ -80,7 +117,7 @@ function weekView(cookie, token, fieldGroup, isoDate) {
                 location: /TAIVALLAHTI/i.test(courtName.type) ? 'taivallahti' : 'tali',
                 field:    courtName.name
             }
-        })
+        }), function(item) {return JSON.stringify(item)})
     })
 }
 
@@ -90,21 +127,3 @@ function courtsTableToObj($table) {
         return {id: tds.find('input').val(), type: tds.eq(1).text(), name: tds.eq(3).text()}
     }).toArray()
 }
-
-var cmbProfile = {
-    1018: 'TALI SISÄTENNIS 1',
-    1019: 'TALI SISÄTENNIS 2',
-    1020: 'TALI SULKAPALLO',
-    1016: 'TALI HIEKKA 1-2',
-    1017: 'TALI HIEKKA 3-5',
-    1021: 'TALI KESÄ 1',
-    1022: 'TALI KESÄ 2',
-    1023: 'TALI KESÄSULKAPALLO',
-    1024: 'TALI MASSA 6-8',
-    1025: 'TALI MASSA 9-11',
-    2186: 'TAIVALLAHTI 1',
-    2189: 'TAIVALLAHTI 2'
-}
-
-
-getTali('2015-09-10').log()

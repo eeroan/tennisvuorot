@@ -6,7 +6,7 @@ $('.toggleMapInformation').click(function () {
     _.once(renderMap)()
 })
 
-$.getJSON('/courts?date=' + todayIsoDate(), function (allData) {
+$.getJSON('/courts?date=' + todayIsoDate(1), function (allData) {
     var data = _.flatten((_.map(allData, _.identity)))
     $('.schedule').html(groupBySortedAsList(data, 'date').map(toDateSection).join(''))
 })
