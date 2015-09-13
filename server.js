@@ -18,7 +18,7 @@ app.get('/courts', function (req, res) {
         //tali1:        webTimmi.getTali1(isoDate),
         //tali2:        webTimmi.getTali2(isoDate),
         taivallahti1: webTimmi.getTaivallahti1(isoDate),
-        //taivallahti2: webTimmi.getTaivallahti2(isoDate)
+        taivallahti2: webTimmi.getTaivallahti2(isoDate)
     }).onValue(function (obj) { res.send(obj) })
 });
 
