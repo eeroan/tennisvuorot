@@ -9,7 +9,8 @@
     width: 100%;
     height: 100%;
 }
-h3 { text-transform: capitalize; }
+h3,
+h4 { text-transform: capitalize; }
 .meilahti { background-color: #449d44; border-color: #398439; color: #fff; }
 .herttoniemi { background-color: #337ab7; border-color: #2e6da4; color: #fff }
 .kulosaari { color: #fff; background-color: #31b0d5; border-color: #269abc; }

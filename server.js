@@ -7,6 +7,8 @@ var Bacon = require('baconjs').Bacon
 var _ = require('lodash')
 var courts = require('./public/courts')
 var webTimmi = require('./src/webTimmiCrawler')
+var browserify = require('browserify-middleware')
+app.use('/front.min.js', browserify(__dirname + '/public/front.js'))
 app.use(express.static(__dirname + '/public'))
 app.get('/courts', function (req, res) {
     var isoDate = req.query.date || todayIsoDate()

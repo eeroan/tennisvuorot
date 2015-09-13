@@ -1,3 +1,6 @@
+var DateTime = require('dateutils').DateTime
+var DateFormat = require('dateutils').DateFormat
+var DateLocale = require('dateutils').DateLocale
 $('.toggleInformation').click(function () {
     $('.information').slideToggle()
 })
@@ -72,7 +75,7 @@ function locationTooltip(location) {
 function toDateSection(dateObject) {
     var isoDate = dateObject.key
     var times = dateObject.val
-    return '<h4>' + new Date(isoDate).toDateString() + '</h4>' +
+    return '<h4>' + DateFormat.format(DateTime.fromIsoDate(isoDate), DateFormat.patterns.FiWeekdayDatePattern,  DateLocale.FI) + '</h4>' +
         groupBySortedAsList(times, 'time').map(toTimeRow).join('')
 }
 
