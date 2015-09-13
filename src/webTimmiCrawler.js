@@ -88,7 +88,9 @@ function weekView(cookie, token, fieldGroup, isoDate) {
             return {
                 time: startDateTime[1],
                 date: startDateTime[0],
-                res:  courtName.type + ' ' + courtName.name
+                res:  courtName.type + ' ' + courtName.name,
+                location: courtName.type,
+                field: courtName.name
             }
         })
     })

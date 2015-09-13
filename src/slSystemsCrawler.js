@@ -62,7 +62,7 @@ function getSlSystemsTable(isoDate, client, sportTypeId) {
 }
 
 function fromSlSystemsTable(html) {
-    return html.match(/res=[^"]+/g).map(function (el) {
+    return (html.match(/res=[^"]+/g) || []).map(function (el) {
         return url.parse('?' + el, true).query
     }).map(fromSlSystemsResult)
 }
