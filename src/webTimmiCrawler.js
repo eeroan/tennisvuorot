@@ -3,7 +3,7 @@ var url = require('url')
 var request = require('request')
 var Bacon = require('baconjs').Bacon
 var _ = require('lodash')
-
+var webTimmiResources = require('./webTimmiResources')
 module.exports = {
     getTali: getTali
 }
@@ -84,10 +84,11 @@ function weekView(cookie, token, fieldGroup, isoDate) {
             return url.parse(el, true).query
         }).map(function (obj) {
             var startDateTime = obj.startTime.split(' ')
+            var courtName = webTimmiResources[obj['amp;roomPartId']]
             return {
                 time: startDateTime[1],
                 date: startDateTime[0],
-                res:  obj['amp;roomPartId']
+                res:  courtName.type + ' ' + courtName.name
             }
         })
     })
