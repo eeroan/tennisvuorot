@@ -8,21 +8,6 @@ module.exports = {
     getTali: getTali
 }
 
-var cmbProfile = {
-    1018: 'TALI SISÄTENNIS 1',
-    1019: 'TALI SISÄTENNIS 2',
-    1020: 'TALI SULKAPALLO',
-    1016: 'TALI HIEKKA 1-2',
-    1017: 'TALI HIEKKA 3-5',
-    1021: 'TALI KESÄ 1',
-    1022: 'TALI KESÄ 2',
-    1023: 'TALI KESÄSULKAPALLO',
-    1024: 'TALI MASSA 6-8',
-    1025: 'TALI MASSA 9-11',
-    2186: 'TAIVALLAHTI 1',
-    2189: 'TAIVALLAHTI 2'
-}
-
 function getTali(isoDate) {
     var fieldGroup = 2186
     return login().flatMap(getWeek).flatMap(function (obj) {
@@ -84,13 +69,16 @@ function weekView(cookie, token, fieldGroup, isoDate) {
             return url.parse(el, true).query
         }).map(function (obj) {
             var startDateTime = obj.startTime.split(' ')
+
             var courtName = webTimmiResources[obj['amp;roomPartId']]
+            var startDate = startDateTime[0].split('.')
+            var isoDate = startDate[2] + '-' + startDate[1] + '-' + startDate[0]
             return {
-                time: startDateTime[1],
-                date: startDateTime[0],
-                res:  courtName.type + ' ' + courtName.name,
-                location: courtName.type,
-                field: courtName.name
+                time:     startDateTime[1],
+                date:     isoDate,
+                res:      courtName.type + ' ' + courtName.name,
+                location: /TAIVALLAHTI/i.test(courtName.type) ? 'taivallahti' : 'tali',
+                field:    courtName.name
             }
         })
     })
@@ -102,5 +90,21 @@ function courtsTableToObj($table) {
         return {id: tds.find('input').val(), type: tds.eq(1).text(), name: tds.eq(3).text()}
     }).toArray()
 }
+
+var cmbProfile = {
+    1018: 'TALI SISÄTENNIS 1',
+    1019: 'TALI SISÄTENNIS 2',
+    1020: 'TALI SULKAPALLO',
+    1016: 'TALI HIEKKA 1-2',
+    1017: 'TALI HIEKKA 3-5',
+    1021: 'TALI KESÄ 1',
+    1022: 'TALI KESÄ 2',
+    1023: 'TALI KESÄSULKAPALLO',
+    1024: 'TALI MASSA 6-8',
+    1025: 'TALI MASSA 9-11',
+    2186: 'TAIVALLAHTI 1',
+    2189: 'TAIVALLAHTI 2'
+}
+
 
 getTali('2015-09-10').log()
