@@ -1,11 +1,24 @@
 var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
+$('.toggleReservations').click(function () {
+    $('nav li').removeClass('selected')
+    $(this).addClass('selected')
+    $('.detail').hide()
+    $('.reservations').show()
+})
+
 $('.toggleInformation').click(function () {
-    $('.information').slideToggle()
+    $('nav li').removeClass('selected')
+    $(this).addClass('selected')
+    $('.detail').hide()
+    $('.information').show()
 })
 $('.toggleMapInformation').click(function () {
-    $('#map_wrapper').toggle()
+    $('nav li').removeClass('selected')
+    $(this).addClass('selected')
+    $('.detail').hide()
+    $('#map_wrapper').show()
     _.once(renderMap)()
 })
 

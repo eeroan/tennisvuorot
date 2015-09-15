@@ -13,10 +13,17 @@
     <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
-<div class="container">
-    <h1>Tenniskentät Helsingissä</h1>
-
-    <p>
+<header>
+    <nav>
+        <ul>
+            <li class="toggleReservations selected">Varaukset</li>
+            <li class="toggleInformation">Yhteystiedot</li>
+            <li class="toggleMapInformation">Kartta</li>
+        </ul>
+    </nav>
+</header>
+<div class="container reservations detail">
+    <p class="toggles">
         <button type="button" class="btn meilahti btn-xs ">Meilahti</button>
         <button type="button" class="btn herttoniemi btn-xs ">Herttoniemi</button>
         <button type="button" class="btn kulosaari btn-xs ">Kulosaari</button>
@@ -28,24 +35,23 @@
         <button type="button" class="btn btn-danger btn-xs active">Herttoniemi</button>-->
     </p>
 
-    <button type="button" class="btn btn-xs toggleInformation">Näytä kenttien yhteystiedot</button>
-    <button type="button" class="btn btn-xs toggleMapInformation">Näytä kentät kartalla</button>
-    <table class="table information" style="display: none">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Tel</th>
-        </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-    <div id="map_wrapper" style="display: none">
-        <div id="map_canvas" class="mapping"></div>
-    </div>
     <section class="schedule">
     </section>
 </div>
+<table class="table information detail" style="display: none">
+    <thead>
+    <tr>
+        <th>Nimi</th>
+        <th>Osoite</th>
+        <th>Puhelin</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<div id="map_wrapper" style="display: none" class="detail map">
+    <div id="map_canvas" class="mapping"></div>
+</div>
+
 <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>

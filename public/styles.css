@@ -3,7 +3,10 @@
 .fieldLabel { display: none }
 .place { text-transform: capitalize; }
 #map_wrapper {
-    height: 400px;
+    position: absolute;
+    top:0;
+    bottom:0;
+    width: 100%;
 }
 #map_canvas {
     width: 100%;
@@ -17,3 +20,12 @@ h4 { text-transform: capitalize; }
 .merihaka{ color: #fff; background-color: #f0ad4e; border-color: #eea236; }
 .taivallahti { color: #fff; background-color: #d9534f; border-color: #d43f3a; }
 .tali { color: #fff; background-color: #d454bf; border-color: #c64eb2; }
+
+header { position: fixed; top:0; background: #31b0d5; color: #fff; width: 100%; text-transform: uppercase;}
+nav ul {display:flex; flex-direction: row; justify-content: space-between; align-items: stretch; padding:0; margin: 0 20px;}
+nav li {display: inline-block; padding: 10px 0; cursor: pointer;}
+nav li.selected {cursor: default;}
+.selected {text-decoration: underline;}
+.container {}
+.toggles {margin-top: 10px;}
+.detail {margin-top: 40px;}
