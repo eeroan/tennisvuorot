@@ -4,6 +4,36 @@ var DateLocale = require('dateutils').DateLocale
 var attachFastClick = require('fastclick')
 attachFastClick(document.body)
 
+var _throttleTimer = null
+var _throttleDelay = 100
+var $window = $(window)
+var $document = $(document)
+$document.ready(function () {
+    $window
+        .off('scroll', ScrollHandler)
+        .on('scroll', ScrollHandler);
+})
+
+var nearAlready = false
+function ScrollHandler(e) {
+    clearTimeout(_throttleTimer);
+    _throttleTimer = setTimeout(function () {
+        if ($window.scrollTop() + $window.height() > $document.height() - 300) {
+            if(!nearAlready) {
+                loadMoreResults()
+            }
+            nearAlready = true
+        } else {
+            nearAlready = false
+        }
+
+    }, _throttleDelay)
+}
+
+function loadMoreResults() {
+    console.log('load more results')
+}
+
 $('.toggles button').click(function (e) {
     e.preventDefault()
     var $button = $(this)
