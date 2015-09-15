@@ -4,6 +4,13 @@ var DateLocale = require('dateutils').DateLocale
 var attachFastClick = require('fastclick')
 attachFastClick(document.body)
 
+$('.toggles button').click(function (e) {
+    e.preventDefault()
+    var $button = $(this)
+    $button.toggleClass('inactive')
+    var id = $button.prop('id')
+    $('#schedule').toggleClass(id)
+})
 $('.toggleReservations').click(function () {
     $('nav li').removeClass('selected')
     $(this).addClass('selected')
@@ -28,12 +35,12 @@ $('.toggleMapInformation').click(function () {
 var requestedDate = todayIsoDate(1)
 $.getJSON('/courts?date=' + requestedDate, function (allData) {
     var data = _.flatten((_.map(allData, _.identity)))
-    $('.schedule').html(groupBySortedAsList(data, 'date').filter(function(x) {
+    $('#schedule').html(groupBySortedAsList(data, 'date').filter(function(x) {
         return x.key === requestedDate
     }).map(toDateSection).join(''))
 })
 
-$('.schedule').on('click', '.locationLabel', function (e) {
+$('#schedule').on('click', '.locationLabel', function (e) {
     var $locationLabel = $(e.currentTarget)
     $locationLabel.toggle()
     $locationLabel.parent().find('.fieldLabel').toggle()

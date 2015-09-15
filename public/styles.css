@@ -14,12 +14,18 @@
 }
 h3,
 h4 { text-transform: capitalize; }
-.meilahti { background-color: #449d44; border-color: #398439; color: #fff; }
-.herttoniemi { background-color: #337ab7; border-color: #2e6da4; color: #fff }
-.kulosaari { color: #fff; background-color: #31b0d5; border-color: #269abc; }
-.merihaka{ color: #fff; background-color: #f0ad4e; border-color: #eea236; }
-.taivallahti { color: #fff; background-color: #d9534f; border-color: #d43f3a; }
-.tali { color: #fff; background-color: #d454bf; border-color: #c64eb2; }
+button.meilahti { background-color: #449d44; border-color: #398439; color: #fff; }
+button.herttoniemi { background-color: #337ab7; border-color: #2e6da4; color: #fff }
+button.kulosaari { color: #fff; background-color: #31b0d5; border-color: #269abc; }
+button.merihaka{ color: #fff; background-color: #f0ad4e; border-color: #eea236; }
+button.taivallahti { color: #fff; background-color: #d9534f; border-color: #d43f3a; }
+button.tali { color: #fff; background-color: #d454bf; border-color: #c64eb2; }
+.meilahti .meilahti,
+.herttoniemi .herttoniemi,
+.kulosaari .kulosaari,
+.merihaka .merihaka,
+.taivallahti .taivallahti,
+.tali .tali { display: none;}
 
 header { position: fixed; top:0; background: #31b0d5; color: #fff; width: 100%; text-transform: uppercase;}
 nav ul {display:flex; flex-direction: row; justify-content: space-between; align-items: stretch; padding:0; margin: 0 20px;}
@@ -29,3 +35,4 @@ nav li.selected {cursor: default;}
 .container {}
 .toggles {margin-top: 10px;}
 .detail {margin-top: 40px;}
+button.inactive {color:#333; background: none; border-color: transparent;}
