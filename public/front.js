@@ -67,7 +67,7 @@ function renderMap() {
     var map = new google.maps.Map(document.getElementById("map_canvas"), {mapTypeId: 'roadmap'})
     map.setTilt(45)
     var infoWindow = new google.maps.InfoWindow()
-    locations.filter(function (loc) {
+    locations().filter(function (loc) {
         return loc.lat !== null
     }).forEach(function (loc, i) {
         var position = new google.maps.LatLng(loc.lat, loc.lng)
