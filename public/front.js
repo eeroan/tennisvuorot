@@ -1,6 +1,9 @@
 var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
+var attachFastClick = require('fastclick')
+attachFastClick(document.body)
+
 $('.toggleReservations').click(function () {
     $('nav li').removeClass('selected')
     $(this).addClass('selected')
