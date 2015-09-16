@@ -6,13 +6,13 @@ var _ = require('lodash')
 var webTimmiResources = require('./webTimmiResources')
 var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
-var DateLocale= require('dateutils').DateLocale
+var DateLocale = require('dateutils').DateLocale
 module.exports = {
-    getTali1: getTali1,
-    getTali2: getTali2,
+    getTali1:        getTali1,
+    getTali2:        getTali2,
     getTaivallahti1: getTaivallahti1,
     getTaivallahti2: getTaivallahti2,
-    parseMarkup: parseMarkup
+    parseMarkup:     parseMarkup
 }
 
 var cmbProfile = {
@@ -75,7 +75,7 @@ function getWeek(cookie) {
 function weekView(cookie, token, fieldGroup, isoDate) {
     var dateTime = DateTime.fromIsoDate(isoDate)
     var fiDate = DateFormat.format(dateTime, 'd.m.Y', DateLocale.FI)
-    var dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase()+'Selected'
+    var dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase() + 'Selected'
     console.log(dayName)
     console.log(fiDate)
     var week = dateTime.getWeekInYear('ISO')
@@ -112,18 +112,27 @@ function parseMarkup(markup) {
     }).map(function (obj) {
         var startDateTime = obj.startTime.split(' ')
         var courtName = webTimmiResources[obj['amp;roomPartId']]
+        var endTime = obj['amp;endTime'].split(' ')[1]
         var startDate = startDateTime[0].split('.')
         var isoDate = startDate[2] + '-' + startDate[1] + '-' + startDate[0]
+        var startTime = startDateTime[1]
         return {
-            time:     startDateTime[1],
+            time:     startTime,
+            duration: toMinutes(endTime) -toMinutes(startTime),
             date:     isoDate,
             res:      courtName.type + ' ' + courtName.name,
             location: /TAIVALLAHTI/i.test(courtName.type) ? 'taivallahti' : 'tali',
             field:    courtName.name
         }
-    }), function(item) {return JSON.stringify(item)})
+    }).filter(function(obj) {
+        return obj.duration === 60
+    }), function (item) {return JSON.stringify(item)})
 }
 
+function toMinutes(hoursAndMinutes) {
+    var splitted = hoursAndMinutes.split(':')
+    return Number(splitted[0]) * 60 + Number(splitted[1])
+}
 function courtsTableToObj($table) {
     return $table.filter(':first tr').map(function (tr) {
         var tds = $(this).find('td');
