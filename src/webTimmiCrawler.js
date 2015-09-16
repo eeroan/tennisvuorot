@@ -11,7 +11,8 @@ module.exports = {
     getTali1: getTali1,
     getTali2: getTali2,
     getTaivallahti1: getTaivallahti1,
-    getTaivallahti2: getTaivallahti2
+    getTaivallahti2: getTaivallahti2,
+    parseMarkup: parseMarkup
 }
 
 var cmbProfile = {
@@ -102,23 +103,25 @@ function weekView(cookie, token, fieldGroup, isoDate) {
             Cookie: cookie
         },
         form:    form
-    }).map('.body').map(function (markup) {
-        return _.uniq(markup.match(/getCreateBooking.do[^,"']+/g).map(function (el) {
-            return url.parse(el, true).query
-        }).map(function (obj) {
-            var startDateTime = obj.startTime.split(' ')
-            var courtName = webTimmiResources[obj['amp;roomPartId']]
-            var startDate = startDateTime[0].split('.')
-            var isoDate = startDate[2] + '-' + startDate[1] + '-' + startDate[0]
-            return {
-                time:     startDateTime[1],
-                date:     isoDate,
-                res:      courtName.type + ' ' + courtName.name,
-                location: /TAIVALLAHTI/i.test(courtName.type) ? 'taivallahti' : 'tali',
-                field:    courtName.name
-            }
-        }), function(item) {return JSON.stringify(item)})
-    })
+    }).map('.body').map(parseMarkup)
+}
+
+function parseMarkup(markup) {
+    return _.uniq(markup.match(/getCreateBooking.do[^,"']+/g).map(function (el) {
+        return url.parse(el, true).query
+    }).map(function (obj) {
+        var startDateTime = obj.startTime.split(' ')
+        var courtName = webTimmiResources[obj['amp;roomPartId']]
+        var startDate = startDateTime[0].split('.')
+        var isoDate = startDate[2] + '-' + startDate[1] + '-' + startDate[0]
+        return {
+            time:     startDateTime[1],
+            date:     isoDate,
+            res:      courtName.type + ' ' + courtName.name,
+            location: /TAIVALLAHTI/i.test(courtName.type) ? 'taivallahti' : 'tali',
+            field:    courtName.name
+        }
+    }), function(item) {return JSON.stringify(item)})
 }
 
 function courtsTableToObj($table) {

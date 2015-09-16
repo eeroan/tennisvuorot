@@ -1,12 +1,26 @@
 var fs = require('fs')
-var crawler = require('../src/crawler')
+var slSystems = require('../src/slSystemsCrawler')
+var webTimmi = require('../src/webTimmiCrawler')
 
-describe('crawler', function () {
+describe('sls systems crawler', function () {
     var obj
     var expected
     before(function () {
-        obj = crawler.table(fs.readFileSync(__dirname + '/fixture/meilahti.html', 'utf-8'))
+        obj = slSystems.table(fs.readFileSync(__dirname + '/fixture/meilahti.html', 'utf-8'))
         expected = JSON.parse(fs.readFileSync(__dirname + '/fixture/meilahti.json', 'utf-8'))
+    })
+
+    it('transforms table to json', function () {
+        expect(obj).to.eql(expected)
+    })
+})
+
+describe('web timmi crawler', function () {
+    var obj
+    var expected
+    before(function () {
+        obj = webTimmi.parseMarkup(fs.readFileSync(__dirname + '/fixture/weekViewMenu.html', 'utf-8'))
+        expected = JSON.parse(fs.readFileSync(__dirname + '/fixture/taivallahti.json', 'utf-8'))
     })
 
     it('transforms table to json', function () {
