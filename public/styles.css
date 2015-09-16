@@ -36,3 +36,4 @@ nav li.selected {cursor: default;}
 .toggles {margin-top: 10px;}
 .detail {margin-top: 40px;}
 button.inactive {color:#333; background: none; border-color: transparent;}
+.loading:after {content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0;}

@@ -5,6 +5,7 @@ var attachFastClick = require('fastclick')
 var mapView = require('./mapView')
 var locations = require('./locations')
 attachFastClick(document.body)
+var deltaDate = 0
 
 var _throttleTimer = null
 var _throttleDelay = 100
@@ -33,7 +34,8 @@ function ScrollHandler(e) {
 }
 
 function loadMoreResults() {
-    console.log('load more results')
+    deltaDate++
+    listAvailabilityForDate(todayIsoDate(deltaDate))
 }
 
 $('.toggles button').click(function (e) {
@@ -64,13 +66,17 @@ $('.toggleMapInformation').click(function () {
     _.once(mapView.renderMap)()
 })
 
-var requestedDate = todayIsoDate(1)
-$.getJSON('/courts?date=' + requestedDate, function (allData) {
-    var data = _.flatten((_.map(allData, _.identity)))
-    $('#schedule').html(groupBySortedAsList(data, 'date').filter(function(x) {
-        return x.key === requestedDate
-    }).map(toDateSection).join(''))
-})
+listAvailabilityForDate(todayIsoDate(0))
+
+function listAvailabilityForDate(requestedDate) {
+    $('#schedule').addClass('loading')
+    $.getJSON('/courts?date=' + requestedDate, function (allData) {
+        var data = _.flatten((_.map(allData, _.identity)))
+        $('#schedule').removeClass('loading').append(groupBySortedAsList(data, 'date').filter(function (x) {
+            return x.key === requestedDate
+        }).map(toDateSection).join(''))
+    })
+}
 
 $('#schedule').on('click', '.locationLabel', function (e) {
     var $locationLabel = $(e.currentTarget)
