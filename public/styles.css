@@ -1,4 +1,5 @@
-.btn { margin-bottom: 5px; margin-right: 5px; }
+body { font: 14px "Helvetica Neue",Helvetica,Arial,sans-serif; line-height: 1.4; color: #333; margin:0; }
+.btn { margin-bottom: 10px; margin-right: 5px; }
 .time { margin-right: 5px; }
 .fieldLabel { display: none }
 .place { text-transform: capitalize; }
@@ -14,6 +15,7 @@
 }
 h3,
 h4 { text-transform: capitalize; }
+button { border:1px solid transparent; }
 button.meilahti { background-color: #449d44; border-color: #398439; color: #fff; }
 button.herttoniemi { background-color: #337ab7; border-color: #2e6da4; color: #fff }
 button.kulosaari { color: #fff; background-color: #31b0d5; border-color: #269abc; }
@@ -32,8 +34,13 @@ nav ul {display:flex; flex-direction: row; justify-content: space-between; align
 nav li {display: inline-block; padding: 10px 0; cursor: pointer;}
 nav li.selected {cursor: default;}
 .selected {text-decoration: underline;}
-.container {}
-.toggles {margin-top: 10px;}
+.container { padding: 0 10px;}
+.toggles {margin-top: 50px;}
 .detail {margin-top: 40px;}
 button.inactive {color:#333; background: none; border-color: transparent;}
 .loading:after {content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0;}
+.timestamp {font-size: 10px;}
+p { margin: 0;}
+table {width:100%;}
+table th {text-align: left;}
+a
