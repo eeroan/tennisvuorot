@@ -10,13 +10,25 @@ var webTimmi = require('./src/webTimmiCrawler')
 var browserify = require('browserify-middleware')
 app.use('/front.min.js', browserify(__dirname + '/public/front.js'))
 app.use(express.static(__dirname + '/public'))
+var lastTime = new Date(2000, 1, 1)
+var cache = {}
 app.get('/courts', function (req, res) {
     var isoDate = req.query.date || todayIsoDate()
-    fetch(isoDate, function (obj) { res.send(obj)})
+    var expirationInMin = 2
+    var currentTimeMinusDelta = new Date().getTime() - 1000 * 60 * expirationInMin
+    var cachedValue = cache[isoDate]
+    if (cachedValue && cachedValue.date > currentTimeMinusDelta) {
+        res.send(cachedValue)
+    } else {
+        fetch(isoDate).onValue(function (obj) {
+            cache[isoDate] = obj
+            res.send(obj)
+        })
+    }
 })
 
-function fetch(isoDate, cb) {
-    Bacon.combineTemplate({
+function fetch(isoDate) {
+    return Bacon.combineTemplate({
         meilahti:     slSystems.getMeilahti(isoDate),
         herttoniemi:  slSystems.getHerttoniemi(isoDate),
         kulosaari:    slSystems.getKulosaari(isoDate),
@@ -24,8 +36,9 @@ function fetch(isoDate, cb) {
         tali1:        webTimmi.getTali1(isoDate),
         tali2:        webTimmi.getTali2(isoDate),
         taivallahti1: webTimmi.getTaivallahti1(isoDate),
-        taivallahti2: webTimmi.getTaivallahti2(isoDate)
-    }).onValue(cb)
+        taivallahti2: webTimmi.getTaivallahti2(isoDate),
+        date:         new Date().getTime()
+    })
 }
 
 function todayIsoDate() {
