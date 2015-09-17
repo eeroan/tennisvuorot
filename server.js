@@ -12,6 +12,10 @@ app.use('/front.min.js', browserify(__dirname + '/public/front.js'))
 app.use(express.static(__dirname + '/public'))
 app.get('/courts', function (req, res) {
     var isoDate = req.query.date || todayIsoDate()
+    fetch(isoDate, function (obj) { res.send(obj)})
+})
+
+function fetch(isoDate, cb) {
     Bacon.combineTemplate({
         meilahti:     slSystems.getMeilahti(isoDate),
         herttoniemi:  slSystems.getHerttoniemi(isoDate),
@@ -21,8 +25,8 @@ app.get('/courts', function (req, res) {
         tali2:        webTimmi.getTali2(isoDate),
         taivallahti1: webTimmi.getTaivallahti1(isoDate),
         taivallahti2: webTimmi.getTaivallahti2(isoDate)
-    }).onValue(function (obj) { res.send(obj) })
-});
+    }).onValue(cb)
+}
 
 function todayIsoDate() {
     var now = new Date()
