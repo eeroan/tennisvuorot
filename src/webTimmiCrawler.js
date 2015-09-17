@@ -76,10 +76,7 @@ function weekView(cookie, token, fieldGroup, isoDate) {
     var dateTime = DateTime.fromIsoDate(isoDate)
     var fiDate = DateFormat.format(dateTime, 'd.m.Y', DateLocale.FI)
     var dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase() + 'Selected'
-    console.log(dayName)
-    console.log(fiDate)
     var week = dateTime.getWeekInYear('ISO')
-    console.log(week)
     var form = {
         'org.apache.struts.taglib.html.TOKEN': token,
         //roomPartIds:'5743|5744|5745|5746|5799|5800|5846|5847|5848|',
