@@ -14,14 +14,25 @@ var $document = $(document)
 $document.ready(function () {
     $window
         .off('scroll', ScrollHandler)
-        .on('scroll', ScrollHandler);
+        .on('scroll', ScrollHandler)
 })
 
 var nearAlready = false
+initNavigation()
+listAvailabilityForDate(todayIsoDate(0)).done(function () {
+    if ($window.height() === $document.height()) loadMoreResults()
+})
+$('#schedule').on('click', '.locationLabel', function (e) {
+    var $locationLabel = $(e.currentTarget)
+    $locationLabel.toggle()
+    $locationLabel.parent().find('.fieldLabel').toggle()
+})
+renderLocations(locations)
+
 function ScrollHandler(e) {
     clearTimeout(_throttleTimer);
     _throttleTimer = setTimeout(function () {
-        if ($window.scrollTop() + $window.height() > $document.height() - 300) {
+        if ($window.scrollTop() + $window.height() > $document.height() - 400) {
             if (!nearAlready) {
                 loadMoreResults()
             }
@@ -38,44 +49,14 @@ function loadMoreResults() {
     listAvailabilityForDate(todayIsoDate(deltaDate))
 }
 
-$('.toggles button').click(function (e) {
-    e.preventDefault()
-    var $button = $(this)
-    $button.toggleClass('inactive')
-    var id = $button.prop('id')
-    $('#schedule').toggleClass(id)
-})
-$('.toggleReservations').click(function () {
-    $('nav li').removeClass('selected')
-    $(this).addClass('selected')
-    $('.detail').hide()
-    $('.reservations').show()
-})
-
-$('.toggleInformation').click(function () {
-    $('nav li').removeClass('selected')
-    $(this).addClass('selected')
-    $('.detail').hide()
-    $('.information').show()
-})
-$('.toggleMapInformation').click(function () {
-    $('nav li').removeClass('selected')
-    $(this).addClass('selected')
-    $('.detail').hide()
-    $('#map_wrapper').show()
-    _.once(mapView.renderMap)()
-})
-
-listAvailabilityForDate(todayIsoDate(0))
-
 function listAvailabilityForDate(requestedDate) {
     $('#schedule').addClass('loading')
-    $.getJSON('/courts?date=' + requestedDate, function (allDataWithDate) {
+    return $.getJSON('/courts?date=' + requestedDate, function (allDataWithDate) {
         var deltaMin = parseInt((new Date().getTime() - allDataWithDate.date) / 60000, 10)
         //var $timeStamp = $('span').addClass('timestamp').html('päivitetty ' + deltaMin + ' minuuttia sitten')
         var data = allDataWithDate.freeCourts.filter(function (reservation) {
             var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
-            return startingDateTime.compareTo(new DateTime().minusMinutes(60))>=0
+            return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
         })
         $('#schedule').removeClass('loading')
             //.append($timeStamp)
@@ -84,16 +65,6 @@ function listAvailabilityForDate(requestedDate) {
             }).map(toDateSection).join(''))
     })
 }
-
-$('#schedule').on('click', '.locationLabel', function (e) {
-    var $locationLabel = $(e.currentTarget)
-    $locationLabel.toggle()
-    $locationLabel.parent().find('.fieldLabel').toggle()
-})
-
-//$.getJSON('/locations', renderLocations)
-
-renderLocations(locations)
 
 function todayIsoDate(delta) {
     var now = new Date()
@@ -151,3 +122,32 @@ function objectToArray(val, key) {
     return {key: key, val: val}
 }
 
+function initNavigation() {
+    $('.toggles button').click(function (e) {
+        e.preventDefault()
+        var $button = $(this)
+        $button.toggleClass('inactive')
+        var id = $button.prop('id')
+        $('#schedule').toggleClass(id)
+    })
+    $('.toggleReservations').click(function () {
+        $('nav li').removeClass('selected')
+        $(this).addClass('selected')
+        $('.detail').hide()
+        $('.reservations').show()
+    })
+
+    $('.toggleInformation').click(function () {
+        $('nav li').removeClass('selected')
+        $(this).addClass('selected')
+        $('.detail').hide()
+        $('.information').show()
+    })
+    $('.toggleMapInformation').click(function () {
+        $('nav li').removeClass('selected')
+        $(this).addClass('selected')
+        $('.detail').hide()
+        $('#map_wrapper').show()
+        _.once(mapView.renderMap)()
+    })
+}
