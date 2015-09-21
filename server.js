@@ -38,6 +38,12 @@ function fetch(isoDate) {
         taivallahti1: webTimmi.getTaivallahti1(isoDate),
         taivallahti2: webTimmi.getTaivallahti2(isoDate),
         date:         new Date().getTime()
+    }).map(function (allDataWithDate) {
+        var allData = _.omit(allDataWithDate, 'date')
+        return {
+            freeCourts:      _.flatten((_.map(allData, _.identity))),
+            timestamp: allDataWithDate.date
+        }
     })
 }
 

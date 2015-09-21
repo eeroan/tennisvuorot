@@ -71,10 +71,9 @@ listAvailabilityForDate(todayIsoDate(0))
 function listAvailabilityForDate(requestedDate) {
     $('#schedule').addClass('loading')
     $.getJSON('/courts?date=' + requestedDate, function (allDataWithDate) {
-        var allData = _.omit(allDataWithDate, 'date')
         var deltaMin = parseInt((new Date().getTime() - allDataWithDate.date)/60000, 10)
         //var $timeStamp = $('span').addClass('timestamp').html('päivitetty ' + deltaMin + ' minuuttia sitten')
-        var data = _.flatten((_.map(allData, _.identity)))
+        var data = allDataWithDate.freeCourts
         $('#schedule').removeClass('loading')
             //.append($timeStamp)
             .append(groupBySortedAsList(data, 'date').filter(function (x) {
