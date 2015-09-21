@@ -5,7 +5,7 @@ var attachFastClick = require('fastclick')
 var mapView = require('./mapView')
 var locations = require('./locations')
 attachFastClick(document.body)
-var deltaDate = 0
+var activeDate = DateTime.today()
 
 var _throttleTimer = null
 var _throttleDelay = 100
@@ -19,9 +19,12 @@ $document.ready(function () {
 
 var nearAlready = false
 initNavigation()
-listAvailabilityForDate(todayIsoDate(0)).done(function () {
+listAvailabilityForDate(activeDate).done(function () {
     if ($window.height() === $document.height()) loadMoreResults()
 })
+
+initJumpToDate()
+
 $('#schedule').on('click', '.locationLabel', function (e) {
     var $locationLabel = $(e.currentTarget)
     $locationLabel.toggle()
@@ -45,11 +48,12 @@ function ScrollHandler(e) {
 }
 
 function loadMoreResults() {
-    deltaDate++
-    listAvailabilityForDate(todayIsoDate(deltaDate))
+    activeDate = activeDate.plusDays(1)
+    listAvailabilityForDate(activeDate)
 }
 
-function listAvailabilityForDate(requestedDate) {
+function listAvailabilityForDate(requestedDateTime) {
+    var requestedDate = requestedDateTime.toISODateString()
     $('#schedule').addClass('loading')
     return $.getJSON('/courts?date=' + requestedDate, function (allDataWithDate) {
         var deltaMin = parseInt((new Date().getTime() - allDataWithDate.date) / 60000, 10)
@@ -64,15 +68,6 @@ function listAvailabilityForDate(requestedDate) {
                 return x.key === requestedDate
             }).map(toDateSection).join(''))
     })
-}
-
-function todayIsoDate(delta) {
-    var now = new Date()
-    if (delta) {
-        now.setDate(now.getDate() + delta)
-    }
-    var isoDateTime = now.toISOString()
-    return isoDateTime.split('T')[0]
 }
 
 function renderLocations(locations) {
@@ -149,5 +144,17 @@ function initNavigation() {
         $('.detail').hide()
         $('#map_wrapper').show()
         _.once(mapView.renderMap)()
+    })
+}
+
+function initJumpToDate() {
+    $('.jumpToDate').html(_.range(1, 60).map(function (delta) {
+        var dateTime = new DateTime().plusDays(delta)
+        var format = DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
+        return '<option value="' + dateTime.toISODateString() + '">' + format + '</option>'
+    }).join('\n')).change(function () {
+        activeDate = DateTime.fromIsoDate($(this).val())
+        $('#schedule').empty()
+        listAvailabilityForDate(activeDate)
     })
 }
