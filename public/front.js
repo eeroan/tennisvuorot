@@ -22,7 +22,7 @@ function ScrollHandler(e) {
     clearTimeout(_throttleTimer);
     _throttleTimer = setTimeout(function () {
         if ($window.scrollTop() + $window.height() > $document.height() - 300) {
-            if(!nearAlready) {
+            if (!nearAlready) {
                 loadMoreResults()
             }
             nearAlready = true
@@ -71,14 +71,17 @@ listAvailabilityForDate(todayIsoDate(0))
 function listAvailabilityForDate(requestedDate) {
     $('#schedule').addClass('loading')
     $.getJSON('/courts?date=' + requestedDate, function (allDataWithDate) {
-        var deltaMin = parseInt((new Date().getTime() - allDataWithDate.date)/60000, 10)
+        var deltaMin = parseInt((new Date().getTime() - allDataWithDate.date) / 60000, 10)
         //var $timeStamp = $('span').addClass('timestamp').html('päivitetty ' + deltaMin + ' minuuttia sitten')
-        var data = allDataWithDate.freeCourts
+        var data = allDataWithDate.freeCourts.filter(function (reservation) {
+            var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
+            return startingDateTime.compareTo(new DateTime().minusMinutes(60))>=0
+        })
         $('#schedule').removeClass('loading')
             //.append($timeStamp)
             .append(groupBySortedAsList(data, 'date').filter(function (x) {
-            return x.key === requestedDate
-        }).map(toDateSection).join(''))
+                return x.key === requestedDate
+            }).map(toDateSection).join(''))
     })
 }
 
