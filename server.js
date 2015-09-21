@@ -14,7 +14,7 @@ var lastTime = new Date(2000, 1, 1)
 var cache = {}
 app.get('/courts', function (req, res) {
     var isoDate = req.query.date || todayIsoDate()
-    var expirationInMin = 2
+    var expirationInMin = 120
     var currentTimeMinusDelta = new Date().getTime() - 1000 * 60 * expirationInMin
     var cachedValue = cache[isoDate]
     if (cachedValue && cachedValue.date > currentTimeMinusDelta) {

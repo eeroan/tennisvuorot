@@ -56,8 +56,8 @@ function listAvailabilityForDate(requestedDateTime) {
     var requestedDate = requestedDateTime.toISODateString()
     $('#schedule').addClass('loading')
     return $.getJSON('/courts?date=' + requestedDate, function (allDataWithDate) {
-        var deltaMin = parseInt((new Date().getTime() - allDataWithDate.date) / 60000, 10)
-        //var $timeStamp = $('span').addClass('timestamp').html('päivitetty ' + deltaMin + ' minuuttia sitten')
+        var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
+        var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
         var data = allDataWithDate.freeCourts.filter(function (reservation) {
             var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
             return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
@@ -66,7 +66,9 @@ function listAvailabilityForDate(requestedDateTime) {
             //.append($timeStamp)
             .append(groupBySortedAsList(data, 'date').filter(function (x) {
                 return x.key === requestedDate
-            }).map(toDateSection).join(''))
+            }).map(function (dateObject) {
+                return toDateSection(dateObject, timeStamp)
+            }).join(''))
     })
 }
 
@@ -82,11 +84,12 @@ function renderLocations(locations) {
     }).join(''))
 }
 
-function toDateSection(dateObject) {
+function toDateSection(dateObject, timeStamp) {
     var isoDate = dateObject.key
     var times = dateObject.val
     return '<h4>' + DateFormat.format(DateTime.fromIsoDate(isoDate), DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + '</h4>' +
-        groupBySortedAsList(times, 'time').map(toTimeRow).join('')
+        '<div class="timestamp">' + timeStamp + '</div>'+
+    groupBySortedAsList(times, 'time').map(toTimeRow).join('')
 }
 
 function toTimeRow(timeObject) {

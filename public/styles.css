@@ -39,7 +39,7 @@ nav li.selected {cursor: default;}
 .detail {margin-top: 40px;}
 button.inactive {color:#333; background: none; border-color: transparent;}
 .loading:after {content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0;}
-.timestamp {font-size: 10px;}
+.timestamp {font-size: 10px;position: relative; top:-20px;}
 p { margin: 0;}
 table {width:100%;}
 table th {text-align: left;}
