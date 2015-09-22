@@ -28,16 +28,19 @@ var cmbProfile = {
 }
 
 function getAll(isoDate) {
-    return Bacon.combineAsArray(
-        getFieldsForGroup(1018, isoDate),
-        getFieldsForGroup(1019, isoDate),
-        getFieldsForGroup(2186, isoDate),
-        getFieldsForGroup(2189, isoDate)
-    ).map(function (list) { return _.flatten(list) })
+    var loggedIn = login()
+    return Bacon.combineAsArray([
+        1018,
+        1019,
+        2186,
+        2189
+    ].map(function (cmbProfile) {
+            return getFieldsForGroup(login(), cmbProfile, isoDate)
+        })).map(function (list) { return _.flatten(list) })
 }
 
-function getFieldsForGroup(fieldGroup, isoDate) {
-    return login().flatMap(getWeek).flatMap(function (obj) {
+function getFieldsForGroup(loggedIn, fieldGroup, isoDate) {
+    return loggedIn.flatMap(getWeek).flatMap(function (obj) {
         return weekView(obj.cookie, obj.token, fieldGroup, isoDate)
     }).flatMapError(function () {
         return []
