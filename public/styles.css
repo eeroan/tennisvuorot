@@ -42,6 +42,9 @@ button.inactive {color:#258DAB; background: none; border-color: transparent;box-
 .loading:after {content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0;}
 .timestamp {font-size: 10px;position: relative; top:-20px;}
 p { margin: 0;}
-table {width:100%;}
+table {width:100%;border-collapse: collapse;}
 table th {text-align: left;}
-a
+a,
+a:visited {color: #258DAB;}
+tbody tr:nth-child(odd) { background: #eee;}
+th, td {padding:7px 20px;}
