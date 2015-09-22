@@ -8,8 +8,9 @@ var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
 module.exports = {
-    getAll:      getAll,
-    parseMarkup: parseMarkup
+    getAll:           getAll,
+    getAllInSequence: getAllInSequence,
+    parseMarkup:      parseMarkup
 }
 
 var cmbProfile = {
@@ -28,7 +29,6 @@ var cmbProfile = {
 }
 
 function getAll(isoDate) {
-    var loggedIn = login()
     return Bacon.combineAsArray([
         1018,
         1019,
@@ -37,6 +37,26 @@ function getAll(isoDate) {
     ].map(function (cmbProfile) {
             return getFieldsForGroup(login(), cmbProfile, isoDate).map('.obj')
         })).map(function (list) { return _.flatten(list) })
+}
+
+function getAllInSequence(isoDate) {
+    var tali1 = login().flatMap(getWeek).flatMap(weekForProfile(1018, isoDate)).flatMapError(emptyList)
+    var tali2 = tali1.flatMap(weekForProfile(1019, isoDate)).flatMapError(emptyList)
+    var taivallahti1 = tali2.flatMap(weekForProfile(2186, isoDate)).flatMapError(emptyList)
+    var taivallahti2 = taivallahti1.flatMap(weekForProfile(2189, isoDate)).flatMapError(emptyList)
+
+    return Bacon.combineAsArray(tali1.map('.obj'), tali2.map('.obj'), taivallahti1.map('.obj'), taivallahti2.map('.obj'))
+        .map(function (list) { return _.flatten(list) })
+}
+
+function weekForProfile(cmbProfile, isoDate) {
+    return function (obj) {
+        return weekView(obj.cookie, obj.token, cmbProfile, isoDate)
+    }
+}
+
+function emptyList() {
+    return []
 }
 
 function getFieldsForGroup(loggedIn, fieldGroup, isoDate) {
@@ -103,8 +123,9 @@ function weekView(cookie, token, fieldGroup, isoDate) {
         form:    form
     }).map('.body').map(function (markup) {
         return {
-            obj: parseMarkup(markup),
-            token:  markup.match(/TOKEN" value="([^"]+)"/i).pop()
+            obj:    parseMarkup(markup),
+            token:  markup.match(/TOKEN" value="([^"]+)"/i).pop(),
+            cookie: cookie
         }
     })
 }
