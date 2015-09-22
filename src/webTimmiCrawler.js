@@ -35,7 +35,7 @@ function getAll(isoDate) {
         2186,
         2189
     ].map(function (cmbProfile) {
-            return getFieldsForGroup(login(), cmbProfile, isoDate)
+            return getFieldsForGroup(login(), cmbProfile, isoDate).map('.obj')
         })).map(function (list) { return _.flatten(list) })
 }
 
@@ -101,7 +101,12 @@ function weekView(cookie, token, fieldGroup, isoDate) {
             Cookie: cookie
         },
         form:    form
-    }).map('.body').map(parseMarkup)
+    }).map('.body').map(function (markup) {
+        return {
+            obj: parseMarkup(markup),
+            token:  markup.match(/TOKEN" value="([^"]+)"/i).pop()
+        }
+    })
 }
 
 function parseMarkup(markup) {
