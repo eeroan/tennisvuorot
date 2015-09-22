@@ -8,10 +8,7 @@ var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
 module.exports = {
-    getTali1:        getTali1,
-    getTali2:        getTali2,
-    getTaivallahti1: getTaivallahti1,
-    getTaivallahti2: getTaivallahti2,
+    getAll:          getAll,
     parseMarkup:     parseMarkup
 }
 
@@ -28,6 +25,15 @@ var cmbProfile = {
     1025: 'TALI MASSA 9-11',
     2186: 'TAIVALLAHTI 1',
     2189: 'TAIVALLAHTI 2'
+}
+
+function getAll(isoDate) {
+    return Bacon.combineAsArray(
+        getTali1(isoDate),
+        getTali2(isoDate),
+        getTaivallahti1(isoDate),
+        getTaivallahti2(isoDate)
+    ).map(function (list) { return _.flatten(list) })
 }
 
 function getTali1(isoDate) {
@@ -60,7 +66,7 @@ function login() {
     }).flatMap(function (res) {
         try {
             return res.headers['set-cookie'][0].split(';')[0]
-        } catch(e) {
+        } catch (e) {
             return new Bacon.Error(e)
         }
     })

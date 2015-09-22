@@ -33,15 +33,12 @@ function freeCourts(req, res) {
 
 function fetch(isoDate) {
     return Bacon.combineTemplate({
-        meilahti:     slSystems.getMeilahti(isoDate),
-        herttoniemi:  slSystems.getHerttoniemi(isoDate),
-        kulosaari:    slSystems.getKulosaari(isoDate),
-        merihaka:     slSystems.getMerihaka(isoDate),
-        tali1:        webTimmi.getTali1(isoDate),
-        tali2:        webTimmi.getTali2(isoDate),
-        taivallahti1: webTimmi.getTaivallahti1(isoDate),
-        taivallahti2: webTimmi.getTaivallahti2(isoDate),
-        date:         new Date().getTime()
+        meilahti:    slSystems.getMeilahti(isoDate),
+        herttoniemi: slSystems.getHerttoniemi(isoDate),
+        kulosaari:   slSystems.getKulosaari(isoDate),
+        merihaka:    slSystems.getMerihaka(isoDate),
+        webTimmi:    webTimmi.getAll(isoDate),
+        date:        new Date().getTime()
     }).map(function (allDataWithDate) {
         var allData = _.omit(allDataWithDate, 'date')
         return {
