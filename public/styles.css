@@ -1,6 +1,6 @@
 body { font: 14px "Helvetica Neue",Helvetica,Arial,sans-serif; line-height: 1.4; color: #333; margin:0; }
 .btn { margin-bottom: 10px; margin-right: 5px; }
-.time { margin-right: 5px; }
+.time { top: 13px;position: relative;margin-right: 5px; }
 .fieldLabel { display: none }
 .place { text-transform: capitalize; }
 #map_wrapper {
@@ -41,7 +41,8 @@ button:active {outline: none;}
 button.inactive {color:#258DAB; background: none; border-color: transparent;box-shadow: none;}
 .loading:after {content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0;}
 .timestamp {font-size: 10px;position: relative; top:-20px;}
-p { margin: 0;}
+.timeRow { display: flex;line-height: 0;}
+.timeWrapper { position: relative; overflow: hidden; }
 table {width:100%;border-collapse: collapse;}
 table th {text-align: left;}
 a,

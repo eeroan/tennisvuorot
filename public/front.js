@@ -95,8 +95,8 @@ function toDateSection(dateObject, timeStamp) {
 function toTimeRow(timeObject) {
     var isoTime = timeObject.key
     var fields = timeObject.val
-    return '<p><span class="time">' + isoTime + '</span>' +
-        groupBySortedAsList(fields, 'location').map(toLocationButtonGroup).join('') + '</p>'
+    return '<div class="timeRow"><span class="timeWrapper"><span class="time">' + isoTime + '</span></span>' +
+        groupBySortedAsList(fields, 'location').map(toLocationButtonGroup).join('') + '</div>'
 }
 
 function toLocationButtonGroup(locationFields) {
