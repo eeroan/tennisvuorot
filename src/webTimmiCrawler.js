@@ -49,13 +49,21 @@ function getTaivallahti2(isoDate) {
 function getFieldsForGroup(fieldGroup, isoDate) {
     return login().flatMap(getWeek).flatMap(function (obj) {
         return weekView(obj.cookie, obj.token, fieldGroup, isoDate)
+    }).flatMapError(function () {
+        return []
     })
 }
 
 function login() {
     return Bacon.fromNodeCallback(request.get, {
         url: 'http://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST'
-    }).map('.headers.set-cookie.0').map(function (cookie) {return cookie.split(';')[0]})
+    }).flatMap(function (res) {
+        try {
+            return res.headers['set-cookie'][0].split(';')[0]
+        } catch(e) {
+            return new Bacon.Error(e)
+        }
+    })
 }
 
 function getWeek(cookie) {
@@ -115,13 +123,13 @@ function parseMarkup(markup) {
         var startTime = startDateTime[1]
         return {
             time:     startTime,
-            duration: toMinutes(endTime) -toMinutes(startTime),
+            duration: toMinutes(endTime) - toMinutes(startTime),
             date:     isoDate,
             res:      courtName.type + ' ' + courtName.name,
             location: /TAIVALLAHTI/i.test(courtName.type) ? 'taivallahti' : 'tali',
             field:    courtName.name
         }
-    }).filter(function(obj) {
+    }).filter(function (obj) {
         return obj.duration === 60
     }), function (item) {return JSON.stringify(item)})
 }
