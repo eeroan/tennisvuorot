@@ -11,7 +11,14 @@ var browserify = require('browserify-middleware')
 app.use('/front.min.js', browserify(__dirname + '/public/front.js'))
 app.use(express.static(__dirname + '/public'))
 var cache = {}
-app.get('/courts', function (req, res) {
+app.get('/courts', freeCourts)
+app.get('/locations', locations)
+var port = process.env.PORT || 5000
+app.listen(port, function () {
+    console.log('Server started at localhost:' + port)
+})
+
+function freeCourts(req, res) {
     var isoDate = req.query.date || todayIsoDate()
     var expirationInMin = 120
     var currentTimeMinusDelta = new Date().getTime() - 1000 * 60 * expirationInMin
@@ -24,7 +31,7 @@ app.get('/courts', function (req, res) {
             res.send(obj)
         })
     }
-})
+}
 
 function fetch(isoDate) {
     return Bacon.combineTemplate({
@@ -40,8 +47,8 @@ function fetch(isoDate) {
     }).map(function (allDataWithDate) {
         var allData = _.omit(allDataWithDate, 'date')
         return {
-            freeCourts:      _.flatten((_.map(allData, _.identity))),
-            timestamp: allDataWithDate.date
+            freeCourts: _.flatten((_.map(allData, _.identity))),
+            timestamp:  allDataWithDate.date
         }
     })
 }
@@ -52,20 +59,16 @@ function todayIsoDate() {
     return isoDateTime.split('T')[0]
 }
 
-app.get('/locations', function (req, res) {
+function locations(req, res) {
     Bacon.combineAsArray(_.map(courts, function (val, key) {
         return getLocation(val.address).map(function (location) {
             return _.extend({title: key}, location, val)
         })
     })).onValue(function (val) { res.send(val) })
-})
+}
 
 function getLocation(address) {
     return Bacon.fromNodeCallback(request.get, {
         url: 'http://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&sensor=false'
     }).map('.body').map(JSON.parse).map('.results.0.geometry.location')
 }
-var port = process.env.PORT || 5000
-app.listen(port, function () {
-    console.log('Server started at localhost:' + port)
-})
