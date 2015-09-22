@@ -8,8 +8,8 @@ var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
 module.exports = {
-    getAll:          getAll,
-    parseMarkup:     parseMarkup
+    getAll:      getAll,
+    parseMarkup: parseMarkup
 }
 
 var cmbProfile = {
@@ -29,27 +29,11 @@ var cmbProfile = {
 
 function getAll(isoDate) {
     return Bacon.combineAsArray(
-        getTali1(isoDate),
-        getTali2(isoDate),
-        getTaivallahti1(isoDate),
-        getTaivallahti2(isoDate)
+        getFieldsForGroup(1018, isoDate),
+        getFieldsForGroup(1019, isoDate),
+        getFieldsForGroup(2186, isoDate),
+        getFieldsForGroup(2189, isoDate)
     ).map(function (list) { return _.flatten(list) })
-}
-
-function getTali1(isoDate) {
-    return getFieldsForGroup(1018, isoDate)
-}
-
-function getTali2(isoDate) {
-    return getFieldsForGroup(1019, isoDate)
-}
-
-function getTaivallahti1(isoDate) {
-    return getFieldsForGroup(2186, isoDate)
-}
-
-function getTaivallahti2(isoDate) {
-    return getFieldsForGroup(2189, isoDate)
 }
 
 function getFieldsForGroup(fieldGroup, isoDate) {
