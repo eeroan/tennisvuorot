@@ -32,13 +32,13 @@ function freeCourts(req, res) {
 }
 
 function fetch(isoDate) {
-    return Bacon.combineAsArray(
-        slSystems.getMeilahti(isoDate),
-        slSystems.getHerttoniemi(isoDate),
-        slSystems.getKulosaari(isoDate),
-        slSystems.getMerihaka(isoDate),
-        webTimmi.getAll(isoDate)
-    ).map(function (allData) {
+    return Bacon.combineAsArray([
+        slSystems.getMeilahti,
+        slSystems.getHerttoniemi,
+        slSystems.getKulosaari,
+        slSystems.getMerihaka,
+        webTimmi.getAll].map(function (fn) { return fn(isoDate) }))
+        .map(function (allData) {
             return {
                 freeCourts: _.flatten(allData),
                 timestamp:  new Date().getTime()
