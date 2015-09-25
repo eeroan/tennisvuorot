@@ -18,7 +18,7 @@ route.get('/locations', locations)
 module.exports = route
 
 function freeCourts(req, res) {
-    var isoDate = req.query.date || todayIsoDate()
+    var isoDate = req.query.date
     var currentTimeMinusDelta = new Date().getTime() - 1000 * 60 * expirationInMin
     var cachedValue = cache[isoDate]
     if (cachedValue && cachedValue.timestamp > currentTimeMinusDelta) {
@@ -47,12 +47,6 @@ function fetch(isoDate) {
                 timestamp:  new Date().getTime()
             }
         })
-}
-
-function todayIsoDate() {
-    var now = new Date()
-    var isoDateTime = now.toISOString()
-    return isoDateTime.split('T')[0]
 }
 
 function locations(req, res) {
