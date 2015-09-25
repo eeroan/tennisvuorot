@@ -41,7 +41,7 @@ button:active {outline: none;}
 button.inactive {color:#258DAB; background: none; border-color: transparent;box-shadow: none;}
 .loading:after {content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0;}
 .timestamp {font-size: 10px;position: relative; top:-20px;}
-.timeRow { display: flex;line-height: 0;}
+.timeRow { display: flex;line-height: 0; flex-wrap: wrap;}
 .timeWrapper { position: relative; overflow: hidden; }
 table {width:100%;border-collapse: collapse;}
 table th {text-align: left;}
