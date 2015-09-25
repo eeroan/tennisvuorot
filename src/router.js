@@ -37,13 +37,11 @@ function fetch(isoDate) {
         herttoniemi: slSystems.getHerttoniemi(isoDate),
         kulosaari:   slSystems.getKulosaari(isoDate),
         merihaka:    slSystems.getMerihaka(isoDate),
-        webTimmi:    webTimmi.getAll(isoDate),
-        date:        new Date().getTime()
-    }).map(function (allDataWithDate) {
-        var allData = _.omit(allDataWithDate, 'date')
+        webTimmi:    webTimmi.getAll(isoDate)
+    }).map(function (allData) {
         return {
             freeCourts: _.flatten((_.map(allData, _.identity))),
-            timestamp:  allDataWithDate.date
+            timestamp:  new Date().getTime()
         }
     })
 }
