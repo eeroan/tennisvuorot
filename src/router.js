@@ -11,6 +11,7 @@ var browserify = require('browserify-middleware')
 route.use('/front.min.js', browserify(__dirname + '/../public/front.js'))
 route.use(express.static(__dirname + '/../public'))
 var cache = {}
+var expirationInMin = 120
 route.get('/courts', freeCourts)
 route.get('/locations', locations)
 
@@ -18,12 +19,14 @@ module.exports = route
 
 function freeCourts(req, res) {
     var isoDate = req.query.date || todayIsoDate()
-    var expirationInMin = 120
     var currentTimeMinusDelta = new Date().getTime() - 1000 * 60 * expirationInMin
     var cachedValue = cache[isoDate]
-    if (cachedValue && cachedValue.date > currentTimeMinusDelta) {
+    if (cachedValue && cachedValue.timestamp > currentTimeMinusDelta) {
+        console.log('fetching from cache for date', isoDate)
         res.send(cachedValue)
     } else {
+        console.log('fetching from servers for date', isoDate)
+
         fetch(isoDate).onValue(function (obj) {
             cache[isoDate] = obj
             res.send(obj)
