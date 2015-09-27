@@ -29,6 +29,7 @@
     "forever": "^0.15.1",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
+    "mongodb": "^2.0.43",
     "request": "^2.61.0",
     "supervisor": "^0.7.1"
   },
