@@ -13,7 +13,7 @@ var todayIsoDate = new Date().toISOString().split('T')[0]
 MongoClient.connect(mongoUri, function (err, db) {
     var collection = db.collection('tennishelsinki')
     if (firstArg === 'find') {
-        var filter = args[1] ? {date: args[1]} : {}
+        var filter = args[1] ? {date: new Date(args[1])} : {}
         collection.find(filter).toArray(function (err, docs) {
             var transformedDoc = docs.map(function (doc) {
                 doc.timestamp = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
@@ -22,28 +22,20 @@ MongoClient.connect(mongoUri, function (err, db) {
             console.log(err, transformedDoc)
             db.close()
         })
-    } else if (firstArg === 'insert') {
-        var obj = {
-            date:   new Date(args[1] || '2015-09-28'),
-            courts: {foo: 'bar2'}
-        }
-
-        collection.insertOne(obj, {safe: true}, function (er, rs) {
-            console.log(er, rs.result, rs.ops)
-            db.close()
-        })
     } else if (firstArg === 'remove') {
         collection.removeMany({mykey: 'myvalue'}, function (er, rs) {
             console.log(er, rs && rs.result)
             db.close()
         })
     } else if (firstArg === 'update') {
-        var date = new Date(args[1] || '2015-09-28')
+        var date = new Date(args[1] || '2015-09-30')
         collection.updateOne({date: date}, {
             date:   date,
-            courts: {foo: 'bar3'}
+            courts: {court: args[2] || 'bar5'}
+        }, {
+            upsert: true
         }, function (err, rs) {
-            console.log(er, rs && rs.result)
+            console.log(err, rs && rs.result)
             db.close()
         })
     }
