@@ -40,7 +40,7 @@ function freeCourts(req, res) {
 function getFromMongo(isoDate, callback) {
     MongoClient.connect(mongoUri, function (err, db) {
         var collection = db.collection('tennishelsinki')
-        var filter =  {date: new Date(isoDate)}
+        var filter = {date: new Date(isoDate)}
         collection.find(filter).toArray(function (err, docs) {
             var transformedDoc = docs.map(function (doc) {
                 doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
@@ -57,9 +57,9 @@ function upsertToMongo(isoDate, obj) {
         var collection = db.collection('tennishelsinki')
         var date = new Date(isoDate)
         collection.updateOne({date: date}, {
-            date:   date,
+            date:       date,
             freeCourts: obj.freeCourts,
-            timestamp: obj.timestamp
+            timestamp:  obj.timestamp
         }, {
             upsert: true
         }, function (err, rs) {
@@ -71,22 +71,30 @@ function upsertToMongo(isoDate, obj) {
 
 function freeCourts2(req, res) {
     var isoDate = req.query.date
+    var forceRefresh = req.query.forceRefresh || false
     var currentTimeMinusDelta = new Date().getTime() - 1000 * 60 * expirationInMin
-    getFromMongo(isoDate, function (err, data) {
-        if (err) {
-            res.status(500).send(err)
-        } else if (data.length > 0 && data[0].timestamp > currentTimeMinusDelta) {
-            console.log('fetching from db for date', isoDate)
-            res.send(data)
-        } else {
-            console.log('fetching from servers for date', isoDate)
-
-            fetch(isoDate).onValue(function (obj) {
-                upsertToMongo(isoDate, obj)
-                res.send(obj)
-            })
-        }
-    })
+    if (forceRefresh) {
+        console.log('fetching from servers for date', isoDate)
+        fetch(isoDate).onValue(function (obj) {
+            upsertToMongo(isoDate, obj)
+            res.send(obj)
+        })
+    } else {
+        getFromMongo(isoDate, function (err, data) {
+            if (err) {
+                res.status(500).send(err)
+            } else if (data.length > 0 && data[0].timestamp > currentTimeMinusDelta) {
+                console.log('fetching from db for date', isoDate)
+                res.send(data)
+            } else {
+                console.log('fetching from servers for date', isoDate)
+                fetch(isoDate).onValue(function (obj) {
+                    upsertToMongo(isoDate, obj)
+                    res.send(obj)
+                })
+            }
+        })
+    }
 }
 
 function fetch(isoDate) {
