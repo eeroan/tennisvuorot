@@ -98,7 +98,10 @@ function fetch(isoDate) {
         webTimmi.getAll].map(function (fn) { return fn(isoDate) }))
         .map(function (allData) {
             return {
-                freeCourts: _.flatten(allData),
+                freeCourts: _.flatten(allData).map(function (reservation) {
+                    reservation.isBubble = /kupla/i.test(reservation.field)
+                    return reservation
+                }),
                 timestamp:  new Date().getTime()
             }
         })
