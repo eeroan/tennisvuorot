@@ -34,7 +34,7 @@ function freeCourts(req, res) {
                 res.status(500).send(err)
             } else if (data.length > 0 && data[0].timestamp > currentTimeMinusDelta) {
                 console.log('fetching from db for date', isoDate)
-                res.send(data)
+                res.send(data[0])
             } else {
                 console.log('fetching from servers for date', isoDate)
                 fetch(isoDate).onValue(function (obj) {
