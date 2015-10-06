@@ -27,7 +27,8 @@ button.tali {  background-color: #d454bf; }
 .kulosaari .kulosaari,
 .merihaka .merihaka,
 .taivallahti .taivallahti,
-.tali .tali { display: none;}
+.tali .tali,
+.bubble .bubble { display: none;}
 
 .bubble {border-radius: 20px}
 header { position: fixed; top:0; background: #31b0d5; color: #fff; width: 100%; text-transform: uppercase; z-index: 1;}
