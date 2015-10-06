@@ -12,27 +12,36 @@ var MongoClient = require('mongodb').MongoClient
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
 route.use('/front.min.js', browserify(__dirname + '/../public/front.js'))
 route.use(express.static(__dirname + '/../public'))
-var cache = {}
 var expirationInMin = 120
 route.get('/courts', freeCourts)
-route.get('/courts2', freeCourts2)
 route.get('/locations', locations)
 
 module.exports = route
 
 function freeCourts(req, res) {
     var isoDate = req.query.date
+    var forceRefresh = req.query.forceRefresh || false
     var currentTimeMinusDelta = new Date().getTime() - 1000 * 60 * expirationInMin
-    var cachedValue = cache[isoDate]
-    if (cachedValue && cachedValue.timestamp > currentTimeMinusDelta) {
-        console.log('fetching from cache for date', isoDate)
-        res.send(cachedValue)
-    } else {
+    if (forceRefresh) {
         console.log('fetching from servers for date', isoDate)
-
         fetch(isoDate).onValue(function (obj) {
-            cache[isoDate] = obj
+            upsertToMongo(isoDate, obj)
             res.send(obj)
+        })
+    } else {
+        getFromMongo(isoDate, function (err, data) {
+            if (err) {
+                res.status(500).send(err)
+            } else if (data.length > 0 && data[0].timestamp > currentTimeMinusDelta) {
+                console.log('fetching from db for date', isoDate)
+                res.send(data)
+            } else {
+                console.log('fetching from servers for date', isoDate)
+                fetch(isoDate).onValue(function (obj) {
+                    upsertToMongo(isoDate, obj)
+                    res.send(obj)
+                })
+            }
         })
     }
 }
@@ -67,34 +76,6 @@ function upsertToMongo(isoDate, obj) {
             db.close()
         })
     })
-}
-
-function freeCourts2(req, res) {
-    var isoDate = req.query.date
-    var forceRefresh = req.query.forceRefresh || false
-    var currentTimeMinusDelta = new Date().getTime() - 1000 * 60 * expirationInMin
-    if (forceRefresh) {
-        console.log('fetching from servers for date', isoDate)
-        fetch(isoDate).onValue(function (obj) {
-            upsertToMongo(isoDate, obj)
-            res.send(obj)
-        })
-    } else {
-        getFromMongo(isoDate, function (err, data) {
-            if (err) {
-                res.status(500).send(err)
-            } else if (data.length > 0 && data[0].timestamp > currentTimeMinusDelta) {
-                console.log('fetching from db for date', isoDate)
-                res.send(data)
-            } else {
-                console.log('fetching from servers for date', isoDate)
-                fetch(isoDate).onValue(function (obj) {
-                    upsertToMongo(isoDate, obj)
-                    res.send(obj)
-                })
-            }
-        })
-    }
 }
 
 function fetch(isoDate) {
