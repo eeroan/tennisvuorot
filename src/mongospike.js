@@ -31,7 +31,7 @@ MongoClient.connect(mongoUri, function (err, db) {
         var date = new Date(args[1] || '2015-09-30')
         collection.updateOne({date: date}, {
             date:   date,
-            courts: {court: args[2] || 'bar5'}
+            courts: {court: args[2] || 'bar6'}
         }, {
             upsert: true
         }, function (err, rs) {
