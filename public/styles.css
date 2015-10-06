@@ -3,6 +3,8 @@ body { font: 14px "Helvetica Neue",Helvetica,Arial,sans-serif; line-height: 1.4;
 .time { top: 13px;position: relative;margin-right: 5px; }
 .fieldLabel { display: none }
 .place { text-transform: capitalize; }
+.address {  }
+.tel {  }
 #map_wrapper {
     position: absolute;
     top:0;
@@ -50,4 +52,7 @@ table th {text-align: left;}
 a,
 a:visited {color: #258DAB;}
 tbody tr:nth-child(odd) { background: #eee;}
-th, td {padding:7px 20px;}
+th,
+td { padding: 7px 10px 7px 0; }
+tr th:first-child,
+tr td:first-child { padding-left: 20px;}

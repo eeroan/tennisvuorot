@@ -79,8 +79,8 @@ function renderLocations(locations) {
         var title = obj.title
         var tel = obj.tel
         return '<tr><td class="place">' + (url ? '<a target="_blank" href="' + url + '">' + title + '</a>' : title) + '</td>' +
-            '<td><a target="_blank" href="http://maps.google.com/?q=' + address + '">' + address + '</a></td>' +
-            '<td><a href="tel:' + tel + '">' + tel + '</a></td></tr>'
+            '<td class="address"><a target="_blank" href="http://maps.google.com/?q=' + address + '">' + address + '</a></td>' +
+            '<td class="tel"><a href="tel:' + tel + '">' + tel + '</a></td></tr>'
     }).join(''))
 }
 
