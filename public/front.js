@@ -88,8 +88,8 @@ function toDateSection(dateObject, timeStamp) {
     var isoDate = dateObject.key
     var times = dateObject.val
     return '<h4>' + DateFormat.format(DateTime.fromIsoDate(isoDate), DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + '</h4>' +
-        '<div class="timestamp">' + timeStamp + '</div>'+
-    groupBySortedAsList(times, 'time').map(toTimeRow).join('')
+        '<div class="timestamp">' + timeStamp + '</div>' +
+        groupBySortedAsList(times, 'time').map(toTimeRow).join('')
 }
 
 function toTimeRow(timeObject) {
@@ -109,7 +109,7 @@ function toLocationButtonGroup(locationFields) {
 }
 
 function toButtonMarkup(field) {
-    return '<button type="button" class="fieldLabel btn ' + field.location + ' btn-xs">' + field.field + '</button>'
+    return '<button type="button" class="fieldLabel btn ' + field.location + ' ' + (field.isBubble ? 'bubble' : '') + ' btn-xs">' + field.field + '</button>'
 }
 
 function groupBySortedAsList(list, key) {

@@ -29,6 +29,7 @@ button.tali {  background-color: #d454bf; }
 .taivallahti .taivallahti,
 .tali .tali { display: none;}
 
+.bubble {border-radius: 20px}
 header { position: fixed; top:0; background: #31b0d5; color: #fff; width: 100%; text-transform: uppercase; z-index: 1;}
 nav ul {display:flex; flex-direction: row; justify-content: space-between; align-items: stretch; padding:0; margin: 0 20px;}
 nav li {display: inline-block; padding: 10px 0; cursor: pointer;}
