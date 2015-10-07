@@ -58,10 +58,7 @@ function listAvailabilityForDate(requestedDateTime) {
     return $.getJSON('/courts?date=' + requestedDate, function (allDataWithDate) {
         var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
         var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
-        var data = allDataWithDate.freeCourts.filter(function (reservation) {
-            var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
-            return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
-        })
+        var data = allDataWithDate.freeCourts
         $('#schedule').removeClass('loading')
             //.append($timeStamp)
             .append(groupBySortedAsList(data, 'date').filter(function (x) {
