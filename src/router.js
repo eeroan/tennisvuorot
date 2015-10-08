@@ -13,7 +13,6 @@ var MongoClient = require('mongodb').MongoClient
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
 route.use('/front.min.js', browserify(__dirname + '/../public/front.js'))
 route.use(express.static(__dirname + '/../public'))
-var expirationInMin = 120
 route.get('/courts', freeCourts)
 route.get('/locations', locations)
 
@@ -22,7 +21,6 @@ module.exports = route
 function freeCourts(req, res) {
     var isoDate = req.query.date
     var forceRefresh = req.query.forceRefresh || false
-    var currentTimeMinusDelta = new Date().getTime() - 1000 * 60 * expirationInMin
     if (forceRefresh) {
         console.log('fetching from servers for date', isoDate)
         fetch(isoDate).onValue(function (obj) {
@@ -33,7 +31,7 @@ function freeCourts(req, res) {
         getFromMongo(isoDate, function (err, data) {
             if (err) {
                 res.status(500).send(err)
-            } else if (data.length > 0 && data[0].timestamp > currentTimeMinusDelta) {
+            } else if (data.length > 0) {
                 console.log('fetching from db for date', isoDate)
                 res.send(data[0])
             } else {
