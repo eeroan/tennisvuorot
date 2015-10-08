@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha",
     "start": "forever ./server.js",
-    "dev": "supervisor ./server.js"
+    "dev": "supervisor ./server.js",
+    "mongo": "mongod --fork --syslog"
   },
   "repository": {
     "type": "git",
