@@ -32,10 +32,10 @@
     "lodash": "^3.10.1",
     "mongodb": "^2.0.43",
     "request": "^2.61.0",
-    "supervisor": "^0.7.1"
   },
   "devDependencies": {
     "chai": "^3.2.0",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "supervisor": "^0.7.1"
   }
 }
