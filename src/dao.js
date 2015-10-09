@@ -11,7 +11,8 @@ var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb:/
 
 module.exports = {
     freeCourts:freeCourts,
-    locations:locations
+    locations:locations,
+    refresh:refresh
 }
 
 function freeCourts(req, res) {
@@ -19,11 +20,7 @@ function freeCourts(req, res) {
     var forceRefresh = req.query.forceRefresh || false
 
     if (forceRefresh) {
-        console.log('fetching from servers for date', isoDate)
-        fetch(isoDate).onValue(function (obj) {
-            upsertToMongo(isoDate, obj)
-            res.send(obj)
-        })
+        refresh(isoDate, function (obj) { res.send(obj) })
     } else {
         getFromMongo(isoDate, function (err, data) {
             if (err) {
@@ -32,14 +29,19 @@ function freeCourts(req, res) {
                 console.log('fetching from db for date', isoDate)
                 res.send(data[0])
             } else {
-                console.log('fetching from servers for date', isoDate)
-                fetch(isoDate).onValue(function (obj) {
-                    upsertToMongo(isoDate, obj)
-                    res.send(obj)
-                })
+                refresh(isoDate, function (obj) { res.send(obj) })
             }
         })
     }
+}
+
+function refresh(isoDate, callback) {
+    console.log('fetching from servers for date', isoDate)
+    fetch(isoDate).onValue(function (obj) {
+        upsertToMongo(isoDate, obj)
+        callback(obj)
+    })
+
 }
 
 function getFromMongo(isoDate, callback) {
