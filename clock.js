@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 var DateTime = require('dateutils').DateTime
-var cache = require('./cache')
+var dao = require('./src/dao')
 setInterval(function () {
-    cache.update(DateTime.today())
-    cache.update(DateTime.today().plusDays(1))
-}, 1000*60*5)
+    dao.refresh(DateTime.today().toISODateString(), function (done) {
+        dao.refresh(DateTime.today().plusDays(1).toISODateString())
+    })
+}, 1000*60*60)
