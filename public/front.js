@@ -11,17 +11,24 @@ var _throttleTimer = null
 var _throttleDelay = 100
 var $window = $(window)
 var $document = $(document)
-$document.ready(function () {
-    $window
-        .off('scroll', ScrollHandler)
-        .on('scroll', ScrollHandler)
-})
 
-var nearAlready = false
+var didScroll = false
+var alreadyLoadingMoreResults = false
+$(window).scroll(function () {
+    didScroll = true;
+});
+
+setInterval(function () {
+    if (didScroll) {
+        didScroll = false;
+        if(!alreadyLoadingMoreResults && $window.scrollTop() + $window.height() > $document.height() - 400) {
+            loadMoreResults()
+        }
+    }
+}, 250)
+
 initNavigation()
-listAvailabilityForDate(activeDate).done(function () {
-    if ($window.height() === $document.height()) loadMoreResults()
-})
+listAvailabilityForDate(activeDate)
 
 initJumpToDate()
 
@@ -32,30 +39,19 @@ $('#schedule').on('click', '.locationLabel', function (e) {
 })
 renderLocations(locations)
 
-function ScrollHandler(e) {
-    clearTimeout(_throttleTimer);
-    _throttleTimer = setTimeout(function () {
-        if ($window.scrollTop() + $window.height() > $document.height() - 400) {
-            if (!nearAlready) {
-                loadMoreResults()
-            }
-            nearAlready = true
-        } else {
-            nearAlready = false
-        }
-
-    }, _throttleDelay)
-}
-
 function loadMoreResults() {
-    activeDate = activeDate.plusDays(1)
-    listAvailabilityForDate(activeDate)
+    if(!alreadyLoadingMoreResults) {
+        alreadyLoadingMoreResults = true
+        activeDate = activeDate.plusDays(1)
+        listAvailabilityForDate(activeDate)
+    }
 }
 
 function listAvailabilityForDate(requestedDateTime) {
     var requestedDate = requestedDateTime.toISODateString()
     $('#schedule').addClass('loading')
     return $.getJSON('/courts?date=' + requestedDate, function (allDataWithDate) {
+        alreadyLoadingMoreResults = false
         var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
         var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
         var data = allDataWithDate.freeCourts
@@ -66,6 +62,7 @@ function listAvailabilityForDate(requestedDateTime) {
             }).map(function (dateObject) {
                 return toDateSection(dateObject, timeStamp)
             }).join(''))
+        if ($window.height() === $document.height()) loadMoreResults()
     })
 }
 
@@ -155,6 +152,7 @@ function initJumpToDate() {
     }).join('\n')).change(function () {
         activeDate = DateTime.fromIsoDate($(this).val())
         $('#schedule').empty()
+        alreadyLoadingMoreResults = true
         listAvailabilityForDate(activeDate)
     })
 }
