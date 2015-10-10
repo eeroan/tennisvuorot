@@ -10,7 +10,8 @@ var DateLocale = require('dateutils').DateLocale
 module.exports = {
     getAll:           getAll,
     getAllInSequence: getAllInSequence,
-    parseMarkup:      parseMarkup
+    parseMarkup:      parseMarkup,
+    getFieldsForGroup:getFieldsForGroup
 }
 
 var cmbProfile = {
@@ -35,7 +36,7 @@ function getAll(isoDate) {
         2186,
         2189
     ].map(function (cmbProfile) {
-            return getFieldsForGroup(login(), cmbProfile, isoDate).map('.obj')
+            return getFieldsForGroup(cmbProfile, isoDate)
         })).map(function (list) { return _.flatten(list) })
 }
 
@@ -59,18 +60,19 @@ function emptyList() {
     return []
 }
 
-function getFieldsForGroup(loggedIn, fieldGroup, isoDate) {
-    return loggedIn.flatMap(getWeek).flatMap(function (obj) {
+function getFieldsForGroup(fieldGroup, isoDate) {
+    return login().flatMap(getWeek).flatMap(function (obj) {
         return weekView(obj.cookie, obj.token, fieldGroup, isoDate)
     }).flatMapError(function () {
         return []
-    })
+    }).map('.obj')
 }
 
 function login() {
     return Bacon.fromNodeCallback(request.get, {
-        url: 'http://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST'
+        url: 'https://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST'
     }).flatMap(function (res) {
+        console.log(res.body)
         try {
             return res.headers['set-cookie'][0].split(';')[0]
         } catch (e) {
@@ -81,7 +83,7 @@ function login() {
 
 function getWeek(cookie) {
     return Bacon.fromNodeCallback(request.get, {
-        url:     'http://webtimmi.talintenniskeskus.fi/getWeekView.do',
+        url:     'https://webtimmi.talintenniskeskus.fi/getWeekView.do',
         headers: {
             Cookie: cookie
         }
@@ -116,7 +118,7 @@ function weekView(cookie, token, fieldGroup, isoDate) {
     }
     form[dayName] = 'on'
     return Bacon.fromNodeCallback(request.post, {
-        url:     'http://webtimmi.talintenniskeskus.fi/weekViewMenu.do',
+        url:     'https://webtimmi.talintenniskeskus.fi/weekViewMenu.do',
         headers: {
             Cookie: cookie
         },
