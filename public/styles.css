@@ -18,6 +18,7 @@ body { font: 14px "Helvetica Neue",Helvetica,Arial,sans-serif; line-height: 1.4;
 h3,
 h4 { text-transform: capitalize; }
 button { border:none; color: #fff; padding: 5px; border-radius: 2px;box-shadow:1px 1px 1px -1px #666 }
+.toggles button {box-shadow: 0 1px 1px 0 #666 inset;}
 button.meilahti { background-color: #449d44; color: #fff; }
 button.herttoniemi { background-color: #337ab7; color: #fff }
 button.kulosaari {  background-color: #31b0d5;  }
