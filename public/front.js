@@ -8,17 +8,12 @@ var mapView = require('./mapView')
 var locations = require('./locations')
 attachFastClick(document.body)
 var activeDate = DateTime.today()
-
-var _throttleTimer = null
-var _throttleDelay = 100
 var $window = $(window)
 var $document = $(document)
 
 var didScroll = false
 var alreadyLoadingMoreResults = false
-$(window).scroll(function () {
-    didScroll = true;
-});
+$(window).scroll(function () { didScroll = true });
 
 setInterval(function () {
     if (didScroll) {
@@ -31,13 +26,11 @@ setInterval(function () {
 
 initNavigation()
 listAvailabilityForDate(activeDate)
-
 initJumpToDate()
 
 $('#schedule').on('click', '.locationLabel', function (e) {
     var $locationLabel = $(e.currentTarget)
-    $locationLabel.toggle()
-    $locationLabel.parent().find('.fieldLabel').toggle()
+    $locationLabel.parent().toggleClass('showDetails')
 })
 renderLocations(locations)
 
