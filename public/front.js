@@ -1,3 +1,5 @@
+var $ = require('jquery')
+var _ = require('lodash')
 var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
