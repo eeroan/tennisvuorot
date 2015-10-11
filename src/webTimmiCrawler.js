@@ -72,7 +72,6 @@ function login() {
     return Bacon.fromNodeCallback(request.get, {
         url: 'https://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST'
     }).flatMap(function (res) {
-        console.log(res.body)
         try {
             return res.headers['set-cookie'][0].split(';')[0]
         } catch (e) {

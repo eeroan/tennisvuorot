@@ -70,7 +70,6 @@ function upsertToMongo(isoDate, obj) {
         }, {
             upsert: true
         }, function (err, rs) {
-            console.log(err, rs && rs.result)
             db.close()
         })
     })
