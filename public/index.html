@@ -24,21 +24,23 @@
     </nav>
 </header>
 <div class="container reservations detail">
-    <p class="toggles">
-        <button type="button" class="btn meilahti" id="meilahti">Meilahti</button>
-        <button type="button" class="btn herttoniemi" id="herttoniemi">Herttoniemi</button>
-        <button type="button" class="btn kulosaari" id="kulosaari">Kulosaari</button>
-        <button type="button" class="btn merihaka" id="merihaka">Merihaka</button>
-        <button type="button" class="btn taivallahti" id="taivallahti">Taivallahti</button>
-        <button type="button" class="btn tali" id="tali">Tali</button>
-        <!--<button type="button" class="btn btn-infoactive">Herttoniemi</button>
-        <button type="button" class="btn btn-warningactive">Herttoniemi</button>
-        <button type="button" class="btn btn-dangeractive">Herttoniemi</button>-->
-    </p>
+    <div class="filters">
+        <p class="toggles">
+            <button type="button" class="btn meilahti" id="meilahti">Meilahti</button>
+            <button type="button" class="btn herttoniemi" id="herttoniemi">Herttoniemi</button>
+            <button type="button" class="btn kulosaari" id="kulosaari">Kulosaari</button>
+            <button type="button" class="btn merihaka" id="merihaka">Merihaka</button>
+            <button type="button" class="btn taivallahti" id="taivallahti">Taivallahti</button>
+            <button type="button" class="btn tali" id="tali">Tali</button>
+            <!--<button type="button" class="btn btn-infoactive">Herttoniemi</button>
+            <button type="button" class="btn btn-warningactive">Herttoniemi</button>
+            <button type="button" class="btn btn-dangeractive">Herttoniemi</button>-->
+        </p>
 
-    <div>
-       <span>Siirry päivään  </span>
-        <select class="jumpToDate"></select>
+        <div>
+            <span class="jumpToDateTitle">Siirry päivään  </span>
+            <select class="jumpToDate"></select>
+        </div>
     </div>
     <section class="" id="schedule">
     </section>
@@ -60,13 +62,20 @@
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="front.min.js"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-67013989-1', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-67013989-1', 'auto');
+    ga('send', 'pageview');
 </script>
 </body>
 </html>
