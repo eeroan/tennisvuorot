@@ -10,9 +10,9 @@ var MongoClient = require('mongodb').MongoClient
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
 
 module.exports = {
-    freeCourts:freeCourts,
-    locations:locations,
-    refresh:refresh
+    freeCourts: freeCourts,
+    locations:  locations,
+    refresh:    refresh
 }
 
 function freeCourts(req, res) {
@@ -85,11 +85,14 @@ function fetch(isoDate) {
         .map(function (allData) {
             return {
                 freeCourts: _.flatten(allData).filter(function (reservation) {
-                    if(!reservation || !reservation.field) return false
+                    if (!reservation || !reservation.field) return false
                     var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
                     return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
                 }).map(function (reservation) {
-                    reservation.isBubble = /kupla/i.test(reservation.field)
+                    var isBubble = /kupla/i.test(reservation.field) || /kupla/i.test(reservation.res)
+                    var isOutdoor = /ulko/i.test(reservation.field) || /ulko/i.test(reservation.res)
+                    reservation.type = isBubble ? 'bubble' : (isOutdoor ? 'outdoor' : 'indoor')
+                    reservation.isBubble = isBubble
                     return reservation
                 }),
                 timestamp:  new Date().getTime()
