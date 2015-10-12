@@ -98,7 +98,7 @@ function toLocationButtonGroup(locationFields) {
 }
 
 function toButtonMarkup(field) {
-    return '<button type="button" class="fieldLabel btn ' + field.location + ' ' + (field.isBubble ? 'bubble' : '') + ' btn-xs">' + field.field + '</button>'
+    return '<button type="button" class="fieldLabel btn ' + field.location + ' ' + field.type  + ' btn-xs">' + field.field + '</button>'
 }
 
 function groupBySortedAsList(list, key) {

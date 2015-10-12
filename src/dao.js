@@ -75,6 +75,11 @@ function upsertToMongo(isoDate, obj) {
     })
 }
 
+function getType(reservation) {
+    var isBubble = /kupla/i.test(reservation.field) || /kupla/i.test(reservation.res)
+    var isOutdoor = /ulko/i.test(reservation.field) || /ulko/i.test(reservation.res)
+    return isBubble ? 'bubble' : (isOutdoor ? 'outdoor' : 'indoor')
+}
 function fetch(isoDate) {
     return Bacon.combineAsArray([
         slSystems.getMeilahti,
@@ -89,10 +94,7 @@ function fetch(isoDate) {
                     var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
                     return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
                 }).map(function (reservation) {
-                    var isBubble = /kupla/i.test(reservation.field) || /kupla/i.test(reservation.res)
-                    var isOutdoor = /ulko/i.test(reservation.field) || /ulko/i.test(reservation.res)
-                    reservation.type = isBubble ? 'bubble' : (isOutdoor ? 'outdoor' : 'indoor')
-                    reservation.isBubble = isBubble
+                    reservation.type = getType(reservation)
                     return reservation
                 }),
                 timestamp:  new Date().getTime()
