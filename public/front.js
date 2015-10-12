@@ -4,8 +4,8 @@ var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
 var attachFastClick = require('fastclick')
-var mapView = require('./mapView')
 var locations = require('./locations')
+var navigation = require('./navigation')
 attachFastClick(document.body)
 var activeDate = DateTime.today()
 var $window = $(window)
@@ -24,7 +24,7 @@ setInterval(function () {
     }
 }, 250)
 
-initNavigation()
+navigation.init()
 listAvailabilityForDate(activeDate)
 initJumpToDate()
 
@@ -107,36 +107,6 @@ function groupBySortedAsList(list, key) {
 
 function objectToArray(val, key) {
     return {key: key, val: val}
-}
-
-function initNavigation() {
-    $('.toggles button').click(function (e) {
-        e.preventDefault()
-        var $button = $(this)
-        $button.toggleClass('inactive')
-        var id = $button.prop('id')
-        $('#schedule').toggleClass(id)
-    })
-    $('.toggleReservations').click(function () {
-        $('nav li').removeClass('selected')
-        $(this).addClass('selected')
-        $('.detail').hide()
-        $('.reservations').show()
-    })
-
-    $('.toggleInformation').click(function () {
-        $('nav li').removeClass('selected')
-        $(this).addClass('selected')
-        $('.detail').hide()
-        $('.information').show()
-    })
-    $('.toggleMapInformation').click(function () {
-        $('nav li').removeClass('selected')
-        $(this).addClass('selected')
-        $('.detail').hide()
-        $('#map_wrapper').show()
-        _.once(mapView.renderMap)()
-    })
 }
 
 function initJumpToDate() {
