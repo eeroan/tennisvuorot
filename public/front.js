@@ -4,7 +4,7 @@ var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
 var attachFastClick = require('fastclick')
-var locations = require('./locations')
+var locationTable = require('./locationTable')
 var navigation = require('./navigation')
 attachFastClick(document.body)
 var activeDate = DateTime.today()
@@ -25,6 +25,7 @@ setInterval(function () {
 }, 250)
 
 navigation.init()
+locationTable.init()
 listAvailabilityForDate(activeDate)
 initJumpToDate()
 
@@ -32,7 +33,6 @@ $('#schedule').on('click', '.locationLabel', function (e) {
     var $locationLabel = $(e.currentTarget)
     $locationLabel.parent().toggleClass('showDetails')
 })
-renderLocations(locations)
 
 function loadMoreResults() {
     if(!alreadyLoadingMoreResults) {
@@ -59,18 +59,6 @@ function listAvailabilityForDate(requestedDateTime) {
             }).join(''))
         if ($window.height() === $document.height()) loadMoreResults()
     })
-}
-
-function renderLocations(locations) {
-    $('.information tbody').html(locations.map(function (obj) {
-        var address = obj.address
-        var url = obj.url
-        var title = obj.title
-        var tel = obj.tel
-        return '<tr><td class="place">' + (url ? '<a target="_blank" href="' + url + '">' + title + '</a>' : title) + '</td>' +
-            '<td class="address"><a target="_blank" href="http://maps.google.com/?q=' + address + '">' + address + '</a></td>' +
-            '<td class="tel"><a href="tel:' + tel + '">' + tel + '</a></td></tr>'
-    }).join(''))
 }
 
 function toDateSection(dateObject, timeStamp) {
