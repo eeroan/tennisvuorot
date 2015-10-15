@@ -29,9 +29,9 @@ locationTable.init()
 listAvailabilityForDate(activeDate)
 initJumpToDate()
 
-$('#schedule').on('click', '.locationLabel', function (e) {
-    var $locationLabel = $(e.currentTarget)
-    $locationLabel.parent().toggleClass('showDetails')
+$('#schedule').on('click', '.locationBoxes', function (e) {
+    var $locationBoxes = $(e.currentTarget)
+    $locationBoxes.toggleClass('showDetails')
 })
 
 function loadMoreResults() {
@@ -79,9 +79,7 @@ function toTimeRow(timeObject) {
 function toLocationButtonGroup(locationFields) {
     var location = locationFields.key
     var fields = locationFields.val
-    return '<span class="locationBoxes"><button type="button" class="locationLabel btn ' +
-        location +
-        ' btn-xs">' + location + ' (' + fields.length + ')</button>' +
+    return '<span class="locationBoxes">' +
         fields.map(toButtonMarkup).join('') + '</span>'
 }
 
