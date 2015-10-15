@@ -17,7 +17,7 @@ module.exports = {
 
 function freeCourts(req, res) {
     var isoDate = req.query.date
-    var forceRefresh = req.query.forceRefresh || false
+    var forceRefresh = req.query.refresh || false
 
     if (forceRefresh) {
         refresh(isoDate, function (obj) { res.send(obj) })
@@ -88,18 +88,37 @@ function fetch(isoDate) {
         slSystems.getMerihaka,
         webTimmi.getAll].map(function (fn) { return fn(isoDate) }))
         .map(function (allData) {
+            var freeCourts = _.flatten(allData).filter(function (reservation) {
+                if (!reservation || !reservation.field) return false
+                var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
+                return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
+            }).map(function (reservation) {
+                reservation.type = getType(reservation)
+                return reservation
+            })
             return {
-                freeCourts: _.flatten(allData).filter(function (reservation) {
-                    if (!reservation || !reservation.field) return false
-                    var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
-                    return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
-                }).map(function (reservation) {
-                    reservation.type = getType(reservation)
-                    return reservation
-                }),
+                freeCourts: withDoubleLessonInfo(freeCourts),
                 timestamp:  new Date().getTime()
             }
         })
+}
+
+function withDoubleLessonInfo(freeCourts) {
+    var timeAndPlace = {}
+    freeCourts.forEach(function (court) {
+        timeAndPlace[court.date + 'T' + court.time + court.location + court.field] = true
+    })
+    return freeCourts.map(function (court) {
+        var nextTime = nextHour(court.time)
+        court.doubleLesson = (court.date + 'T' + nextTime + court.location + court.field) in timeAndPlace
+        return court
+    })
+}
+
+function nextHour(time) {
+    var hm = time.split(':')
+    var next = Number(hm[0])+1
+    return (next>9 ? '' : '0') + next + ':' + hm[1]
 }
 
 function locations(req, res) {
