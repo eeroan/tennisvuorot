@@ -84,7 +84,7 @@ function toLocationButtonGroup(locationFields) {
 }
 
 function toButtonMarkup(field) {
-    return '<button type="button" class="fieldLabel btn ' + field.location + ' ' + field.type  + (field.doubleLesson ? ' double' : '') +' btn-xs">' + field.field + '</button>'
+    return '<button type="button" class="fieldLabel btn ' + field.location + ' ' + field.type  + (field.doubleLesson ? ' double' : ' single') +' btn-xs">' + field.field + '</button>'
 }
 
 function groupBySortedAsList(list, key) {
