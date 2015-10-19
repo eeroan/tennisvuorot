@@ -15,11 +15,11 @@ body { font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1
 #map_canvas { width: 100%; height: 100%; }
 h3,
 h4 { text-transform: capitalize; }
-button { display: inline-block; margin-bottom: 10px; margin-left: 5px; border: none; color: #fff; padding: 5px; border-radius: 2px; box-shadow: 1px 1px 1px -1px #666 }
+button { background-color: #999; display: inline-block; margin-bottom: 10px; margin-left: 5px; border: none; color: #fff; padding: 5px; border-radius: 2px; box-shadow: 1px 1px 1px -1px #666 }
 .toggles button { box-shadow: 0 1px 1px 0 #666 inset; }
-button.bubble { background-color: #999; border-radius: 20px }
-button.outdoor { background-color: #999; text-decoration: underline; }
-button.double { background-color: #999; font-weight: bold; }
+button.bubble { border-radius: 20px }
+button.outdoor { text-decoration: underline; }
+button.double { font-weight: bold; }
 button.meilahti { position: relative; background-color: #449d44; color: #fff; z-index: -4; }
 button.herttoniemi { background-color: #337ab7; color: #fff }
 button.kulosaari { background-color: #31b0d5; }
