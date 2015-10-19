@@ -1,9 +1,7 @@
 #!/usr/bin/env node
-var request = require('request')
 var slSystems = require('./slSystemsCrawler')
 var Bacon = require('baconjs').Bacon
 var _ = require('lodash')
-var courts = require('../public/courts')
 var webTimmi = require('./webTimmiCrawler')
 var DateTime = require('dateutils').DateTime
 var MongoClient = require('mongodb').MongoClient
@@ -11,7 +9,6 @@ var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb:/
 
 module.exports = {
     freeCourts: freeCourts,
-    locations:  locations,
     refresh:    refresh
 }
 
@@ -119,18 +116,4 @@ function nextHour(time) {
     var hm = time.split(':')
     var next = Number(hm[0])+1
     return (next>9 ? '' : '0') + next + ':' + hm[1]
-}
-
-function locations(req, res) {
-    Bacon.combineAsArray(_.map(courts, function (val, key) {
-        return getLocation(val.address).map(function (location) {
-            return _.extend({title: key}, location, val)
-        })
-    })).onValue(function (val) { res.send(val) })
-}
-
-function getLocation(address) {
-    return Bacon.fromNodeCallback(request.get, {
-        url: 'http://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&sensor=false'
-    }).map('.body').map(JSON.parse).map('.results.0.geometry.location')
 }
