@@ -7,7 +7,7 @@ module.exports = {
 function renderMap() {
     var bounds = new google.maps.LatLngBounds()
     var map = new google.maps.Map(document.getElementById("map_canvas"), {mapTypeId: 'roadmap'})
-    map.setTilt(45)
+   // map.setTilt(45)
     var infoWindow = new google.maps.InfoWindow()
     locations.filter(function (loc) {
         return loc.lat !== null
