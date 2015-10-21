@@ -7,7 +7,8 @@
     "test": "mocha",
     "start": "forever ./server.js",
     "dev": "supervisor ./server.js",
-    "mongo": "mongod --fork --syslog"
+    "mongo": "mongod --fork --syslog",
+    "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' public/styles.css"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,9 @@
     "request-debug": "^0.2.0"
   },
   "devDependencies": {
+    "autoprefix": "^0.1.4",
+    "autoprefixer": "^6.0.3",
+    "autoprefixer-cli": "^1.0.0",
     "chai": "^3.2.0",
     "mocha": "^2.2.5",
     "supervisor": "^0.7.1"
