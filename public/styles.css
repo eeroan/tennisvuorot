@@ -17,7 +17,7 @@ h3,
 h4 { text-transform: capitalize; }
 button { background-color: #999; display: inline-block; margin-bottom: 10px; margin-left: 5px; border: none; color: #fff; padding: 5px; border-radius: 2px; box-shadow: 1px 1px 1px -1px #666 }
 .toggles button { box-shadow: 0 1px 1px 0 #666 inset; }
-button.bubble { border-radius: 20px }
+button.bubble { border-radius: 20px 20px 0 0;}
 button.outdoor { text-decoration: underline; }
 button.double { font-weight: bold; }
 button.meilahti { position: relative; background-color: #449d44; color: #fff; z-index: -4; }
