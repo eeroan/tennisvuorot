@@ -15,17 +15,17 @@ body { font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1
 #map_canvas { width: 100%; height: 100%; }
 h3,
 h4 { text-transform: capitalize; }
-button { background-color: #999; display: inline-block; margin-bottom: 10px; margin-left: 5px; border: none; color: #fff; padding: 5px; border-radius: 2px; box-shadow: 1px 1px 1px -1px #666 }
-.toggles button { box-shadow: 0 1px 1px 0 #666 inset; }
+button { outline: none;background-color: #fff; display: inline-block; margin-bottom: 10px; margin-left: 5px; color: #333; padding: 5px; border: 3px solid #333; border-bottom-style: none; border-radius: 2px; }
+.toggles button { border: 3px solid#666;color: black;}
 button.bubble { border-radius: 20px 20px 0 0;}
-button.outdoor { text-decoration: underline; }
-button.double { font-weight: bold; }
-button.meilahti { position: relative; background-color: #449d44; color: #fff; z-index: -4; }
-button.herttoniemi { background-color: #337ab7; color: #fff }
-button.kulosaari { background-color: #31b0d5; }
-button.merihaka { background-color: #f0ad4e; }
-button.taivallahti { background-color: #d9534f; }
-button.tali { background-color: #d454bf; }
+button.outdoor { border: none;border-bottom: 3px solid #666;}
+button.double { }
+button.meilahti { border-color: #449d44;/* color: #449d44; */ }
+button.herttoniemi { border-color: #337ab7;/* color: #337ab7; */ }
+button.kulosaari { border-color: #31b0d5; /* color: #31b0d5; */ }
+button.merihaka { border-color: #f0ad4e;/* color: #f0ad4e; */ }
+button.taivallahti { border-color: #d9534f;/* color: #d9534f; */ }
+button.tali { border-color: #d454bf;/* color: #d454bf; */ }
 .meilahti .meilahti,
 .herttoniemi .herttoniemi,
 .kulosaari .kulosaari,
@@ -44,10 +44,10 @@ nav li { display: inline-block; padding: 10px 0; cursor: pointer; }
 nav li.selected { cursor: default; }
 .selected { text-decoration: underline; }
 .container { padding: 0 10px; }
-.toggles { margin: 10px 0 0; /* margin-top: 50px; */ }
+.toggles { margin: 10px 0 0; }
 .detail { margin-top: 40px; }
 button:active { outline: none; }
-button.inactive { color: #258DAB; background: none; border-color: transparent; box-shadow: none; }
+button.inactive { background: none; border-color: #eee; box-shadow: none; }
 .loading:after { content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0; }
 .timestamp { font-size: 10px; position: relative; top: -20px; }
 .timeRow { display: flex; line-height: 0; flex-wrap: wrap; }
