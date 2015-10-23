@@ -18,7 +18,7 @@ $(window).scroll(function () { didScroll = true });
 setInterval(function () {
     if (didScroll) {
         didScroll = false;
-        if(!alreadyLoadingMoreResults && $window.scrollTop() + $window.height() > $document.height() - 400) {
+        if (!alreadyLoadingMoreResults && $window.scrollTop() + $window.height() > $document.height() - 400) {
             loadMoreResults()
         }
     }
@@ -35,7 +35,7 @@ $('#schedule').on('click', '.locationBoxes', function (e) {
 })
 
 function loadMoreResults() {
-    if(!alreadyLoadingMoreResults) {
+    if (!alreadyLoadingMoreResults) {
         alreadyLoadingMoreResults = true
         activeDate = activeDate.plusDays(1)
         listAvailabilityForDate(activeDate)
@@ -72,7 +72,8 @@ function toDateSection(dateObject, timeStamp) {
 function toTimeRow(timeObject) {
     var isoTime = timeObject.key
     var fields = timeObject.val
-    return '<div class="timeRow"><span class="timeWrapper"><span class="time">' + isoTime + '</span></span>' +
+    var hm = isoTime.split(':')
+    return '<div class="timeRow h' + (Number(hm[0])*10 + (Number(hm[1]) / 6)) + '"><span class="timeWrapper"><span class="time">' + isoTime + '</span></span>' +
         groupBySortedAsList(fields, 'location').map(toLocationButtonGroup).join('') + '</div>'
 }
 
@@ -84,7 +85,7 @@ function toLocationButtonGroup(locationFields) {
 }
 
 function toButtonMarkup(field) {
-    return '<button type="button" class="fieldLabel ' + field.location + ' ' + field.type  + (field.doubleLesson ? ' double' : ' single') +'">' + field.field + '</button>'
+    return '<button type="button" class="fieldLabel ' + field.location + ' ' + field.type + (field.doubleLesson ? ' double' : ' single') + '">' + field.field + '</button>'
 }
 
 function groupBySortedAsList(list, key) {
