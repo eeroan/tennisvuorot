@@ -45,6 +45,7 @@ function getFromMongo(isoDate, callback) {
     MongoClient.connect(mongoUri, function (err, db) {
         var collection = db.collection('tennishelsinki')
         var filter = {date: new Date(isoDate)}
+        //var filter = {date: {$gte : new Date(isoDate)}}
         collection.find(filter).toArray(function (err, docs) {
             var transformedDoc = docs.map(function (doc) {
                 doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
