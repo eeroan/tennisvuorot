@@ -10,7 +10,8 @@ var rates = require('./rates')
 
 module.exports = {
     freeCourts: freeCourts,
-    refresh:    refresh
+    refresh:    refresh,
+    fetch:      fetch
 }
 
 function freeCourts(req, res) {
