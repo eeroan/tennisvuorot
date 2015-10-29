@@ -2,6 +2,7 @@
 var Bacon = require('baconjs').Bacon
 var request = require('request')
 var util = require('util')
+var fs = require('fs')
 //Url for editing: https://docs.google.com/spreadsheets/d/1TwYmdHhGnB0RZh75bRdHaJy9erXTJpsVxCvCX0SX8f4/edit
 var url = 'https://docs.google.com/spreadsheets/d/1TwYmdHhGnB0RZh75bRdHaJy9erXTJpsVxCvCX0SX8f4/pub?output=csv&gid='
 var sheets = {
@@ -23,7 +24,8 @@ function fetchFor(name) {
         })
         return obj
     }).onValue(function (data) {
-        console.log(util.inspect(data, {colors: true, depth: null}))
+        console.log('Writing to ' + name + '.json')
+        fs.writeFileSync(__dirname + '/../src/' + name+'Prices.js','module.exports = ' + util.inspect(data, {colors: false, depth: null}))
     })
 }
 
