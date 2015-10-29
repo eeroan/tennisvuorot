@@ -8,7 +8,8 @@
     "start": "forever ./server.js",
     "dev": "supervisor ./server.js",
     "mongo": "mongod --fork --syslog",
-    "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' public/styles.css"
+    "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' public/styles.css",
+    "update-prices": "scripts/fetchPrices.js"
   },
   "repository": {
     "type": "git",
