@@ -6,6 +6,7 @@ var webTimmi = require('./webTimmiCrawler')
 var DateTime = require('dateutils').DateTime
 var MongoClient = require('mongodb').MongoClient
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
+var rates = require('./rates')
 
 module.exports = {
     freeCourts: freeCourts,
@@ -91,7 +92,9 @@ function fetch(isoDate) {
                 var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
                 return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
             }).map(function (reservation) {
+                var dateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
                 reservation.type = getType(reservation)
+                reservation.price = getPrice(dateTime, reservation.time, reservation.location)
                 return reservation
             })
             return {
@@ -99,6 +102,13 @@ function fetch(isoDate) {
                 timestamp:  new Date().getTime()
             }
         })
+}
+
+function getPrice(dateTime, time, location) {
+    var hm = time.split(':')
+    var timeKey = (Number(hm[0]) * 10 + (Number(hm[1]) / 6))
+    var weekDay = (dateTime.getDay() + 6) % 7
+    return _.get(rates, [location, timeKey, weekDay], 0)
 }
 
 function withDoubleLessonInfo(freeCourts) {
@@ -115,6 +125,6 @@ function withDoubleLessonInfo(freeCourts) {
 
 function nextHour(time) {
     var hm = time.split(':')
-    var next = Number(hm[0])+1
-    return (next>9 ? '' : '0') + next + ':' + hm[1]
+    var next = Number(hm[0]) + 1
+    return (next > 9 ? '' : '0') + next + ':' + hm[1]
 }
