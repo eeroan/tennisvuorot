@@ -2,6 +2,7 @@
 var Bacon = require('baconjs').Bacon
 var request = require('request')
 var util = require('util')
+//Url for editing: https://docs.google.com/spreadsheets/d/1TwYmdHhGnB0RZh75bRdHaJy9erXTJpsVxCvCX0SX8f4/edit
 var url = 'https://docs.google.com/spreadsheets/d/1TwYmdHhGnB0RZh75bRdHaJy9erXTJpsVxCvCX0SX8f4/pub?output=csv&gid='
 var sheets = {
     taivallahti: 1343553212,
