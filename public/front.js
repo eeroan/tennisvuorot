@@ -92,7 +92,13 @@ function toLocationButtonGroup(locationFields) {
 }
 
 function collapsedButtons(location, fields) {
-    return '<button type="button" class="locationLabel btn ' + location + ' btn-xs">' + location + ' (' + fields.length + ')</button>'
+    return groupBySortedAsList(fields, 'type').filter(function (fieldsForType) {
+        return fieldsForType.val.length > 0
+    }).map(function (fieldsForType) {
+        var type = fieldsForType.key
+        var field = fieldsForType.val[0]
+        return '<button type="button" class="locationLabel btn ' + location + ' ' + field.type + ' btn-xs">' + field.price + '€ (' + fields.length + ')</button>'
+    }).join(' ')
 }
 
 function toButtonMarkup(field) {
