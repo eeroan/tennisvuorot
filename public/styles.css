@@ -1,10 +1,11 @@
 body { font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.4; color: #333; margin: 0; }
 .time { top: 13px; position: relative; margin-right: 5px; }
-.fieldLabel { }
-.locationLabel { display: none; }
-.locationBoxes { white-space: nowrap; max-width: 30px; overflow: hidden; position: relative; }
-.locationBoxes:after {cursor: pointer; content: ''; display: block; height: 100%; width: 100%; left: 0; top: 0; position: absolute; background: linear-gradient(to right, rgba(255,255,255,0) 50%, #fff); }
-.showDetails { max-width: initial; }
+.fieldLabel { display: none }
+.locationLabel {}
+
+.locationBoxes { white-space: nowrap; /*max-width: 30px;*/ overflow: hidden; position: relative; }
+/*.locationBoxes:after {cursor: pointer; content: ''; display: block; height: 100%; width: 100%; left: 0; top: 0; position: absolute; background: linear-gradient(to right, rgba(255,255,255,0) 50%, #fff); }
+*/.showDetails { max-width: initial; }
 .showDetails:after { display: none; }
 .showDetails .locationLabel { display: none; }
 .showDetails .fieldLabel { display: inline-block; }

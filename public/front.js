@@ -73,15 +73,26 @@ function toTimeRow(timeObject) {
     var isoTime = timeObject.key
     var fields = timeObject.val
     var hm = isoTime.split(':')
-    return '<div class="timeRow h' + (Number(hm[0])*10 + (Number(hm[1]) / 6)) + '"><span class="timeWrapper"><span class="time">' + isoTime + '</span></span>' +
+    return '<div class="timeRow h' + (Number(hm[0]) * 10 + (Number(hm[1]) / 6)) + '"><span class="timeWrapper"><span class="time">' + isoTime + '</span></span>' +
         groupBySortedAsList(fields, 'location').map(toLocationButtonGroup).join('') + '</div>'
+}
+
+function toLocationButtonGroup2(locationFields) {
+    var location = locationFields.key
+    var fields = locationFields.val
+    return '<span class="locationBoxes">' +
+        fields.map(toButtonMarkup).join('') + '</span>'
 }
 
 function toLocationButtonGroup(locationFields) {
     var location = locationFields.key
     var fields = locationFields.val
-    return '<span class="locationBoxes">' +
-        fields.map(toButtonMarkup).join('') + '</span>'
+
+    return '<span class="locationBoxes">' + collapsedButtons(location, fields) + fields.map(toButtonMarkup).join('') + '</span>'
+}
+
+function collapsedButtons(location, fields) {
+    return '<button type="button" class="locationLabel btn ' + location + ' btn-xs">' + location + ' (' + fields.length + ')</button>'
 }
 
 function toButtonMarkup(field) {
