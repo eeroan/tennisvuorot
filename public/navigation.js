@@ -46,7 +46,8 @@ function toggleObj(key, obj) {
 }
 var start = 60
 var end = 235
-var all = _.range(60,235,5)
+var all = _.range(60, 235, 5)
+
 function initTimeFilter($container, defaultValue) {
     $container.html(_.range(6, 23).map(function (hour) {
         hour = (hour > 9 ? '' : '0') + hour
@@ -58,11 +59,16 @@ function initTimeFilter($container, defaultValue) {
     }).join('\n')).change(function () {
         var val = $(this).val()
         var name = $(this).prop('name')
-        if(name === 'start') start = val
-        else end = val
-        var hiddenTimes = all.filter(function (time) {
-            return time < start || time > end
-        })
-        $('#schedule').prop('class', _.map(toggles, function (v, k) { return k }).concat(hiddenTimes.map(function (time) { return 'h' +time })).join(' '))
+        var isStart = name === 'start'
+        setTimeFilterClasses(isStart, val)
     })
+}
+
+function setTimeFilterClasses(isStart, val) {
+    if (isStart) start = val
+    else end = val
+    var hiddenTimes = all.filter(function (time) {
+        return time < start || time > end
+    })
+    $('#schedule').prop('class', _.map(toggles, function (v, k) { return k }).concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
 }
