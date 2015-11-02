@@ -13,7 +13,7 @@ module.exports = {
 }
 
 function getMeilahti(isoDate) {
-    return getTableWithMapper(isoDate, 'meilahti', 1, function (obj) {
+    return getTableWithMapper(isoDate, 'meilahti', 1, (obj) => {
         var index = obj.res
         obj.field = (index > 5 ? 'Sisä' : 'Kupla') + ' K' + index
         obj.location = 'meilahti'
@@ -22,7 +22,7 @@ function getMeilahti(isoDate) {
 }
 
 function getHerttoniemi(isoDate) {
-    return getTableWithMapper(isoDate, 'fite', 1, function (obj) {
+    return getTableWithMapper(isoDate, 'fite', 1, (obj) => {
         var index = obj.res
         obj.field = (index > 9 ? 'Massakupla' : (index > 6 ? 'Janus' : 'Sisä')) + ' K' + index
         obj.location = 'herttoniemi'
@@ -31,7 +31,7 @@ function getHerttoniemi(isoDate) {
 }
 
 function getKulosaari(isoDate) {
-    return getTableWithMapper(isoDate, 'puhoscenter', 1, function (obj) {
+    return getTableWithMapper(isoDate, 'puhoscenter', 1, (obj) => {
         var index = obj.res
         obj.field = (index > 2 ? 'Green set' : 'Bolltex' ) + ' Te' + index
         obj.location = 'kulosaari'
@@ -40,8 +40,7 @@ function getKulosaari(isoDate) {
 }
 
 function getMerihaka(isoDate) {
-    return getTableWithMapper(isoDate, 'meripeli', 3, function (obj) {
-        var index = obj.res
+    return getTableWithMapper(isoDate, 'meripeli', 3, (obj) => {
         obj.field = 'K1'
         obj.location = 'merihaka'
         return obj
@@ -49,9 +48,7 @@ function getMerihaka(isoDate) {
 }
 
 function getTableWithMapper(isoDate, client, sportTypeId, fn) {
-    return getSlSystemsTable(isoDate, client, sportTypeId).map(function (res) {
-        return _.map(res, fn)
-    })
+    return getSlSystemsTable(isoDate, client, sportTypeId).map((res) => _.map(res, fn))
 }
 
 function getSlSystemsTable(isoDate, client, sportTypeId) {
@@ -62,9 +59,7 @@ function getSlSystemsTable(isoDate, client, sportTypeId) {
 }
 
 function fromSlSystemsTable(html) {
-    return (html.match(/res=[^"]+/g) || []).map(function (el) {
-        return url.parse('?' + el, true).query
-    }).map(fromSlSystemsResult)
+    return (html.match(/res=[^"]+/g) || []).map((el) => url.parse('?' + el, true).query).map(fromSlSystemsResult)
 }
 
 function fromSlSystemsResult(item) {

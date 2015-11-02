@@ -8,10 +8,10 @@ var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
 module.exports = {
-    getAll:           getAll,
-    getAllInSequence: getAllInSequence,
-    parseMarkup:      parseMarkup,
-    getFieldsForGroup:getFieldsForGroup
+    getAll:            getAll,
+    getAllInSequence:  getAllInSequence,
+    parseMarkup:       parseMarkup,
+    getFieldsForGroup: getFieldsForGroup
 }
 
 function getAll(isoDate) {
@@ -20,9 +20,7 @@ function getAll(isoDate) {
         1019,
         2186,
         2189
-    ].map(function (cmbProfile) {
-            return getFieldsForGroup(cmbProfile, isoDate)
-        })).map(function (list) { return _.flatten(list) })
+    ].map((cmbProfile) => getFieldsForGroup(cmbProfile, isoDate))).map((list) => _.flatten(list))
 }
 
 function getAllInSequence(isoDate) {
@@ -32,13 +30,11 @@ function getAllInSequence(isoDate) {
     var taivallahti2 = taivallahti1.flatMap(weekForProfile(2189, isoDate)).flatMapError(emptyList)
 
     return Bacon.combineAsArray(tali1.map('.obj'), tali2.map('.obj'), taivallahti1.map('.obj'), taivallahti2.map('.obj'))
-        .map(function (list) { return _.flatten(list) })
+        .map((list) => _.flatten(list))
 }
 
 function weekForProfile(cmbProfile, isoDate) {
-    return function (obj) {
-        return weekView(obj.cookie, obj.token, cmbProfile, isoDate)
-    }
+    return (obj) => weekView(obj.cookie, obj.token, cmbProfile, isoDate)
 }
 
 function emptyList() {
@@ -46,17 +42,13 @@ function emptyList() {
 }
 
 function getFieldsForGroup(fieldGroup, isoDate) {
-    return login().flatMap(getWeek).flatMap(function (obj) {
-        return weekView(obj.cookie, obj.token, fieldGroup, isoDate)
-    }).flatMapError(function () {
-        return []
-    }).map('.obj')
+    return login().flatMap(getWeek).flatMap((obj) => weekView(obj.cookie, obj.token, fieldGroup, isoDate)).flatMapError(() => []).map('.obj')
 }
 
 function login() {
     return Bacon.fromNodeCallback(request.get, {
         url: 'https://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST'
-    }).flatMap(function (res) {
+    }).flatMap((res) => {
         try {
             return res.headers['set-cookie'][0].split(';')[0]
         } catch (e) {
@@ -71,7 +63,7 @@ function getWeek(cookie) {
         headers: {
             Cookie: cookie
         }
-    }).map('.body').map(function (markup) {
+    }).map('.body').map((markup) => {
         return {
             cookie: cookie,
             token:  markup.match(/TOKEN" value="([^"]+)"/i).pop()
@@ -107,7 +99,7 @@ function weekView(cookie, token, fieldGroup, isoDate) {
             Cookie: cookie
         },
         form:    form
-    }).map('.body').map(function (markup) {
+    }).map('.body').map((markup) => {
         return {
             obj:    parseMarkup(markup),
             token:  markup.match(/TOKEN" value="([^"]+)"/i).pop(),
@@ -117,9 +109,7 @@ function weekView(cookie, token, fieldGroup, isoDate) {
 }
 
 function parseMarkup(markup) {
-    return _.uniq(markup.match(/getCreateBooking.do[^,"']+/g).map(function (el) {
-        return url.parse(el, true).query
-    }).map(function (obj) {
+    return _.uniq(markup.match(/getCreateBooking.do[^,"']+/g).map((el) => url.parse(el, true).query).map((obj) => {
         var startDateTime = obj.startTime.split(' ')
         var courtName = webTimmiResources[obj['amp;roomPartId']]
         var endTime = obj['amp;endTime'].split(' ')[1]
@@ -134,9 +124,7 @@ function parseMarkup(markup) {
             location: /TAIVALLAHTI/i.test(courtName.type) ? 'taivallahti' : 'tali',
             field:    courtName.name
         }
-    }).filter(function (obj) {
-        return obj.duration === 60
-    }), function (item) {return JSON.stringify(item)})
+    }).filter((obj) => obj.duration === 60), JSON.stringify)
 }
 
 function toMinutes(hoursAndMinutes) {
