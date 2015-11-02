@@ -19,16 +19,16 @@ function freeCourts(req, res) {
     var forceRefresh = req.query.refresh || false
 
     if (forceRefresh) {
-        refresh(isoDate, function (obj) { res.send(obj) })
+        refresh(isoDate, obj => { res.send(obj) })
     } else {
-        getFromMongo(isoDate, function (err, data) {
+        getFromMongo(isoDate, (err, data) => {
             if (err) {
                 res.status(500).send(err)
             } else if (data.length > 0) {
                 console.log('fetching from db for date', isoDate)
                 res.send(data[0])
             } else {
-                refresh(isoDate, function (obj) { res.send(obj) })
+                refresh(isoDate, (obj) => { res.send(obj) })
             }
         })
     }
@@ -36,7 +36,7 @@ function freeCourts(req, res) {
 
 function refresh(isoDate, callback) {
     console.log('fetching from servers for date', isoDate)
-    fetch(isoDate).onValue(function (obj) {
+    fetch(isoDate).onValue((obj) => {
         upsertToMongo(isoDate, obj)
         callback(obj)
     })
@@ -44,12 +44,12 @@ function refresh(isoDate, callback) {
 }
 
 function getFromMongo(isoDate, callback) {
-    MongoClient.connect(mongoUri, function (err, db) {
+    MongoClient.connect(mongoUri, (err, db) => {
         var collection = db.collection('tennishelsinki')
         var filter = {date: new Date(isoDate)}
         //var filter = {date: {$gte : new Date(isoDate)}}
-        collection.find(filter).toArray(function (err, docs) {
-            var transformedDoc = docs.map(function (doc) {
+        collection.find(filter).toArray((err, docs) => {
+            var transformedDoc = docs.map((doc) => {
                 doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
                 return doc
             })
@@ -60,16 +60,16 @@ function getFromMongo(isoDate, callback) {
 }
 
 function upsertToMongo(isoDate, obj) {
-    MongoClient.connect(mongoUri, function (err, db) {
-        var collection = db.collection('tennishelsinki')
-        var date = new Date(isoDate)
+    MongoClient.connect(mongoUri, (err, db) => {
+        const collection = db.collection('tennishelsinki')
+        const date = new Date(isoDate)
         collection.updateOne({date: date}, {
             date:       date,
             freeCourts: obj.freeCourts,
             timestamp:  obj.timestamp
         }, {
             upsert: true
-        }, function (err, rs) {
+        }, (err, rs) => {
             db.close()
         })
     })
