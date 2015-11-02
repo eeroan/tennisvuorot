@@ -16,25 +16,26 @@ module.exports = {
 
 function freeCourts(req, res) {
     var isoDate = req.query.date
+    var days = Number(req.query.days) || 1
     var forceRefresh = req.query.refresh || false
 
     if (forceRefresh) {
-        refresh(isoDate, obj => { res.send(obj) })
+        refresh(isoDate, days, obj => { res.send(obj) })
     } else {
-        getFromMongo(isoDate, (err, data) => {
+        getFromMongo(isoDate, days, (err, data) => {
             if (err) {
                 res.status(500).send(err)
             } else if (data.length > 0) {
-                console.log('fetching from db for date', isoDate)
-                res.send(data[0])
+                console.log('fetching from db for date', isoDate, days, data.length)
+                res.send(data)
             } else {
-                refresh(isoDate, (obj) => { res.send(obj) })
+                refresh(isoDate, days, (obj) => { res.send(obj) })
             }
         })
     }
 }
 
-function refresh(isoDate, callback) {
+function refresh(isoDate, days, callback) {
     console.log('fetching from servers for date', isoDate)
     fetch(isoDate).onValue((obj) => {
         upsertToMongo(isoDate, obj)
@@ -43,11 +44,12 @@ function refresh(isoDate, callback) {
 
 }
 
-function getFromMongo(isoDate, callback) {
+function getFromMongo(isoDate, days, callback) {
     MongoClient.connect(mongoUri, (err, db) => {
         var collection = db.collection('tennishelsinki')
-        var filter = {date: new Date(isoDate)}
-        //var filter = {date: {$gte : new Date(isoDate)}}
+        var start = DateTime.fromIsoDate(isoDate)
+        var end = start.plusDays(days)
+        var filter = days > 1 ? {date: {$gte: start.date, $lte : end.date}} : {date: start.date}
         collection.find(filter).toArray((err, docs) => {
             var transformedDoc = docs.map((doc) => {
                 doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()

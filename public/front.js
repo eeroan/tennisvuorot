@@ -26,7 +26,7 @@ setInterval(function () {
 
 navigation.init()
 locationTable.init()
-listAvailabilityForDate(activeDate)
+listAvailabilityForDate(activeDate, 30)
 initJumpToDate()
 
 $('#schedule').on('click', '.locationBoxes', function (e) {
@@ -38,25 +38,29 @@ function loadMoreResults() {
     if (!alreadyLoadingMoreResults) {
         alreadyLoadingMoreResults = true
         activeDate = activeDate.plusDays(1)
-        listAvailabilityForDate(activeDate)
+        listAvailabilityForDate(activeDate, 2)
     }
 }
 
-function listAvailabilityForDate(requestedDateTime) {
+function listAvailabilityForDate(requestedDateTime, days) {
     var requestedDate = requestedDateTime.toISODateString()
     $('#schedule').addClass('loading')
-    return $.getJSON('/courts?date=' + requestedDate, function (allDataWithDate) {
+    return $.getJSON('/courts?date=' + requestedDate + '&days=' + days, function (allDataWithDates) {
         alreadyLoadingMoreResults = false
-        var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
-        var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
-        var data = allDataWithDate.freeCourts
-        $('#schedule').removeClass('loading')
-            //.append($timeStamp)
-            .append(groupBySortedAsList(data, 'date').filter(function (x) {
+
+        var markupForAllDates = allDataWithDates.map(function (allDataWithDate) {
+            var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
+            var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
+            var data = allDataWithDate.freeCourts
+            return groupBySortedAsList(data, 'date').filter(function (x) {
                 return x.key === requestedDate
             }).map(function (dateObject) {
                 return toDateSection(dateObject, timeStamp)
-            }).join(''))
+            }).join('')
+        }).join('')
+        $('#schedule').removeClass('loading')
+            //.append($timeStamp)
+            .append(markupForAllDates)
         if ($window.height() === $document.height()) loadMoreResults()
     })
 }
@@ -90,7 +94,7 @@ function collapsedButtons(location, fields) {
     }).map(function (fieldsForType) {
         var type = fieldsForType.key
         var field = fieldsForType.val[0]
-        return '<button type="button" class="locationLabel btn ' + location + ' ' + field.type + ' btn-xs">' + (field.price  ? field.price + '€' : '&nbsp;&nbsp;') + '</button>'
+        return '<button type="button" class="locationLabel btn ' + location + ' ' + field.type + ' btn-xs">' + (field.price ? field.price + '€' : '&nbsp;&nbsp;') + '</button>'
     }).join(' ')
 }
 
@@ -115,6 +119,6 @@ function initJumpToDate() {
         activeDate = DateTime.fromIsoDate($(this).val())
         $('#schedule').empty()
         alreadyLoadingMoreResults = true
-        listAvailabilityForDate(activeDate)
+        listAvailabilityForDate(activeDate, 2)
     })
 }
