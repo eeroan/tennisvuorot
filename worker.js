@@ -2,16 +2,16 @@
 var DateTime = require('dateutils').DateTime
 var dao = require('./src/dao')
 var daysAhead = 0
-var maxDaysAhead = 30
+var maxDaysAhead = 60
 
 doRefresh()
-setInterval(function () {
+setInterval(() => {
     doRefresh()
 }, 1000 * 60 * 10)
 
 function doRefresh() {
-    dao.refresh(new DateTime().plusDays(daysAhead).toISODateString(), function () { })
-    if(daysAhead>maxDaysAhead) daysAhead = 0
+    dao.refresh(new DateTime().plusDays(daysAhead).toISODateString(), () => { })
+    if (daysAhead > maxDaysAhead) daysAhead = 0
     else daysAhead++
 }
 
