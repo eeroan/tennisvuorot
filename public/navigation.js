@@ -49,24 +49,26 @@ var end = 235
 var all = _.range(60, 235, 5)
 
 function initTimeFilter($container, defaultValue) {
-    $container.html(_.range(6, 23).map(function (hour) {
-        hour = (hour > 9 ? '' : '0') + hour
-        function extracted(min) {
-            return '<option value="' + (Number(hour) * 10 + (Number(min) / 6)) + '" ' + (defaultValue === (hour + min) ? 'selected' : '') + '>' + hour + ':' + min + '</option>'
-        }
-
-        return extracted('00') + extracted('30')
-    }).join('\n')).change(function () {
+    $('.timeFilterStart,.timeFilterEnd').on('change input', function () {
         var val = $(this).val()
         var name = $(this).prop('name')
         var isStart = name === 'start'
         setTimeFilterClasses(isStart, val)
+        $('.rangeLabel').html(formatTime(start) + '-' + formatTime(end))
     })
 }
 
+function formatTime(val) {
+    console.log('jee', val)
+    var hour = Math.floor(val / 10)
+    var min = val % 10 * .6
+    console.log('juu', min)
+    return hour + ':' + min + '0'
+}
+
 function setTimeFilterClasses(isStart, val) {
-    if (isStart) start = val
-    else end = val
+    if (isStart) start = Number(val)
+    else end = Number(val)
     var hiddenTimes = all.filter(function (time) {
         return time < start || time > end
     })
