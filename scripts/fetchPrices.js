@@ -11,7 +11,8 @@ var sheets = {
     tali:        1463418362,
     kulosaari:   1730330027,
     meilahti:    466490005,
-    herttoniemi: 1178514552
+    herttoniemi: 1178514552,
+    merihaka:    1502483638
 }
 
 function fetchFor(id) {
