@@ -77,13 +77,6 @@ function toTimeRow(timeObject) {
         groupBySortedAsList(fields, 'location').map(toLocationButtonGroup).join('') + '</div>'
 }
 
-function toLocationButtonGroup2(locationFields) {
-    var location = locationFields.key
-    var fields = locationFields.val
-    return '<span class="locationBoxes">' +
-        fields.map(toButtonMarkup).join('') + '</span>'
-}
-
 function toLocationButtonGroup(locationFields) {
     var location = locationFields.key
     var fields = locationFields.val
@@ -97,7 +90,7 @@ function collapsedButtons(location, fields) {
     }).map(function (fieldsForType) {
         var type = fieldsForType.key
         var field = fieldsForType.val[0]
-        return '<button type="button" class="locationLabel btn ' + location + ' ' + field.type + ' btn-xs">' + field.price + '€ (' + fields.length + ')</button>'
+        return '<button type="button" class="locationLabel btn ' + location + ' ' + field.type + ' btn-xs">' + field.price + '€</button>'
     }).join(' ')
 }
 
