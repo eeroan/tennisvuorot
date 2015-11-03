@@ -73,8 +73,8 @@ function toDateSection(dateObject, timeStamp) {
     })
 
     var dateTime = DateTime.fromIsoDate(isoDate)
-    return '<h4 class="day' + dateTime.getDay() + '">' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + '</h4>' +
-        '<div class="timestamp">' + timeStamp + '</div>' +
+    return '<div class="titleContainer day' + dateTime.getDay() + '"><h4>' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + '</h4>' +
+        '<div class="timestamp">' + timeStamp + '</div></div>' +
         groupBySortedAsList(times, 'time').map(toTimeRow).join('')
 }
 
