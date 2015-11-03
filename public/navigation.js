@@ -48,10 +48,11 @@ var end = 235
 var all = _.range(60, 235, 5)
 
 function initTimeFilter() {
-    $('.timeFilterStart,.timeFilterEnd').on('input change', function () {
+    $('.timeFilterStart,.timeFilterEnd').on('input', function () {
         var name = $(this).prop('name')
         var isStart = name === 'start'
         setStartAndEndLabels(isStart, $(this).val())
+    }).on('change', function () {
         setTimeFilterClasses()
     })
 }
