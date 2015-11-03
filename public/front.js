@@ -51,16 +51,16 @@ function listAvailabilityForDate(requestedDateTime, days) {
         $('#schedule').removeClass('loading')
             //.append($timeStamp)
             .append(allDataWithDates.map(function (allDataWithDate) {
-            var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
-            var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
-            var currentDate = allDataWithDate.date.split('T')[0]
-            var data = allDataWithDate.freeCourts
-            return groupBySortedAsList(data, 'date').filter(function (x) {
-                return x.key === currentDate
-            }).map(function (dateObject) {
-                return toDateSection(dateObject, timeStamp)
-            }).join('')
-        }).join(''))
+                var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
+                var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
+                var currentDate = allDataWithDate.date.split('T')[0]
+                var data = allDataWithDate.freeCourts
+                return groupBySortedAsList(data, 'date').filter(function (x) {
+                    return x.key === currentDate
+                }).map(function (dateObject) {
+                    return toDateSection(dateObject, timeStamp)
+                }).join('')
+            }).join(''))
         if ($window.height() === $document.height()) loadMoreResults()
     })
 }
@@ -72,7 +72,8 @@ function toDateSection(dateObject, timeStamp) {
         return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
     })
 
-    return '<h4>' + DateFormat.format(DateTime.fromIsoDate(isoDate), DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + '</h4>' +
+    var dateTime = DateTime.fromIsoDate(isoDate)
+    return '<h4 class="day' + dateTime.getDay() + '">' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + '</h4>' +
         '<div class="timestamp">' + timeStamp + '</div>' +
         groupBySortedAsList(times, 'time').map(toTimeRow).join('')
 }
