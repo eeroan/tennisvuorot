@@ -59,10 +59,8 @@ function initTimeFilter($container, defaultValue) {
 }
 
 function formatTime(val) {
-    console.log('jee', val)
     var hour = Math.floor(val / 10)
     var min = val % 10 * .6
-    console.log('juu', min)
     return hour + ':' + min + '0'
 }
 
