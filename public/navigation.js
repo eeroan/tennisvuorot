@@ -36,8 +36,7 @@ function initNavigation() {
         $('#map_wrapper').show()
         _.once(mapView.renderMap)()
     })
-    initTimeFilter($('.timeFilterStart'), '0600')
-    initTimeFilter($('.timeFilterEnd'), '2230')
+    initTimeFilter()
 }
 
 function toggleObj(key, obj) {
@@ -48,14 +47,20 @@ var start = 60
 var end = 235
 var all = _.range(60, 235, 5)
 
-function initTimeFilter($container, defaultValue) {
-    $('.timeFilterStart,.timeFilterEnd').on('change input', function () {
-        var val = $(this).val()
+function initTimeFilter() {
+    $('.timeFilterStart,.timeFilterEnd').on('input change', function () {
         var name = $(this).prop('name')
         var isStart = name === 'start'
-        setTimeFilterClasses(isStart, val)
-        $('.rangeLabel').html(formatTime(start) + '-' + formatTime(end))
+        setStartAndEndLabels(isStart, $(this).val())
+        setTimeFilterClasses()
     })
+}
+var $rangeLabel = $('.rangeLabel')
+
+function setStartAndEndLabels(isStart, val) {
+    if (isStart) start = Number(val)
+    else end = Number(val)
+    $rangeLabel.html(formatTime(start) + '-' + formatTime(end))
 }
 
 function formatTime(val) {
@@ -63,12 +68,11 @@ function formatTime(val) {
     var min = val % 10 * .6
     return hour + ':' + min + '0'
 }
+var $schedule = $('#schedule')
 
-function setTimeFilterClasses(isStart, val) {
-    if (isStart) start = Number(val)
-    else end = Number(val)
+function setTimeFilterClasses() {
     var hiddenTimes = all.filter(function (time) {
         return time < start || time > end
     })
-    $('#schedule').prop('class', _.map(toggles, function (v, k) { return k }).concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
+    $schedule.prop('class', _.map(toggles, function (v, k) { return k }).concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
 }
