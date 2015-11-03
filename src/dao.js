@@ -50,7 +50,7 @@ function getFromMongo(isoDate, days, callback) {
         var start = DateTime.fromIsoDate(isoDate)
         var end = start.plusDays(days)
         var filter = {date: {$gte: start.date, $lte : end.date}}
-        collection.find(filter).toArray((err, docs) => {
+        collection.find(filter).sort({date:1}).toArray((err, docs) => {
             var transformedDoc = docs.map((doc) => {
                 doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
                 return doc

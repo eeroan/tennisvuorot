@@ -48,21 +48,19 @@ function listAvailabilityForDate(requestedDateTime, days) {
     return $.getJSON('/courts?date=' + requestedDate + '&days=' + days, function (allDataWithDates) {
         alreadyLoadingMoreResults = false
 
-        var markupForAllDates = allDataWithDates.map(function (allDataWithDate) {
+        $('#schedule').removeClass('loading')
+            //.append($timeStamp)
+            .append(allDataWithDates.map(function (allDataWithDate) {
             var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
             var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
-            var currentDate = allDataWithDate.date.split(':')[0]
+            var currentDate = allDataWithDate.date.split('T')[0]
             var data = allDataWithDate.freeCourts
             return groupBySortedAsList(data, 'date').filter(function (x) {
-
                 return x.key === currentDate
             }).map(function (dateObject) {
                 return toDateSection(dateObject, timeStamp)
             }).join('')
-        }).join('')
-        $('#schedule').removeClass('loading')
-            //.append($timeStamp)
-            .append(markupForAllDates)
+        }).join(''))
         if ($window.height() === $document.height()) loadMoreResults()
     })
 }
