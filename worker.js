@@ -10,7 +10,7 @@ setInterval(() => {
 }, 1000 * 60 * 10)
 
 function doRefresh() {
-    dao.refresh(new DateTime().plusDays(daysAhead).toISODateString(), () => { })
+    dao.refresh(new DateTime().plusDays(daysAhead).toISODateString(), 1, () => { })
     if (daysAhead > maxDaysAhead) daysAhead = 0
     else daysAhead++
 }

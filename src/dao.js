@@ -20,16 +20,16 @@ function freeCourts(req, res) {
     var forceRefresh = req.query.refresh || false
 
     if (forceRefresh) {
-        refresh(isoDate, days, obj => { res.send(obj) })
+        refresh(isoDate, days, data => { res.send(data.timestamp ? [data]: data) })
     } else {
         getFromMongo(isoDate, days, (err, data) => {
             if (err) {
                 res.status(500).send(err)
             } else if (data.length > 0) {
                 console.log('fetching from db for date', isoDate, days, data.length)
-                res.send(data)
+                res.send(data.timestamp ? [data]: data)
             } else {
-                refresh(isoDate, days, (obj) => { res.send(obj) })
+                refresh(isoDate, days, (data) => { res.send(data.timestamp ? [data]: data) })
             }
         })
     }
@@ -49,7 +49,7 @@ function getFromMongo(isoDate, days, callback) {
         var collection = db.collection('tennishelsinki')
         var start = DateTime.fromIsoDate(isoDate)
         var end = start.plusDays(days)
-        var filter = days > 1 ? {date: {$gte: start.date, $lte : end.date}} : {date: start.date}
+        var filter = {date: {$gte: start.date, $lte : end.date}}
         collection.find(filter).toArray((err, docs) => {
             var transformedDoc = docs.map((doc) => {
                 doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
@@ -92,8 +92,7 @@ function fetch(isoDate) {
         .map(function (allData) {
             var freeCourts = _.flatten(allData).filter(function (reservation) {
                 if (!reservation || !reservation.field) return false
-                var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
-                return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
+                return reservation.date === isoDate
             }).map(function (reservation) {
                 var dateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
                 reservation.type = getType(reservation)

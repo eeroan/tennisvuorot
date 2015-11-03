@@ -51,9 +51,11 @@ function listAvailabilityForDate(requestedDateTime, days) {
         var markupForAllDates = allDataWithDates.map(function (allDataWithDate) {
             var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
             var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
+            var currentDate = allDataWithDate.date.split(':')[0]
             var data = allDataWithDate.freeCourts
             return groupBySortedAsList(data, 'date').filter(function (x) {
-                return x.key === requestedDate
+
+                return x.key === currentDate
             }).map(function (dateObject) {
                 return toDateSection(dateObject, timeStamp)
             }).join('')
@@ -67,7 +69,11 @@ function listAvailabilityForDate(requestedDateTime, days) {
 
 function toDateSection(dateObject, timeStamp) {
     var isoDate = dateObject.key
-    var times = dateObject.val
+    var times = dateObject.val.filter(function (reservation) {
+        var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
+        return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
+    })
+
     return '<h4>' + DateFormat.format(DateTime.fromIsoDate(isoDate), DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + '</h4>' +
         '<div class="timestamp">' + timeStamp + '</div>' +
         groupBySortedAsList(times, 'time').map(toTimeRow).join('')
