@@ -89,10 +89,17 @@ function toTimeRow(timeObject) {
 function toLocationButtonGroup(locationFields) {
     var location = locationFields.key
     var fields = locationFields.val
-
-    return '<span class="locationBoxes">' + collapsedButtons(location, fields) + fields.map(toButtonMarkup).join('') + '</span>'
+    return '<span class="locationBoxes">' + collapsedButtons(location, fields) + modal(fields) + '</span>'
 }
 
+function modal(fields) {
+    var dateTime = DateTime.fromIsoDate(fields[0].date)
+    return '<div class="modal">' +
+        '<h3>' + fields[0].location + ' ' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + ' klo ' + fields[0].time + '</h3>'
+        + fields.map(function (field) {
+            return '<div><button class="'+field.type+' '+ field.location +'">&nbsp;&nbsp;</button> ' + field.field + ', ' + field.price + '€</div>'
+        }).join('') + '<div class="close">&times;</div></div>'
+}
 function collapsedButtons(location, fields) {
     return groupBySortedAsList(fields, 'type').filter(function (fieldsForType) {
         return fieldsForType.val.length > 0
