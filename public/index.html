@@ -34,17 +34,17 @@
             <button type="button" class="indoor" id="indoor">Sisä</button>
             <button type="button" class="single inactive" id="single">Vapaana 2h</button>
         </p>
-        <div>
+        <div class="timeFilterContainer">
+            <div>
+                <input class="timeFilterStart" name="start" type="range" min="60" max="230" step="5" value="60"/>
+                <input class="timeFilterEnd" name="end" type="range" min="60" max="230" step="5" value="230"/>
+            </div>
+            <span class="rangeLabel">6:00-23:00</span>
+        </div>
+        <div class="jumpToDateContainer">
             <span class="jumpToDateTitle">Siirry päivään</span>
             <select class="jumpToDate"></select>
-        </div>
-        <div>
-            <span class="jumpToDateTitle">Rajaa aikaa</span>
-            <input class="timeFilterStart" name="start" type="range" min="60" max="230" step="5" value="60"/>
-            <input class="timeFilterEnd" name="end" type="range" min="60" max="230" step="5" value="230"/>
-            <span class="rangeLabel">6:00 - 23:00</span>
-        </div>
-    </div>
+        </div></div>
     <section class="" id="schedule">
     </section>
 </div>
