@@ -7,6 +7,7 @@ module.exports = {
     init: initNavigation
 }
 
+var mapMissing = true
 function initNavigation() {
     $('.toggles button, #single').click(function (e) {
         var $button = $(this)
@@ -15,25 +16,16 @@ function initNavigation() {
         toggleObj(id, toggles)
         $('#schedule').toggleClass(id)
     })
-    $('.toggleReservations').click(function () {
-        $('nav li').removeClass('selected')
-        $(this).addClass('selected')
-        $('.detail').hide()
-        $('.reservations').show()
-    })
 
     $('.toggleInformation').click(function () {
-        $('nav li').removeClass('selected')
-        $(this).addClass('selected')
-        $('.detail').hide()
         $('.information').show()
     })
     $('.toggleMapInformation').click(function () {
-        $('nav li').removeClass('selected')
-        $(this).addClass('selected')
-        $('.detail').hide()
         $('#map_wrapper').show()
-        _.once(mapView.renderMap)()
+        if(mapMissing) {
+            mapView.renderMap()
+            mapMissing = false
+        }
     })
     initTimeFilter()
 }

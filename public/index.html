@@ -11,28 +11,26 @@
     <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
-<header>
-    <nav>
-        <ul>
-            <li class="toggleReservations selected">Varaukset</li>
-            <li class="toggleInformation">Yhteystiedot</li>
-            <li class="toggleMapInformation">Kartta</li>
-        </ul>
-    </nav>
-</header>
 <div class="container reservations detail">
     <div class="filters">
         <p class="toggles">
+
+        <div>
             <button type="button" class="meilahti" id="meilahti">Meilahti</button>
             <button type="button" class="herttoniemi" id="herttoniemi">Herttoniemi</button>
             <button type="button" class="kulosaari" id="kulosaari">Kulosaari</button>
             <button type="button" class="merihaka" id="merihaka">Merihaka</button>
             <button type="button" class="taivallahti" id="taivallahti">Taivallahti</button>
             <button type="button" class="tali" id="tali">Tali</button>
+            <a href="javascript:void(0)" class="toggleInformation">Yhteystiedot </a>&nbsp;
+            <a href="javascript:void(0)" class="toggleMapInformation">Paikat kartalla</a>
+        </div>
+        <div>
             <button type="button" class="bubble" id="bubble">Kupla</button>
             <button type="button" class="outdoor" id="outdoor">Ulko</button>
             <button type="button" class="indoor" id="indoor">Sisä</button>
             <label><input id="single" type="checkbox"> Vapaana 2h</label>
+        </div>
         </p>
         <div class="timeFilterContainer">
             <div>
@@ -44,22 +42,27 @@
         <div class="jumpToDateContainer">
             <span class="jumpToDateTitle"></span>
             <select class="jumpToDate"></select>
-        </div></div>
+        </div>
+    </div>
     <section class="" id="schedule">
     </section>
 </div>
-<table class="table information detail" style="display: none">
-    <thead>
-    <tr>
-        <th class="place">Nimi</th>
-        <th class="address">Osoite</th>
-        <th class="tel">Puhelin</th>
-    </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-<div id="map_wrapper" style="display: none" class="detail map">
+<div class="information modal">
+    <table class="table detail">
+        <thead>
+        <tr>
+            <th class="place">Nimi</th>
+            <th class="address">Osoite</th>
+            <th class="tel">Puhelin</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="close">&times;</div>
+</div>
+<div id="map_wrapper" style="display: none" class="detail locationMap modal">
     <div id="map_canvas" class="mapping"></div>
+    <div class="close">&times;</div>
 </div>
 
 <script src="front.min.js"></script>

@@ -2,20 +2,20 @@ body { font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1
 .time { top: 13px; position: relative; margin-right: 5px; }
 .fieldLabel { display: none }
 .locationLabel { cursor: pointer;}
-
+.information {padding: 0 !important;/* z-index: 1; */}
 .locationBoxes { /* white-space: nowrap; */ /*max-width: 30px;*/ overflow: hidden; /* position: relative; */ }
 .showDetails { max-width: initial; }
 .showDetails:after { display: none; }
 .showDetails .locationLabel { display: none; }
 .showDetails .fieldLabel { display: inline-block; }
-.modal { max-width: 700px;box-shadow: 1px 1px 3px 10000px rgba(0,0,0,0.5);line-height: 1.5;right: 20px;position: fixed;padding: 10px;display: none;left: 20px;top: 60px;background: #fff;z-index: 1;bottom: 20px;max-height: 900px;}
+.modal { max-width: 700px;box-shadow: 1px 1px 3px 10000px rgba(0,0,0,0.5);line-height: 1.5;right: 20px;position: fixed;padding: 10px;display: none;left: 20px;top: 20px;background: #fff;z-index: 1;bottom: 20px;max-height: 900px;}
 .links { margin-top: 30px;font-size: 16px;line-height: 2;}
 .showDetails .modal { display: block; }
 .place { text-transform: capitalize; }
 .address { }
-.tel { background: url(tel.png) 100% 50% no-repeat; padding: 10px 35px 10px 0; }
-.map { background: url(pin.png) 100% 50% no-repeat; padding: 10px 35px 10px 0;}
-#map_wrapper { position: absolute; top: 0; bottom: 0; width: 100%; }
+#schedule .tel { background: url(tel.png) 100% 50% no-repeat; padding: 10px 35px 10px 0; }
+#schedule .map { background: url(pin.png) 100% 50% no-repeat; padding: 10px 35px 10px 0;}
+#map_wrapper { padding: 0;/* position: absolute; */ /* top: 0; */ /* bottom: 0; */ /* width: 100%; */ }
 #map_canvas { width: 100%; height: 100%; }
 h3,
 h4 { padding-top: 0.5em;text-transform: capitalize; margin: 0.5em 0 0;}
@@ -66,22 +66,22 @@ nav li.selected { cursor: default; }
 .selected { text-decoration: underline; }
 .container { padding: 0 10px; }
 .toggles { margin: 10px 0 0; }
-.detail { margin-top: 40px; }
+.detail { /* margin-top: 40px; */ }
 button:active { outline: none; }
 button.inactive { background: none; border-color: #eee; box-shadow: none; }
 .loading:after { content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0; }
 .timestamp { margin-left: 10px;font-size: 10px; /* position: relative; */ /* top: 0px; */ margin-bottom: 10px;}
 .timeRow { display: flex; line-height: 0; flex-wrap: wrap; }
 .timeWrapper { position: relative; overflow: hidden; }
-table { width: 100%; border-collapse: collapse; }
+table { font-size: 9px;width: 100%; border-collapse: collapse; }
 table th { text-align: left; }
 a,
 a:visited { color: #258DAB; }
 tbody tr:nth-child(odd) { background: #eee; }
 th,
-td { padding: 7px 10px 7px 0; }
+td { padding: 5px 5px 5px 0; }
 tr th:first-child,
-tr td:first-child { padding-left: 20px; }
+tr td:first-child { padding-left: 10px; }
 #schedule { padding-top: 140px; }
 
 .h60 .h60,

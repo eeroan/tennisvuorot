@@ -34,6 +34,13 @@ $('#schedule').on('click', '.locationLabel, .close', function (e) {
     var $locationBoxes = $(e.currentTarget).parents('.locationBoxes')
     $locationBoxes.toggleClass('showDetails')
 })
+$('.information .close').click(function () {
+    $(this).parents('.modal').hide()
+})
+
+$('.locationMap .close').click(function () {
+    $(this).parents('.modal').hide()
+})
 
 function loadMoreResults() {
     if (!alreadyLoadingMoreResults) {
