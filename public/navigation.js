@@ -8,8 +8,7 @@ module.exports = {
 }
 
 function initNavigation() {
-    $('.toggles button').click(function (e) {
-        e.preventDefault()
+    $('.toggles button, #single').click(function (e) {
         var $button = $(this)
         $button.toggleClass('inactive')
         var id = $button.prop('id')

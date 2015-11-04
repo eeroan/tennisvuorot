@@ -1,7 +1,7 @@
 body { font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.4; color: #333; margin: 0; }
 .time { top: 13px; position: relative; margin-right: 5px; }
 .fieldLabel { display: none }
-.locationLabel {}
+.locationLabel { cursor: pointer;}
 
 .locationBoxes { /* white-space: nowrap; */ /*max-width: 30px;*/ overflow: hidden; /* position: relative; */ }
 .showDetails { max-width: initial; }
@@ -26,7 +26,8 @@ h3 {margin-bottom: 10px;}
 .day6 { color: #999;}
 .titleContainer {align-items: baseline;display: flex;}
 button { outline: none;background-color: #fff; display: inline-block; margin-bottom: 10px; margin-left: 5px; color: #333; padding: 5px; border: 3px solid #333; border-bottom-style: none; border-radius: 2px; }
-.toggles button { border: 3px solid#666;color: black;}
+.toggles button { border: 3px solid#666;color: black; cursor: pointer;}
+label {cursor: pointer;}
 button.bubble { border-bottom: none;border-radius: 20px 20px 0 0;}
 button.indoor { border-bottom: none;}
 button.outdoor { border: none;border-bottom: 3px solid #666;}
