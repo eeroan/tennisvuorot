@@ -13,35 +13,35 @@
 <body>
 <div class="container reservations detail">
     <div class="filters">
-        <p class="toggles">
-
-        <div>
-            <button type="button" class="meilahti" id="meilahti">Meilahti</button>
-            <button type="button" class="herttoniemi" id="herttoniemi">Herttoniemi</button>
-            <button type="button" class="kulosaari" id="kulosaari">Kulosaari</button>
-            <button type="button" class="merihaka" id="merihaka">Merihaka</button>
-            <button type="button" class="taivallahti" id="taivallahti">Taivallahti</button>
-            <button type="button" class="tali" id="tali">Tali</button>
-            <a href="javascript:void(0)" class="toggleInformation">Yhteystiedot </a>&nbsp;
-            <a href="javascript:void(0)" class="toggleMapInformation">Paikat kartalla</a>
-        </div>
-        <div>
-            <button type="button" class="bubble" id="bubble">Kupla</button>
-            <button type="button" class="outdoor" id="outdoor">Ulko</button>
-            <button type="button" class="indoor" id="indoor">Sisä</button>
-            <label><input id="single" type="checkbox"> Vapaana 2h</label>
-        </div>
-        </p>
-        <div class="timeFilterContainer">
+        <div class="toggles">
             <div>
-                <input class="timeFilterStart" name="start" type="range" min="60" max="230" step="5" value="60"/>
-                <input class="timeFilterEnd" name="end" type="range" min="60" max="230" step="5" value="230"/>
+                <button type="button" class="meilahti" id="meilahti">Meilahti</button>
+                <button type="button" class="herttoniemi" id="herttoniemi">Herttoniemi</button>
+                <button type="button" class="kulosaari" id="kulosaari">Kulosaari</button>
+                <button type="button" class="merihaka" id="merihaka">Merihaka</button>
+                <button type="button" class="taivallahti" id="taivallahti">Taivallahti</button>
+                <button type="button" class="tali" id="tali">Tali</button>
+                <a href="javascript:void(0)" class="toggleInformation">Yhteystiedot </a>&nbsp;
+                <a href="javascript:void(0)" class="toggleMapInformation">Paikat kartalla</a>
             </div>
-            <span class="rangeLabel">6:00-23:00</span>
-        </div>
-        <div class="jumpToDateContainer">
-            <span class="jumpToDateTitle"></span>
-            <select class="jumpToDate"></select>
+            <div>
+                <button type="button" class="bubble" id="bubble">Kupla</button>
+                <button type="button" class="outdoor" id="outdoor">Ulko</button>
+                <button type="button" class="indoor" id="indoor">Sisä</button>
+                <label><input id="single" type="checkbox"> Vapaana 2h</label>
+            </div>
+            </p>
+            <div class="timeFilterContainer">
+                <div>
+                    <input class="timeFilterStart" name="start" type="range" min="60" max="230" step="5" value="60"/>
+                    <input class="timeFilterEnd" name="end" type="range" min="60" max="230" step="5" value="230"/>
+                </div>
+                <span class="rangeLabel">6:00-23:00</span>
+            </div>
+            <div class="jumpToDateContainer">
+                <span class="jumpToDateTitle"></span>
+                <select class="jumpToDate"></select>
+            </div>
         </div>
     </div>
     <section class="" id="schedule">
