@@ -110,7 +110,7 @@ function modal(fields) {
     return '<div class="modal">' +
         '<h3>' + currentLocation + ' ' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + ' klo ' + fields[0].time + '</h3>'
         + fields.map(toButtonMarkup).join('') +
-        '<div class="links">' + systemLink + addressLink + telLink + '</div>' +
+        '<div class="links">' + telLink + addressLink + systemLink + '</div>' +
     '<div class="close">&times;</div></div>'
 }
 function collapsedButtons(location, fields) {
