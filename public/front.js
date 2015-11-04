@@ -30,8 +30,8 @@ locationTable.init()
 listAvailabilityForDate(activeDate, 30)
 initJumpToDate()
 
-$('#schedule').on('click', '.locationBoxes', function (e) {
-    var $locationBoxes = $(e.currentTarget)
+$('#schedule').on('click', '.locationLabel, .close', function (e) {
+    var $locationBoxes = $(e.currentTarget).parents('.locationBoxes')
     $locationBoxes.toggleClass('showDetails')
 })
 
