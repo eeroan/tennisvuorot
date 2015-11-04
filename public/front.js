@@ -10,6 +10,7 @@ attachFastClick(document.body)
 var activeDate = DateTime.today()
 var $window = $(window)
 var $document = $(document)
+var locations = require('./locations')
 
 var didScroll = false
 var alreadyLoadingMoreResults = false
@@ -94,9 +95,23 @@ function toLocationButtonGroup(locationFields) {
 
 function modal(fields) {
     var dateTime = DateTime.fromIsoDate(fields[0].date)
+    var currentLocation = fields[0].location
+    var locationObject = locations.find(function (location) {
+        return location.title === currentLocation
+    })
+
+    var address = locationObject.address
+    var url = locationObject.url
+    var tel = locationObject.tel
+    var systemLink = (url ? '<div><a target="_blank" href="' + url + '">Siirry varausjärjestelmään</a></div>' : '')
+    var addressLink = '<div><a class="map" target="_blank" href="http://maps.google.com/?q=' + address + '">' + address + '</a></div>'
+    var telLink = '<div><a class="tel" href="tel:' + tel + '">' + tel + '</a></div>'
+
     return '<div class="modal">' +
-        '<h3>' + fields[0].location + ' ' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + ' klo ' + fields[0].time + '</h3>'
-        + fields.map(toButtonMarkup).join('') + '<div class="close">&times;</div></div>'
+        '<h3>' + currentLocation + ' ' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + ' klo ' + fields[0].time + '</h3>'
+        + fields.map(toButtonMarkup).join('') +
+        '<div class="links">' + systemLink + addressLink + telLink + '</div>' +
+    '<div class="close">&times;</div></div>'
 }
 function collapsedButtons(location, fields) {
     return groupBySortedAsList(fields, 'type').filter(function (fieldsForType) {
@@ -105,7 +120,7 @@ function collapsedButtons(location, fields) {
         var type = fieldsForType.key
         var field = fieldsForType.val[0]
         var hasDoubleLessons = fieldsForType.val.some(function (field) { return field.doubleLesson })
-        return '<button type="button" class="locationLabel btn ' + location + ' ' + field.type + ' '+ (hasDoubleLessons ? 'double': 'single') +' btn-xs">' + (field.price ? field.price + '€' : '&nbsp;&nbsp;') + '</button>'
+        return '<button type="button" class="locationLabel btn ' + location + ' ' + field.type + ' ' + (hasDoubleLessons ? 'double' : 'single') + ' btn-xs">' + (field.price ? field.price + '€' : '&nbsp;&nbsp;') + '</button>'
     }).join(' ')
 }
 
