@@ -96,9 +96,7 @@ function modal(fields) {
     var dateTime = DateTime.fromIsoDate(fields[0].date)
     return '<div class="modal">' +
         '<h3>' + fields[0].location + ' ' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + ' klo ' + fields[0].time + '</h3>'
-        + fields.map(function (field) {
-            return '<div><button class="'+field.type+' '+ field.location +'">&nbsp;&nbsp;</button> ' + field.field + ', ' + field.price + '€</div>'
-        }).join('') + '<div class="close">&times;</div></div>'
+        + fields.map(toButtonMarkup).join('') + '<div class="close">&times;</div></div>'
 }
 function collapsedButtons(location, fields) {
     return groupBySortedAsList(fields, 'type').filter(function (fieldsForType) {
@@ -112,7 +110,7 @@ function collapsedButtons(location, fields) {
 }
 
 function toButtonMarkup(field) {
-    return '<button type="button" class="fieldLabel ' + field.location + ' ' + field.type + (field.doubleLesson ? ' double' : ' single') + '">' + field.field + '</button>'
+    return '<button type="button" class="fieldLabel ' + field.location + ' ' + field.type + (field.doubleLesson ? ' double' : ' single') + '">' + field.field + ', ' + field.price + '€</button>'
 }
 
 function groupBySortedAsList(list, key) {
