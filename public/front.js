@@ -106,7 +106,8 @@ function collapsedButtons(location, fields) {
     }).map(function (fieldsForType) {
         var type = fieldsForType.key
         var field = fieldsForType.val[0]
-        return '<button type="button" class="locationLabel btn ' + location + ' ' + field.type + ' btn-xs">' + (field.price ? field.price + '€' : '&nbsp;&nbsp;') + '</button>'
+        var hasDoubleLessons = fieldsForType.val.some(function (field) { return field.doubleLesson })
+        return '<button type="button" class="locationLabel btn ' + location + ' ' + field.type + ' '+ (hasDoubleLessons ? 'double': 'single') +' btn-xs">' + (field.price ? field.price + '€' : '&nbsp;&nbsp;') + '</button>'
     }).join(' ')
 }
 
