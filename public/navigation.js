@@ -27,6 +27,9 @@ function initNavigation() {
             mapMissing = false
         }
     })
+    $('.toggleFilters').click(function () {
+        $('.filters').toggleClass('collapsed')
+    })
     initTimeFilter()
 }
 
