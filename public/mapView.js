@@ -31,7 +31,16 @@ function renderMap() {
 }
 
 function locationTooltip(location) {
-    return '<h3>' + location.title + '</h3><p><a href="' + location.url + '">Varausjärjestelmä</a></p>' +
-        '<p>' + location.address + '</p>' +
-        '<p><a href="tel:' + location.tel + '">' + location.tel + '</a></p>'
+    return '<h3>' + location.title + '</h3>' +
+        linksMarkup(location)
+}
+
+function linksMarkup(locationObject) {
+    var address = locationObject.address
+    var url = locationObject.url
+    var tel = locationObject.tel
+    var systemLink = (url ? '<div><a target="_blank" href="' + url + '">Siirry varausjärjestelmään</a></div>' : '')
+    var addressLink = '<div><a class="map" target="_blank" href="http://maps.google.com/?q=' + address + '">' + address + '</a></div>'
+    var telLink = '<div><a class="tel" href="tel:' + tel + '">' + tel + '</a></div>'
+    return '<div class="links">' + telLink + addressLink + systemLink + '</div>'
 }

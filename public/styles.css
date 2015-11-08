@@ -13,8 +13,8 @@ body { background: #eee;font: 14px "Helvetica Neue", Helvetica, Arial, sans-seri
 .showDetails .modal { display: block; }
 .place { text-transform: capitalize; }
 .address { }
-#schedule .tel { background: url(tel.png) 100% 50% no-repeat; padding: 10px 35px 10px 0; }
-#schedule .map { background: url(pin.png) 100% 50% no-repeat; padding: 10px 35px 10px 0;}
+.links .tel { background: url(tel.png) 100% 50% no-repeat; padding: 10px 35px 10px 0; }
+.links .map { background: url(pin.png) 100% 50% no-repeat; padding: 10px 35px 10px 0;}
 #map_wrapper { padding: 0;}
 #map_canvas { width: 100%; height: 100%; }
 h3,

@@ -107,19 +107,23 @@ function modal(fields) {
         return location.title === currentLocation
     })
 
+    return '<div class="modal">' +
+        '<h3>' + currentLocation + ' ' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + ' klo ' + fields[0].time + '</h3>'
+        + fields.map(toButtonMarkup).join('') +
+        linksMarkup(locationObject) +
+    '<div class="close">&times;</div></div>'
+}
+
+function linksMarkup(locationObject) {
     var address = locationObject.address
     var url = locationObject.url
     var tel = locationObject.tel
     var systemLink = (url ? '<div><a target="_blank" href="' + url + '">Siirry varausjärjestelmään</a></div>' : '')
     var addressLink = '<div><a class="map" target="_blank" href="http://maps.google.com/?q=' + address + '">' + address + '</a></div>'
     var telLink = '<div><a class="tel" href="tel:' + tel + '">' + tel + '</a></div>'
-
-    return '<div class="modal">' +
-        '<h3>' + currentLocation + ' ' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + ' klo ' + fields[0].time + '</h3>'
-        + fields.map(toButtonMarkup).join('') +
-        '<div class="links">' + telLink + addressLink + systemLink + '</div>' +
-    '<div class="close">&times;</div></div>'
+    return '<div class="links">' + telLink + addressLink + systemLink + '</div>'
 }
+
 function collapsedButtons(location, fields) {
     return groupBySortedAsList(fields, 'type').filter(function (fieldsForType) {
         return fieldsForType.val.length > 0
