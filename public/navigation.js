@@ -9,7 +9,7 @@ module.exports = {
 
 var mapMissing = true
 function initNavigation() {
-    $('.toggles button, #single').click(function (e) {
+    $('.filters button, #single').click(function (e) {
         var $button = $(this)
         $button.toggleClass('inactive')
         var id = $button.prop('id')
