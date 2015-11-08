@@ -14,7 +14,9 @@ function initNavigation() {
         $button.toggleClass('inactive')
         var id = $button.prop('id')
         toggleObj(id, toggles)
-        $('#schedule').toggleClass(id)
+        setTimeout(function () {
+            $('#schedule').toggleClass(id)
+        }, 1)
     })
 
     $('.toggleInformation').click(function () {
