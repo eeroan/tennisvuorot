@@ -32,12 +32,12 @@ button.bubble { border-bottom: none;border-radius: 20px 20px 0 0;}
 button.indoor { border-bottom: none;}
 button.outdoor { border: none;border-bottom: 3px solid #666;}
 button.double { }
-button.meilahti { border-color: #449d44;/* color: #449d44; */ }
-button.herttoniemi { border-color: #337ab7;/* color: #337ab7; */ }
-button.kulosaari { border-color: #31b0d5; /* color: #31b0d5; */ }
-button.merihaka { border-color: #f0ad4e;/* color: #f0ad4e; */ }
-button.taivallahti { border-color: #d9534f;/* color: #d9534f; */ }
-button.tali { border-color: #d454bf;/* color: #d454bf; */ }
+button.meilahti { border-color: #449d44;color: #449d44;  }
+button.herttoniemi { border-color: #337ab7; color: #337ab7;  }
+button.kulosaari { border-color: #31b0d5;  color: #31b0d5;  }
+button.merihaka { border-color: #f0ad4e; color: #f0ad4e;  }
+button.taivallahti { border-color: #d9534f; color: #d9534f;  }
+button.tali { border-color: #d454bf; color: #d454bf;  }
 .meilahti .meilahti,
 .herttoniemi .herttoniemi,
 .kulosaari .kulosaari,
