@@ -95,8 +95,9 @@ function fetch(isoDate) {
                 return reservation.date === isoDate
             }).map(function (reservation) {
                 var dateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
-                reservation.type = getType(reservation)
-                reservation.price = getPrice(dateTime, reservation.time, reservation.location)
+                var type = getType(reservation)
+                reservation.type = type
+                reservation.price = getPrice(dateTime, reservation.time, reservation.location, type)
                 return reservation
             })
             return {
@@ -106,11 +107,13 @@ function fetch(isoDate) {
         })
 }
 
-function getPrice(dateTime, time, location) {
+function getPrice(dateTime, time, location, type) {
     var hm = time.split(':')
     var timeKey = (Number(hm[0]) * 10 + (Number(hm[1]) / 6))
     var weekDay = (dateTime.getDay() + 6) % 7
-    return _.get(rates, [location, timeKey, weekDay], 0)
+    var priceByType = _.get(rates, [location, type, timeKey, weekDay], 0)
+    var commonPrice = _.get(rates, [location, timeKey, weekDay], 0)
+    return priceByType || commonPrice
 }
 
 function withDoubleLessonInfo(freeCourts) {

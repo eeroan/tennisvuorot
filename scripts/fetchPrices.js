@@ -10,8 +10,8 @@ var sheets = {
     taivallahti: 1343553212,
     tali:        1463418362,
     kulosaari:   1730330027,
-    meilahti:    466490005,
-    herttoniemi: 1178514552,
+    meilahti:    {indoor: 466490005, bubble: 844564121},
+    herttoniemi: {indoor: 1178514552, bubble: 198222769},
     merihaka:    1502483638
 }
 
@@ -29,9 +29,15 @@ function fetchFor(id) {
     })
 }
 
+function fetchForOrCombineTemplate(id) {
+    if (typeof id === 'number') {
+        return fetchFor(id)
+    } else return Bacon.combineTemplate(_.mapValues(id, fetchFor))
+}
+
 function fetchAll() {
     var fileName = 'rates.js'
-    Bacon.combineTemplate(_.mapValues(sheets, fetchFor))
+    Bacon.combineTemplate(_.mapValues(sheets, fetchForOrCombineTemplate))
         .onValue(function (data) {
             console.log('Writing rates to to ' + fileName)
             fs.writeFileSync(__dirname + '/../src/' + fileName, 'module.exports = ' + util.inspect(data, {
@@ -40,6 +46,5 @@ function fetchAll() {
                 }))
         })
 }
-var args = process.argv.splice(2)
 
 fetchAll()
