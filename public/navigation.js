@@ -73,3 +73,11 @@ function setTimeFilterClasses() {
     })
     $schedule.prop('class', _.map(toggles, function (v, k) { return k }).concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
 }
+
+function saveFilters(obj) {
+    localStorage.setItem('filters', JSON.stringify(obj))
+}
+
+function loadFilters() {
+    return JSON.parse(localStorage.getItem('filters')) || {}
+}
