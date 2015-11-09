@@ -20,16 +20,16 @@ function freeCourts(req, res) {
     var forceRefresh = req.query.refresh || false
 
     if (forceRefresh) {
-        refresh(isoDate, days, data => { res.send(data.timestamp ? [data]: data) })
+        refresh(isoDate, days, data => { res.send(data.timestamp ? [data] : data) })
     } else {
         getFromMongo(isoDate, days, (err, data) => {
             if (err) {
                 res.status(500).send(err)
             } else if (data.length > 0) {
                 console.log('fetching from db for date', isoDate, days, data.length)
-                res.send(data.timestamp ? [data]: data)
+                res.send(data.timestamp ? [data] : data)
             } else {
-                refresh(isoDate, days, (data) => { res.send(data.timestamp ? [data]: data) })
+                refresh(isoDate, days, (data) => { res.send(data.timestamp ? [data] : data) })
             }
         })
     }
@@ -48,9 +48,9 @@ function getFromMongo(isoDate, days, callback) {
     MongoClient.connect(mongoUri, (err, db) => {
         var collection = db.collection('tennishelsinki')
         var start = DateTime.fromIsoDate(isoDate)
-        var end = start.plusDays(days)
-        var filter = {date: {$gte: start.date, $lte : end.date}}
-        collection.find(filter).sort({date:1}).toArray((err, docs) => {
+        var end = start.plusDays(days - 1)
+        var filter = {date: {$gte: start.date, $lte: end.date}}
+        collection.find(filter).sort({date: 1}).toArray((err, docs) => {
             var transformedDoc = docs.map((doc) => {
                 doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
                 return doc
@@ -84,11 +84,11 @@ function getType(reservation) {
 }
 function fetch(isoDate) {
     return Bacon.combineAsArray([
-        slSystems.getMeilahti,
-        slSystems.getHerttoniemi,
-        slSystems.getKulosaari,
-        slSystems.getMerihaka,
-        webTimmi.getAll].map(function (fn) { return fn(isoDate) }))
+            slSystems.getMeilahti,
+            slSystems.getHerttoniemi,
+            slSystems.getKulosaari,
+            slSystems.getMerihaka,
+            webTimmi.getAll].map(function (fn) { return fn(isoDate) }))
         .map(function (allData) {
             var freeCourts = _.flatten(allData).filter(function (reservation) {
                 if (!reservation || !reservation.field) return false
