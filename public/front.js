@@ -4,7 +4,6 @@ var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
 var attachFastClick = require('fastclick')
-var locationTable = require('./locationTable')
 var navigation = require('./navigation')
 attachFastClick(document.body)
 var activeDate = DateTime.today()
@@ -27,7 +26,6 @@ setInterval(function () {
 }, 250)
 
 navigation.init()
-locationTable.init()
 listAvailabilityForDate(activeDate, 2, 30)
 initJumpToDate()
 
