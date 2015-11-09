@@ -20,14 +20,15 @@ setInterval(function () {
     if (didScroll) {
         didScroll = false;
         if (!alreadyLoadingMoreResults && $window.scrollTop() + $window.height() > $document.height() - 400) {
-            loadMoreResults()
+            console.log('loading more')
+            loadMoreResults(5)
         }
     }
 }, 250)
 
 navigation.init()
 locationTable.init()
-listAvailabilityForDate(activeDate, 30)
+listAvailabilityForDate(activeDate, 2, 30)
 initJumpToDate()
 
 $('#schedule').on('click', '.locationLabel, .close', function (e) {
@@ -42,20 +43,19 @@ $('.locationMap .close').click(function () {
     $(this).parents('.modal').hide()
 })
 
-function loadMoreResults() {
+function loadMoreResults(days) {
     if (!alreadyLoadingMoreResults) {
         alreadyLoadingMoreResults = true
         activeDate = activeDate.plusDays(1)
-        listAvailabilityForDate(activeDate, 2)
+        listAvailabilityForDate(activeDate, days)
     }
 }
 
-function listAvailabilityForDate(requestedDateTime, days) {
+function listAvailabilityForDate(requestedDateTime, days, daysTwo) {
     var requestedDate = requestedDateTime.toISODateString()
     $('#schedule').addClass('loading')
+    alreadyLoadingMoreResults = true
     return $.getJSON('/courts?date=' + requestedDate + '&days=' + days, function (allDataWithDates) {
-        alreadyLoadingMoreResults = false
-
         $('#schedule').removeClass('loading')
             //.append($timeStamp)
             .append(allDataWithDates.map(function (allDataWithDate) {
@@ -69,7 +69,8 @@ function listAvailabilityForDate(requestedDateTime, days) {
                     return toDateSection(dateObject, timeStamp)
                 }).join('')
             }).join(''))
-        if ($window.height() === $document.height()) loadMoreResults()
+        alreadyLoadingMoreResults = false
+        if (daysTwo) loadMoreResults(daysTwo)
     })
 }
 
