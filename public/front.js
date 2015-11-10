@@ -13,11 +13,11 @@ var locations = require('./locations')
 
 var didScroll = false
 var alreadyLoadingMoreResults = false
-$(window).scroll(function () { didScroll = true });
+$(window).scroll(() => { didScroll = true })
 
-setInterval(function () {
+setInterval(() => {
     if (didScroll) {
-        didScroll = false;
+        didScroll = false
         if (!alreadyLoadingMoreResults && $window.scrollTop() + $window.height() > $document.height() - 400) {
             console.log('loading more')
             loadMoreResults(5)
@@ -29,17 +29,12 @@ navigation.init()
 listAvailabilityForDate(activeDate, 2, 30)
 initJumpToDate()
 
-$('#schedule').on('click', '.locationLabel, .close', function (e) {
+$('#schedule').on('click', '.locationLabel, .close', e => {
     var $locationBoxes = $(e.currentTarget).parents('.locationBoxes')
     $locationBoxes.toggleClass('showDetails')
 })
-$('.information .close').click(function () {
-    $(this).parents('.modal').hide()
-})
 
-$('.locationMap .close').click(function () {
-    $(this).parents('.modal').hide()
-})
+$('.locationMap .close').click(e => $(e.currentTarget).parents('.modal').hide())
 
 function loadMoreResults(days) {
     if (!alreadyLoadingMoreResults) {
@@ -53,19 +48,17 @@ function listAvailabilityForDate(requestedDateTime, days, daysTwo) {
     var requestedDate = requestedDateTime.toISODateString()
     $('#schedule').addClass('loading')
     alreadyLoadingMoreResults = true
-    return $.getJSON('/courts?date=' + requestedDate + '&days=' + days, function (allDataWithDates) {
+    return $.getJSON('/courts?date=' + requestedDate + '&days=' + days, allDataWithDates => {
         $('#schedule').removeClass('loading')
             //.append($timeStamp)
-            .append(allDataWithDates.map(function (allDataWithDate) {
+            .append(allDataWithDates.map(allDataWithDate => {
                 var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
                 var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
                 var currentDate = allDataWithDate.date.split('T')[0]
                 var data = allDataWithDate.freeCourts
-                return groupBySortedAsList(data, 'date').filter(function (x) {
-                    return x.key === currentDate
-                }).map(function (dateObject) {
-                    return toDateSection(dateObject, timeStamp)
-                }).join('')
+                return groupBySortedAsList(data, 'date')
+                    .filter(x => x.key === currentDate)
+                    .map(dateObject => toDateSection(dateObject, timeStamp)).join('')
             }).join(''))
         alreadyLoadingMoreResults = false
         if (daysTwo) loadMoreResults(daysTwo)
@@ -74,7 +67,7 @@ function listAvailabilityForDate(requestedDateTime, days, daysTwo) {
 
 function toDateSection(dateObject, timeStamp) {
     var isoDate = dateObject.key
-    var times = dateObject.val.filter(function (reservation) {
+    var times = dateObject.val.filter(reservation => {
         var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
         return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
     })
@@ -102,15 +95,13 @@ function toLocationButtonGroup(locationFields) {
 function modal(fields) {
     var dateTime = DateTime.fromIsoDate(fields[0].date)
     var currentLocation = fields[0].location
-    var locationObject = locations.find(function (location) {
-        return location.title === currentLocation
-    })
+    var locationObject = locations.find(location => location.title === currentLocation)
 
     return '<div class="modal">' +
         '<h3>' + currentLocation + ' ' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + ' klo ' + fields[0].time + '</h3>'
         + fields.map(toButtonMarkup).join('') +
         linksMarkup(locationObject) +
-    '<div class="close">&times;</div></div>'
+        '<div class="close">&times;</div></div>'
 }
 
 function linksMarkup(locationObject) {
@@ -124,12 +115,12 @@ function linksMarkup(locationObject) {
 }
 
 function collapsedButtons(location, fields) {
-    return groupBySortedAsList(fields, 'type').filter(function (fieldsForType) {
-        return fieldsForType.val.length > 0
-    }).map(function (fieldsForType) {
+    return groupBySortedAsList(fields, 'type')
+        .filter(fieldsForType => fieldsForType.val.length > 0)
+        .map(fieldsForType => {
         var type = fieldsForType.key
         var field = fieldsForType.val[0]
-        var hasDoubleLessons = fieldsForType.val.some(function (field) { return field.doubleLesson })
+        var hasDoubleLessons = fieldsForType.val.some(field => field.doubleLesson)
         return '<button type="button" class="locationLabel ' + location + ' ' + field.type + ' ' + (hasDoubleLessons ? 'double' : 'single') + '">' + (field.price ? field.price + '€' : '&nbsp;&nbsp;') + '</button>'
     }).join(' ')
 }
@@ -147,12 +138,12 @@ function objectToArray(val, key) {
 }
 
 function initJumpToDate() {
-    $('.jumpToDate').html(_.range(1, 60).map(function (delta) {
+    $('.jumpToDate').html(_.range(1, 60).map(delta => {
         var dateTime = new DateTime().plusDays(delta)
         var format = DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
         return '<option value="' + dateTime.toISODateString() + '">' + format + '</option>'
-    }).join('\n')).change(function () {
-        activeDate = DateTime.fromIsoDate($(this).val())
+    }).join('\n')).change(e => {
+        activeDate = DateTime.fromIsoDate($(e.currentTarget).val())
         $('#schedule').empty()
         alreadyLoadingMoreResults = true
         listAvailabilityForDate(activeDate, 2)
