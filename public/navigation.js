@@ -1,6 +1,7 @@
 var $ = require('jquery')
 var _ = require('lodash')
 var mapView = require('./mapView')
+var noUiSlider = require('nouislider');
 var toggles = {}
 
 module.exports = {
@@ -24,7 +25,7 @@ function initNavigation() {
     })
     $('.toggleMapInformation').click(function () {
         $('#map_wrapper').show()
-        if(mapMissing) {
+        if (mapMissing) {
             mapView.renderMap()
             mapMissing = false
         }
@@ -44,11 +45,26 @@ var end = 235
 var all = _.range(60, 235, 5)
 
 function initTimeFilter() {
-    $('.timeFilterStart,.timeFilterEnd').on('input', function () {
-        var name = $(this).prop('name')
-        var isStart = name === 'start'
-        setStartAndEndLabels(isStart, $(this).val())
-    }).on('change', function () {
+    var slider = document.getElementById('slider')
+    noUiSlider.create(slider, {
+        start:    [60, 230],
+        step:     5,
+        margin:   20,
+        connect:  true,
+        range:    {
+            'min': 60,
+            'max': 230
+        },
+        format:   {
+            to:   formatTime,
+            from: x => x
+        }
+    })
+    slider.noUiSlider.on('update', function (values, endTime) {
+        var isStart = !endTime
+        setStartAndEndLabels(isStart, parseTime(values[endTime]))
+    })
+    slider.noUiSlider.on('change', function (values, endTime) {
         setTimeFilterClasses()
     })
 }
@@ -60,9 +76,16 @@ function setStartAndEndLabels(isStart, val) {
     $rangeLabel.html(formatTime(start) + '-' + formatTime(end))
 }
 
+function parseTime(isoTime) {
+    console.log('parse',isoTime)
+    var hm = isoTime.split(':')
+    return String(Number(hm[0]) * 10 + Number(hm[1]) / 6)
+}
+
 function formatTime(val) {
+    console.log('formt',arguments)
     var hour = Math.floor(val / 10)
-    var min = val % 10 * .6
+    var min = Math.round(val % 10 * .6)
     return hour + ':' + min + '0'
 }
 var $schedule = $('#schedule')

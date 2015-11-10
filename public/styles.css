@@ -1,3 +1,4 @@
+@import url(vendor/nouislider.min.css);
 body { background: #eee;font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.4; color: #333; margin: 0; }
 .time { top: 13px; position: relative; margin-right: 5px; }
 .fieldLabel { display: none }
@@ -56,9 +57,9 @@ button.tali { border-color: #d454bf; color: #d454bf;  }
 .timeFilterContainer { display: inline-flex;}
 .timeFilterStart,
 .timeFilterEnd {display: block}
-.rangeLabel {
-    width: 50px;
-}
+.rangeLabel { width: 70px; line-height: 3; }
+.jumpToDate {display: none;}
+#slider {margin: 10px 20px 10px 10px;width:200px;}
 header { position: fixed; top: 0; background: #31b0d5; color: #fff; width: 100%; text-transform: uppercase; z-index: 1; }
 nav ul { display: flex; flex-direction: row; justify-content: space-between; align-items: stretch; padding: 0; margin: 0 20px; }
 nav li { display: inline-block; padding: 10px 0; cursor: pointer; }
