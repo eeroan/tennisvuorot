@@ -48,12 +48,12 @@ function listAvailabilityForDate(requestedDateTime, days, daysTwo) {
     var requestedDate = requestedDateTime.toISODateString()
     $('#schedule').addClass('loading')
     alreadyLoadingMoreResults = true
-    return $.getJSON('/courts?date=' + requestedDate + '&days=' + days, allDataWithDates => {
+    return $.getJSON(`/courts?date=${requestedDate}&days=${days}`, allDataWithDates => {
         $('#schedule').removeClass('loading')
             //.append($timeStamp)
             .append(allDataWithDates.map(allDataWithDate => {
                 var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
-                var timeStamp = 'päivitetty ' + deltaMin + ' minuuttia sitten'
+                var timeStamp = `päivitetty ${deltaMin} minuuttia sitten`
                 var currentDate = allDataWithDate.date.split('T')[0]
                 var data = allDataWithDate.freeCourts
                 return groupBySortedAsList(data, 'date')
@@ -73,23 +73,24 @@ function toDateSection(dateObject, timeStamp) {
     })
 
     var dateTime = DateTime.fromIsoDate(isoDate)
-    return '<div class="titleContainer day' + dateTime.getDay() + '"><h4>' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + '</h4>' +
-        '<div class="timestamp">' + timeStamp + '</div></div>' +
-        groupBySortedAsList(times, 'time').map(toTimeRow).join('')
+    return `<div class="titleContainer day ${dateTime.getDay()}"><h4>${formatDate(dateTime)}</h4>
+    <div class="timestamp">${timeStamp}</div></div>` + groupBySortedAsList(times, 'time').map(toTimeRow).join('')
 }
 
 function toTimeRow(timeObject) {
     var isoTime = timeObject.key
     var fields = timeObject.val
     var hm = isoTime.split(':')
-    return '<div class="timeRow h' + (Number(hm[0]) * 10 + (Number(hm[1]) / 6)) + '"><span class="timeWrapper"><span class="time">' + isoTime + '</span></span>' +
-        groupBySortedAsList(fields, 'location').map(toLocationButtonGroup).join('') + '</div>'
+    return `<div class="timeRow h${(Number(hm[0]) * 10 + (Number(hm[1]) / 6))}">
+    <span class="timeWrapper"><span class="time">${isoTime}</span></span>
+        ${groupBySortedAsList(fields, 'location').map(toLocationButtonGroup).join('')}
+        </div>`
 }
 
 function toLocationButtonGroup(locationFields) {
     var location = locationFields.key
     var fields = locationFields.val
-    return '<span class="locationBoxes">' + collapsedButtons(location, fields) + modal(fields) + '</span>'
+    return `<span class="locationBoxes">${collapsedButtons(location, fields) + modal(fields)}</span>`
 }
 
 function modal(fields) {
@@ -97,21 +98,23 @@ function modal(fields) {
     var currentLocation = fields[0].location
     var locationObject = locations.find(location => location.title === currentLocation)
 
-    return '<div class="modal">' +
-        '<h3>' + currentLocation + ' ' + DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI) + ' klo ' + fields[0].time + '</h3>'
-        + fields.map(toButtonMarkup).join('') +
-        linksMarkup(locationObject) +
-        '<div class="close">&times;</div></div>'
+    return `<div class="modal">
+        <h3>${currentLocation} ${formatDate(dateTime)} klo ${fields[0].time}</h3>
+        ${fields.map(toButtonMarkup).join('')}
+        ${linksMarkup(locationObject)}
+        <div class="close">&times;</div></div>`
 }
 
+function formatDate(dateTime) {
+    return DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
+}
 function linksMarkup(locationObject) {
     var address = locationObject.address
     var url = locationObject.url
     var tel = locationObject.tel
-    var systemLink = (url ? '<div><a target="_blank" href="' + url + '">Siirry varausjärjestelmään</a></div>' : '')
-    var addressLink = '<div><a class="map" target="_blank" href="http://maps.google.com/?q=' + address + '">' + address + '</a></div>'
-    var telLink = '<div><a class="tel" href="tel:' + tel + '">' + tel + '</a></div>'
-    return '<div class="links">' + telLink + addressLink + systemLink + '</div>'
+    return `<div class="links"><div><a class="tel" href="tel:${tel}">${tel}</a></div>
+    <div><a class="map" target="_blank" href="http://maps.google.com/?q=${address}">${address}</a></div>` +
+        (url ? `<div><a target="_blank" href="${url}">Siirry varausjärjestelmään</a></div>` : '') + '</div>'
 }
 
 function collapsedButtons(location, fields) {
@@ -121,12 +124,17 @@ function collapsedButtons(location, fields) {
         var type = fieldsForType.key
         var field = fieldsForType.val[0]
         var hasDoubleLessons = fieldsForType.val.some(field => field.doubleLesson)
-        return '<button type="button" class="locationLabel ' + location + ' ' + field.type + ' ' + (hasDoubleLessons ? 'double' : 'single') + '">' + (field.price ? field.price + '€' : '&nbsp;&nbsp;') + '</button>'
+        return `<button type="button" class="locationLabel ${location} ${field.type} ${durationClass(hasDoubleLessons)}">
+        ${(field.price ? field.price + '€' : '&nbsp;&nbsp;')}</button>`
     }).join(' ')
 }
 
 function toButtonMarkup(field) {
-    return '<button type="button" class="fieldLabel ' + field.location + ' ' + field.type + (field.doubleLesson ? ' double' : ' single') + '">' + field.field + ', ' + field.price + '€</button>'
+    return `<button type="button" class="fieldLabel ${field.location} ${field.type}${durationClass(field.doubleLesson)}">${field.field}, ${field.price}€</button>`
+}
+
+function durationClass(isDouble) {
+    return isDouble ? 'double' : 'single'
 }
 
 function groupBySortedAsList(list, key) {
@@ -141,7 +149,7 @@ function initJumpToDate() {
     $('.jumpToDate').html(_.range(1, 60).map(delta => {
         var dateTime = new DateTime().plusDays(delta)
         var format = DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
-        return '<option value="' + dateTime.toISODateString() + '">' + format + '</option>'
+        return `<option value="${dateTime.toISODateString()}">${format}</option>`
     }).join('\n')).change(e => {
         activeDate = DateTime.fromIsoDate($(e.currentTarget).val())
         $('#schedule').empty()
