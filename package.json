@@ -33,6 +33,7 @@
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "mongodb": "^2.0.43",
+    "nouislider": "^8.1.0",
     "request": "^2.61.0",
     "request-debug": "^0.2.0"
   },
