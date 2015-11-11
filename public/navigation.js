@@ -30,7 +30,7 @@ function initNavigation() {
             mapMissing = false
         }
     })
-    $('.toggleFilters').click(function () {
+    $('.toggleFilters, .filters .close').click(function () {
         $('.filters').toggleClass('collapsed')
     })
     initTimeFilter()
