@@ -57,7 +57,7 @@ button.tali { border-color: #d454bf; color: #d454bf;  }
 .timeFilterContainer { display: inline-flex;}
 .timeFilterStart,
 .timeFilterEnd {display: block}
-.rangeLabel { width: 70px; line-height: 3; }
+.rangeLabel { width: 100px; line-height: 3; }
 .jumpToDate {display: none;}
 #slider {margin: 10px 20px 10px 10px;width:200px;}
 header { position: fixed; top: 0; background: #31b0d5; color: #fff; width: 100%; text-transform: uppercase; z-index: 1; }
