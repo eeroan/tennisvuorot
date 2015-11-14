@@ -3,7 +3,7 @@ Tennis courts of Helsinki
 
 ![Travis](https://api.travis-ci.org/eeroan/tennishelsinki.svg)
 
-https://tennishvuorot.herokuapp.com/
+https://tennisvuorot.herokuapp.com/
 
 http://eeroan.github.io/tennisvuorot
 
