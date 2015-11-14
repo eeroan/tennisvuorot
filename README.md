@@ -1,11 +1,11 @@
-# tennishelsinki
+# Tennisvuorot
 Tennis courts of Helsinki
 
 ![Travis](https://api.travis-ci.org/eeroan/tennishelsinki.svg)
 
-https://tennishelsinki.herokuapp.com/
+https://tennishvuorot.herokuapp.com/
 
-http://eeroan.github.io/tennishelsinki/
+http://eeroan.github.io/tennisvuorot
 
 # Lista kentistä
 
