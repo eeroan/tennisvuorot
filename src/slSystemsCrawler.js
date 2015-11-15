@@ -13,38 +13,31 @@ module.exports = {
 }
 
 function getMeilahti(isoDate) {
-    return getTableWithMapper(isoDate, 'meilahti', 1, (obj) => {
-        var index = obj.res
-        obj.field = (index > 5 ? 'Sisä' : 'Kupla') + ' K' + index
-        obj.location = 'meilahti'
-        return obj
-    })
+    return getTableWithMapper(isoDate, 'meilahti', 1, obj => _.merge(obj, {
+        field:    (obj.res > 5 ? 'Sisä' : 'Kupla') + ' K' + obj.res,
+        location: 'meilahti'
+    }))
 }
 
 function getHerttoniemi(isoDate) {
-    return getTableWithMapper(isoDate, 'fite', 1, (obj) => {
-        var index = obj.res
-        obj.field = (index > 9 ? 'Massakupla' : (index > 6 ? 'Janus' : 'Sisä')) + ' K' + index
-        obj.location = 'herttoniemi'
-        return obj
-    })
+    return getTableWithMapper(isoDate, 'fite', 1, obj => _.merge(obj, {
+        field:    (obj.res > 9 ? 'Massakupla' : (obj.res > 6 ? 'Janus' : 'Sisä')) + ' K' + obj.res,
+        location: 'herttoniemi'
+    }))
 }
 
 function getKulosaari(isoDate) {
-    return getTableWithMapper(isoDate, 'puhoscenter', 1, (obj) => {
-        var index = obj.res
-        obj.field = (index > 2 ? 'Green set' : 'Bolltex' ) + ' Te' + index
-        obj.location = 'kulosaari'
-        return obj
-    })
+    return getTableWithMapper(isoDate, 'puhoscenter', 1, obj => _.merge(obj, {
+        field:    (obj.res > 2 ? 'Green set' : 'Bolltex' ) + ' Te' + obj.res,
+        location: 'kulosaari'
+    }))
 }
 
 function getMerihaka(isoDate) {
-    return getTableWithMapper(isoDate, 'meripeli', 3, (obj) => {
-        obj.field = 'K1'
-        obj.location = 'merihaka'
-        return obj
-    })
+    return getTableWithMapper(isoDate, 'meripeli', 3, obj => _.merge({
+        field:    'K1',
+        location: 'merihaka'
+    }))
 }
 
 function getTableWithMapper(isoDate, client, sportTypeId, fn) {
