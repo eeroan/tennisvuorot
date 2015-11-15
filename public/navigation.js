@@ -2,19 +2,25 @@ var $ = require('jquery')
 var _ = require('lodash')
 var mapView = require('./mapView')
 var noUiSlider = require('nouislider');
-var toggles = {}
+
+var settings = {
+    toggles: {},
+    start: 60,
+    end: 235
+}
 
 module.exports = {
     init: initNavigation
 }
 
 var mapMissing = true
+
 function initNavigation() {
     $('.filters button, #single').click(function (e) {
         var $button = $(this)
         $button.toggleClass('inactive')
         var id = $button.prop('id')
-        toggleObj(id, toggles)
+        toggleObj(id, settings.toggles)
         setTimeout(function () {
             $('#schedule').toggleClass(id)
         }, 1)
@@ -40,8 +46,7 @@ function toggleObj(key, obj) {
     if (key in obj) delete obj[key]
     else obj[key] = true
 }
-var start = 60
-var end = 235
+
 var all = _.range(60, 235, 5)
 
 function initTimeFilter() {
@@ -71,19 +76,17 @@ function initTimeFilter() {
 var $rangeLabel = $('.rangeLabel')
 
 function setStartAndEndLabels(isStart, val) {
-    if (isStart) start = Number(val)
-    else end = Number(val)
-    $rangeLabel.html(formatTime(start) + '-' + formatTime(end))
+    if (isStart) settings.start = Number(val)
+    else settings.end = Number(val)
+    $rangeLabel.html(formatTime(settings.start) + '-' + formatTime(settings.end))
 }
 
 function parseTime(isoTime) {
-    console.log('parse',isoTime)
     var hm = isoTime.split(':')
     return String(Number(hm[0]) * 10 + Number(hm[1]) / 6)
 }
 
 function formatTime(val) {
-    console.log('formt',arguments)
     var hour = Math.floor(val / 10)
     var min = Math.round(val % 10 * .6)
     return hour + ':' + min + '0'
@@ -92,9 +95,9 @@ var $schedule = $('#schedule')
 
 function setTimeFilterClasses() {
     var hiddenTimes = all.filter(function (time) {
-        return time < start || time > end
+        return time < settings.start || time > settings.end
     })
-    $schedule.prop('class', _.map(toggles, function (v, k) { return k }).concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
+    $schedule.prop('class', _.map(settings.toggles, function (v, k) { return k }).concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
 }
 
 function saveFilters(obj) {
