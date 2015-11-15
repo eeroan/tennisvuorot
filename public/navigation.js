@@ -95,8 +95,10 @@ function setTimeFilterClasses() {
     var hiddenTimes = all.filter(function (time) {
         return time < settings.start || time > settings.end
     })
-    $schedule.prop('class', _.map(settings.toggles, function (v, k) { return k }).concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
+    $schedule.prop('class', activeFilters().concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
 }
+
+function activeFilters() { return _.map(settings.toggles, function (v, k) { return k }) }
 
 function saveFilters(obj) {
     localStorage.setItem('filters', JSON.stringify(obj))
