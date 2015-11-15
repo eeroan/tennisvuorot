@@ -49,7 +49,7 @@ function initTimeFilter() {
     noUiSlider.create(slider, {
         start:    [60, 230],
         step:     5,
-        margin:   20,
+        //margin:   20,
         connect:  true,
         range:    {
             'min': 60,
