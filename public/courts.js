@@ -69,5 +69,10 @@ module.exports = {
         url: 'https://www.slsystems.fi/fite/',
         address: 'Kaisaniemen puisto',
         tel: '09 341 7130'
+    },
+    tapiola: {
+        url: 'https://www.slsystems.fi/tennispuisto/',
+        address: 'Tuulikuja 1, Espoo',
+        tel: '09 867 6530'
     }
 }
