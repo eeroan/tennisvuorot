@@ -48,7 +48,7 @@ function listAvailabilityForDate(requestedDateTime, days, daysTwo) {
     var requestedDate = requestedDateTime.toISODateString()
     $('#schedule').addClass('loading')
     alreadyLoadingMoreResults = true
-    return $.getJSON(`/courts?date=${requestedDate}&days=${days}`, allDataWithDates => {
+    return $.getJSON(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
         $('#schedule').removeClass('loading')
             //.append($timeStamp)
             .append(allDataWithDates.map(allDataWithDate => {

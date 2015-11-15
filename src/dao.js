@@ -17,7 +17,7 @@ module.exports = {
 function freeCourts(req, res) {
     var isoDate = req.query.date
     var days = Number(req.query.days) || 1
-    var forceRefresh = req.query.refresh || false
+    var forceRefresh = req.query.refresh === 'true' || false
 
     if (forceRefresh) {
         refresh(isoDate, days, data => { res.send(data.timestamp ? [data] : data) })
@@ -103,7 +103,8 @@ function fetch(isoDate) {
             })
             return {
                 freeCourts: withDoubleLessonInfo(freeCourts),
-                timestamp:  new Date().getTime()
+                timestamp:  new Date().getTime(),
+                date:       isoDate
             }
         })
 }
