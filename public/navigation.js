@@ -69,9 +69,7 @@ function initTimeFilter() {
         var isStart = !endTime
         setStartAndEndLabels(isStart, parseTime(values[endTime]))
     })
-    slider.noUiSlider.on('change', function (values, endTime) {
-        setTimeFilterClasses()
-    })
+    slider.noUiSlider.on('change', setTimeFilterClasses)
 }
 var $rangeLabel = $('.rangeLabel')
 
