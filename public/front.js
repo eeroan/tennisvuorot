@@ -26,7 +26,7 @@ setInterval(() => {
 }, 250)
 
 navigation.init()
-listAvailabilityForDate(activeDate, 2, 30)
+listAvailabilityForActiveDate(2, 30)
 initJumpToDate()
 
 $('#schedule').on('click', '.locationLabel, .close', e => {
@@ -39,13 +39,13 @@ $('.locationMap .close').click(e => $(e.currentTarget).parents('.modal').hide())
 function loadMoreResults(days) {
     if (!alreadyLoadingMoreResults) {
         alreadyLoadingMoreResults = true
-        activeDate = activeDate.plusDays(1)
-        listAvailabilityForDate(activeDate, days)
+        listAvailabilityForActiveDate(days)
     }
 }
 
-function listAvailabilityForDate(requestedDateTime, days, daysTwo) {
-    var requestedDate = requestedDateTime.toISODateString()
+function listAvailabilityForActiveDate(days, daysTwo) {
+    var requestedDate = activeDate.toISODateString()
+    activeDate = activeDate.plusDays(days-1)
     $('#schedule').addClass('loading')
     alreadyLoadingMoreResults = true
     return $.getJSON(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
@@ -121,12 +121,12 @@ function collapsedButtons(location, fields) {
     return groupBySortedAsList(fields, 'type')
         .filter(fieldsForType => fieldsForType.val.length > 0)
         .map(fieldsForType => {
-        var type = fieldsForType.key
-        var field = fieldsForType.val[0]
-        var hasDoubleLessons = fieldsForType.val.some(field => field.doubleLesson)
-        return `<button type="button" class="locationLabel ${location} ${field.type} ${durationClass(hasDoubleLessons)}">
+            var type = fieldsForType.key
+            var field = fieldsForType.val[0]
+            var hasDoubleLessons = fieldsForType.val.some(field => field.doubleLesson)
+            return `<button type="button" class="locationLabel ${location} ${field.type} ${durationClass(hasDoubleLessons)}">
         ${(field.price ? field.price + '€' : '&nbsp;&nbsp;')}</button>`
-    }).join(' ')
+        }).join(' ')
 }
 
 function toButtonMarkup(field) {
@@ -154,6 +154,6 @@ function initJumpToDate() {
         activeDate = DateTime.fromIsoDate($(e.currentTarget).val())
         $('#schedule').empty()
         alreadyLoadingMoreResults = true
-        listAvailabilityForDate(activeDate, 2)
+        listAvailabilityForActiveDate(2)
     })
 }
