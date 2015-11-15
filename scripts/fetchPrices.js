@@ -12,7 +12,8 @@ var sheets = {
     kulosaari:   1730330027,
     meilahti:    {indoor: 466490005, bubble: 844564121},
     herttoniemi: {indoor: 1178514552, bubble: 198222769},
-    merihaka:    1502483638
+    merihaka:    1502483638,
+    tapiola:     145296495
 }
 
 function fetchFor(id) {
