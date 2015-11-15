@@ -45,7 +45,7 @@ function loadMoreResults(days) {
 
 function listAvailabilityForActiveDate(days, daysTwo) {
     var requestedDate = activeDate.toISODateString()
-    activeDate = activeDate.plusDays(days-1)
+    activeDate = activeDate.plusDays(days)
     $('#schedule').addClass('loading')
     alreadyLoadingMoreResults = true
     return $.getJSON(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
