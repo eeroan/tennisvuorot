@@ -1,7 +1,7 @@
 # Tennisvuorot
 Tennis courts of Helsinki
 
-![Travis](https://api.travis-ci.org/eeroan/tennishelsinki.svg)
+![Travis](https://api.travis-ci.org/eeroan/tennisvuorot.svg)
 
 https://tennisvuorot.herokuapp.com/
 
