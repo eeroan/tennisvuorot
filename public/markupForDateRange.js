@@ -10,7 +10,7 @@ function markupForDateRange(allDataWithDates) {
     return allDataWithDates.map(allDataWithDate => {
         var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
         var timeStamp = `päivitetty ${deltaMin} minuuttia sitten`
-        var currentDate = allDataWithDate.date.split('T')[0]
+        var currentDate = getCurrentDate(allDataWithDate.date)
         var data = allDataWithDate.freeCourts
         return groupBySortedAsList(data, 'date')
             .filter(x => x.key === currentDate)
@@ -18,6 +18,9 @@ function markupForDateRange(allDataWithDates) {
     }).join('')
 }
 
+function getCurrentDate(date) {
+    return typeof date === 'string' ? date.split('T')[0] : new DateTime(date).toISODateString()
+}
 function toDateSection(dateObject, timeStamp) {
     var isoDate = dateObject.key
     var times = dateObject.val.filter(reservation => {

@@ -6,7 +6,6 @@ var DateLocale = require('dateutils').DateLocale
 var attachFastClick = require('fastclick')
 var navigation = require('./navigation')
 attachFastClick(document.body)
-var activeDate = DateTime.today()
 var $window = $(window)
 var $document = $(document)
 var markupForDateRange = require('./markupForDateRange')
@@ -25,7 +24,8 @@ setInterval(() => {
 }, 250)
 
 navigation.init()
-listAvailabilityForActiveDate(2, 30)
+var activeDate = DateTime.today().plusDays(2)
+listAvailabilityForActiveDate(30)
 initJumpToDate()
 
 $('#schedule').on('click', '.locationLabel, .close', e => {
@@ -42,15 +42,14 @@ function loadMoreResults(days) {
     }
 }
 
-function listAvailabilityForActiveDate(days, daysTwo) {
+function listAvailabilityForActiveDate(days) {
     var requestedDate = activeDate.toISODateString()
-    activeDate = activeDate.plusDays(days)
+    activeDate = activeDate.plusDays(days-1)
     $('#schedule').addClass('loading')
     alreadyLoadingMoreResults = true
     return $.getJSON(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
         $('#schedule').removeClass('loading').append(markupForDateRange(allDataWithDates))
         alreadyLoadingMoreResults = false
-        if (daysTwo) loadMoreResults(daysTwo)
     })
 }
 
