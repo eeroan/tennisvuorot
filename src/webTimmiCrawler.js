@@ -66,12 +66,13 @@ function getWeek(cookie) {
     }).map('.body').map((markup) => {
         return {
             cookie: cookie,
-            token:  markup.match(/TOKEN" value="([^"]+)"/i).pop()
+            token:  _.last(markup.match(/TOKEN" value="([^"]+)"/i))
         }
     })
 }
 
 function weekView(cookie, token, fieldGroup, isoDate) {
+    if (!token) return new Bacon.Error('No token')
     var dateTime = DateTime.fromIsoDate(isoDate)
     var fiDate = DateFormat.format(dateTime, 'd.m.Y', DateLocale.FI)
     var dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase() + 'Selected'
