@@ -2,12 +2,13 @@ var $ = require('jquery')
 var _ = require('lodash')
 var mapView = require('./mapView')
 var noUiSlider = require('nouislider');
-
-var settings = {
-    toggles: {},
-    start: 60,
-    end: 235
+var defaults = {
+    toggles:   {},
+    start:     60,
+    end:       235,
+    collapsed: false
 }
+var settings = loadFilters() || defaults
 
 module.exports = {
     init: initNavigation
@@ -16,6 +17,9 @@ module.exports = {
 var mapMissing = true
 
 function initNavigation() {
+    activeFilters().forEach(name => { $('#' + name).addClass('inactive')})
+    $('#single').prop('checked', 'single' in settings.toggles)
+    setContainerFilterClasses()
     $('.filters button, #single').click(function (e) {
         var $button = $(this)
         $button.toggleClass('inactive')
@@ -23,12 +27,10 @@ function initNavigation() {
         toggleObj(id, settings.toggles)
         setTimeout(function () {
             $('#schedule').toggleClass(id)
+            saveFilters()
         }, 1)
     })
 
-    $('.toggleInformation').click(function () {
-        $('.information').show()
-    })
     $('.toggleMapInformation').click(function () {
         $('#map_wrapper').show()
         if (mapMissing) {
@@ -36,12 +38,19 @@ function initNavigation() {
             mapMissing = false
         }
     })
+    toggleNavi()
     $('.toggleFilters, .filters .close').click(function () {
-        $('.filters').toggleClass('collapsed')
+        settings.collapsed = $(this).hasClass('close')
+        toggleNavi()
+        saveFilters()
     })
     initTimeFilter()
 }
 
+function toggleNavi() {
+    $('.filters').toggleClass('collapsed', settings.collapsed)
+
+}
 function toggleObj(key, obj) {
     if (key in obj) delete obj[key]
     else obj[key] = true
@@ -52,15 +61,15 @@ var all = _.range(60, 235, 5)
 function initTimeFilter() {
     var slider = document.getElementById('slider')
     noUiSlider.create(slider, {
-        start:    [60, 230],
-        step:     5,
+        start:   [settings.start, settings.end],
+        step:    5,
         //margin:   20,
-        connect:  true,
-        range:    {
+        connect: true,
+        range:   {
             'min': 60,
             'max': 230
         },
-        format:   {
+        format:  {
             to:   formatTime,
             from: x => x
         }
@@ -69,7 +78,10 @@ function initTimeFilter() {
         var isStart = !endTime
         setStartAndEndLabels(isStart, parseTime(values[endTime]))
     })
-    slider.noUiSlider.on('change', setTimeFilterClasses)
+    slider.noUiSlider.on('change', () => {
+        setContainerFilterClasses()
+        saveFilters()
+    })
 }
 var $rangeLabel = $('.rangeLabel')
 
@@ -91,7 +103,7 @@ function formatTime(val) {
 }
 var $schedule = $('#schedule')
 
-function setTimeFilterClasses() {
+function setContainerFilterClasses() {
     var hiddenTimes = all.filter(function (time) {
         return time < settings.start || time > settings.end
     })
@@ -100,10 +112,10 @@ function setTimeFilterClasses() {
 
 function activeFilters() { return _.map(settings.toggles, function (v, k) { return k }) }
 
-function saveFilters(obj) {
-    localStorage.setItem('filters', JSON.stringify(obj))
+function saveFilters() {
+    localStorage.setItem('filters', JSON.stringify(settings))
 }
 
 function loadFilters() {
-    return JSON.parse(localStorage.getItem('filters')) || {}
+    return JSON.parse(localStorage.getItem('filters'))
 }
