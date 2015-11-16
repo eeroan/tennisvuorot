@@ -117,5 +117,7 @@ function saveFilters() {
 }
 
 function loadFilters() {
-    return JSON.parse(localStorage.getItem('filters'))
+  var jsonString = localStorage.getItem('filters')
+    if(jsonString) ga('send', 'event', 'User settings', jsonString)
+    return JSON.parse(jsonString)
 }

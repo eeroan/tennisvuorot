@@ -11,6 +11,8 @@ var $document = $(document)
 var markupForDateRange = require('./markupForDateRange')
 var didScroll = false
 var alreadyLoadingMoreResults = false
+var today = DateTime.fromIsoDate(window.serverDate)
+var activeDate = today.plusDays(2)
 $(window).scroll(() => { didScroll = true })
 
 setInterval(() => {
@@ -18,19 +20,21 @@ setInterval(() => {
         didScroll = false
         if (!alreadyLoadingMoreResults && $window.scrollTop() + $window.height() > $document.height() - 400) {
             loadMoreResults(5)
+            ga('send', 'event', 'Scroll to end', today.distanceInDays(activeDate))
         }
     }
 }, 250)
 
 navigation.init()
-var today = DateTime.fromIsoDate(window.serverDate)
-var activeDate = today.plusDays(2)
 listAvailabilityForActiveDate(30)
 initJumpToDate()
 
 $('#schedule').on('click', '.locationLabel, .close', e => {
-    var $locationBoxes = $(e.currentTarget).parents('.locationBoxes')
+    var $clickArea = $(e.currentTarget)
+    var opened = $clickArea.hasClass('locationLabel')
+    var $locationBoxes = $clickArea.parents('.locationBoxes')
     $locationBoxes.toggleClass('showDetails')
+    ga('send', 'event', 'Reservation', opened ? 'open' : 'close')
 })
 
 $('.locationMap .close').click(e => $(e.currentTarget).parents('.modal').hide())
@@ -44,7 +48,7 @@ function loadMoreResults(days) {
 
 function listAvailabilityForActiveDate(days) {
     var requestedDate = activeDate.toISODateString()
-    activeDate = activeDate.plusDays(days-1)
+    activeDate = activeDate.plusDays(days - 1)
     $('#schedule').addClass('loading')
     alreadyLoadingMoreResults = true
     return $.getJSON(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
