@@ -24,7 +24,7 @@ setInterval(() => {
 
 navigation.init()
 var today = DateTime.fromIsoDate(window.serverDate)
-var activeDate = today.plusDays(3)
+var activeDate = today.plusDays(2)
 listAvailabilityForActiveDate(30)
 initJumpToDate()
 
@@ -44,7 +44,7 @@ function loadMoreResults(days) {
 
 function listAvailabilityForActiveDate(days) {
     var requestedDate = activeDate.toISODateString()
-    activeDate = activeDate.plusDays(days)
+    activeDate = activeDate.plusDays(days-1)
     $('#schedule').addClass('loading')
     alreadyLoadingMoreResults = true
     return $.getJSON(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
