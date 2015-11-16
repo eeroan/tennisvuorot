@@ -9,29 +9,37 @@ var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb:/
 var rates = require('./rates')
 
 module.exports = {
-    freeCourts: freeCourts,
-    refresh:    refresh,
-    fetch:      fetch
+    sendFreeCourts: sendFreeCourts,
+    freeCourts:     freeCourts,
+    refresh:        refresh,
+    fetch:          fetch
 }
 
-function freeCourts(req, res) {
-    var isoDate = req.query.date
-    var days = Number(req.query.days) || 1
+function sendFreeCourts(req, res) {
     var forceRefresh = req.query.refresh === 'true' || false
+    freeCourts(req.query.date, Number(req.query.days) || 1, forceRefresh,
+        (data) => res.send(data),
+        (err) => res.status(500).send(err))
+}
 
+function freeCourts(isoDate, days, forceRefresh, callback, errCallback) {
     if (forceRefresh) {
-        refresh(isoDate, days, data => { res.send(data.timestamp ? [data] : data) })
+        refresh(isoDate, days, data => { doCallback(data) })
     } else {
         getFromMongo(isoDate, days, (err, data) => {
             if (err) {
-                res.status(500).send(err)
+                errCallback(err)
             } else if (data.length > 0) {
                 console.log('fetching from db for date', isoDate, days, data.length)
-                res.send(data.timestamp ? [data] : data)
+                doCallback(data)
             } else {
-                refresh(isoDate, days, (data) => { res.send(data.timestamp ? [data] : data) })
+                refresh(isoDate, days, (data) => { doCallback(data) })
             }
         })
+    }
+
+    function doCallback(data) {
+        callback(data.timestamp ? [data] : data)
     }
 }
 
