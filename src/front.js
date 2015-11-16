@@ -24,7 +24,7 @@ setInterval(() => {
 
 navigation.init()
 var today = DateTime.fromIsoDate(window.serverDate)
-var activeDate = today.plusDays(2)
+var activeDate = today.plusDays(3)
 listAvailabilityForActiveDate(30)
 initJumpToDate()
 
