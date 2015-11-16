@@ -2,7 +2,7 @@
 var request = require('request')
 var Bacon = require('baconjs').Bacon
 var _ = require('lodash')
-var courts = require('../public/courts')
+var courts = require('../src/courts')
 var util = require('util')
 
 locations()
