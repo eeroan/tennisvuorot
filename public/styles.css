@@ -72,7 +72,7 @@ nav li.selected { cursor: default; }
 .toggleMapInformation{ top: 10px;position: relative;/* padding: 0; *//* margin: 0; */display: inline-block;background: url(pin.png) no-repeat 50% 50%; width: 20px; height:30px; /* position: absolute; */ /* left: 10px; */ /* top: 10px; */ }
 .locationsContainer { /* margin-left: 30px; *//* margin-bottom: -10px; */margin-right: 40px; padding-bottom: 0;}
 .locationsContainer button { margin: 0 0 5px;}
-.filters .close { border: none; right: 0; top: 20px; /* bottom: 0; */ left: initial; background: none; color: #258dab; }
+.filters .close { font-size: 40px;border: none; right: 0; top: 20px; /* bottom: 0; */ left: initial; background: none; color: #258dab; }
 .filters .toggleFilters { display: none;}
 .filters.collapsed .toggleFilters {display: block}
 .filters.collapsed { padding-top: 10px;}
