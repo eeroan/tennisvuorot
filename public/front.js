@@ -17,7 +17,6 @@ setInterval(() => {
     if (didScroll) {
         didScroll = false
         if (!alreadyLoadingMoreResults && $window.scrollTop() + $window.height() > $document.height() - 400) {
-            console.log('loading more')
             loadMoreResults(5)
         }
     }
