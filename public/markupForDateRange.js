@@ -3,10 +3,9 @@ var _ = require('lodash')
 var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
-
 module.exports = markupForDateRange
 
-function markupForDateRange(allDataWithDates) {
+function markupForDateRange(allDataWithDates, today) {
     return allDataWithDates.map(allDataWithDate => {
         var deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
         var timeStamp = `päivitetty ${deltaMin} minuuttia sitten`
@@ -14,18 +13,18 @@ function markupForDateRange(allDataWithDates) {
         var data = allDataWithDate.freeCourts
         return groupBySortedAsList(data, 'date')
             .filter(x => x.key === currentDate)
-            .map(dateObject => toDateSection(dateObject, timeStamp)).join('')
+            .map(dateObject => toDateSection(dateObject, timeStamp, today)).join('')
     }).join('')
 }
 
 function getCurrentDate(date) {
     return typeof date === 'string' ? date.split('T')[0] : new DateTime(date).toISODateString()
 }
-function toDateSection(dateObject, timeStamp) {
+function toDateSection(dateObject, timeStamp, today) {
     var isoDate = dateObject.key
     var times = dateObject.val.filter(reservation => {
         var startingDateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
-        return startingDateTime.compareTo(new DateTime().minusMinutes(60)) >= 0
+        return startingDateTime.compareTo(today.minusMinutes(60)) >= 0
     })
 
     var dateTime = DateTime.fromIsoDate(isoDate)

@@ -14,13 +14,11 @@ var indexHtml = _.template(fs.readFileSync(__dirname + '/index.html', 'utf-8'))
 route.get('/', (req, res) => {
     dao.freeCourts(new DateTime().toISODateString(), 3, false, (data) => {
         res.send(indexHtml({
-            markup: markupForDateRange(data),
-            refresh: req.query.refresh==='true'
+            markup: markupForDateRange(data, new DateTime()),
+            refresh: req.query.refresh==='true',
+            serverDate: new DateTime().toISODateString()
         }))
     })
-    //res.send(indexHtml({
-      //  refresh: req.query.refresh==='true'
-    //}))
 })
 
 module.exports = route

@@ -23,7 +23,8 @@ setInterval(() => {
 }, 250)
 
 navigation.init()
-var activeDate = DateTime.today().plusDays(2)
+var today = DateTime.fromIsoDate(window.serverDate)
+var activeDate = today.plusDays(2)
 listAvailabilityForActiveDate(30)
 initJumpToDate()
 
@@ -47,14 +48,14 @@ function listAvailabilityForActiveDate(days) {
     $('#schedule').addClass('loading')
     alreadyLoadingMoreResults = true
     return $.getJSON(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
-        $('#schedule').removeClass('loading').append(markupForDateRange(allDataWithDates))
+        $('#schedule').removeClass('loading').append(markupForDateRange(allDataWithDates, today))
         alreadyLoadingMoreResults = false
     })
 }
 
 function initJumpToDate() {
     $('.jumpToDate').html(_.range(1, 60).map(delta => {
-        var dateTime = new DateTime().plusDays(delta)
+        var dateTime = today.plusDays(delta)
         var format = DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
         return `<option value="${dateTime.toISODateString()}">${format}</option>`
     }).join('\n')).change(e => {

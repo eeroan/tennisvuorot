@@ -62,7 +62,10 @@
     <div id="map_canvas" class="mapping"></div>
     <div class="close">&times;</div>
 </div>
-<script>window.refresh=<%=refresh%></script>
+<script>
+    window.refresh=<%=refresh%>;
+    window.serverDate='<%=serverDate%>';
+</script>
 <script src="front.min.js?"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script>
