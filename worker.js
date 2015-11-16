@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+require('newrelic')
 var DateTime = require('dateutils').DateTime
 var dao = require('./src/dao')
 var daysAhead = 0
