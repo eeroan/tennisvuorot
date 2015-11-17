@@ -16,8 +16,12 @@ module.exports = {
 
 var mapMissing = true
 
+function reportSettings(settings) {
+    return activeFilters(settings).sort().join(' ') + ' ' + settings.start + '-' + settings.end + ' ' + (settings.collapsed ? 'collapsed' : '')
+}
+
 function initNavigation() {
-    activeFilters().forEach(name => { $('#' + name).addClass('inactive')})
+    activeFilters(settings).forEach(name => { $('#' + name).addClass('inactive')})
     $('#single').prop('checked', 'single' in settings.toggles)
     setContainerFilterClasses()
     $('.filters button, #single').click(function (e) {
@@ -53,7 +57,7 @@ function initNavigation() {
 function initFeedback() {
     $('.feedbackForm').on('submit', function (e) {
         e.preventDefault()
-      var $feedback = $('.feedback')
+        var $feedback = $('.feedback')
         var text = $feedback.val()
         ga('send', 'event', 'Feedback', text)
         $feedback.val('')
@@ -121,17 +125,18 @@ function setContainerFilterClasses() {
     var hiddenTimes = all.filter(function (time) {
         return time < settings.start || time > settings.end
     })
-    $schedule.prop('class', activeFilters().concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
+    $schedule.prop('class', activeFilters(settings).concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
 }
 
-function activeFilters() { return _.map(settings.toggles, function (v, k) { return k }) }
+function activeFilters(settings) { return _.map(settings.toggles, function (v, k) { return k }) }
 
 function saveFilters() {
     localStorage.setItem('filters', JSON.stringify(settings))
 }
 
 function loadFilters() {
-  var jsonString = localStorage.getItem('filters')
-    if(jsonString) ga('send', 'event', 'User settings', jsonString)
-    return JSON.parse(jsonString)
+    var jsonString = localStorage.getItem('filters')
+    var parsedJson = JSON.parse(jsonString)
+    if (jsonString) ga('send', 'event', 'User settings', reportSettings(parsedJson))
+    return parsedJson
 }
