@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+module.exports = o => `<!DOCTYPE html>
 <html>
 <head>
     <title>Tennisvuorot Helsingissä</title>
@@ -43,7 +43,7 @@
         <div class="close" title="Piilota">&times;</div>
     </div>
     <section class="" id="schedule">
-        <%=markup%>
+        ${o.markup}
     </section>
 </div>
 <div class="information modal">
@@ -64,8 +64,8 @@
     <div class="close">&times;</div>
 </div>
 <script>
-    window.refresh=<%=refresh%>;
-    window.serverDate='<%=serverDate%>';
+    window.refresh=${o.refresh};
+    window.serverDate='${o.serverDate}';
 </script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script>
@@ -95,4 +95,4 @@
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 </body>
-</html>
+</html>`
