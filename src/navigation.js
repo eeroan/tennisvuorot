@@ -35,6 +35,8 @@ function initNavigation() {
         }, 1)
     })
     $('.toggleInformation').click(function () {
+        ga('send', 'event', 'Info', 'open')
+
         $('.information').show()
     })
     $('.toggleMapInformation').click(function () {
