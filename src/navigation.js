@@ -1,8 +1,8 @@
-var $ = require('jquery')
-var _ = require('lodash')
-var mapView = require('./mapView')
-var noUiSlider = require('nouislider');
-var defaults = {
+const $ = require('jquery')
+const _ = require('lodash')
+const mapView = require('./mapView')
+const noUiSlider = require('nouislider');
+const defaults = {
     toggles:   {},
     start:     60,
     end:       235,
@@ -17,29 +17,28 @@ module.exports = {
 var mapMissing = true
 
 function reportSettings(settings) {
-    return activeFilters(settings).sort().join(' ') + ' ' + settings.start + '-' + settings.end + ' ' + (settings.collapsed ? 'collapsed' : '')
+    return `${activeFilters(settings).sort().join(' ')} ${settings.start}-${settings.end} ${settings.collapsed ? 'collapsed' : ''}`
 }
 
 function initNavigation() {
     activeFilters(settings).forEach(name => { $('#' + name).addClass('inactive')})
     $('#single').prop('checked', 'single' in settings.toggles)
     setContainerFilterClasses()
-    $('.filters button, #single').click(function (e) {
-        var $button = $(this)
+    $('.filters button, #single').click(e => {
+        const $button = $(e.target)
         $button.toggleClass('inactive')
-        var id = $button.prop('id')
+        const id = $button.prop('id')
         toggleObj(id, settings.toggles)
-        setTimeout(function () {
+        setTimeout(() => {
             $('#schedule').toggleClass(id)
             saveFilters()
         }, 1)
     })
-    $('.toggleInformation').click(function () {
+    $('.toggleInformation').click(() => {
         ga('send', 'event', 'Info', 'open')
-
         $('.information').show()
     })
-    $('.toggleMapInformation').click(function () {
+    $('.toggleMapInformation').click(() => {
         $('#map_wrapper').show()
         if (mapMissing) {
             mapView.renderMap()
@@ -47,8 +46,8 @@ function initNavigation() {
         }
     })
     toggleNavi()
-    $('.toggleFilters, .filters .close').click(function () {
-        settings.collapsed = $(this).hasClass('close')
+    $('.toggleFilters, .filters .close').click(e => {
+        settings.collapsed = $(e.target).hasClass('close')
         toggleNavi()
         saveFilters()
     })
@@ -57,7 +56,7 @@ function initNavigation() {
 }
 
 function initFeedback() {
-    $('.feedbackForm').on('submit', function (e) {
+    $('.feedbackForm').on('submit', e => {
         e.preventDefault()
         var $feedback = $('.feedback')
         var text = $feedback.val()
@@ -67,10 +66,9 @@ function initFeedback() {
     })
     return false
 }
-function toggleNavi() {
-    $('.filters').toggleClass('collapsed', settings.collapsed)
 
-}
+function toggleNavi() { $('.filters').toggleClass('collapsed', settings.collapsed) }
+
 function toggleObj(key, obj) {
     if (key in obj) delete obj[key]
     else obj[key] = true
@@ -83,7 +81,6 @@ function initTimeFilter() {
     noUiSlider.create(slider, {
         start:   [settings.start, settings.end],
         step:    5,
-        //margin:   20,
         connect: true,
         range:   {
             'min': 60,
@@ -94,7 +91,7 @@ function initTimeFilter() {
             from: x => x
         }
     })
-    slider.noUiSlider.on('update', function (values, endTime) {
+    slider.noUiSlider.on('update', (values, endTime) => {
         var isStart = !endTime
         setStartAndEndLabels(isStart, parseTime(values[endTime]))
     })
@@ -121,20 +118,17 @@ function formatTime(val) {
     var min = Math.round(val % 10 * .6)
     return hour + ':' + min + '0'
 }
+
 var $schedule = $('#schedule')
 
 function setContainerFilterClasses() {
-    var hiddenTimes = all.filter(function (time) {
-        return time < settings.start || time > settings.end
-    })
-    $schedule.prop('class', activeFilters(settings).concat(hiddenTimes.map(function (time) { return 'h' + time })).join(' '))
+    var hiddenTimes = all.filter(time => time < settings.start || time > settings.end)
+    $schedule.prop('class', activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' '))
 }
 
-function activeFilters(settings) { return _.map(settings.toggles, function (v, k) { return k }) }
+function activeFilters(settings) { return _.map(settings.toggles, (v, k) => k) }
 
-function saveFilters() {
-    localStorage.setItem('filters', JSON.stringify(settings))
-}
+function saveFilters() { localStorage.setItem('filters', JSON.stringify(settings)) }
 
 function loadFilters() {
     var jsonString = localStorage.getItem('filters')
