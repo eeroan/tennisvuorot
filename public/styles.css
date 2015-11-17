@@ -10,7 +10,7 @@ body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-ser
 .showDetails .locationLabel { display: none; }
 .showDetails .fieldLabel { display: inline-block; }
 .modal { margin: 0 auto; max-width: 700px; box-shadow: 1px 1px 3px 10000px rgba(0, 0, 0, 0.5); line-height: 1.5; right: 20px; position: fixed; padding: 10px; display: none; left: 20px; top: 20px; background: #fff; z-index: 1; bottom: 20px; max-height: 900px; }
-.feedbackForm { display: flex; max-width: 100%; width: 300px; flex-wrap: wrap; justify-content: flex-end; }
+.feedbackForm { display: -webkit-flex; display: -ms-flexbox; display: flex; max-width: 100%; width: 300px; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-justify-content: flex-end; -ms-flex-pack: end; justify-content: flex-end; }
 .feedback { margin-bottom: 10px; width: 100%; height: 50px; display: block; }
 .submitFeedback { border: 3px solid; }
 .submitFeedback:disabled { color: #999; border-color: #eee; }
@@ -31,7 +31,7 @@ h3 { margin-bottom: 10px; }
 .day1 { border-top: 3px solid #ccc; }
 .day0,
 .day6 { color: #999; }
-.titleContainer { align-items: baseline; display: flex; }
+.titleContainer { -webkit-align-items: baseline; -ms-flex-align: baseline; align-items: baseline; display: -webkit-flex; display: -ms-flexbox; display: flex; }
 button { outline: none; background-color: #fff; display: inline-block; margin-bottom: 10px; margin-left: 5px; color: #333; padding: 5px; border: 3px solid #333; border-bottom-style: none; border-radius: 2px; }
 .filters button { border: 3px solid #666; color: black; cursor: pointer; }
 label { font-size: 11px; cursor: pointer; }
@@ -60,14 +60,14 @@ button.tapiola { border-color: #a8714e; color: #a8714e; }
 .filters { margin: 0 auto; max-width: 1024px; box-sizing: border-box; border-bottom: 1px solid #ccc; padding: 0 10px 0; width: 100%; position: fixed; background-color: #fff; z-index: 1; }
 .jumpToDateTitle { font-size: 11px; }
 .jumpToDateContainer { display: inline-block; }
-.timeFilterContainer { display: inline-flex; }
+.timeFilterContainer { display: -webkit-inline-flex; display: -ms-inline-flexbox; display: inline-flex; }
 .timeFilterStart,
 .timeFilterEnd { display: block }
 .rangeLabel { width: 100px; line-height: 3; }
 .jumpToDate { display: none; }
 #slider { margin: 10px 20px 10px 10px; width: 200px; }
 header { position: fixed; top: 0; background: #31b0d5; color: #fff; width: 100%; text-transform: uppercase; z-index: 1; }
-nav ul { display: flex; flex-direction: row; justify-content: space-between; align-items: stretch; padding: 0; margin: 0 20px; }
+nav ul { display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-flex-direction: row; -ms-flex-direction: row; flex-direction: row; -webkit-justify-content: space-between; -ms-flex-pack: justify; justify-content: space-between; -webkit-align-items: stretch; -ms-flex-align: stretch; align-items: stretch; padding: 0; margin: 0 20px; }
 nav li { display: inline-block; padding: 10px 0; cursor: pointer; }
 nav li.selected { cursor: default; }
 .selected { text-decoration: underline; }
@@ -94,7 +94,7 @@ button:active { outline: none; }
 button.inactive { color: #999; background: none; border-color: #eee; box-shadow: none; }
 .loading:after { content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0; }
 .timestamp { margin-left: 10px; font-size: 10px; margin-bottom: 10px; }
-.timeRow { display: flex; line-height: 0; flex-wrap: wrap; }
+.timeRow { display: -webkit-flex; display: -ms-flexbox; display: flex; line-height: 0; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; }
 .timeWrapper { position: relative; overflow: hidden; }
 a,
 a:visited { color: #258DAB; }
