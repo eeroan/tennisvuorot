@@ -30,7 +30,9 @@ function initNavigation() {
             saveFilters()
         }, 1)
     })
-
+    $('.toggleInformation').click(function () {
+        $('.information').show()
+    })
     $('.toggleMapInformation').click(function () {
         $('#map_wrapper').show()
         if (mapMissing) {
@@ -45,8 +47,20 @@ function initNavigation() {
         saveFilters()
     })
     initTimeFilter()
+    initFeedback()
 }
 
+function initFeedback() {
+    $('.feedbackForm').on('submit', function (e) {
+        e.preventDefault()
+      var $feedback = $('.feedback')
+        var text = $feedback.val()
+        ga('send', 'event', 'Feedback', text)
+        $feedback.val('')
+        $('.submitFeedback').prop('disabled', true).text('Palaute lähetetty')
+    })
+    return false
+}
 function toggleNavi() {
     $('.filters').toggleClass('collapsed', settings.collapsed)
 

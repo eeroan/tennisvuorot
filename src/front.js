@@ -37,7 +37,7 @@ $('#schedule').on('click', '.locationLabel, .close', e => {
     ga('send', 'event', 'Reservation', opened ? 'open' : 'close')
 })
 
-$('.locationMap .close').click(e => $(e.currentTarget).parents('.modal').hide())
+$('.locationMap .close, .information .close').click(e => $(e.currentTarget).parents('.modal').hide())
 
 function loadMoreResults(days) {
     if (!alreadyLoadingMoreResults) {

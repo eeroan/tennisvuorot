@@ -17,6 +17,7 @@
 
         <div class="locationsContainer">
             <a href="javascript:void(0)" class="toggle toggleMapInformation"></a>
+            <a href="javascript:void(0)" class="toggle toggleInformation">i</a>
             <button type="button" class="meilahti" id="meilahti">Meilahti</button>
             <button type="button" class="herttoniemi" id="herttoniemi">Herttoniemi</button>
             <button type="button" class="kulosaari" id="kulosaari">Kulosaari</button>
@@ -46,16 +47,16 @@
     </section>
 </div>
 <div class="information modal">
-    <table class="table">
-        <thead>
-        <tr>
-            <th class="place">Nimi</th>
-            <th class="address">Osoite</th>
-            <th class="tel">Puhelin</th>
-        </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <h3>Tietoja</h3>
+    <p>Tämän palvelun on tehnyt Eero Anttila harrasteprojektinaan. </p>
+    <p>Lähdekoodi: <a href="https://github.com/eeroan/tennisvuorot">GitHub</a></p>
+    <p>Twitter: <a href="https://twitter.com/eeroan">@eeroan</a></p>
+    <p>Töissä: <a href="http://reaktor.com">Reaktorilla</a></p>
+    <form class="feedbackForm">
+    <textarea class="feedback" placeholder="Tähän voit antaa palautetta ja toiveita"></textarea>
+    <button type="submit" class="submitFeedback">Lähetä</button>
+    </form>
+    <p><div class="fb-like" data-href="http://tennisvuorot.fi" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div></p>
     <div class="close">&times;</div>
 </div>
 <div id="map_wrapper" style="display: none" class="locationMap modal">
@@ -84,5 +85,13 @@
     ga('send', 'pageview');
 </script>
 <script src="front.min.js?"></script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/fi_FI/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>
