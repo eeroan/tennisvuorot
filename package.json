@@ -4,9 +4,9 @@
   "description": "Lists tennis courts of helsinki in one view",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "NEW_RELIC_ENABLED=false mocha",
     "start": "forever ./server.js",
-    "dev": "supervisor ./server.js",
+    "dev": "NEW_RELIC_ENABLED=false supervisor ./server.js",
     "mongo": "mongod --fork --syslog",
     "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' public/styles.css",
     "update-prices": "scripts/fetchPrices.js"
@@ -43,7 +43,8 @@
     "autoprefixer-cli": "^1.0.0",
     "chai": "^3.2.0",
     "mocha": "^2.2.5",
-    "supervisor": "^0.7.1"
+    "supervisor": "^0.7.1",
+    "zombie": "^4.2.1"
   },
   "engines": {
     "node": "4.2.1"
