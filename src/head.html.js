@@ -7,5 +7,4 @@ module.exports = o => `<head>
     <meta name="google" content="notranslate" />
     <meta name="Description" content="Helsingin tenniskenttien varaustilanne ja yhteystiedot.">
     <link rel="stylesheet" type="text/css" href="styles.css"/>
-    <meta name="google-site-verification" content="KcIYdY4YdFSZqc7HCEJnLyFBDBvbEOxDq_1K9drmUPk" />
 </head>`
