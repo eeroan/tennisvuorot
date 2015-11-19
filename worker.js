@@ -7,7 +7,7 @@ var maxDaysAhead = 60
 doRefresh()
 setInterval(() => {
     doRefresh()
-}, 1000 * 60 * 10)
+}, 1000 * 60 * 5)
 
 function doRefresh() {
     dao.refresh(new DateTime().plusDays(daysAhead).toISODateString(), 1, () => { })
