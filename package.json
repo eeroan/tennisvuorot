@@ -9,7 +9,8 @@
     "dev": "NEW_RELIC_ENABLED=false supervisor ./server.js",
     "mongo": "mongod --fork --syslog",
     "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' public/styles.css",
-    "update-prices": "scripts/fetchPrices.js"
+    "update-prices": "scripts/fetchPrices.js",
+    "update-locations": "scripts/updateLocations.js"
   },
   "repository": {
     "type": "git",

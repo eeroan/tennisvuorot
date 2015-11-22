@@ -40,7 +40,7 @@ function fetchAll() {
     var fileName = 'rates.js'
     Bacon.combineTemplate(_.mapValues(sheets, fetchForOrCombineTemplate))
         .onValue(function (data) {
-            console.log('Writing rates to to ' + fileName)
+            console.log('Writing rates to ' + fileName)
             fs.writeFileSync(__dirname + '/../src/' + fileName, 'module.exports = ' + util.inspect(data, {
                     colors: false,
                     depth:  null
