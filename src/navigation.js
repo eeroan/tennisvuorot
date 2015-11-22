@@ -67,7 +67,7 @@ function initFeedback() {
     return false
 }
 
-function toggleNavi() { $('.filters').toggleClass('collapsed', settings.collapsed) }
+function toggleNavi() { $('.filters, #schedule').toggleClass('collapsed', settings.collapsed) }
 
 function toggleObj(key, obj) {
     if (key in obj) delete obj[key]

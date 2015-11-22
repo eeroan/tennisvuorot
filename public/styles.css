@@ -99,6 +99,7 @@ button.inactive { color: #999; background: none; border-color: #eee; box-shadow:
 a,
 a:visited { color: #258DAB; }
 #schedule { padding: 160px 10px 0; }
+#schedule.collapsed { padding: 70px 10px 0; }
 .h60 .h60,
 .h65 .h65,
 .h70 .h70,
