@@ -73,7 +73,7 @@ nav li.selected { cursor: default; }
 .selected { text-decoration: underline; }
 .container { margin: 0 auto; background: #fff; }
 .toggleFilters { background: url(search_options_icon.png) no-repeat 50% 50%; width: 30px; height: 30px; position: absolute; right: 10px; top: 10px; }
-.toggleMapInformation { top: 10px; position: relative; display: inline-block; background: url(pin.png) no-repeat 50% 50%; width: 20px; height: 30px; }
+.toggleMapInformation { top: 10px; position: relative; display: inline-block; background: url(map.png) no-repeat 50% 50%; background-size: 100%; width: 35px; height: 35px; }
 .locationsContainer { margin-right: 40px; padding-bottom: 0; }
 .locationsContainer button { margin: 0 0 5px; }
 .toggleInformation { position: absolute; top: 50px; right: 5px; display: block; width: 20px; height: 20px; color: #fff; background: #258DAB; font-family: "Times New Roman", serif; text-align: center; line-height: 1; font-size: 20px; border-radius: 100px; text-decoration: none; font-style: italic; font-weight: bold; }
