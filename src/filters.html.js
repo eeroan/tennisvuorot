@@ -4,14 +4,9 @@ module.exports = o => `<div class="filters">
         <div class="locationsContainer">
             <a href="javascript:void(0)" class="toggle toggleMapInformation"></a>
             <a href="javascript:void(0)" class="toggle toggleInformation">i</a>
-            <button type="button" class="meilahti" id="meilahti">Meilahti</button>
-            <button type="button" class="herttoniemi" id="herttoniemi">Herttoniemi</button>
-            <button type="button" class="kulosaari" id="kulosaari">Kulosaari</button>
-            <button type="button" class="merihaka" id="merihaka">Merihaka</button>
-            <button type="button" class="taivallahti" id="taivallahti">Taivallahti</button>
-            <button type="button" class="tapiola" id="tapiola">Tapiola</button>
-            <button type="button" class="tali" id="tali">Tali</button>
-            <button type="button" class="laajasalo" id="laajasalo">Laajasalo</button>
+            ${o.places.map(place => `
+            <button type="button" class="${place.id}" id="${place.id}">${place.name}</button>
+            `).join('')}
         </div>
         <div class="fieldTypeContainer">
             <button type="button" class="bubble" id="bubble">Kupla</button>

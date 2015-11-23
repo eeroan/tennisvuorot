@@ -18,7 +18,18 @@ route.get('/', (req, res) => {
         <html>`)
     res.write(headHtml())
     res.write(`<body><div class="container reservations detail">`)
-    res.write(filtersHtml())
+    res.write(filtersHtml({
+        places: [
+            {id: 'meilahti', name: 'Meilahti'},
+            {id: 'herttoniemi', name: 'Herttoniemi'},
+            {id: 'kulosaari', name: 'Kulosaari'},
+            {id: 'merihaka', name: 'Merihaka'},
+            {id: 'taivallahti', name: 'Taivallahti'},
+            {id: 'tapiola', name: 'Tapiola'},
+            {id: 'tali', name: 'Tali'},
+            {id: 'laajasalo', name: 'Laajasalo'}
+        ]
+    }))
     res.write(`<section class="" id="schedule">`)
     dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
         res.write(markupForDateRange(data, new DateTime()))
