@@ -10,7 +10,8 @@ module.exports = {
     getKulosaari:   getKulosaari,
     getMerihaka:    getMerihaka,
     table:          fromSlSystemsTable,
-    getTapiola:     getTapiola
+    getTapiola:     getTapiola,
+    getLaajasalo:   getLaajasalo
 }
 
 function getMeilahti(isoDate) {
@@ -45,6 +46,20 @@ function getTapiola(isoDate) {
     return getTableWithMapper(isoDate, 'tennispuisto', 1, obj => _.merge(obj, {
         field:    'K' + obj.res,
         location: 'tapiola'
+    }))
+}
+
+var laajasaloCodes = {
+    '1': 'A',
+    '2': 'B',
+    '3': 'C',
+    '4': 'D'
+}
+
+function getLaajasalo(isoDate) {
+    return getTableWithMapper(isoDate, 'laajasalonpalloiluhallit', 1, obj => _.merge(obj, {
+        field:    laajasaloCodes[obj.res],
+        location: 'laajasalo'
     }))
 }
 

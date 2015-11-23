@@ -98,6 +98,7 @@ function fetch(isoDate) {
             slSystems.getKulosaari,
             slSystems.getMerihaka,
             slSystems.getTapiola,
+            slSystems.getLaajasalo,
             webTimmi.getAll].map(function (fn) { return fn(isoDate) }))
         .map(function (allData) {
             var freeCourts = _.flatten(allData).filter(function (reservation) {

@@ -11,6 +11,7 @@ module.exports = o => `<div class="filters">
             <button type="button" class="taivallahti" id="taivallahti">Taivallahti</button>
             <button type="button" class="tapiola" id="tapiola">Tapiola</button>
             <button type="button" class="tali" id="tali">Tali</button>
+            <button type="button" class="laajasalo" id="laajasalo">Laajasalo</button>
         </div>
         <div class="fieldTypeContainer">
             <button type="button" class="bubble" id="bubble">Kupla</button>
