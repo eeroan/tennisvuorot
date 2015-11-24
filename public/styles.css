@@ -47,6 +47,7 @@ button.taivallahti { border-color: #d9534f; color: #d9534f; }
 button.tali { border-color: #d454bf; color: #d454bf; }
 button.tapiola { border-color: #a8714e; color: #a8714e; }
 button.laajasalo { border-color: #ab9c25; color: #ab9c25; }
+button.hiekkaharju { border-color: #cd7365; color: #cd7365; }
 .meilahti .meilahti,
 .herttoniemi .herttoniemi,
 .kulosaari .kulosaari,
@@ -55,6 +56,7 @@ button.laajasalo { border-color: #ab9c25; color: #ab9c25; }
 .tapiola .tapiola,
 .tali .tali,
 .laajasalo .laajasalo,
+.hiekkaharju .hiekkaharju,
 .outdoor .outdoor,
 .indoor .indoor,
 .single .single,

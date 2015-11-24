@@ -27,7 +27,8 @@ route.get('/', (req, res) => {
             {id: 'taivallahti', name: 'Taivallahti'},
             {id: 'tapiola', name: 'Tapiola'},
             {id: 'tali', name: 'Tali'},
-            {id: 'laajasalo', name: 'Laajasalo'}
+            {id: 'laajasalo', name: 'Laajasalo'},
+            {id: 'hiekkaharju', name: 'Hiekkaharju'}
         ],
         types:  [
             {id: 'bubble', name: 'Kupla'},

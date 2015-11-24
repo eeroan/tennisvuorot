@@ -87,7 +87,7 @@ function upsertToMongo(isoDate, obj) {
 }
 
 function getType(reservation) {
-    var isBubble = /kupla/i.test(reservation.field) || /kupla/i.test(reservation.res)
+    var isBubble = /kupla/i.test(reservation.field) || /kupla/i.test(reservation.res) || /Kaarihalli.*/i.test(reservation.field)
     var isOutdoor = /ulko/i.test(reservation.field) || /ulko/i.test(reservation.res)
     return isBubble ? 'bubble' : (isOutdoor ? 'outdoor' : 'indoor')
 }
@@ -99,6 +99,7 @@ function fetch(isoDate) {
             slSystems.getMerihaka,
             slSystems.getTapiola,
             slSystems.getLaajasalo,
+            slSystems.getHiekkaharju,
             webTimmi.getAll].map(function (fn) { return fn(isoDate) }))
         .map(function (allData) {
             var freeCourts = _.flatten(allData).filter(function (reservation) {
