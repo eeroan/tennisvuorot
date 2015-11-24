@@ -85,7 +85,7 @@ function collapsedButtons(location, fields) {
 }
 
 function toButtonMarkup(field) {
-    return `<button type="button" class="fieldLabel ${field.location} ${field.type}${durationClass(field.doubleLesson)}">${field.field}, ${field.price}€</button>`
+    return `<button type="button" class="fieldLabel ${field.location} ${field.type} ${durationClass(field.doubleLesson)}">${field.field}, ${field.price}€</button>`
 }
 
 function durationClass(isDouble) {
