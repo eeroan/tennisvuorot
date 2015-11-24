@@ -9,9 +9,9 @@ module.exports = o => `<div class="filters">
             `).join('')}
         </div>
         <div class="fieldTypeContainer">
-            <button type="button" class="bubble" id="bubble">Kupla</button>
-            <button type="button" class="outdoor" id="outdoor">Ulko</button>
-            <button type="button" class="indoor" id="indoor">Sisä</button>
+            ${o.types.map(type => `
+            <button type="button" class="${type.id}" id="${type.id}">${type.name}</button>
+            `).join('')}
             <label><input id="single" type="checkbox"> Vapaana 2h</label>
         </div>
         <div class="timeFilterContainer">

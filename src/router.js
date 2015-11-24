@@ -28,6 +28,11 @@ route.get('/', (req, res) => {
             {id: 'tapiola', name: 'Tapiola'},
             {id: 'tali', name: 'Tali'},
             {id: 'laajasalo', name: 'Laajasalo'}
+        ],
+        types:  [
+            {id: 'bubble', name: 'Kupla'},
+            {id: 'outdoor', name: 'Ulko'},
+            {id: 'indoor', name: 'Sisä'}
         ]
     }))
     res.write(`<section class="" id="schedule">`)
