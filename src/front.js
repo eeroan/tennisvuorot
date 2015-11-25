@@ -52,16 +52,19 @@ function loadMoreResults(days) {
     }
 }
 
-function modal(fields) {
-    console.log(fields)
-    var dateTime = DateTime.fromIsoDate(fields[0].date)
-    var currentLocation = fields[0].location
+function modal(obj) {
+    var dateTime = DateTime.fromIsoDate(obj.date)
+    var currentLocation = obj.location
     var locationObject = locations.find(location => location.title === currentLocation)
 
-    return `<h3>${currentLocation} ${formatDate(dateTime)} klo ${fields[0].time}</h3>
-        ${fields.map(toButtonMarkup).join('')}
+    return `<h3>${currentLocation} ${formatDate(dateTime)} klo ${obj.time}</h3>
+        ${obj.fields.map(toButtonMarkup).join('')}
         ${linksMarkup(locationObject)}
         <div class="close">&times;</div>`
+
+    function toButtonMarkup(field) {
+        return `<button type="button" class="fieldLabel ${obj.location} ${field.type} ${durationClass(field.doubleLesson)}">${field.field}, ${field.price}€</button>`
+    }
 }
 
 function linksMarkup(locationObject) {
@@ -77,9 +80,6 @@ function formatDate(dateTime) {
     return DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
 }
 
-function toButtonMarkup(field) {
-    return `<button type="button" class="fieldLabel ${field.location} ${field.type} ${durationClass(field.doubleLesson)}">${field.field}, ${field.price}€</button>`
-}
 
 function durationClass(isDouble) {
     return isDouble ? 'double' : 'single'

@@ -45,9 +45,23 @@ function toTimeRow(timeObject) {
 function toLocationButtonGroup(locationFields) {
     var location = locationFields.key
     var fields = locationFields.val
-    return `<span class="locationBoxes" data-fields='${JSON.stringify(fields)}'>${collapsedButtons(location, fields)}</span>`
+    return `<span class="locationBoxes" data-fields='${JSON.stringify(compact(fields))}'>${collapsedButtons(location, fields)}</span>`
 }
 
+function compact(fields) {
+    var first = fields[0]
+    return {
+        date:     first.date,
+        location: first.location,
+        time:     first.time,
+        fields:   fields.map(f => ({
+            type:         f.type,
+            doubleLesson: f.doubleLesson,
+            field:        f.field,
+            price:        f.price
+        }))
+    }
+}
 
 function formatDate(dateTime) {
     return DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
