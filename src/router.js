@@ -36,7 +36,7 @@ route.get('/', (req, res) => {
             {id: 'indoor', name: 'Sisä'}
         ]
     }))
-    res.write(`<section class="" id="schedule">`)
+    res.write(`<section class="" id="schedule"><div class="reservationModal modal"></div>`)
     dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
         res.write(markupForDateRange(data, new DateTime()))
         res.write('</section></div>')

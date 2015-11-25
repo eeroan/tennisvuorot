@@ -1,13 +1,13 @@
 @import url(vendor/nouislider.min.css);
 body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.4; color: #333; margin: 0; }
 .time { top: 13px; position: relative; margin-right: 5px; }
-.fieldLabel { display: none }
+.fieldLabel { /*display: none*/ }
 .locationLabel { cursor: pointer; }
 .information { font-size: 16px; }
 .locationBoxes { overflow: hidden; }
 .showDetails { max-width: initial; }
 .showDetails:after { display: none; }
-.showDetails .locationLabel { display: none; }
+.showDetails .locationLabel { /*display: none; */}
 .showDetails .fieldLabel { display: inline-block; }
 .modal { margin: 0 auto; max-width: 700px; box-shadow: 1px 1px 3px 10000px rgba(0, 0, 0, 0.5); line-height: 1.5; right: 20px; position: fixed; padding: 10px; display: none; left: 20px; top: 20px; background: #fff; z-index: 1; bottom: 20px; max-height: 900px; }
 .feedbackForm { display: -webkit-flex; display: -ms-flexbox; display: flex; max-width: 100%; width: 300px; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-justify-content: flex-end; -ms-flex-pack: end; justify-content: flex-end; }

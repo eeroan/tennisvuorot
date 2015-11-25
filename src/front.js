@@ -9,6 +9,7 @@ attachFastClick(document.body)
 var $window = $(window)
 var $document = $(document)
 var markupForDateRange = require('./markupForDateRange')
+var locations = require('./locations')
 var didScroll = false
 var alreadyLoadingMoreResults = false
 var today = DateTime.fromIsoDate(window.serverDate)
@@ -28,12 +29,17 @@ setInterval(() => {
 navigation.init()
 listAvailabilityForActiveDate(30)
 initJumpToDate()
-
+var $reservationModal = $('.reservationModal')
 $('#schedule').on('click', '.locationLabel, .close', e => {
     var $clickArea = $(e.currentTarget)
     var opened = $clickArea.hasClass('locationLabel')
-    var $locationBoxes = $clickArea.parents('.locationBoxes')
-    $locationBoxes.toggleClass('showDetails')
+    if (opened) {
+        var $locationBoxes = $clickArea.closest('.locationBoxes')
+        var fields = $locationBoxes.data('fields')
+        $reservationModal.html(modal(fields)).show()
+    } else {
+        $reservationModal.hide()
+    }
     ga('send', 'event', 'Reservation', opened ? 'open' : 'close')
 })
 
@@ -44,6 +50,39 @@ function loadMoreResults(days) {
         alreadyLoadingMoreResults = true
         listAvailabilityForActiveDate(days)
     }
+}
+
+function modal(fields) {
+    console.log(fields)
+    var dateTime = DateTime.fromIsoDate(fields[0].date)
+    var currentLocation = fields[0].location
+    var locationObject = locations.find(location => location.title === currentLocation)
+
+    return `<h3>${currentLocation} ${formatDate(dateTime)} klo ${fields[0].time}</h3>
+        ${fields.map(toButtonMarkup).join('')}
+        ${linksMarkup(locationObject)}
+        <div class="close">&times;</div>`
+}
+
+function linksMarkup(locationObject) {
+    var address = locationObject.address
+    var url = locationObject.url
+    var tel = locationObject.tel
+    return `<div class="links"><div><a class="tel" href="tel:${tel}">${tel}</a></div>
+    <div><a class="map" target="_blank" href="http://maps.google.com/?q=${address}">${address}</a></div>` +
+        (url ? `<div><a target="_blank" href="${url}">Siirry varausjärjestelmään</a></div>` : '') + '</div>'
+}
+
+function formatDate(dateTime) {
+    return DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
+}
+
+function toButtonMarkup(field) {
+    return `<button type="button" class="fieldLabel ${field.location} ${field.type} ${durationClass(field.doubleLesson)}">${field.field}, ${field.price}€</button>`
+}
+
+function durationClass(isDouble) {
+    return isDouble ? 'double' : 'single'
 }
 
 function listAvailabilityForActiveDate(days) {
