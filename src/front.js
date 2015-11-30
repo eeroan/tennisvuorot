@@ -10,6 +10,7 @@ var $window = $(window)
 var $document = $(document)
 var markupForDateRange = require('./markupForDateRange')
 var locations = require('./locations')
+const format = require('./format')
 var didScroll = false
 var alreadyLoadingMoreResults = false
 var today = DateTime.fromIsoDate(window.serverDate)
@@ -57,13 +58,13 @@ function modal(obj) {
     var currentLocation = obj.location
     var locationObject = locations.find(location => location.title === currentLocation)
 
-    return `<h3>${currentLocation} ${formatDate(dateTime)} klo ${obj.time}</h3>
+    return `<h3>${currentLocation} ${format.formatDate(dateTime)} klo ${obj.time}</h3>
         ${obj.fields.map(toButtonMarkup).join('')}
         ${linksMarkup(locationObject)}
         <div class="close">&times;</div>`
 
     function toButtonMarkup(field) {
-        return `<button type="button" class="fieldLabel ${obj.location} ${field.type} ${durationClass(field.doubleLesson)}">${field.field}, ${field.price}€</button>`
+        return `<button type="button" class="fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">${field.field}, ${format.formatPrice(field.price)}</button>`
     }
 }
 
@@ -74,15 +75,6 @@ function linksMarkup(locationObject) {
     return `<div class="links"><div><a class="tel" href="tel:${tel}">${tel}</a></div>
     <div><a class="map" target="_blank" href="http://maps.google.com/?q=${address}">${address}</a></div>` +
         (url ? `<div><a target="_blank" href="${url}">Siirry varausjärjestelmään</a></div>` : '') + '</div>'
-}
-
-function formatDate(dateTime) {
-    return DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
-}
-
-
-function durationClass(isDouble) {
-    return isDouble ? 'double' : 'single'
 }
 
 function listAvailabilityForActiveDate(days) {

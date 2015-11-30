@@ -4,6 +4,8 @@ var request = require('request')
 var util = require('util')
 var fs = require('fs')
 var _ = require('lodash')
+const format = require('../src/format')
+
 //Url for editing: https://docs.google.com/spreadsheets/d/1TwYmdHhGnB0RZh75bRdHaJy9erXTJpsVxCvCX0SX8f4/edit
 var url = 'https://docs.google.com/spreadsheets/d/1TwYmdHhGnB0RZh75bRdHaJy9erXTJpsVxCvCX0SX8f4/pub?output=csv&gid='
 var sheets = {
@@ -43,10 +45,7 @@ function fetchAll() {
     Bacon.combineTemplate(_.mapValues(sheets, fetchForOrCombineTemplate))
         .onValue(function (data) {
             console.log('Writing rates to ' + fileName)
-            fs.writeFileSync(__dirname + '/../src/' + fileName, 'module.exports = ' + util.inspect(data, {
-                    colors: false,
-                    depth:  null
-                }))
+            fs.writeFileSync(__dirname + '/../src/' + fileName, format.formatModule(data))
         })
 }
 

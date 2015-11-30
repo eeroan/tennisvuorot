@@ -5,6 +5,7 @@ var fs = require('fs')
 var _ = require('lodash')
 var courts = require('../src/courts')
 var util = require('util')
+const format = require('../src/format')
 
 locations()
 
@@ -16,10 +17,7 @@ function locations() {
         })
     })).onValue(function (data) {
         console.log('Writing locations to ' + fileName)
-        fs.writeFileSync(__dirname + '/../src/' + fileName, 'module.exports = ' + util.inspect(data, {
-                colors: false,
-                depth:  null
-            }))
+        fs.writeFileSync(__dirname + '/../src/' + fileName, format.formatModule(data))
     })
 }
 

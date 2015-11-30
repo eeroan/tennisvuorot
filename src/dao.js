@@ -7,6 +7,7 @@ var DateTime = require('dateutils').DateTime
 var MongoClient = require('mongodb').MongoClient
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
 var rates = require('./rates')
+var format = require('./format')
 
 module.exports = {
     sendFreeCourts: sendFreeCourts,
@@ -18,8 +19,8 @@ module.exports = {
 function sendFreeCourts(req, res) {
     var forceRefresh = req.query.refresh === 'true' || false
     freeCourts(req.query.date, Number(req.query.days) || 1, forceRefresh,
-        (data) => res.send(data),
-        (err) => res.status(500).send(err))
+        data => res.send(data),
+        err => res.status(500).send(err))
 }
 
 function freeCourts(isoDate, days, forceRefresh, callback, errCallback) {
@@ -122,7 +123,7 @@ function fetch(isoDate) {
 
 function getPrice(dateTime, time, location, type) {
     var hm = time.split(':')
-    var timeKey = (Number(hm[0]) * 10 + (Number(hm[1]) / 6))
+    var timeKey = format.formatTimeKey(hm)
     var weekDay = (dateTime.getDay() + 6) % 7
     var priceByType = _.get(rates, [location, type, timeKey, weekDay], 0)
     var commonPrice = _.get(rates, [location, timeKey, weekDay], 0)

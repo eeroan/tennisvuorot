@@ -4,9 +4,10 @@ var request = require('request')
 var Bacon = require('baconjs').Bacon
 var _ = require('lodash')
 var webTimmiResources = require('./webTimmiResources')
-var DateTime = require('dateutils').DateTime
-var DateFormat = require('dateutils').DateFormat
-var DateLocale = require('dateutils').DateLocale
+var dateutils = require('dateutils')
+var DateTime = dateutils.DateTime
+var DateFormat = dateutils.DateFormat
+var DateLocale = dateutils.DateLocale
 module.exports = {
     getAll:            getAll,
     getAllInSequence:  getAllInSequence,

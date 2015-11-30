@@ -1,8 +1,9 @@
 var locations = require('./locations')
 var _ = require('lodash')
-var DateTime = require('dateutils').DateTime
-var DateFormat = require('dateutils').DateFormat
-var DateLocale = require('dateutils').DateLocale
+const dateutils = require('dateutils')
+var DateTime = dateutils.DateTime
+const format = require('./format')
+
 module.exports = markupForDateRange
 
 function markupForDateRange(allDataWithDates, today) {
@@ -28,7 +29,7 @@ function toDateSection(dateObject, timeStamp, today) {
     })
 
     var dateTime = DateTime.fromIsoDate(isoDate)
-    return `<div class="titleContainer day ${dateTime.getDay()}"><h4>${formatDate(dateTime)}</h4>
+    return `<div class="titleContainer day ${dateTime.getDay()}"><h4>${format.formatDate(dateTime)}</h4>
     <div class="timestamp">${timeStamp}</div></div>` + groupBySortedAsList(times, 'time').map(toTimeRow).join('')
 }
 
@@ -36,7 +37,7 @@ function toTimeRow(timeObject) {
     var isoTime = timeObject.key
     var fields = timeObject.val
     var hm = isoTime.split(':')
-    return `<div class="timeRow h${(Number(hm[0]) * 10 + (Number(hm[1]) / 6))}">
+    return `<div class="timeRow h${format.formatTimeKey(hm)}">
     <span class="timeWrapper"><span class="time">${isoTime}</span></span>
         ${groupBySortedAsList(fields, 'location').map(toLocationButtonGroup).join('')}
         </div>`
@@ -63,10 +64,6 @@ function compact(fields) {
     }
 }
 
-function formatDate(dateTime) {
-    return DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
-}
-
 function collapsedButtons(location, fields) {
     return groupBySortedAsList(fields, 'type')
         .filter(fieldsForType => fieldsForType.val.length > 0)
@@ -74,13 +71,9 @@ function collapsedButtons(location, fields) {
             var type = fieldsForType.key
             var field = fieldsForType.val[0]
             var hasDoubleLessons = fieldsForType.val.some(field => field.doubleLesson)
-            return `<button type="button" class="locationLabel ${location} ${field.type} ${durationClass(hasDoubleLessons)}">
-        ${(field.price ? field.price + '€' : '&nbsp;&nbsp;')}</button>`
+            return `<button type="button" class="locationLabel ${location} ${field.type} ${format.durationClass(hasDoubleLessons)}">
+        ${format.formatPrice(field.price)}</button>`
         }).join(' ')
-}
-
-function durationClass(isDouble) {
-    return isDouble ? 'double' : 'single'
 }
 
 function groupBySortedAsList(list, key) {

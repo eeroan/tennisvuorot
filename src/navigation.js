@@ -2,6 +2,7 @@ const $ = require('jquery')
 const _ = require('lodash')
 const mapView = require('./mapView')
 const noUiSlider = require('nouislider');
+const format = require('./format')
 const defaults = {
     toggles:   {},
     start:     60,
@@ -110,7 +111,7 @@ function setStartAndEndLabels(isStart, val) {
 
 function parseTime(isoTime) {
     var hm = isoTime.split(':')
-    return String(Number(hm[0]) * 10 + Number(hm[1]) / 6)
+    return String(format.formatTimeKey(hm))
 }
 
 function formatTime(val) {
