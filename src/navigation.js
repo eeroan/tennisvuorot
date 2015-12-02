@@ -3,11 +3,13 @@ const _ = require('lodash')
 const mapView = require('./mapView')
 const noUiSlider = require('nouislider');
 const format = require('./format')
+const typeToggles = ['bubble', 'outdoor', 'indoor', 'single']
 const defaults = {
-    toggles:   {},
-    start:     60,
-    end:       235,
-    collapsed: false
+    fieldToggles: {},
+    typeToggles:  {},
+    start:        60,
+    end:          235,
+    collapsed:    false
 }
 var settings = loadFilters() || defaults
 
@@ -23,13 +25,13 @@ function reportSettings(settings) {
 
 function initNavigation() {
     activeFilters(settings).forEach(name => { $('#' + name).addClass('inactive')})
-    $('#single').prop('checked', 'single' in settings.toggles)
+    $('#single').prop('checked', 'single' in settings.typeToggles)
     setContainerFilterClasses()
     $('.filters button, #single').click(e => {
         const $button = $(e.target)
         $button.toggleClass('inactive')
         const id = $button.prop('id')
-        toggleObj(id, settings.toggles)
+        toggleObj(id, settings)
         setTimeout(() => {
             $('#schedule').toggleClass(id)
             saveFilters()
@@ -70,9 +72,13 @@ function initFeedback() {
 
 function toggleNavi() { $('.filters, #schedule').toggleClass('collapsed', settings.collapsed) }
 
-function toggleObj(key, obj) {
+function toggleObj(key, objRoot) {
+    var obj = (typeToggles.indexOf(key) >= 0) ? objRoot.typeToggles : objRoot.fieldToggles
     if (key in obj) delete obj[key]
     else obj[key] = true
+    console.log(settings)
+    console.log(obj)
+
 }
 
 var all = _.range(60, 235, 5)
@@ -127,13 +133,27 @@ function setContainerFilterClasses() {
     $schedule.prop('class', activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' '))
 }
 
-function activeFilters(settings) { return _.map(settings.toggles, (v, k) => k) }
+function activeFilters(settings) { return _.map(_.extend({}, settings.fieldToggles, settings.typeToggles), (v, k) => k) }
 
-function saveFilters() { localStorage.setItem('filters', JSON.stringify(settings)) }
+function saveFilters() {
+    localStorage.setItem('filters', JSON.stringify({
+        toggles:   _.extend({}, settings.fieldToggles, settings.typeToggles),
+        start:     settings.start,
+        end:       settings.end,
+        collapsed: settings.collapsed
+    }))
+}
 
 function loadFilters() {
     var jsonString = localStorage.getItem('filters')
     var parsedJson = JSON.parse(jsonString)
+    if (!parsedJson) return null
     if (jsonString) ga('send', 'event', 'User settings', reportSettings(parsedJson))
-    return parsedJson
+    return {
+        fieldToggles: _.omit(parsedJson.toggles, typeToggles),
+        typeToggles:  _.pick(parsedJson.toggles, typeToggles),
+        start:        parsedJson.start,
+        end:          parsedJson.end,
+        collapsed:    parsedJson.collapsed
+    }
 }
