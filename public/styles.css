@@ -2,7 +2,7 @@
 body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.4; color: #333; margin: 0; }
 .time { top: 13px; position: relative; margin-right: 5px; }
 .fieldLabel { /*display: none*/ }
-.locationLabel { cursor: pointer; }
+.locationLabel { cursor: pointer; padding:7px 7px 0; width: 45px;}
 .information { font-size: 16px; }
 .locationBoxes { overflow: hidden; }
 .showDetails { max-width: initial; }
