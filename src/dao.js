@@ -13,7 +13,8 @@ module.exports = {
     sendFreeCourts: sendFreeCourts,
     freeCourts:     freeCourts,
     refresh:        refresh,
-    fetch:          fetch
+    fetch:          fetch,
+    getHistoryData: getHistoryData
 }
 
 function sendFreeCourts(req, res) {
@@ -54,12 +55,20 @@ function refresh(isoDate, days, callback) {
 
 }
 
+function getHistoryData(callback) {
+    mongoQuery({date: {$lte: new Date()}}, callback)
+}
+
 function getFromMongo(isoDate, days, callback) {
+    var start = DateTime.fromIsoDate(isoDate)
+    var end = start.plusDays(days - 1)
+    var filter = {date: {$gte: start.date, $lte: end.date}}
+    mongoQuery(filter, callback)
+}
+
+function mongoQuery(filter, callback) {
     MongoClient.connect(mongoUri, (err, db) => {
         var collection = db.collection('tennishelsinki')
-        var start = DateTime.fromIsoDate(isoDate)
-        var end = start.plusDays(days - 1)
-        var filter = {date: {$gte: start.date, $lte: end.date}}
         collection.find(filter).sort({date: 1}).toArray((err, docs) => {
             var transformedDoc = docs.map((doc) => {
                 doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
