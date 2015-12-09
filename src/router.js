@@ -9,9 +9,51 @@ var headHtml = require('./head.html')
 var filtersHtml = require('./filters.html')
 var modalsHtml = require('./modals.html')
 var scriptsHtml = require('./scripts.html')
+var history = require('./history')
+var format = require('./format')
+var _ = require('lodash')
+
 route.use('/front.min.js', babelify(__dirname + '/front.js'))
 route.get('/courts', dao.sendFreeCourts)
 route.use(express.static(__dirname + '/../public'))
+route.get('/history', (req, res) => {
+    var historyData = history.availabilityByDate()
+    var today = new DateTime()
+    const days = 70
+    var firstDate = today.minusDays(days)
+    var dates = _.range(1, days).map(num=>firstDate.plusDays(num))
+    var times = _.range(60, 230, 5).map(format.formatIsoTime)
+    res.write(`<!DOCTYPE html>
+        <html>
+        <head></head>`)
+    res.write(`
+        <body>
+        <table>
+        <thead>
+        <tr>
+        ${times.map(time=>`<th>${time}</th>`).join('')}
+        </tr>
+        </thead>
+        <tbody>
+        ${dates.map(date=>`<tr><th>${date.toISODateString()}</th>
+        ${times.map(time=> {
+        const availabilityForDate = findAvailabilityForDate(historyData, date, time)
+        const rgb = 255 - availabilityForDate * 15
+        return `<td style="background:rgb(${rgb},${rgb},255)">${availabilityForDate}</td>`
+    }).join('')}
+        </tr>`).join('')}
+
+        </tbody>
+        </table>
+        </body>
+        </html>`)
+    res.end()
+})
+
+function findAvailabilityForDate(historyData, date, time) {
+    return _.get(_.find(historyData, row=> row.dateTime === date.toISODateString() + 'T' + time), 'avaliable', 0)
+
+}
 route.get('/', (req, res) => {
     var refresh = req.query.refresh === 'true'
     res.write(`<!DOCTYPE html>

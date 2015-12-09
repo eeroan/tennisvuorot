@@ -9,7 +9,8 @@ module.exports = {
     formatTimeKey: formatTimeKey,
     formatPrice:   formatPrice,
     formatTime:    formatTime,
-    parseTime:     parseTime
+    parseTime:     parseTime,
+    formatIsoTime: formatIsoTime
 }
 
 function formatDate(dateTime) {
@@ -40,6 +41,12 @@ function formatTime(val) {
     var hour = Math.floor(val / 10)
     var min = Math.round(val % 10 * .6)
     return hour + ':' + min + '0'
+}
+
+function formatIsoTime(val) {
+    var hour = Math.floor(val / 10)
+    var min = Math.round(val % 10 * .6)
+    return (hour >= 10 ? hour : '0' + hour) + ':' + min + '0'
 }
 
 function formatPrice(num) {
