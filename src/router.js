@@ -23,9 +23,15 @@ route.get('/history', (req, res) => {
     var firstDate = today.minusDays(days)
     var dates = _.range(1, days).map(num=>firstDate.plusDays(num))
     var times = _.range(60, 230, 5).map(format.formatIsoTime)
-    res.write(`<!DOCTYPE html>
-        <html>
-        <head></head>`)
+    res.write(`<!DOCTYPE html>`)
+    res.write(`<html>
+        <head>
+        <style>
+        th {font-size:12px;}
+        td {text-align: center;}
+        table {border-collapse: collapse;}
+        </style>
+        </head>`)
     res.write(`
         <body>
         <table>
