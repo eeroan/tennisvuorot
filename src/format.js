@@ -7,7 +7,8 @@ module.exports = {
     durationClass: durationClass,
     formatModule:  formatModule,
     formatTimeKey: formatTimeKey,
-    formatPrice:   formatPrice
+    formatPrice:   formatPrice,
+    formatTime:    formatTime
 }
 
 function formatDate(dateTime) {
@@ -29,8 +30,14 @@ function formatTimeKey(hm) {
     return (Number(hm[0]) * 10 + (Number(hm[1]) / 6))
 }
 
+function formatTime(val) {
+    var hour = Math.floor(val / 10)
+    var min = Math.round(val % 10 * .6)
+    return hour + ':' + min + '0'
+}
+
 function formatPrice(num) {
-    if(num === 0) return '-,-'
+    if (num === 0) return '-,-'
     return num % 1 === 0 ? num + ',-' : withDecimals(String(num).split('.'))
 }
 

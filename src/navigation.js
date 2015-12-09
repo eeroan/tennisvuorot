@@ -94,7 +94,7 @@ function initTimeFilter() {
             'max': 230
         },
         format:  {
-            to:   formatTime,
+            to:   format.formatTime,
             from: x => x
         }
     })
@@ -112,18 +112,12 @@ var $rangeLabel = $('.rangeLabel')
 function setStartAndEndLabels(isStart, val) {
     if (isStart) settings.start = Number(val)
     else settings.end = Number(val)
-    $rangeLabel.html(formatTime(settings.start) + '-' + formatTime(settings.end))
+    $rangeLabel.html(format.formatTime(settings.start) + '-' + format.formatTime(settings.end))
 }
 
 function parseTime(isoTime) {
     var hm = isoTime.split(':')
     return String(format.formatTimeKey(hm))
-}
-
-function formatTime(val) {
-    var hour = Math.floor(val / 10)
-    var min = Math.round(val % 10 * .6)
-    return hour + ':' + min + '0'
 }
 
 var $schedule = $('#schedule')
