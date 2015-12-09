@@ -8,7 +8,8 @@ module.exports = {
     formatModule:  formatModule,
     formatTimeKey: formatTimeKey,
     formatPrice:   formatPrice,
-    formatTime:    formatTime
+    formatTime:    formatTime,
+    parseTime:     parseTime
 }
 
 function formatDate(dateTime) {
@@ -28,6 +29,11 @@ function formatModule(data) {
 
 function formatTimeKey(hm) {
     return (Number(hm[0]) * 10 + (Number(hm[1]) / 6))
+}
+
+function parseTime(isoTime) {
+    var hm = isoTime.split(':')
+    return String(format.formatTimeKey(hm))
 }
 
 function formatTime(val) {

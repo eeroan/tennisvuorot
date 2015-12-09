@@ -100,7 +100,7 @@ function initTimeFilter() {
     })
     slider.noUiSlider.on('update', (values, endTime) => {
         var isStart = !endTime
-        setStartAndEndLabels(isStart, parseTime(values[endTime]))
+        setStartAndEndLabels(isStart, format.parseTime(values[endTime]))
     })
     slider.noUiSlider.on('change', () => {
         setContainerFilterClasses()
@@ -113,11 +113,6 @@ function setStartAndEndLabels(isStart, val) {
     if (isStart) settings.start = Number(val)
     else settings.end = Number(val)
     $rangeLabel.html(format.formatTime(settings.start) + '-' + format.formatTime(settings.end))
-}
-
-function parseTime(isoTime) {
-    var hm = isoTime.split(':')
-    return String(format.formatTimeKey(hm))
 }
 
 var $schedule = $('#schedule')
