@@ -28,21 +28,24 @@ route.get('/history', (req, res) => {
     res.write(`<!DOCTYPE html>`)
     res.write(`<html>
         <head>
+        <meta charset="utf-8"/>
         <style>
         body {font-family: "Trebuchet MS"; line-height: 1;}
-        th {font-size:14x;}
-        thead th {text-align: center; padding: 0 0 10px;transform: rotate(-90deg);overflow: hidden;}
-        tbody th {text-align: left; padding:5px 10px 5px; white-space: nowrap;}
+        th {font-size:14px;}
+        thead th {text-align: center; padding: 0 0 10px; height: 50px;}
+        thead th div {transform: rotate(-90deg);margin: 0 -10px;}
+        tbody th {text-align: left; padding:3px 10px 3px; white-space: nowrap;}
         td {text-align: center;}
         table {border-collapse: collapse;}
         </style>
         </head>`)
     res.write(`
         <body>
+        <h1>Myymättä jääneet kentät</h1>
         <table>
         <thead>
         <tr><th>Pvm</th>
-        ${times.map(time=>`<th>${time}</th>`).join('')}
+        ${times.map(time=>`<th><div>${time}</div></th>`).join('')}
         </tr>
         </thead>
         <tbody>
