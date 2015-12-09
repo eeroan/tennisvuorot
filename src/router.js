@@ -4,6 +4,8 @@ var route = express()
 var babelify = require('express-babelify-middleware')
 var dao = require('./dao')
 var DateTime = require('dateutils').DateTime
+var DateFormat = require('dateutils').DateFormat
+var DateLocale = require('dateutils').DateLocale
 var markupForDateRange = require('./markupForDateRange')
 var headHtml = require('./head.html')
 var filtersHtml = require('./filters.html')
@@ -28,6 +30,8 @@ route.get('/history', (req, res) => {
         <head>
         <style>
         th {font-size:12px;}
+        thead th {text-align: center; padding-bottom: 10px;}
+        tbody th {text-align: left; padding-right: 10px;}
         td {text-align: center;}
         table {border-collapse: collapse;}
         </style>
@@ -41,7 +45,7 @@ route.get('/history', (req, res) => {
         </tr>
         </thead>
         <tbody>
-        ${dates.map(date=>`<tr><th>${date.toISODateString()}</th>
+        ${dates.map(date=>`<tr><th>${DateFormat.format(date, 'D j.n.Y', DateLocale.FI)}</th>
         ${times.map(time=> {
         const availabilityForDate = findAvailabilityForDate(historyData, date, time)
         const rgb = 255 - availabilityForDate * 15
