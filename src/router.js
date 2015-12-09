@@ -29,9 +29,10 @@ route.get('/history', (req, res) => {
     res.write(`<html>
         <head>
         <style>
-        th {font-size:12px;}
-        thead th {text-align: center; padding-bottom: 10px;}
-        tbody th {text-align: left; padding-right: 10px;}
+        body {font-family: "Trebuchet MS"; line-height: 1;}
+        th {font-size:14x;}
+        thead th {text-align: center; padding: 0 0 10px;transform: rotate(-90deg);overflow: hidden;}
+        tbody th {text-align: left; padding:5px 10px 5px; white-space: nowrap;}
         td {text-align: center;}
         table {border-collapse: collapse;}
         </style>
@@ -40,16 +41,16 @@ route.get('/history', (req, res) => {
         <body>
         <table>
         <thead>
-        <tr>
+        <tr><th>Pvm</th>
         ${times.map(time=>`<th>${time}</th>`).join('')}
         </tr>
         </thead>
         <tbody>
-        ${dates.map(date=>`<tr><th>${DateFormat.format(date, 'D j.n.Y', DateLocale.FI)}</th>
+        ${dates.map(date=>`<tr><th>${DateFormat.format(date, 'D j.n', DateLocale.FI)}</th>
         ${times.map(time=> {
         const availabilityForDate = findAvailabilityForDate(historyData, date, time)
         const rgb = 255 - availabilityForDate * 15
-        return `<td style="background:rgb(${rgb},${rgb},255)">${availabilityForDate}</td>`
+        return `<td style="background:rgb(${rgb},${rgb},255)" title="${time}, vapaana ${availabilityForDate}"></td>`
     }).join('')}
         </tr>`).join('')}
 
