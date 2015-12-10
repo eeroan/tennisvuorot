@@ -67,6 +67,7 @@ route.get('/historia', (req, res) => {
         </tbody>
         </table>
         <div class="ct-chart ct-perfect-fourth"></div>
+        <script>window.chartData = ${JSON.stringify(history.weeklyAvailability())}</script>
         <script src="/history.min.js"></script>
 
         </body>
