@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 const _ = require('lodash')
 const historyData = require('../historyData')
-
+const DateTime = require('dateutils').DateTime
+const format = require('./format')
 module.exports = {
-    availabilityByDate: availabilityByDate
+    availabilityByDate: availabilityByDate,
+    weeklyAvailability: weeklyAvailability
 }
 
 function availabilityByDate() {
@@ -18,12 +20,27 @@ function groupByDate(data) {
 }
 
 function mapData(res) {
+    const dateTimeStr = res.date + 'T' + res.time
+    const dateTime = DateTime.fromIsoDateTime(dateTimeStr)
     return {
-        dateTime: res.date + 'T' + res.time,
-        time:     res.time, //'22:00',
-        date:     res.date,// '2015-12-08',
-        location: res.location,//'taivallahti',
-        type:     res.type,//'indoor',
-        price:    res.price//24,
+        dateTime:    dateTimeStr,
+        time:        res.time, //'22:00',
+        date:        res.date,// '2015-12-08',
+        location:    res.location,//'taivallahti',
+        type:        res.type,//'indoor',
+        price:       res.price,//24,
+        dateTimeObj: dateTime,
+        weekDay:     dateTime.getDay()
     }
+}
+
+const times = _.range(60, 230, 5).map(format.formatIsoTime)
+var timesObj = {}
+times.forEach(time=>timesObj[time] = 0)
+
+function weeklyAvailability() {
+    return _.map(_.groupBy(historyData.map(mapData), 'weekDay'), (availableForWeekday) => {
+        const availablePerTime = _.groupBy(availableForWeekday, 'time')
+        return times.map(time=> time in availablePerTime ? availablePerTime[time].length : 0)
+    })
 }

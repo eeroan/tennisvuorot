@@ -16,8 +16,10 @@ var format = require('./format')
 var _ = require('lodash')
 
 route.use('/front.min.js', babelify(__dirname + '/front.js'))
+route.use('/history.min.js', babelify(__dirname + '/history.front.js'))
 route.get('/courts', dao.sendFreeCourts)
 route.use(express.static(__dirname + '/../public'))
+route.get('/weeklyAvailability', (req, res) => res.send(history.weeklyAvailability()))
 route.get('/historia', (req, res) => {
     var historyData = history.availabilityByDate()
     var today = new DateTime()
@@ -28,6 +30,7 @@ route.get('/historia', (req, res) => {
     res.write(`<!DOCTYPE html>`)
     res.write(`<html>
         <head>
+        <link rel="stylesheet" href="/vendor/chartist.min.css"/>
         <meta charset="utf-8"/>
         <style>
         body {font-family: "Trebuchet MS"; line-height: 1;color:#666;}
@@ -40,6 +43,7 @@ route.get('/historia', (req, res) => {
         table {border-collapse: collapse;}
         .day0 th,
         .day0 td { border-bottom: 3px solid #666;}
+        /*.ct-perfect-fourth {width:500px;}*/
         </style>
         </head>`)
     res.write(`
@@ -62,6 +66,9 @@ route.get('/historia', (req, res) => {
 
         </tbody>
         </table>
+        <div class="ct-chart ct-perfect-fourth"></div>
+        <script src="/history.min.js"></script>
+
         </body>
         </html>`)
     res.end()
