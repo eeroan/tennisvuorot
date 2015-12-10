@@ -29,7 +29,7 @@ function toDateSection(dateObject, timeStamp, today) {
     })
 
     var dateTime = DateTime.fromIsoDate(isoDate)
-    return `<div class="titleContainer day ${dateTime.getDay()}"><h4>${format.formatDate(dateTime)}</h4>
+    return `<div class="titleContainer day${dateTime.getDay()}"><h4>${format.formatDate(dateTime)}</h4>
     <div class="timestamp">${timeStamp}</div></div>` + groupBySortedAsList(times, 'time').map(toTimeRow).join('')
 }
 

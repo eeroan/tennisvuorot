@@ -34,7 +34,7 @@ function formatTimeKey(hm) {
 
 function parseTime(isoTime) {
     var hm = isoTime.split(':')
-    return String(format.formatTimeKey(hm))
+    return String(formatTimeKey(hm))
 }
 
 function formatTime(val) {
