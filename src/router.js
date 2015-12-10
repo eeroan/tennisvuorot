@@ -30,13 +30,16 @@ route.get('/historia', (req, res) => {
         <head>
         <meta charset="utf-8"/>
         <style>
-        body {font-family: "Trebuchet MS"; line-height: 1;}
+        body {font-family: "Trebuchet MS"; line-height: 1;color:#666;}
+        h1 {color:#333;}
         th {font-size:14px;}
         thead th {text-align: center; padding: 0 0 10px; height: 50px;}
         thead th div {transform: rotate(-90deg);margin: 0 -10px;}
         tbody th {text-align: left; padding:3px 10px 3px; white-space: nowrap;}
         td {text-align: center;}
         table {border-collapse: collapse;}
+        .day0 th,
+        .day0 td { border-bottom: 3px solid #666;}
         </style>
         </head>`)
     res.write(`
@@ -49,7 +52,7 @@ route.get('/historia', (req, res) => {
         </tr>
         </thead>
         <tbody>
-        ${dates.map(date=>`<tr><th>${DateFormat.format(date, 'D j.n', DateLocale.FI)}</th>
+        ${dates.map(date=>`<tr class="day${date.getDay()}"><th>${DateFormat.format(date, 'D j.n', DateLocale.FI)}</th>
         ${times.map(time=> {
         const availabilityForDate = findAvailabilityForDate(historyData, date, time)
         const rgb = 255 - availabilityForDate * 15
