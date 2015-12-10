@@ -72,9 +72,9 @@ function linksMarkup(locationObject) {
     var address = locationObject.address
     var url = locationObject.url
     var tel = locationObject.tel
-    return `<div class="links"><div><a class="tel" href="tel:${tel}">${tel}</a></div>
-    <div><a class="map" target="_blank" href="http://maps.google.com/?q=${address}">${address}</a></div>` +
-        (url ? `<div><a target="_blank" href="${url}">Siirry varausjärjestelmään</a></div>` : '') + '</div>'
+    return `<div class="links"><div><a class="tel" onclick="ga('send', 'event', 'Telephone', '${locationObject.title}'); return true;" href="tel:${tel}">${tel}</a></div>
+    <div><a class="map" target="_blank" onclick="ga('send', 'event', 'Map', '${locationObject.title}'); return true;" href="http://maps.google.com/?q=${address}">${address}</a></div>` +
+        (url ? `<div><a target="_blank" onclick="ga('send', 'event', 'Booking', '${locationObject.title}'); return true;" href="${url}">Siirry varausjärjestelmään</a></div>` : '') + '</div>'
 }
 
 function listAvailabilityForActiveDate(days) {
