@@ -18,7 +18,7 @@ var _ = require('lodash')
 route.use('/front.min.js', babelify(__dirname + '/front.js'))
 route.get('/courts', dao.sendFreeCourts)
 route.use(express.static(__dirname + '/../public'))
-route.get('/history', (req, res) => {
+route.get('/historia', (req, res) => {
     var historyData = history.availabilityByDate()
     var today = new DateTime()
     const days = 70
