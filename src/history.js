@@ -3,9 +3,12 @@ const _ = require('lodash')
 const historyData = require('../historyData')
 const DateTime = require('dateutils').DateTime
 const format = require('./format')
+const rates = require('./rates')
+
 module.exports = {
     availabilityByDate: availabilityByDate,
-    weeklyAvailability: weeklyAvailability
+    weeklyAvailability: weeklyAvailability,
+    getRates:           getRates
 }
 
 function availabilityByDate() {
@@ -43,4 +46,11 @@ function weeklyAvailability() {
         const availablePerTime = _.groupBy(availableForWeekday, 'time')
         return times.map(time=> time in availablePerTime ? availablePerTime[time].length : 0)
     })
+}
+
+function getRates() {
+    return {
+        locations: _.map(rates, (ratesPerTime, location) => location),
+        prices:    _.map(rates, ratesPerTime => _.flatten(_.zip.apply(_, _.map(_.get(ratesPerTime, 'indoor', ratesPerTime)))))
+    }
 }

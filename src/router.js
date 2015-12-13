@@ -32,10 +32,12 @@ route.get('/historia', (req, res) => {
     }))
     var times = _.range(60, 230, 5).map(format.formatIsoTime)
     const weeklyAvailability = history.weeklyAvailability()
+    const rates = history.getRates()
     res.send(historyHtml({
         times:                   times,
         dates:                   dates,
         weeklyAvailability:      weeklyAvailability,
+        rates:                   rates,
         findAvailabilityForDate: findAvailabilityForDate
     }))
 

@@ -1,5 +1,5 @@
-module.exports = o => { with(o) return `<!DOCTYPE html>
-<html>
+module.exports = o => { with(o) return `<!DOCTYPE html>`+
+`<html>
 <head>
     <link rel="stylesheet" href="/vendor/chartist.min.css"/>
     <meta charset="utf-8"/>
@@ -68,7 +68,7 @@ module.exports = o => { with(o) return `<!DOCTYPE html>
     </tbody>
 </table>
 <h2>Myymättä jääneet kentät viikonpäivittäin</h2>
-<div class="ct-chart ct-perfect-fourth"></div>
+<div class="ct-chart ct-perfect-fourth chartData"></div>
 <ul class="ct-legend">
     <li class="ct-series-b"><span class="legendBox"></span>Ma</li>
     <li class="ct-series-c"><span class="legendBox"></span>Ti</li>
@@ -78,7 +78,9 @@ module.exports = o => { with(o) return `<!DOCTYPE html>
     <li class="ct-series-g"><span class="legendBox"></span>La</li>
     <li class="ct-series-a"><span class="legendBox"></span>Su</li>
 </ul>
+<div class="ct-chart ct-perfect-fourth rates"></div>
 <script>window.chartData = ${JSON.stringify(weeklyAvailability)}</script>
+<script>window.rates= ${JSON.stringify(rates)}</script>
 <script src="/history.min.js"></script>
 
 </body>
