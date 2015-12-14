@@ -1,6 +1,6 @@
 const Chartist = require('chartist')
 const _ = require('lodash')
-const format = require('./format')
+const format = require('../format')
 
 new Chartist.Line('.chartData', {
     labels: _.range(60, 230, 5).map(format.formatIsoTime),

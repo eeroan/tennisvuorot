@@ -4,47 +4,19 @@ var route = express()
 var babelify = require('express-babelify-middleware')
 var dao = require('./dao')
 var DateTime = require('dateutils').DateTime
-var DateFormat = require('dateutils').DateFormat
-var DateLocale = require('dateutils').DateLocale
 var markupForDateRange = require('./markupForDateRange')
 var headHtml = require('./head.html')
 var filtersHtml = require('./filters.html')
 var modalsHtml = require('./modals.html')
 var scriptsHtml = require('./scripts.html')
-var history = require('./history')
+var history = require('./history/history')
 var format = require('./format')
-var _ = require('lodash')
-var historyHtml = require('./history.html')
 
 route.use('/front.min.js', babelify(__dirname + '/front.js'))
-route.use('/history.min.js', babelify(__dirname + '/history.front.js'))
+route.use('/history.min.js', babelify(__dirname + '/history/history.front.js'))
 route.get('/courts', dao.sendFreeCourts)
 route.use(express.static(__dirname + '/../public'))
-route.get('/weeklyAvailability', (req, res) => res.send(history.weeklyAvailability()))
-route.get('/historia', (req, res) => {
-    var historyData = history.availabilityByDate()
-    var today = new DateTime()
-    const days = 70
-    var firstDate = today.minusDays(days)
-    var dates = _.range(1, days).map(num=>firstDate.plusDays(num)).map(date=>({
-        dateTime:      date,
-        formattedDate: DateFormat.format(date, 'D j.n', DateLocale.FI)
-    }))
-    var times = _.range(60, 230, 5).map(format.formatIsoTime)
-    const weeklyAvailability = history.weeklyAvailability()
-    const rates = history.getRates()
-    res.send(historyHtml({
-        times:                   times,
-        dates:                   dates,
-        weeklyAvailability:      weeklyAvailability,
-        rates:                   rates,
-        findAvailabilityForDate: findAvailabilityForDate
-    }))
-
-    function findAvailabilityForDate(date, time) {
-        return _.get(_.find(historyData, row=> row.dateTime === date.toISODateString() + 'T' + time), 'avaliable', 0)
-    }
-})
+route.get('/historia', history.historyResponse)
 
 route.get('/', (req, res) => {
     var refresh = req.query.refresh === 'true'
