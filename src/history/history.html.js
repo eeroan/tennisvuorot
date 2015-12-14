@@ -56,7 +56,8 @@ module.exports = o => { with(o) return `<!DOCTYPE html>`+
     <tr class="day${date.dateTime.getDay()}">
         <th>${date.formattedDate}</th>
         ${times.map(time=> {
-        const availabilityForDate = findAvailabilityForDate(date.dateTime, time)
+        const allAvailabilityForDate = findAvailabilityForDate(date.dateTime, time)
+        const availabilityForDate = location ? _.get(allAvailabilityForDate.find(a=>a.location === location), 'available', 0) : _.sum(allAvailabilityForDate.map(a=>a.available))
         const rgb = 255 - availabilityForDate * 15
         return `
         <td style="background:rgb(${rgb},${rgb},255)" title="${time}, vapaana ${availabilityForDate}"></td>

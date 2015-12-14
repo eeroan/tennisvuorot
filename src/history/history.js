@@ -17,6 +17,7 @@ module.exports = {
 }
 
 function historyResponse(req, res) {
+    const location = req.query.location
     var historyData = availabilityByDate()
     var today = new DateTime()
     const days = 70
@@ -32,11 +33,13 @@ function historyResponse(req, res) {
         dates:                   dates,
         weeklyAvailability:      weeklyAvailability,
         rates:                   rates,
+        location:                location,
+        _:                       _,
         findAvailabilityForDate: findAvailabilityForDate
     }))
 
     function findAvailabilityForDate(date, time) {
-        return _.get(_.find(historyData, row=> row.dateTime === date.toISODateString() + 'T' + time), 'available', 0)
+        return _.get(_.find(historyData, row=> row.dateTime === date.toISODateString() + 'T' + time), 'available', [])
     }
 }
 
@@ -47,7 +50,7 @@ function availabilityByDate() {
 function groupByDate(data) {
     return _.map(_.groupBy(data.map(mapData), 'dateTime'), (v, k) => ({
         dateTime:  k,
-        available: v.length
+        available: _.map(_.groupBy(v, 'location'), (v, k)=>({location: k, available: v.length}))
     })).sort((a, b) => a.dateTime > b.dateTime ? 1 : -1)
 }
 
