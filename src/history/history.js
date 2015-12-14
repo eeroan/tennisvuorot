@@ -36,7 +36,7 @@ function historyResponse(req, res) {
     }))
 
     function findAvailabilityForDate(date, time) {
-        return _.get(_.find(historyData, row=> row.dateTime === date.toISODateString() + 'T' + time), 'avaliable', 0)
+        return _.get(_.find(historyData, row=> row.dateTime === date.toISODateString() + 'T' + time), 'available', 0)
     }
 }
 
@@ -47,7 +47,7 @@ function availabilityByDate() {
 function groupByDate(data) {
     return _.map(_.groupBy(data.map(mapData), 'dateTime'), (v, k) => ({
         dateTime:  k,
-        avaliable: v.length
+        available: v.length
     })).sort((a, b) => a.dateTime > b.dateTime ? 1 : -1)
 }
 
