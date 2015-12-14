@@ -7,6 +7,7 @@ var DateLocale = require('dateutils').DateLocale
 const format = require('../format')
 const rates = require('../rates')
 var historyHtml = require('./history.html')
+const times = _.range(60, 230, 5).map(format.formatIsoTime)
 
 module.exports = {
     historyResponse:    historyResponse,
@@ -24,7 +25,6 @@ function historyResponse(req, res) {
         dateTime:      date,
         formattedDate: DateFormat.format(date, 'D j.n', DateLocale.FI)
     }))
-    var times = _.range(60, 230, 5).map(format.formatIsoTime)
     const weeklyAvailability = getWeeklyAvailability()
     const rates = getRates()
     res.send(historyHtml({
@@ -66,7 +66,6 @@ function mapData(res) {
     }
 }
 
-const times = _.range(60, 230, 5).map(format.formatIsoTime)
 var timesObj = {}
 times.forEach(time=>timesObj[time] = 0)
 
