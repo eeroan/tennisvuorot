@@ -43,8 +43,9 @@ times.forEach(time=>timesObj[time] = 0)
 
 function weeklyAvailability() {
     return _.map(_.groupBy(historyData.map(mapData), 'weekDay'), (availableForWeekday) => {
+        const dates = Object.keys(_.groupBy(availableForWeekday, 'date'))
         const availablePerTime = _.groupBy(availableForWeekday, 'time')
-        return times.map(time=> time in availablePerTime ? availablePerTime[time].length : 0)
+        return times.map(time=> time in availablePerTime ? availablePerTime[time].length / dates.length : 0)
     })
 }
 
