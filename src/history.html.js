@@ -13,7 +13,7 @@ module.exports = o => { with(o) return `<!DOCTYPE html>`+
         td { text-align: center; }
         table { border-collapse: collapse; }
         .ct-chart,
-        table { width:100%; max-width: 1000px;}
+        table { width:100%; }
         .day0 th,
         .day0 td { border-bottom: 3px solid #666; }
         /*.ct-perfect-fourth {width:500px;}*/
