@@ -12,10 +12,7 @@ var headHtml = require('../head.html')
 const times = _.range(60, 230, 5).map(format.formatIsoTime)
 
 module.exports = {
-    historyResponse:    historyResponse,
-    availabilityByDate: availabilityByDate,
-    weeklyAvailability: getWeeklyAvailability,
-    getRates:           getRates
+    historyResponse: historyResponse
 }
 
 function historyResponse(req, res) {
