@@ -17,7 +17,7 @@ module.exports = {
 
 function historyResponse(req, res) {
     const location = req.query.location
-    const historyDataGrouped = availabilityByDate()
+    const historyDataGrouped = groupByDate(historyData)
     const sortedDates = historyDataGrouped.map(x=>x.dateTime)
     const firstDate = DateTime.fromIsoDateTime(_.first(sortedDates))
     const lastDate = DateTime.fromIsoDateTime(_.last(sortedDates))
@@ -41,10 +41,6 @@ function historyResponse(req, res) {
     function findAvailabilityForDate(date, time) {
         return _.get(_.find(historyDataGrouped, row=> row.dateTime === date.toISODateString() + 'T' + time), 'available', [])
     }
-}
-
-function availabilityByDate() {
-    return groupByDate(historyData)
 }
 
 function groupByDate(data) {
