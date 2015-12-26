@@ -17,8 +17,8 @@ module.exports = {
 
 function historyResponse(req, res) {
     const location = req.query.location
-    var historyData = availabilityByDate()
-    const sortedDates = historyData.map(x=>x.dateTime)
+    const historyDataGrouped = availabilityByDate()
+    const sortedDates = historyDataGrouped.map(x=>x.dateTime)
     const firstDate = DateTime.fromIsoDateTime(_.first(sortedDates))
     const lastDate = DateTime.fromIsoDateTime(_.last(sortedDates))
     var days = firstDate.distanceInDays(lastDate)
@@ -39,7 +39,7 @@ function historyResponse(req, res) {
         }))
 
     function findAvailabilityForDate(date, time) {
-        return _.get(_.find(historyData, row=> row.dateTime === date.toISODateString() + 'T' + time), 'available', [])
+        return _.get(_.find(historyDataGrouped, row=> row.dateTime === date.toISODateString() + 'T' + time), 'available', [])
     }
 }
 
