@@ -8,6 +8,7 @@ const format = require('../format')
 const rates = require('../rates')
 const historyHtml = require('./history.html')
 const headHtml = require('../head.html')
+const dao = require('../dao')
 
 const times = _.range(60, 230, 5).map(format.formatIsoTime)
 
@@ -16,7 +17,13 @@ module.exports = {
 }
 
 function historyResponse(req, res) {
-    res.send(historyMarkup(req.query.location, historyData))
+    if (req.query.refresh) {
+        dao.getHistoryData((err, data) => {
+            res.send(historyMarkup(req.query.location, data))
+        })
+    } else {
+        res.send(historyMarkup(req.query.location, historyData))
+    }
 }
 
 function historyMarkup(location, historyData) {
