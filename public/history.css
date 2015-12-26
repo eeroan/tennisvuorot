@@ -2,14 +2,15 @@
 .container {padding:10px 20px;box-sizing: border-box;}
 body { font-family: "Trebuchet MS"; line-height: 1; color: #666; }
 h1,h2,h3 { color: #333; }
-th { font-size: 14px; }
+th { font-size: .6rem; }
 thead th { text-align: center; padding: 0 0 10px; height: 50px; }
 thead th div { transform: rotate(-90deg); margin: 0 -10px; }
-tbody th { text-align: left; padding: 3px 10px 3px; white-space: nowrap; }
+tbody th { text-align: left; padding: 0; white-space: nowrap; }
 td { text-align: center; }
 table { border-collapse: collapse; }
 .ct-chart,
 table { width:100%; }
+.ct-chart { margin: 0 -20px;}
 .day0 th,
 .day0 td { border-bottom: 3px solid #666; }
 /*.ct-perfect-fourth {width:500px;}*/
@@ -30,3 +31,4 @@ table { width:100%; }
 .ct-series-l .legendBox { background: #86797d }
 .ct-series-m .legendBox { background: #b2c326 }
 .ct-series-n .legendBox { background: #6188e2 }
+.back { float: right;}
