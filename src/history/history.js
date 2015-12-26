@@ -7,6 +7,8 @@ var DateLocale = require('dateutils').DateLocale
 const format = require('../format')
 const rates = require('../rates')
 var historyHtml = require('./history.html')
+var headHtml = require('../head.html')
+
 const times = _.range(60, 230, 5).map(format.formatIsoTime)
 
 module.exports = {
@@ -29,15 +31,15 @@ function historyResponse(req, res) {
     }))
     const weeklyAvailability = getWeeklyAvailability()
     const rates = getRates()
-    res.send(historyHtml({
-        times:                   times,
-        dates:                   dates,
-        weeklyAvailability:      weeklyAvailability,
-        rates:                   rates,
-        location:                location,
-        _:                       _,
-        findAvailabilityForDate: findAvailabilityForDate
-    }))
+    res.send(headHtml() + historyHtml({
+            times:                   times,
+            dates:                   dates,
+            weeklyAvailability:      weeklyAvailability,
+            rates:                   rates,
+            location:                location,
+            _:                       _,
+            findAvailabilityForDate: findAvailabilityForDate
+        }))
 
     function findAvailabilityForDate(date, time) {
         return _.get(_.find(historyData, row=> row.dateTime === date.toISODateString() + 'T' + time), 'available', [])

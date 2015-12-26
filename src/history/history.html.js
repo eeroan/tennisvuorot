@@ -1,9 +1,9 @@
 module.exports = o => { with(o) return `<!DOCTYPE html>`+
-`<html>
-<head>
+`<body>
     <link rel="stylesheet" href="/vendor/chartist.min.css"/>
     <meta charset="utf-8"/>
     <style>
+        .container {padding:10px 20px;box-sizing: border-box;}
         body { font-family: "Trebuchet MS"; line-height: 1; color: #666; }
         h1,h2,h3 { color: #333; }
         th { font-size: 14px; }
@@ -35,8 +35,7 @@ module.exports = o => { with(o) return `<!DOCTYPE html>`+
         .ct-series-m .legendBox { background: #b2c326 }
         .ct-series-n .legendBox { background: #6188e2 }
     </style>
-</head>
-<body>
+    <div class="container detail">
 <h1>Tilastoja</h1>
 
 <h2>Myymättä jääneet kentät päivämäärittäin</h2>
@@ -83,6 +82,6 @@ module.exports = o => { with(o) return `<!DOCTYPE html>`+
 <script>window.chartData = ${JSON.stringify(weeklyAvailability)}</script>
 <script>window.rates= ${JSON.stringify(rates)}</script>
 <script src="/history.min.js"></script>
-
+    </div>
 </body>
 </html>`}
