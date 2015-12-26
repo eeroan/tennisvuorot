@@ -39,13 +39,14 @@ function historyMarkup(location, historyData) {
     }))
     const weeklyAvailability = getWeeklyAvailability(historyData, location)
     const locations = _.map(rates, (ratesPerTime, location) => location)
-    const prices = _.map(rates, ratesPerTime => _.flatten(_.zip.apply(_, _.map(_.get(ratesPerTime, 'indoor', ratesPerTime)))))
+    const prices = _.map(location ? _.pick(rates, location) : rates, ratesPerTime => _.flatten(_.zip.apply(_, _.map(_.get(ratesPerTime, 'indoor', ratesPerTime)))))
     return headHtml() + historyHtml({
             times:                   times,
             dates:                   dates,
             weeklyAvailability:      weeklyAvailability,
+            allLocations:            locations,
             rates:                   {
-                locations: locations,
+                locations: location ? [location] : locations,
                 prices:    prices
             },
             location:                location,

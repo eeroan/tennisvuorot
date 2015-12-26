@@ -5,7 +5,7 @@ module.exports = o => { with(o) return `<!DOCTYPE html>`+
 <h1>Tilastoja - ${location ? location : 'Kaikki paikat'}</h1>
     <ul>
         <li><a href="/historia">Kaikki</a></li>
-        ${rates.locations.map(location=>`<li><a href="/historia/${location}">${location}</a></li>`).join('')}
+        ${allLocations.map(location=>`<li><a href="/historia/${location}">${location}</a></li>`).join('')}
     </ul>
 <h2>Myymättä jääneet kentät päivämäärittäin</h2>
 <table>
