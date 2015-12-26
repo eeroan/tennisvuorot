@@ -1,3 +1,4 @@
+process.env.NEW_RELIC_ENABLED = true
 require('newrelic')
 var DateTime = require('dateutils').DateTime
 var dao = require('./src/dao')

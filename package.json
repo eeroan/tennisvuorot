@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "NEW_RELIC_ENABLED=false mocha",
-    "start": "forever ./server.js",
-    "dev": "NEW_RELIC_ENABLED=false supervisor ./server.js",
+    "start": "NEW_RELIC_ENABLED=true forever ./server.js",
+    "dev": "supervisor ./server.js",
     "mongo": "mongod --fork --syslog",
     "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' public/styles.css",
     "update-prices": "scripts/fetchPrices.js",
