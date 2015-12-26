@@ -26,7 +26,7 @@ function historyResponse(req, res) {
         dateTime:      date,
         formattedDate: DateFormat.format(date, 'D j.n', DateLocale.FI)
     }))
-    const weeklyAvailability = getWeeklyAvailability()
+    const weeklyAvailability = getWeeklyAvailability(historyData)
     const rates = getRates()
     res.send(headHtml() + historyHtml({
             times:                   times,
@@ -68,7 +68,7 @@ function mapData(res) {
 var timesObj = {}
 times.forEach(time=>timesObj[time] = 0)
 
-function getWeeklyAvailability() {
+function getWeeklyAvailability(historyData) {
     return _.map(_.groupBy(historyData.map(mapData), 'weekDay'), (availableForWeekday) => {
         const dates = Object.keys(_.groupBy(availableForWeekday, 'date'))
         const availablePerTime = _.groupBy(availableForWeekday, 'time')
