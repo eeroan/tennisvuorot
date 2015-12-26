@@ -10,7 +10,8 @@
     "mongo": "mongod --fork --syslog",
     "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' public/styles.css",
     "update-prices": "scripts/fetchPrices.js",
-    "update-locations": "scripts/updateLocations.js"
+    "update-locations": "scripts/updateLocations.js",
+    "update-history": "scripts/fetchHistory.js"
   },
   "repository": {
     "type": "git",
