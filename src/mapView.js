@@ -5,7 +5,6 @@ module.exports = {
 }
 
 function renderMap() {
-    console.log('render')
     var bounds = new google.maps.LatLngBounds()
     var map = new google.maps.Map(document.getElementById("map_canvas"), {mapTypeId: 'roadmap'})
    // map.setTilt(45)

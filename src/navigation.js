@@ -76,8 +76,6 @@ function toggleObj(key, objRoot) {
     var obj = (typeToggles.indexOf(key) >= 0) ? objRoot.typeToggles : objRoot.fieldToggles
     if (key in obj) delete obj[key]
     else obj[key] = true
-    console.log(settings)
-    console.log(obj)
 
 }
 
