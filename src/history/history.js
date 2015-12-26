@@ -19,10 +19,11 @@ module.exports = {
 function historyResponse(req, res) {
     const location = req.query.location
     var historyData = availabilityByDate()
-    var today = new DateTime()
-    const days = 70
-    var firstDate = today.minusDays(days)
-    var dates = _.range(1, days).map(num=>firstDate.plusDays(num)).map(date=>({
+    const sortedDates = historyData.map(x=>x.dateTime)
+    const firstDate = DateTime.fromIsoDateTime(_.first(sortedDates))
+    const lastDate = DateTime.fromIsoDateTime(_.last(sortedDates))
+    var days = firstDate.distanceInDays(lastDate)
+    var dates = _.range(0, days + 1).map(num=>firstDate.plusDays(num)).map(date=>({
         dateTime:      date,
         formattedDate: DateFormat.format(date, 'D j.n', DateLocale.FI)
     }))
