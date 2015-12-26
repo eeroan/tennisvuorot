@@ -37,7 +37,7 @@ function historyMarkup(location, historyData) {
         dateTime:      date,
         formattedDate: DateFormat.format(date, 'D j.n', DateLocale.FI)
     }))
-    const weeklyAvailability = getWeeklyAvailability(historyData)
+    const weeklyAvailability = getWeeklyAvailability(historyData, location)
     const locations = _.map(rates, (ratesPerTime, location) => location)
     const prices = _.map(rates, ratesPerTime => _.flatten(_.zip.apply(_, _.map(_.get(ratesPerTime, 'indoor', ratesPerTime)))))
     return headHtml() + historyHtml({
@@ -65,6 +65,17 @@ function groupByDate(data) {
     })).sort((a, b) => a.dateTime > b.dateTime ? 1 : -1)
 }
 
+var timesObj = {}
+times.forEach(time=>timesObj[time] = 0)
+
+function getWeeklyAvailability(historyData, location) {
+    return _.map(_.groupBy(historyData.map(mapData).filter(res => location ? res.location === location : true), 'weekDay'), (availableForWeekday) => {
+        const dates = Object.keys(_.groupBy(availableForWeekday, 'date'))
+        const availablePerTime = _.groupBy(availableForWeekday, 'time')
+        return times.map(time=> time in availablePerTime ? availablePerTime[time].length / dates.length : 0)
+    })
+}
+
 function mapData(res) {
     const dateTimeStr = res.date + 'T' + res.time
     const dateTime = DateTime.fromIsoDateTime(dateTimeStr)
@@ -78,15 +89,4 @@ function mapData(res) {
         dateTimeObj: dateTime,
         weekDay:     dateTime.getDay()
     }
-}
-
-var timesObj = {}
-times.forEach(time=>timesObj[time] = 0)
-
-function getWeeklyAvailability(historyData) {
-    return _.map(_.groupBy(historyData.map(mapData), 'weekDay'), (availableForWeekday) => {
-        const dates = Object.keys(_.groupBy(availableForWeekday, 'date'))
-        const availablePerTime = _.groupBy(availableForWeekday, 'time')
-        return times.map(time=> time in availablePerTime ? availablePerTime[time].length / dates.length : 0)
-    })
 }
