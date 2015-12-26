@@ -22,7 +22,9 @@ module.exports = o => { with(o) return `<!DOCTYPE html>`+
         <th>${date.formattedDate}</th>
         ${times.map(time=> {
         const allAvailabilityForDate = findAvailabilityForDate(date.dateTime, time)
-        const availabilityForDate = location ? _.get(allAvailabilityForDate.find(a=>a.location === location), 'available', 0) : _.sum(allAvailabilityForDate.map(a=>a.available))
+        const availabilityForDate = location ?
+        _.get(allAvailabilityForDate.find(a=>a.location === location), 'available', 0) :
+        _.sum(allAvailabilityForDate.map(a=>a.available))
         const rgb = 255 - availabilityForDate * 15
         return `
         <td style="background:rgb(${rgb},${rgb},255)" title="${time}, vapaana ${availabilityForDate}"></td>
@@ -44,8 +46,15 @@ module.exports = o => { with(o) return `<!DOCTYPE html>`+
     <li class="ct-series-g"><span class="legendBox"></span>La</li>
     <li class="ct-series-a"><span class="legendBox"></span>Su</li>
 </ul>
+
+<h2>Kenttien hinnat eri viikonpäivinä</h2>
+
 <div class="ct-chart ct-perfect-fourth rates"></div>
-<script>window.chartData = ${JSON.stringify(weeklyAvailability)}</script>
+
+<ul class="ct-legend">
+    ${rates.locations.map((location, i)=>`<li class="ct-series-${String.fromCharCode('a'.charCodeAt(0)+i)}"><span class="legendBox"></span>${location}</li>`).join('')}
+</ul>
+        <script>window.chartData = ${JSON.stringify(weeklyAvailability)}</script>
 <script>window.rates= ${JSON.stringify(rates)}</script>
 <script src="/history.min.js"></script>
     </div>
