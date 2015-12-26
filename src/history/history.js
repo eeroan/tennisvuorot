@@ -37,12 +37,16 @@ function historyMarkup(location, historyData) {
         formattedDate: DateFormat.format(date, 'D j.n', DateLocale.FI)
     }))
     const weeklyAvailability = getWeeklyAvailability(historyData)
-    const rates = getRates()
+    const locations = _.map(rates, (ratesPerTime, location) => location)
+    const prices = _.map(rates, ratesPerTime => _.flatten(_.zip.apply(_, _.map(_.get(ratesPerTime, 'indoor', ratesPerTime)))))
     return headHtml() + historyHtml({
             times:                   times,
             dates:                   dates,
             weeklyAvailability:      weeklyAvailability,
-            rates:                   rates,
+            rates:                   {
+                locations: locations,
+                prices:    prices
+            },
             location:                location,
             _:                       _,
             findAvailabilityForDate: findAvailabilityForDate
@@ -84,11 +88,4 @@ function getWeeklyAvailability(historyData) {
         const availablePerTime = _.groupBy(availableForWeekday, 'time')
         return times.map(time=> time in availablePerTime ? availablePerTime[time].length / dates.length : 0)
     })
-}
-
-function getRates() {
-    return {
-        locations: _.map(rates, (ratesPerTime, location) => location),
-        prices:    _.map(rates, ratesPerTime => _.flatten(_.zip.apply(_, _.map(_.get(ratesPerTime, 'indoor', ratesPerTime)))))
-    }
 }
