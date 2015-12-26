@@ -56,7 +56,9 @@ function refresh(isoDate, days, callback) {
 }
 
 function getHistoryData(callback) {
-    mongoQuery({date: {$lte: new Date()}}, callback)
+    var start = DateTime.fromDate(2015,10,5)
+    var end = new DateTime()
+    mongoQuery({date: {$gte: start.date, $lte:end.date}}, callback)
 }
 
 function getFromMongo(isoDate, days, callback) {
