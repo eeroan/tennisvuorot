@@ -16,7 +16,10 @@ module.exports = {
 }
 
 function historyResponse(req, res) {
-    const location = req.query.location
+    res.send(historyMarkup(req.query.location, historyData))
+}
+
+function historyMarkup(location, historyData) {
     const historyDataGrouped = groupByDate(historyData)
     const sortedDates = historyDataGrouped.map(x=>x.dateTime)
     const firstDate = DateTime.fromIsoDateTime(_.first(sortedDates))
@@ -28,7 +31,7 @@ function historyResponse(req, res) {
     }))
     const weeklyAvailability = getWeeklyAvailability(historyData)
     const rates = getRates()
-    res.send(headHtml() + historyHtml({
+    return headHtml() + historyHtml({
             times:                   times,
             dates:                   dates,
             weeklyAvailability:      weeklyAvailability,
@@ -36,7 +39,7 @@ function historyResponse(req, res) {
             location:                location,
             _:                       _,
             findAvailabilityForDate: findAvailabilityForDate
-        }))
+        })
 
     function findAvailabilityForDate(date, time) {
         return _.get(_.find(historyDataGrouped, row=> row.dateTime === date.toISODateString() + 'T' + time), 'available', [])
