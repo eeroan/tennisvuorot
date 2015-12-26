@@ -10,10 +10,6 @@ dao.getHistoryData((err, data) => {
     } else {
         var fileName = 'historyData.js'
         console.log('Writing history data to ' + fileName)
-        fs.writeFileSync(__dirname + '/../src/history/' + fileName, format.formatModule(transform(data)))
+        fs.writeFileSync(__dirname + '/../src/history/' + fileName, format.formatModule(data))
     }
 })
-
-function transform(data) {
-    return _.flatten(data.map(row => row.freeCourts))
-}
