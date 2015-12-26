@@ -2,12 +2,12 @@
 const _ = require('lodash')
 const historyData = require('./historyData')
 const DateTime = require('dateutils').DateTime
-var DateFormat = require('dateutils').DateFormat
-var DateLocale = require('dateutils').DateLocale
+const DateFormat = require('dateutils').DateFormat
+const DateLocale = require('dateutils').DateLocale
 const format = require('../format')
 const rates = require('../rates')
-var historyHtml = require('./history.html')
-var headHtml = require('../head.html')
+const historyHtml = require('./history.html')
+const headHtml = require('../head.html')
 
 const times = _.range(60, 230, 5).map(format.formatIsoTime)
 
