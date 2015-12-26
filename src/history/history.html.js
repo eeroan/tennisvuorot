@@ -2,7 +2,7 @@ module.exports = o => { with(o) return `<!DOCTYPE html>`+
 `<body>
 <link rel="stylesheet" href="/history.css"/>
 <div class="container detail">
-<h1>Tilastoja</h1>
+<h1>Tilastoja - ${location ? location : 'Kaikki paikat'}</h1>
     <ul>
         <li><a href="/historia">Kaikki</a></li>
         ${rates.locations.map(location=>`<li><a href="/historia/${location}">${location}</a></li>`).join('')}
