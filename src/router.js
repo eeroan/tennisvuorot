@@ -16,7 +16,7 @@ route.use('/front.min.js', babelify(__dirname + '/front.js'))
 route.use('/history.min.js', babelify(__dirname + '/history/history.front.js'))
 route.get('/courts', dao.sendFreeCourts)
 route.use(express.static(__dirname + '/../public'))
-route.get('/historia', history.historyResponse)
+route.get(['/historia', '/historia/:location'], history.historyResponse)
 
 route.get('/', (req, res) => {
     var refresh = req.query.refresh === 'true'

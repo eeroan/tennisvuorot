@@ -3,7 +3,10 @@ module.exports = o => { with(o) return `<!DOCTYPE html>`+
 <link rel="stylesheet" href="/history.css"/>
 <div class="container detail">
 <h1>Tilastoja</h1>
-
+    <ul>
+        <li><a href="/historia">Kaikki</a></li>
+        ${rates.locations.map(location=>`<li><a href="/historia/${location}">${location}</a></li>`).join('')}
+    </ul>
 <h2>Myymättä jääneet kentät päivämäärittäin</h2>
 <table>
     <thead>

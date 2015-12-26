@@ -17,12 +17,13 @@ module.exports = {
 }
 
 function historyResponse(req, res) {
+    const location = req.params.location
     if (req.query.refresh) {
         dao.getHistoryData((err, data) => {
-            res.send(historyMarkup(req.query.location, data))
+            res.send(historyMarkup(location, data))
         })
     } else {
-        res.send(historyMarkup(req.query.location, historyData))
+        res.send(historyMarkup(location, historyData))
     }
 }
 
