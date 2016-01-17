@@ -11,13 +11,14 @@ var modalsHtml = require('./modals.html')
 var scriptsHtml = require('./scripts.html')
 var history = require('./history/history')
 var format = require('./format')
+var calendarEvent = require('./calendarEvent')
 
 route.use('/front.min.js', babelify(__dirname + '/front.js'))
 route.use('/history.min.js', babelify(__dirname + '/history/history.front.js'))
 route.get('/courts', dao.sendFreeCourts)
 route.use(express.static(__dirname + '/../public'))
 route.get(['/historia', '/historia/:location'], history.historyResponse)
-
+route.get('/calendar', calendarEvent.show)
 route.get('/', (req, res) => {
     var refresh = req.query.refresh === 'true'
     res.write(`<!DOCTYPE html>
