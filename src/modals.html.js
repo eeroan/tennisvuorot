@@ -8,7 +8,7 @@ module.exports = o => `<div class="information modal">
     <br>Töissä: <a href="http://reaktor.com">Reaktorilla</a></p>
     <form class="feedbackForm">
     <textarea class="feedback" placeholder="Tähän voit antaa palautetta ja toiveita"></textarea>
-    <button type="submit" class="submitFeedback">Lähetä</button>
+    <button type="submit" class="button submitFeedback">Lähetä</button>
     </form>
     <p><div class="fb-like" data-href="http://tennisvuorot.fi" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
     <div class="close">&times;</div>

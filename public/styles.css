@@ -33,22 +33,22 @@ h3 { margin-bottom: 10px; }
 .day6 { color: #999; }
 .titleContainer { -webkit-align-items: baseline; -ms-flex-align: baseline; align-items: baseline; display: -webkit-flex; display: -ms-flexbox; display: flex; }
 .fieldTypeContainer {margin-top: 10px;}
-button { outline: none; background-color: #fff; display: inline-block; margin-bottom: 10px; margin-left: 5px; color: #333; padding: 5px; border: 2px solid #333; border-bottom-style: none; border-radius: 2px; }
-.filters button { border: 2px solid #666; color: black; cursor: pointer; }
+.button { outline: none; background-color: #fff; display: inline-block; margin-bottom: 10px; margin-left: 5px; color: #333; padding: 5px; border: 2px solid #333; border-bottom-style: none; border-radius: 2px; line-height: 1; text-decoration: none;}
+.filters .button { border: 2px solid #666; color: black; cursor: pointer; }
 label { font-size: 11px; cursor: pointer; margin-left: 20px;}
-button.bubble { border-bottom: none; border-radius: 20px 20px 0 0; }
-button.indoor { border-bottom: none; }
-button.outdoor { border: none; border-bottom: 2px solid #666; }
-button.double { }
-button.meilahti { border-color: #449d44; color: #449d44; }
-button.herttoniemi { border-color: #337ab7; color: #337ab7; }
-button.kulosaari { border-color: #31b0d5; color: #31b0d5; }
-button.merihaka { border-color: #f0ad4e; color: #f0ad4e; }
-button.taivallahti { border-color: #d9534f; color: #d9534f; }
-button.tali { border-color: #d454bf; color: #d454bf; }
-button.tapiola { border-color: #a8714e; color: #a8714e; }
-button.laajasalo { border-color: #ab9c25; color: #ab9c25; }
-button.hiekkaharju { border-color: #cd7365; color: #cd7365; }
+.button.bubble { border-bottom: none; border-radius: 20px 20px 0 0; }
+.button.indoor { border-bottom: none; }
+.button.outdoor { border: none; border-bottom: 2px solid #666; }
+.button.double { }
+.button.meilahti { border-color: #449d44; color: #449d44; }
+.button.herttoniemi { border-color: #337ab7; color: #337ab7; }
+.button.kulosaari { border-color: #31b0d5; color: #31b0d5; }
+.button.merihaka { border-color: #f0ad4e; color: #f0ad4e; }
+.button.taivallahti { border-color: #d9534f; color: #d9534f; }
+.button.tali { border-color: #d454bf; color: #d454bf; }
+.button.tapiola { border-color: #a8714e; color: #a8714e; }
+.button.laajasalo { border-color: #ab9c25; color: #ab9c25; }
+.button.hiekkaharju { border-color: #cd7365; color: #cd7365; }
 .meilahti .meilahti,
 .herttoniemi .herttoniemi,
 .kulosaari .kulosaari,
@@ -80,7 +80,7 @@ nav li.selected { cursor: default; }
 .toggleFilters { background: url(search_options_icon.png) no-repeat 50% 50%; width: 30px; height: 30px; position: absolute; right: 10px; top: 10px; }
 .toggleMapInformation { top: 10px; position: relative; display: inline-block; background: url(map.png) no-repeat 50% 50%; background-size: 100%; width: 35px; height: 35px; }
 .locationsContainer { margin-right: 40px; padding-bottom: 0; }
-.locationsContainer button { margin: 0 0 5px; }
+.locationsContainer .button { margin: 0 0 5px; }
 .toggleInformation { position: absolute; top: 50px; right: 5px; display: block; width: 20px; height: 20px; color: #fff; background: #258DAB; font-family: "Times New Roman", serif; text-align: center; line-height: 1; font-size: 20px; border-radius: 100px; text-decoration: none; font-style: italic; font-weight: bold; }
 .filters .close { font-size: 40px; border: none; right: 0; top: 20px; left: initial; background: none; color: #258dab; }
 .filters .toggleFilters { display: none; }
@@ -95,9 +95,9 @@ nav li.selected { cursor: default; }
 .filters.collapsed .close,
 .filters.collapsed .jumpToDateContainer { display: none; }
 .detail { box-shadow: 0 0 3px 0 #ccc; min-height: 1024px; max-width: 1024px; }
-button:active { outline: none; }
+.button:active { outline: none; }
 input[type="checkbox"] {margin-right: 1px;}
-button.inactive { color: #999; background: none; border-color: #eee; box-shadow: 0 1px 1px 0 #aaa; }
+.button.inactive { color: #999; background: none; border-color: #eee; box-shadow: 0 1px 1px 0 #aaa; }
 .loading:after { content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0; }
 .timestamp { margin-left: 10px; font-size: 10px; margin-bottom: 10px; }
 .timeRow { display: -webkit-flex; display: -ms-flexbox; display: flex; line-height: 0; -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; }

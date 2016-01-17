@@ -64,7 +64,7 @@ function modal(obj) {
         <div class="close">&times;</div>`
 
     function toButtonMarkup(field) {
-        return `<button type="button" class="fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">${field.field}, ${format.formatPrice(field.price)}</button>`
+        return `<a href="/calendar" class="button fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">${field.field}, ${format.formatPrice(field.price)}</a>`
     }
 }
 

@@ -5,12 +5,12 @@ module.exports = o => { with(o) return `<div class="filters">
             <a href="javascript:void(0)" class="toggle toggleMapInformation"></a>
             <a href="javascript:void(0)" class="toggle toggleInformation">i</a>
             ${places.map(place => `
-            <button type="button" class="${place.id}" id="${place.id}">${place.name}</button>
+            <button type="button" class="button ${place.id}" id="${place.id}">${place.name}</button>
             `).join('')}
         </div>
         <div class="fieldTypeContainer">
             ${types.map(type => `
-            <button type="button" class="${type.id}" id="${type.id}">${type.name}</button>
+            <button type="button" class="button ${type.id}" id="${type.id}">${type.name}</button>
             `).join('')}
             <label><input id="single" type="checkbox"> Vapaana 2h</label>
         </div>
