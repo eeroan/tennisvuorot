@@ -61,8 +61,9 @@ function modal(obj) {
     var url = locationObject.url
     var tel = locationObject.tel
 
-    return `<h3>${currentLocation} ${format.formatDate(dateTime)} klo ${obj.time}</h3>
-        Lisää kalenteriin: ${obj.fields.map(toButtonMarkup).join('')}
+    return `<h2>${currentLocation}</h2> <p>${format.formatDate(dateTime)} klo ${obj.time}</p>
+        <h3>Lisää kalenteriin</h3> ${obj.fields.map(toButtonMarkup).join('')}
+        <h3>Tiedot</h3>
         ${linksMarkup(locationObject)}
         <div class="close">&times;</div>`
 

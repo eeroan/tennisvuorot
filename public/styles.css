@@ -14,7 +14,7 @@ body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-ser
 .feedback { margin-bottom: 10px; width: 100%; height: 50px; display: block; }
 .submitFeedback { border: 2px solid; }
 .submitFeedback:disabled { color: #999; border-color: #eee; }
-.links { margin-top: 30px; font-size: 16px; line-height: 2; }
+.links {    font-size: 16px; line-height: 2; }
 .showDetails .modal { display: block; }
 .place { text-transform: capitalize; }
 .address { }
@@ -24,6 +24,7 @@ body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-ser
 .links .map { background-image: url(pin.png); }
 #map_wrapper { padding: 0; }
 #map_canvas { width: 100%; height: 100%; }
+h2 {text-transform: capitalize}
 h3,
 h4 { padding-top: 0.5em; text-transform: capitalize; margin: 0.5em 0 0; }
 h3 { margin-bottom: 10px; }
