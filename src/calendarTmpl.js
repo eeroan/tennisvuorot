@@ -1,5 +1,4 @@
-module.exports = o => { with(o) return `
-BEGIN:VCALENDAR
+module.exports = o => { with(o) return `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:Tennisvuorot.fi
 X-WR-CALNAME:Tennisvuoro
@@ -29,6 +28,7 @@ UID:${username}
 DTSTART;TZID="Europe/Helsinki":${start}
 DTEND;TZID="Europe/Helsinki":${end}
 SUMMARY:${summary}
+URL:${url}
 DESCRIPTION: ${description}
 LOCATION:${location}
 END:VEVENT

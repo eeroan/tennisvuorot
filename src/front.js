@@ -57,6 +57,9 @@ function modal(obj) {
     var dateTime = DateTime.fromIsoDate(obj.date)
     var currentLocation = obj.location
     var locationObject = locations.find(location => location.title === currentLocation)
+    var address = locationObject.address
+    var url = locationObject.url
+    var tel = locationObject.tel
 
     return `<h3>${currentLocation} ${format.formatDate(dateTime)} klo ${obj.time}</h3>
         ${obj.fields.map(toButtonMarkup).join('')}
@@ -64,7 +67,7 @@ function modal(obj) {
         <div class="close">&times;</div>`
 
     function toButtonMarkup(field) {
-        return `<a href="/calendar" class="button fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">${field.field}, ${format.formatPrice(field.price)}</a>`
+        return `<a href="/calendar?location=${currentLocation}&field=${field.field}&price=${field.price}&tel=${tel}&date=${obj.date}&time=${obj.time}&address=${address}&url=${url}" class="button fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">${field.field}, ${format.formatPrice(field.price)}</a>`
     }
 }
 
