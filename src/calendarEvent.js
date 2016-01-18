@@ -38,7 +38,7 @@ function getCalendarLink(query) {
     return calendarTmpl({
         username:    'user',
         description: description,
-        location:    address,
+        location:    address.replace(',', '\\,'),
         start:       DateFormat.format(startTime, icsDateFormat),
         end:         DateFormat.format(startTime.plusMinutes(duration), icsDateFormat),
         now:         DateFormat.format(new DateTime(), icsDateFormat),

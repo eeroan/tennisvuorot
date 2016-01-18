@@ -62,7 +62,7 @@ function modal(obj) {
     var tel = locationObject.tel
 
     return `<h3>${currentLocation} ${format.formatDate(dateTime)} klo ${obj.time}</h3>
-        ${obj.fields.map(toButtonMarkup).join('')}
+        Lisää kalenteriin: ${obj.fields.map(toButtonMarkup).join('')}
         ${linksMarkup(locationObject)}
         <div class="close">&times;</div>`
 

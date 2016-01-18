@@ -28,7 +28,7 @@ UID:${username}
 DTSTART;TZID="Europe/Helsinki":${start}
 DTEND;TZID="Europe/Helsinki":${end}
 SUMMARY:${summary}
-URL:${url}
+URL:tennisvuorot.fi
 DESCRIPTION: ${description}
 LOCATION:${location}
 END:VEVENT
