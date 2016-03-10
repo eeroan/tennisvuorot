@@ -10,6 +10,6 @@ dao.getHistoryData((err, data) => {
     } else {
         var fileName = 'historyData.js'
         console.log('Writing history data to ' + fileName)
-        fs.writeFileSync(__dirname + '/../src/history/' + fileName, format.formatModule(data))
+        fs.writeFileSync(__dirname + '/../generated/' + fileName, format.formatModule(data))
     }
 })

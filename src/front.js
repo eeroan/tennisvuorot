@@ -9,7 +9,7 @@ attachFastClick(document.body)
 var $window = $(window)
 var $document = $(document)
 var markupForDateRange = require('./markupForDateRange')
-var locations = require('./locations')
+var locations = require('../generated/locations')
 const format = require('./format')
 var didScroll = false
 var alreadyLoadingMoreResults = false

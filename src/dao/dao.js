@@ -6,7 +6,7 @@ var webTimmi = require('./webTimmiCrawler')
 var DateTime = require('dateutils').DateTime
 var MongoClient = require('mongodb').MongoClient
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
-var rates = require('../rates')
+var rates = require('../../generated/rates')
 var format = require('../format')
 
 module.exports = {

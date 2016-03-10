@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 const _ = require('lodash')
-const historyData = require('./historyData')
+const historyData = require('../../generated/historyData')
 const DateTime = require('dateutils').DateTime
 const DateFormat = require('dateutils').DateFormat
 const DateLocale = require('dateutils').DateLocale
 const format = require('../format')
-const rates = require('../rates')
+const rates = require('../../generated/rates')
 const historyHtml = require('./history.html')
 const headHtml = require('../head.html')
 const dao = require('../dao/dao')

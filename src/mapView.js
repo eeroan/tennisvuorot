@@ -1,4 +1,4 @@
-var locations = require('./locations')
+var locations = require('../generated/locations')
 
 module.exports = {
     renderMap: renderMap

@@ -1,4 +1,4 @@
-var locations = require('./locations')
+var locations = require('../generated/locations')
 var _ = require('lodash')
 const dateutils = require('dateutils')
 var DateTime = dateutils.DateTime

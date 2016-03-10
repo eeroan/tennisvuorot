@@ -45,7 +45,7 @@ function fetchAll() {
     Bacon.combineTemplate(_.mapValues(sheets, fetchForOrCombineTemplate))
         .onValue(function (data) {
             console.log('Writing rates to ' + fileName)
-            fs.writeFileSync(__dirname + '/../src/' + fileName, format.formatModule(data))
+            fs.writeFileSync(__dirname + '/../generated/' + fileName, format.formatModule(data))
         })
 }
 
