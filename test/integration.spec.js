@@ -1,10 +1,10 @@
 const Browser = require('zombie')
-const browser = new Browser({waitDuration: '5s'})
+const browser = new Browser({waitDuration: '10s'})
 var app = require('../src/router')
 var port = process.env.PORT || 5001
 
 describe('Loads list of free courts', function () {
-    this.timeout(10000)
+    this.timeout(15000)
     before(done => app.listen(port, done))
 
     before(done => browser.visit('http://localhost:' + port, done))
