@@ -1,6 +1,6 @@
 var fs = require('fs')
-var slSystems = require('../src/slSystemsCrawler')
-var webTimmi = require('../src/webTimmiCrawler')
+var slSystems = require('../src/dao/slSystemsCrawler')
+var webTimmi = require('../src/dao/webTimmiCrawler')
 
 describe('sls systems crawler', () => {
     var obj

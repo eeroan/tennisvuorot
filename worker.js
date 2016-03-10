@@ -1,7 +1,7 @@
 process.env.NEW_RELIC_ENABLED = true
 require('newrelic')
 var DateTime = require('dateutils').DateTime
-var dao = require('./src/dao')
+var dao = require('./src/dao/dao')
 var daysAhead = 0
 var maxDaysAhead = 60
 

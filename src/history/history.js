@@ -8,7 +8,7 @@ const format = require('../format')
 const rates = require('../rates')
 const historyHtml = require('./history.html')
 const headHtml = require('../head.html')
-const dao = require('../dao')
+const dao = require('../dao/dao')
 
 const times = _.range(60, 230, 5).map(format.formatIsoTime)
 

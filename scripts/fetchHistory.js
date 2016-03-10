@@ -2,7 +2,7 @@
 const fs = require('fs')
 const util = require('util')
 const format = require('../src/format')
-const dao = require('../src/dao')
+const dao = require('../src/dao/dao')
 const _ = require('lodash')
 dao.getHistoryData((err, data) => {
     if (err) {
