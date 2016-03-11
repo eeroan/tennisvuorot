@@ -32,7 +32,7 @@ h3 { margin-bottom: 10px; }
 .day6 { color: #999; }
 .titleContainer { -webkit-align-items: baseline; -ms-flex-align: baseline; align-items: baseline; display: -webkit-flex; display: -ms-flexbox; display: flex; }
 .fieldTypeContainer {display: flex;margin-top: 10px;}
-.button {min-height: 30px;width: 80px;outline: none; background-color: #fff;display: block; margin-bottom: 10px; margin-left: 5px; color: #333;padding: 5px; border: 2px solid #333; border-bottom-style: none; border-radius: 2px; line-height: 1; text-decoration: none;}
+.button {text-align: center;min-height: 30px;width: 80px;outline: none; background-color: #fff;display: block; margin-bottom: 10px; margin-left: 5px; color: #333;padding: 5px; border: 2px solid #333; border-bottom-style: none; border-radius: 2px; line-height: 1; text-decoration: none;}
 .filters .button {height: 30px;width: 80px;border: 2px solid #666; color: black; cursor: pointer;}
 .fieldTypeContainer .button {width: 60px;}
 label { font-size: 11px; cursor: pointer; margin-left: 20px;}
