@@ -37,7 +37,7 @@ $('#schedule').on('click', '.locationLabel, .close', e => {
     if (opened) {
         var $locationBoxes = $clickArea.closest('.locationBoxes')
         var fields = $locationBoxes.data('fields')
-        $reservationModal.html(modal(fields)).show()
+        $reservationModal.html(reservationModalMarkup(fields)).show()
     } else {
         $reservationModal.hide()
     }
@@ -53,7 +53,7 @@ function loadMoreResults(days) {
     }
 }
 
-function modal(obj) {
+function reservationModalMarkup(obj) {
     var dateTime = DateTime.fromIsoDate(obj.date)
     var currentLocation = obj.location
     var locationObject = locations.find(location => location.title === currentLocation)
@@ -68,7 +68,7 @@ function modal(obj) {
         <div class="close">&times;</div>`
 
     function toButtonMarkup(field) {
-        return `<a href="/calendar?location=${currentLocation}&field=${field.field}&price=${field.price}&tel=${tel}&date=${obj.date}&time=${obj.time}&address=${address}&url=${url}" class="button fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">${field.field}, ${format.formatPrice(field.price)}</a>`
+        return `<a href="/calendar?location=${currentLocation}&field=${field.field}&price=${field.price}&tel=${tel}&date=${obj.date}&time=${obj.time}&address=${address}&url=${url}" class="button fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">${field.field}<br/>${format.formatPrice(field.price)}</a>`
     }
 }
 
