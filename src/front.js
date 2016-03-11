@@ -1,4 +1,4 @@
-var $ = require('jquery')
+var $ = require('zepto-browserify').$
 var _ = require('lodash')
 var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat

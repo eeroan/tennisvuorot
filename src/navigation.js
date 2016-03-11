@@ -1,7 +1,7 @@
-const $ = require('jquery')
+var $ = require('zepto-browserify').$
 const _ = require('lodash')
 const mapView = require('./mapView')
-const noUiSlider = require('nouislider');
+const noUiSlider = require('nouislider')
 const format = require('./format')
 const typeToggles = ['bubble', 'outdoor', 'indoor', 'single']
 const defaults = {
@@ -117,7 +117,7 @@ var $schedule = $('#schedule')
 
 function setContainerFilterClasses() {
     var hiddenTimes = all.filter(time => time < settings.start || time > settings.end)
-    $schedule.prop('class', activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' '))
+    $schedule.get(0).className = activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' ')
 }
 
 function activeFilters(settings) { return _.map(_.extend({}, settings.fieldToggles, settings.typeToggles), (v, k) => k) }
