@@ -24,53 +24,66 @@ function reportSettings(settings) {
 }
 
 function initNavigation() {
-    activeFilters(settings).forEach(name => { $('#' + name).addClass('inactive')})
-    $('#single').prop('checked', 'single' in settings.typeToggles)
+    activeFilters(settings).forEach(name => {
+        document.getElementById(name).classList.add('inactive')
+    })
+    document.getElementById('single').checked = 'single' in settings.typeToggles
     setContainerFilterClasses()
-    $('.filters button, #single').click(e => {
-        const $button = $(e.target)
-        $button.toggleClass('inactive')
-        const id = $button.prop('id')
+    Array.prototype.forEach.call(document.querySelectorAll('.filters button'), el => el.addEventListener('click', toggleEvent))
+    document.getElementById('single').addEventListener('click', toggleEvent)
+    function toggleEvent(e) {
+        const $button = e.target
+        $button.classList.toggle('inactive')
+        const id = $button.id
         toggleObj(id, settings)
         setTimeout(() => {
-            $('#schedule').toggleClass(id)
+            document.getElementById('schedule').classList.toggle(id)
             saveFilters()
         }, 1)
-    })
-    $('.toggleInformation').click(() => {
+    }
+
+    document.querySelector('.toggleInformation').addEventListener('click',() => {
         ga('send', 'event', 'Info', 'open')
-        $('.information').show()
+        document.querySelector('.information').style.display='block'
     })
-    $('.toggleMapInformation').click(() => {
-        $('#map_wrapper').show()
+    document.querySelector('.toggleMapInformation').addEventListener('click',() => {
+        document.querySelector('#map_wrapper').style.display='block'
         if (mapMissing) {
             mapView.renderMap()
             mapMissing = false
         }
     })
     toggleNavi()
-    $('.toggleFilters, .filters .close').click(e => {
-        settings.collapsed = $(e.target).hasClass('close')
+    document.querySelector('.toggleFilters').addEventListener('click', () => toggle(false))
+    document.querySelector('.filters .close').addEventListener('click', () => toggle(true))
+
+    function toggle(isCollapsed) {
+        settings.collapsed = isCollapsed
         toggleNavi()
         saveFilters()
-    })
+    }
     initTimeFilter()
     initFeedback()
 }
 
 function initFeedback() {
-    $('.feedbackForm').on('submit', e => {
+    document.querySelector('.feedbackForm').addEventListener('submit', e => {
         e.preventDefault()
-        var $feedback = $('.feedback')
-        var text = $feedback.val()
+        var $feedback = document.querySelector('.feedback')
+        var text = $feedback.value
         ga('send', 'event', 'Feedback', text)
-        $feedback.val('')
-        $('.submitFeedback').prop('disabled', true).text('Palaute lähetetty')
+        $feedback.value = ''
+        const submitFeedback = document.querySelector('.submitFeedback')
+        submitFeedback.disabled = true
+        submitFeedback.textContent = 'Palaute lähetetty'
     })
     return false
 }
 
-function toggleNavi() { $('.filters, #schedule').toggleClass('collapsed', settings.collapsed) }
+function toggleNavi() {
+    document.querySelector('.filters').classList.toggle('collapsed', settings.collapsed)
+    document.querySelector('#schedule').classList.toggle('collapsed', settings.collapsed)
+}
 
 function toggleObj(key, objRoot) {
     var obj = (typeToggles.indexOf(key) >= 0) ? objRoot.typeToggles : objRoot.fieldToggles
@@ -105,19 +118,19 @@ function initTimeFilter() {
         saveFilters()
     })
 }
-var $rangeLabel = $('.rangeLabel')
+var $rangeLabel = document.querySelector('.rangeLabel')
 
 function setStartAndEndLabels(isStart, val) {
     if (isStart) settings.start = Number(val)
     else settings.end = Number(val)
-    $rangeLabel.html(format.formatTime(settings.start) + '-' + format.formatTime(settings.end))
+    $rangeLabel.innerHTML = format.formatTime(settings.start) + '-' + format.formatTime(settings.end)
 }
 
-var $schedule = $('#schedule')
+var $schedule = document.querySelector('#schedule')
 
 function setContainerFilterClasses() {
     var hiddenTimes = all.filter(time => time < settings.start || time > settings.end)
-    $schedule.get(0).className = activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' ')
+    $schedule.className = activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' ')
 }
 
 function activeFilters(settings) { return _.map(_.extend({}, settings.fieldToggles, settings.typeToggles), (v, k) => k) }
