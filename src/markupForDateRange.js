@@ -72,7 +72,7 @@ function collapsedButtons(location, fields) {
             var field = fieldsForType.val[0]
             var hasDoubleLessons = fieldsForType.val.some(field => field.doubleLesson)
             return `<button type="button" class="button locationLabel ${location} ${field.type} ${format.durationClass(hasDoubleLessons)}">
-        ${location}<br> ${format.formatPrice(field.price)}</button>`
+        ${location.substring(0,4)}<br> ${format.formatPrice(field.price)}</button>`
         }).join(' ')
 }
 
