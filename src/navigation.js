@@ -27,17 +27,18 @@ function initNavigation() {
     activeFilters(settings).forEach(name => {
         document.getElementById(name).classList.add('inactive')
     })
-    document.getElementById('single').checked = 'single' in settings.typeToggles
+    const singleToggle = document.getElementById('single')
+    singleToggle.checked = 'single' in settings.typeToggles
     setContainerFilterClasses()
     Array.prototype.forEach.call(document.querySelectorAll('.filters button'), el => el.addEventListener('click', toggleEvent))
-    document.getElementById('single').addEventListener('click', toggleEvent)
+    singleToggle.addEventListener('click', toggleEvent)
     function toggleEvent(e) {
         const button = e.target
         button.classList.toggle('inactive')
         const id = button.id
         toggleObj(id, settings)
         setTimeout(() => {
-            document.getElementById('schedule').classList.toggle(id)
+            schedule.classList.toggle(id)
             saveFilters()
         }, 1)
     }
@@ -82,7 +83,7 @@ function initFeedback() {
 
 function toggleNavi() {
     document.querySelector('.filters').classList.toggle('collapsed', settings.collapsed)
-    document.querySelector('#schedule').classList.toggle('collapsed', settings.collapsed)
+    schedule.classList.toggle('collapsed', settings.collapsed)
 }
 
 function toggleObj(key, objRoot) {
