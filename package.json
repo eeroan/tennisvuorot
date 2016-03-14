@@ -37,8 +37,7 @@
     "newrelic": "^1.24.0",
     "nouislider": "^8.2.1",
     "request": "^2.67.0",
-    "request-debug": "^0.2.0",
-    "zepto-browserify": "^1.0.0"
+    "request-debug": "^0.2.0"
   },
   "devDependencies": {
     "autoprefix": "^0.1.4",
