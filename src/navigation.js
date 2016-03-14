@@ -1,4 +1,3 @@
-var $ = require('zepto-browserify').$
 const _ = require('lodash')
 const mapView = require('./mapView')
 const noUiSlider = require('nouislider')
