@@ -40,10 +40,15 @@ function historyMarkup(location, historyData) {
     const weeklyAvailability = getWeeklyAvailability(historyData, location)
     const locations = _.map(rates, (ratesPerTime, location) => location)
     const prices = _.map(location ? _.pick(rates, location) : rates, ratesPerTime => _.flatten(_.zip.apply(_, _.map(_.get(ratesPerTime, 'indoor', ratesPerTime)))))
+    const availabilities = historyDataGrouped.map(h=>h.available)
+    const maxAvailability = _.max(location ?
+        availabilities.map(l=>_.get(l.find(x=>x.location == location), 'available', 0)) :
+        availabilities.map(locs=>_.sum(locs.map(loc=>loc.available))))
     return headHtml() + historyHtml({
             times:                   times,
             dates:                   dates,
             weeklyAvailability:      weeklyAvailability,
+            maxAvailability:         maxAvailability,
             allLocations:            locations,
             rates:                   {
                 locations: location ? [location] : locations,

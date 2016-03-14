@@ -29,7 +29,7 @@ module.exports = o => { with(o) return `<!DOCTYPE html>`+
         const availabilityForDate = location ?
         _.get(allAvailabilityForDate.find(a=>a.location === location), 'available', 0) :
         _.sum(allAvailabilityForDate.map(a=>a.available))
-        const rgb = 255 - availabilityForDate * 15
+        const rgb = 255 - parseInt((availabilityForDate*255)/maxAvailability, 10)
         return `
         <td style="background:rgb(${rgb},${rgb},255)" title="${time}, vapaana ${availabilityForDate}"></td>
         `
