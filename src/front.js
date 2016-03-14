@@ -1,4 +1,3 @@
-var $ = require('zepto-browserify').$
 var _ = require('lodash')
 var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
@@ -85,9 +84,23 @@ function listAvailabilityForActiveDate(days) {
     activeDate = activeDate.plusDays(days - 1)
     document.getElementById('schedule').classList.add('loading')
     alreadyLoadingMoreResults = true
-    return $.getJSON(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
+    getJson(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
         schedule.classList.remove('loading')
         schedule.innerHTML += markupForDateRange(allDataWithDates, today)
         alreadyLoadingMoreResults = false
     })
+}
+
+function getJson(url, cb) {
+    var request = new XMLHttpRequest()
+    request.open('GET', url, true)
+    request.onload = () => {
+        if (request.status >= 200 && request.status < 400) {
+            cb(JSON.parse(request.responseText))
+        } else {
+            console.error('Error with ajax request')
+        }
+    }
+    request.onerror = () => console.error('There was a connection error of some sort')
+    request.send()
 }
