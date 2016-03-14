@@ -30,7 +30,7 @@ function initNavigation() {
     const singleToggle = document.getElementById('single')
     singleToggle.checked = 'single' in settings.typeToggles
     setContainerFilterClasses()
-    Array.prototype.forEach.call(document.querySelectorAll('.filters button'), el => el.addEventListener('click', toggleEvent))
+    elems('.filters button').forEach(el => el.addEventListener('click', toggleEvent))
     singleToggle.addEventListener('click', toggleEvent)
     function toggleEvent(e) {
         const button = e.target
@@ -43,20 +43,20 @@ function initNavigation() {
         }, 1)
     }
 
-    document.querySelector('.toggleInformation').addEventListener('click',() => {
+    elem('.toggleInformation').addEventListener('click',() => {
         ga('send', 'event', 'Info', 'open')
-        document.querySelector('.information').style.display='block'
+        elem('.information').style.display='block'
     })
-    document.querySelector('.toggleMapInformation').addEventListener('click',() => {
-        document.querySelector('#map_wrapper').style.display='block'
+    elem('.toggleMapInformation').addEventListener('click',() => {
+        elem('#map_wrapper').style.display='block'
         if (mapMissing) {
             mapView.renderMap()
             mapMissing = false
         }
     })
     toggleNavi()
-    document.querySelector('.toggleFilters').addEventListener('click', () => toggle(false))
-    document.querySelector('.filters .close').addEventListener('click', () => toggle(true))
+    elem('.toggleFilters').addEventListener('click', () => toggle(false))
+    elem('.filters .close').addEventListener('click', () => toggle(true))
 
     function toggle(isCollapsed) {
         settings.collapsed = isCollapsed
@@ -68,13 +68,13 @@ function initNavigation() {
 }
 
 function initFeedback() {
-    document.querySelector('.feedbackForm').addEventListener('submit', e => {
+    elem('.feedbackForm').addEventListener('submit', e => {
         e.preventDefault()
-        var feedback = document.querySelector('.feedback')
+        var feedback = elem('.feedback')
         var text = feedback.value
         ga('send', 'event', 'Feedback', text)
         feedback.value = ''
-        const submitFeedback = document.querySelector('.submitFeedback')
+        const submitFeedback = elem('.submitFeedback')
         submitFeedback.disabled = true
         submitFeedback.textContent = 'Palaute lähetetty'
     })
@@ -82,7 +82,7 @@ function initFeedback() {
 }
 
 function toggleNavi() {
-    document.querySelector('.filters').classList.toggle('collapsed', settings.collapsed)
+    elem('.filters').classList.toggle('collapsed', settings.collapsed)
     schedule.classList.toggle('collapsed', settings.collapsed)
 }
 
@@ -119,7 +119,7 @@ function initTimeFilter() {
         saveFilters()
     })
 }
-var $rangeLabel = document.querySelector('.rangeLabel')
+var $rangeLabel = elem('.rangeLabel')
 
 function setStartAndEndLabels(isStart, val) {
     if (isStart) settings.start = Number(val)
@@ -156,3 +156,7 @@ function loadFilters() {
         collapsed:    parsedJson.collapsed
     }
 }
+
+function elem(selector) { return document.querySelector(selector) }
+
+function elems(selector) { return Array.prototype.slice.call(document.querySelectorAll(selector)) }
