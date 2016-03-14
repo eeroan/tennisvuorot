@@ -6,8 +6,6 @@ var DateLocale = require('dateutils').DateLocale
 var attachFastClick = require('fastclick')
 var navigation = require('./navigation')
 attachFastClick(document.body)
-var $window = $(window)
-var $document = $(document)
 var markupForDateRange = require('./markupForDateRange')
 var locations = require('../generated/locations')
 const format = require('./format')
@@ -15,12 +13,12 @@ var didScroll = false
 var alreadyLoadingMoreResults = false
 var today = DateTime.fromIsoDate(window.serverDate)
 var activeDate = today.plusDays(2)
-$(window).scroll(() => { didScroll = true })
-
+const body = document.body
+window.addEventListener('scroll', () => { didScroll = true })
 setInterval(() => {
     if (didScroll) {
         didScroll = false
-        if (!alreadyLoadingMoreResults && $window.scrollTop() + $window.height() > $document.height() - 400) {
+        if (!alreadyLoadingMoreResults && body.scrollTop + window.innerHeight > body.scrollHeight - 400) {
             loadMoreResults(5)
             ga('send', 'event', 'Scroll to end', today.distanceInDays(activeDate))
         }
@@ -29,23 +27,23 @@ setInterval(() => {
 
 navigation.init()
 listAvailabilityForActiveDate(30)
-initJumpToDate()
-var $reservationModal = document.querySelector('.reservationModal')
-$('#schedule').on('click', '.locationLabel, .close', e => {
-    var $clickArea = $(e.currentTarget)
-    var opened = $clickArea.hasClass('locationLabel')
-    if (opened) {
-        var $locationBoxes = $clickArea.closest('.locationBoxes')
-        var fields = $locationBoxes.data('fields')
-        $reservationModal.innerHTML = reservationModalMarkup(fields)
-        $reservationModal.style.display = 'block'
-    } else {
-        $reservationModal.style.display = 'none'
+document.getElementById('schedule').addEventListener('click', e => {
+    var reservationModal = document.querySelector('.reservationModal')
+    var clickArea = e.target
+    var openAction = clickArea.classList.contains('locationLabel')
+    if (openAction) {
+        var locationBoxes = clickArea.parentNode
+        var fields = JSON.parse(locationBoxes.getAttribute('data-fields'))
+        reservationModal.innerHTML = reservationModalMarkup(fields)
+        reservationModal.style.display = 'block'
+    } else if(clickArea.classList.contains('close')) {
+        reservationModal.style.display = 'none'
     }
-    ga('send', 'event', 'Reservation', opened ? 'open' : 'close')
+    ga('send', 'event', 'Reservation', openAction ? 'open' : 'close')
 })
 
-$('.locationMap .close, .information .close').click(e => $(e.currentTarget).parents('.modal').hide())
+document.querySelector('.locationMap .close').addEventListener('click', e => e.target.parentNode.style.display = 'none')
+document.querySelector('.information .close').addEventListener('click', e => e.target.parentNode.style.display = 'none')
 
 function loadMoreResults(days) {
     if (!alreadyLoadingMoreResults) {
@@ -85,23 +83,11 @@ function linksMarkup(locationObject) {
 function listAvailabilityForActiveDate(days) {
     var requestedDate = activeDate.toISODateString()
     activeDate = activeDate.plusDays(days - 1)
-    $('#schedule').addClass('loading')
+    document.getElementById('schedule').classList.add('loading')
     alreadyLoadingMoreResults = true
     return $.getJSON(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
-        $('#schedule').removeClass('loading').append(markupForDateRange(allDataWithDates, today))
+        schedule.classList.remove('loading')
+        schedule.innerHTML += markupForDateRange(allDataWithDates, today)
         alreadyLoadingMoreResults = false
-    })
-}
-
-function initJumpToDate() {
-    $('.jumpToDate').html(_.range(1, 60).map(delta => {
-        var dateTime = today.plusDays(delta)
-        var format = DateFormat.format(dateTime, DateFormat.patterns.FiWeekdayDatePattern, DateLocale.FI)
-        return `<option value="${dateTime.toISODateString()}">${format}</option>`
-    }).join('\n')).change(e => {
-        activeDate = DateTime.fromIsoDate($(e.currentTarget).val())
-        $('#schedule').empty()
-        alreadyLoadingMoreResults = true
-        listAvailabilityForActiveDate(2)
     })
 }

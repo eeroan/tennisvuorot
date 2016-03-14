@@ -18,9 +18,5 @@ module.exports = o => { with(o) return `<div class="filters">
             <div id="slider"></div>
             <span class="rangeLabel">6:00-23:00</span>
         </div>
-        <div class="jumpToDateContainer">
-            <span class="jumpToDateTitle"></span>
-            <select class="jumpToDate"></select>
-        </div>
         <div class="close" title="Piilota">&times;</div>
     </div>`}

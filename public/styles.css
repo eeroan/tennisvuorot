@@ -65,13 +65,10 @@ label { font-size: 11px; cursor: pointer; margin-left: 20px;}
 .submitFeedback { border: 2px solid; }
 .submitFeedback:disabled { color: #999; border-color: #eee; }
 .filters { margin: 0 auto; max-width: 1024px; box-sizing: border-box; border-bottom: 1px solid #ccc; padding: 0 10px 0; width: 100%; position: fixed; background-color: #fff; z-index: 1; }
-.jumpToDateTitle { font-size: 11px; }
-.jumpToDateContainer { display: inline-block; }
 .timeFilterContainer { display: -webkit-inline-flex; display: -ms-inline-flexbox; display: inline-flex; align-items: center;}
 .timeFilterStart,
 .timeFilterEnd { display: block }
 .rangeLabel { width: 100px; font: 14px "Courier New"; font-weight: bold;}
-.jumpToDate { display: none; }
 #slider { margin: 10px 20px 10px 10px; width: 200px; }
 header { position: fixed; top: 0; background: #31b0d5; color: #fff; width: 100%; text-transform: uppercase; z-index: 1; }
 nav ul { display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-flex-direction: row; -ms-flex-direction: row; flex-direction: row; -webkit-justify-content: space-between; -ms-flex-pack: justify; justify-content: space-between; -webkit-align-items: stretch; -ms-flex-align: stretch; align-items: stretch; padding: 0; margin: 0 20px; }
@@ -95,7 +92,6 @@ nav li.selected { cursor: default; }
 .filters.collapsed .toggleMapInformation,
 .filters.collapsed .toggleInformation,
 .filters.collapsed .close,
-.filters.collapsed .jumpToDateContainer { display: none; }
 .detail { box-shadow: 0 0 3px 0 #ccc; min-height: 1024px; max-width: 1024px; }
 .button:active { outline: none; }
 input[type="checkbox"] {margin-right: 1px;}
