@@ -30,16 +30,17 @@ setInterval(() => {
 navigation.init()
 listAvailabilityForActiveDate(30)
 initJumpToDate()
-var $reservationModal = $('.reservationModal')
+var $reservationModal = document.querySelector('.reservationModal')
 $('#schedule').on('click', '.locationLabel, .close', e => {
     var $clickArea = $(e.currentTarget)
     var opened = $clickArea.hasClass('locationLabel')
     if (opened) {
         var $locationBoxes = $clickArea.closest('.locationBoxes')
         var fields = $locationBoxes.data('fields')
-        $reservationModal.html(reservationModalMarkup(fields)).show()
+        $reservationModal.innerHTML = reservationModalMarkup(fields)
+        $reservationModal.style.display = 'block'
     } else {
-        $reservationModal.hide()
+        $reservationModal.style.display = 'none'
     }
     ga('send', 'event', 'Reservation', opened ? 'open' : 'close')
 })
