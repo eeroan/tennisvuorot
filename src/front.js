@@ -28,7 +28,7 @@ listAvailabilityForActiveDate(30)
 var reservationModal = document.querySelector('.reservationModal')
 reservationModal.addEventListener('click', e => {
     var clickArea = e.target
-    if(clickArea.classList.contains('close')) {
+    if (clickArea.classList.contains('close')) {
         reservationModal.style.display = 'none'
     }
 })
@@ -69,7 +69,9 @@ function reservationModalMarkup(obj) {
         <div class="close">&times;</div>`
 
     function toButtonMarkup(field) {
-        return `<a href="/calendar?location=${currentLocation}&field=${field.field}&price=${field.price}&tel=${tel}&date=${obj.date}&time=${obj.time}&address=${address}&url=${url}" class="button fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">${field.field}<br/>${format.formatPrice(field.price)}</a>`
+        return `<a
+        href="/calendar?location=${currentLocation}&field=${field.field}&price=${field.price}&tel=${tel}&date=${obj.date}&time=${obj.time}&address=${address}&url=${url}"
+        class="button fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">    ${field.field}<br/>${format.formatPrice(field.price)}</a>`
     }
 }
 
@@ -77,8 +79,10 @@ function linksMarkup(locationObject) {
     var address = locationObject.address
     var url = locationObject.url
     var tel = locationObject.tel
-    return `<div class="links"><div><a class="tel" onclick="ga('send', 'event', 'Telephone', '${locationObject.title}'); return true;" href="tel:${tel}">${tel}</a></div>
-    <div><a class="map" target="_blank" onclick="ga('send', 'event', 'Map', '${locationObject.title}'); return true;" href="http://maps.google.com/?q=${address}">${address}</a></div>` +
+    return `<div class="links"><div><a class="tel"
+    onclick="ga('send', 'event', 'Telephone', '${locationObject.title}'); return true;" href="tel:${tel}">${tel}</a></div>
+    <div><a class="map" target="_blank"
+    onclick="ga('send', 'event', 'Map', '${locationObject.title}'); return true;" href="http://maps.google.com/?q=${address}">${address}</a></div>` +
         (url ? `<div><a target="_blank" onclick="ga('send', 'event', 'Booking', '${locationObject.title}'); return true;" href="${url}">Siirry varausjärjestelmään</a></div>` : '') + '</div>'
 }
 
