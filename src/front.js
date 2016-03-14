@@ -44,8 +44,8 @@ schedule.addEventListener('click', e => {
     ga('send', 'event', 'Reservation', openAction ? 'open' : 'close')
 })
 
-document.querySelector('.locationMap .close').addEventListener('click', e => e.target.parentNode.style.display = 'none')
-document.querySelector('.information .close').addEventListener('click', e => e.target.parentNode.style.display = 'none')
+elems('.locationMap .close, .information .close')
+    .forEach(el => el.addEventListener('click', e => e.target.parentNode.style.display = 'none'))
 
 function loadMoreResults(days) {
     if (!alreadyLoadingMoreResults) {
@@ -130,3 +130,5 @@ function getJson(url, cb) {
 function encodeUrl(obj) {
     return encodeURI(Object.keys(obj).map(k=>k + '=' + obj[k]).join('&'))
 }
+
+function elems(selector) { return Array.prototype.slice.call(document.querySelectorAll(selector)) }
