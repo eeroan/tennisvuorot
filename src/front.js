@@ -69,8 +69,17 @@ function reservationModalMarkup(obj) {
         <div class="close">&times;</div>`
 
     function toButtonMarkup(field) {
-        return `<a
-        href="/calendar?location=${currentLocation}&field=${field.field}&price=${field.price}&tel=${tel}&date=${obj.date}&time=${obj.time}&address=${address}&url=${url}"
+        const urlParams = encodeUrl({
+            location: currentLocation,
+            field:    field.field,
+            price:    field.price,
+            tel:      tel,
+            date:     obj.date,
+            time:     obj.time,
+            address:  address,
+            url:      url
+        })
+        return `<a href="/calendar?${urlParams}"
         class="button fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">    ${field.field}<br/>${format.formatPrice(field.price)}</a>`
     }
 }
@@ -110,4 +119,8 @@ function getJson(url, cb) {
     }
     request.onerror = () => console.error('There was a connection error of some sort')
     request.send()
+}
+
+function encodeUrl(obj) {
+    return encodeURI(Object.keys(obj).map(k=>k + '=' + obj[k]).join('&'))
 }
