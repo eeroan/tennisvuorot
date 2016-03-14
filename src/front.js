@@ -26,8 +26,14 @@ setInterval(() => {
 
 navigation.init()
 listAvailabilityForActiveDate(30)
+var reservationModal = document.querySelector('.reservationModal')
+reservationModal.addEventListener('click', e => {
+    var clickArea = e.target
+    if(clickArea.classList.contains('close')) {
+        reservationModal.style.display = 'none'
+    }
+})
 document.getElementById('schedule').addEventListener('click', e => {
-    var reservationModal = document.querySelector('.reservationModal')
     var clickArea = e.target
     var openAction = clickArea.classList.contains('locationLabel')
     if (openAction) {
@@ -35,8 +41,6 @@ document.getElementById('schedule').addEventListener('click', e => {
         var fields = JSON.parse(locationBoxes.getAttribute('data-fields'))
         reservationModal.innerHTML = reservationModalMarkup(fields)
         reservationModal.style.display = 'block'
-    } else if(clickArea.classList.contains('close')) {
-        reservationModal.style.display = 'none'
     }
     ga('send', 'event', 'Reservation', openAction ? 'open' : 'close')
 })
