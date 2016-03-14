@@ -1,4 +1,3 @@
-var _ = require('lodash')
 var DateTime = require('dateutils').DateTime
 var DateFormat = require('dateutils').DateFormat
 var DateLocale = require('dateutils').DateLocale
@@ -64,7 +63,7 @@ function reservationModalMarkup(obj) {
     var tel = locationObject.tel
 
     return `<h2>${currentLocation}</h2> <p>${format.formatDate(dateTime)} klo ${obj.time}</p>
-        <h3>Lisää kalenteriin</h3> ${obj.fields.map(toButtonMarkup).join('')}
+        <h3>Lisää kalenteriin</h3> <div class="fields">${obj.fields.map(toButtonMarkup).join('')}</div>
         <h3>Tiedot</h3>
         ${linksMarkup(locationObject)}
         <div class="close">&times;</div>`
