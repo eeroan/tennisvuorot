@@ -31,9 +31,9 @@ function initNavigation() {
     Array.prototype.forEach.call(document.querySelectorAll('.filters button'), el => el.addEventListener('click', toggleEvent))
     document.getElementById('single').addEventListener('click', toggleEvent)
     function toggleEvent(e) {
-        const $button = e.target
-        $button.classList.toggle('inactive')
-        const id = $button.id
+        const button = e.target
+        button.classList.toggle('inactive')
+        const id = button.id
         toggleObj(id, settings)
         setTimeout(() => {
             document.getElementById('schedule').classList.toggle(id)
@@ -68,10 +68,10 @@ function initNavigation() {
 function initFeedback() {
     document.querySelector('.feedbackForm').addEventListener('submit', e => {
         e.preventDefault()
-        var $feedback = document.querySelector('.feedback')
-        var text = $feedback.value
+        var feedback = document.querySelector('.feedback')
+        var text = feedback.value
         ga('send', 'event', 'Feedback', text)
-        $feedback.value = ''
+        feedback.value = ''
         const submitFeedback = document.querySelector('.submitFeedback')
         submitFeedback.disabled = true
         submitFeedback.textContent = 'Palaute lähetetty'
@@ -125,11 +125,11 @@ function setStartAndEndLabels(isStart, val) {
     $rangeLabel.innerHTML = format.formatTime(settings.start) + '-' + format.formatTime(settings.end)
 }
 
-var $schedule = document.querySelector('#schedule')
+var schedule = document.querySelector('#schedule')
 
 function setContainerFilterClasses() {
     var hiddenTimes = all.filter(time => time < settings.start || time > settings.end)
-    $schedule.className = activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' ')
+    schedule.className = activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' ')
 }
 
 function activeFilters(settings) { return _.map(_.extend({}, settings.fieldToggles, settings.typeToggles), (v, k) => k) }
