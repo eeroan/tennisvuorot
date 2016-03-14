@@ -11,6 +11,7 @@ const defaults = {
     collapsed:    false
 }
 var settings = loadFilters() || defaults
+var schedule = document.getElementById('schedule')
 
 module.exports = {
     init: initNavigation
@@ -124,8 +125,6 @@ function setStartAndEndLabels(isStart, val) {
     else settings.end = Number(val)
     $rangeLabel.innerHTML = format.formatTime(settings.start) + '-' + format.formatTime(settings.end)
 }
-
-var schedule = document.querySelector('#schedule')
 
 function setContainerFilterClasses() {
     var hiddenTimes = all.filter(time => time < settings.start || time > settings.end)

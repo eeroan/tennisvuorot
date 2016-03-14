@@ -1,4 +1,5 @@
 module.exports = o => `
+${o.isTest ? '<script src="//cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>' : ''}
 <script>
     window.refresh=${o.refresh};
     window.serverDate='${o.serverDate}';

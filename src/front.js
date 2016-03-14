@@ -22,7 +22,7 @@ setInterval(() => {
         }
     }
 }, 250)
-
+var schedule = document.getElementById('schedule')
 navigation.init()
 listAvailabilityForActiveDate(30)
 var reservationModal = document.querySelector('.reservationModal')
@@ -32,7 +32,7 @@ reservationModal.addEventListener('click', e => {
         reservationModal.style.display = 'none'
     }
 })
-document.getElementById('schedule').addEventListener('click', e => {
+schedule.addEventListener('click', e => {
     var clickArea = e.target
     var openAction = clickArea.classList.contains('locationLabel')
     if (openAction) {
@@ -89,7 +89,7 @@ function linksMarkup(locationObject) {
 function listAvailabilityForActiveDate(days) {
     var requestedDate = activeDate.toISODateString()
     activeDate = activeDate.plusDays(days - 1)
-    document.getElementById('schedule').classList.add('loading')
+    schedule.classList.add('loading')
     alreadyLoadingMoreResults = true
     getJson(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
         schedule.classList.remove('loading')

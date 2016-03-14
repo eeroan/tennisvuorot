@@ -49,6 +49,7 @@ route.get('/', (req, res) => {
         res.write('</section></div>')
         res.write(modalsHtml())
         res.write(scriptsHtml({
+            isTest:     global.isTest,
             refresh:    refresh,
             serverDate: new DateTime().toISODateString()
         }))

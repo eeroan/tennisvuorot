@@ -2,7 +2,7 @@ const Browser = require('zombie')
 const browser = new Browser({waitDuration: '10s'})
 var app = require('../src/router')
 var port = process.env.PORT || 5001
-
+global.isTest = true
 describe('Loads list of free courts', function () {
     this.timeout(15000)
     before(done => app.listen(port, done))

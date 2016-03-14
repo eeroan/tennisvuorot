@@ -8,6 +8,22 @@
     "field": "K 1"
   },
   {
+    "time": "11:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 1",
+    "location": "taivallahti",
+    "field": "K 1"
+  },
+  {
+    "time": "17:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 1",
+    "location": "taivallahti",
+    "field": "K 1"
+  },
+  {
     "time": "17:30",
     "duration": 60,
     "date": "2015-09-10",
@@ -17,6 +33,22 @@
   },
   {
     "time": "21:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 1",
+    "location": "taivallahti",
+    "field": "K 1"
+  },
+  {
+    "time": "21:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 1",
+    "location": "taivallahti",
+    "field": "K 1"
+  },
+  {
+    "time": "22:30",
     "duration": 60,
     "date": "2015-09-10",
     "res": "TAIVALLAHTI SISÄTENNIS K 1",
@@ -40,7 +72,31 @@
     "field": "K 2"
   },
   {
+    "time": "06:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 2",
+    "location": "taivallahti",
+    "field": "K 2"
+  },
+  {
     "time": "07:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 2",
+    "location": "taivallahti",
+    "field": "K 2"
+  },
+  {
+    "time": "07:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 2",
+    "location": "taivallahti",
+    "field": "K 2"
+  },
+  {
+    "time": "19:30",
     "duration": 60,
     "date": "2015-09-10",
     "res": "TAIVALLAHTI SISÄTENNIS K 2",
@@ -64,6 +120,22 @@
     "field": "K 2"
   },
   {
+    "time": "21:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 2",
+    "location": "taivallahti",
+    "field": "K 2"
+  },
+  {
+    "time": "22:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 2",
+    "location": "taivallahti",
+    "field": "K 2"
+  },
+  {
     "time": "22:30",
     "duration": 60,
     "date": "2015-09-10",
@@ -73,6 +145,22 @@
   },
   {
     "time": "12:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 3",
+    "location": "taivallahti",
+    "field": "K 3"
+  },
+  {
+    "time": "12:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 3",
+    "location": "taivallahti",
+    "field": "K 3"
+  },
+  {
+    "time": "13:30",
     "duration": 60,
     "date": "2015-09-10",
     "res": "TAIVALLAHTI SISÄTENNIS K 3",
@@ -96,7 +184,31 @@
     "field": "K 3"
   },
   {
+    "time": "14:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 3",
+    "location": "taivallahti",
+    "field": "K 3"
+  },
+  {
     "time": "21:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 3",
+    "location": "taivallahti",
+    "field": "K 3"
+  },
+  {
+    "time": "21:30",
+    "duration": 60,
+    "date": "2015-09-10",
+    "res": "TAIVALLAHTI SISÄTENNIS K 3",
+    "location": "taivallahti",
+    "field": "K 3"
+  },
+  {
+    "time": "22:30",
     "duration": 60,
     "date": "2015-09-10",
     "res": "TAIVALLAHTI SISÄTENNIS K 3",
