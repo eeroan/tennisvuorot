@@ -107,6 +107,7 @@ a:visited { color: #258DAB; }
 #schedule.collapsed { padding: 70px 10px 0; }
 .noUi-connect {background: #258DAB;}
 .fields { display: flex; font-size: 11px; min-height: auto;}
+.ct-horizontal {padding-right: 10px;transform: rotate(-90deg);}
 .h60 .h60,
 .h65 .h65,
 .h70 .h70,

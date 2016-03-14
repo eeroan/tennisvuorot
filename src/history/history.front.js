@@ -5,6 +5,8 @@ const format = require('../format')
 new Chartist.Line('.chartData', {
     labels: _.range(60, 230, 5).map(format.formatIsoTime),
     series: window.chartData
+}, {
+    showPoint:  false
 })
 new Chartist.Line('.rates', {
     labels: _.flatten(_.range(1, 7).map(() =>_.range(60, 230, 5).map(format.formatIsoTime))),
