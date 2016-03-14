@@ -79,8 +79,14 @@ function reservationModalMarkup(obj) {
             address:  address,
             url:      url
         })
-        return `<a href="/calendar?${urlParams}"
-        class="button fieldLabel ${obj.location} ${field.type} ${format.durationClass(field.doubleLesson)}">    ${field.field}<br/>${format.formatPrice(field.price)}</a>`
+        const classes = [
+            'button',
+            'fieldLabel',
+            obj.location,
+            field.type,
+            format.durationClass(field.doubleLesson)
+        ].join(' ')
+        return `<a href="/calendar?${urlParams}" class="${classes}">${field.field}<br/>${format.formatPrice(field.price)}</a>`
     }
 }
 
