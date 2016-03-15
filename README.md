@@ -3,6 +3,8 @@ Tennis courts of Helsinki
 
 ![Travis](https://api.travis-ci.org/eeroan/tennisvuorot.svg)
 
+https://travis-ci.org/eeroan/tennisvuorot
+
 http://tennisvuorot.fi
 
 # Lista kentistä
