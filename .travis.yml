@@ -3,4 +3,5 @@ node_js:
   - stable
 branches:
   only:
-    - gh-pages
+    - master
+    - stable
