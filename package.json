@@ -26,7 +26,6 @@
   "dependencies": {
     "baconjs": "^0.7.83",
     "chartist": "^0.9.7",
-    "cheerio": "^0.20.0",
     "dateutils": "^0.2.4",
     "express": "^4.13.4",
     "express-babelify-middleware": "^0.2.1",
