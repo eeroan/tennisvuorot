@@ -8,10 +8,11 @@
     "start": "NODE_ENV=prod NEW_RELIC_ENABLED=true forever ./server.js",
     "dev": "NODE_ENV=test supervisor ./server.js",
     "mongo": "mongod --fork --syslog",
-    "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' public/styles.css",
+    "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' -o public/styles.prefixed.css public/styles.css",
     "update-prices": "scripts/fetchPrices.js",
     "update-locations": "scripts/updateLocations.js",
-    "update-history": "scripts/fetchHistory.js"
+    "update-history": "scripts/fetchHistory.js",
+    "preinstall": "npm run autoprefix"
   },
   "repository": {
     "type": "git",
