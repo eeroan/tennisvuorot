@@ -100,8 +100,8 @@ input[type="checkbox"] { margin-right: 1px; }
 .timeWrapper { position: relative; overflow: hidden; }
 a,
 a:visited { color: #258DAB; }
-#schedule { padding: 160px 10px 0; }
-#schedule.collapsed { padding: 70px 10px 0; }
+#schedule { padding: 200px 10px 0; }
+#schedule.collapsed { padding: 120px 10px 0; }
 .noUi-connect { background: #258DAB; }
 .fields { display: flex; font-size: 11px; min-height: inherit; }
 .ct-horizontal { padding-right: 10px; transform: rotate(-90deg); }
