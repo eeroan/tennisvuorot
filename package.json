@@ -37,12 +37,12 @@
     "newrelic": "^1.25.5",
     "nouislider": "^8.3.0",
     "request": "^2.69.0",
-    "request-debug": "^0.2.0"
-  },
-  "devDependencies": {
+    "request-debug": "^0.2.0",
     "autoprefix": "^0.1.4",
     "autoprefixer": "^6.3.3",
-    "autoprefixer-cli": "^1.0.0",
+    "autoprefixer-cli": "^1.0.0"
+  },
+  "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^2.4.5",
     "supervisor": "^0.9.1",
