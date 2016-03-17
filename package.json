@@ -12,7 +12,7 @@
     "update-prices": "scripts/fetchPrices.js",
     "update-locations": "scripts/updateLocations.js",
     "update-history": "scripts/fetchHistory.js",
-    "preinstall": "npm run autoprefix"
+    "postinstall": "npm run autoprefix"
   },
   "repository": {
     "type": "git",
