@@ -14,4 +14,11 @@ route.use(express.static(__dirname + '/../public'))
 route.get(['/historia', '/historia/:location'], history.historyResponse)
 route.get('/calendar', calendarEvent.show)
 route.get('/', mainPage.show)
+route.get('/version', (req, res) => {
+    res.send(`<!DOCTYPE html><html><body>
+    <pre>
+    NODE_ENV: ${process.env.NODE_ENV}
+    </pre>
+    </body></html>`)
+})
 module.exports = route

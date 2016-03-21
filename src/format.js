@@ -10,7 +10,8 @@ module.exports = {
     formatPrice:   formatPrice,
     formatTime:    formatTime,
     parseTime:     parseTime,
-    formatIsoTime: formatIsoTime
+    formatIsoTime: formatIsoTime,
+    prettyPrint:   prettyPrint
 }
 
 function formatDate(dateTime) {
@@ -22,10 +23,14 @@ function durationClass(isDouble) {
 }
 
 function formatModule(data) {
-    return 'module.exports = ' + util.inspect(data, {
-            colors: false,
-            depth:  null
-        })
+    return 'module.exports = ' + prettyPrint(data)
+}
+
+function prettyPrint(data) {
+    return util.inspect(data, {
+        colors: false,
+        depth:  null
+    })
 }
 
 function formatTimeKey(hm) {
