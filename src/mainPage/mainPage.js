@@ -1,10 +1,10 @@
-var dao = require('./dao/dao')
-var DateTime = require('dateutils').DateTime
-var markupForDateRange = require('./markupForDateRange')
-var headHtml = require('./head.html')
-var filtersHtml = require('./filters.html')
-var modalsHtml = require('./modals.html')
-var scriptsHtml = require('./scripts.html')
+const dao = require('../dao/dao')
+const DateTime = require('dateutils').DateTime
+const markupForDateRange = require('../markupForDateRange')
+const headHtml = require('../head.html')
+const filtersHtml = require('./filters.html')
+const modalsHtml = require('./modals.html')
+const scriptsHtml = require('./scripts.html')
 
 module.exports = {
     show: show
