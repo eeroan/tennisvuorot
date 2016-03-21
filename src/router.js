@@ -6,6 +6,7 @@ const dao = require('./dao/dao')
 const calendarEvent = require('./calendarEvent')
 const history = require('./history/history')
 const mainPage = require('./mainPage/mainPage')
+const version = require('./version')
 
 route.use('/front.min.js', babelify(__dirname + '/front.js'))
 route.use('/history.min.js', babelify(__dirname + '/history/history.front.js'))
@@ -14,11 +15,5 @@ route.use(express.static(__dirname + '/../public'))
 route.get(['/historia', '/historia/:location'], history.historyResponse)
 route.get('/calendar', calendarEvent.show)
 route.get('/', mainPage.show)
-route.get('/version', (req, res) => {
-    res.send(`<!DOCTYPE html><html><body>
-    <pre>
-    NODE_ENV: ${process.env.NODE_ENV}
-    </pre>
-    </body></html>`)
-})
+route.get('/version', version.show)
 module.exports = route
