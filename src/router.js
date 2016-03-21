@@ -3,15 +3,8 @@ var express = require('express')
 var route = express()
 var babelify = require('express-babelify-middleware')
 var dao = require('./dao/dao')
-var DateTime = require('dateutils').DateTime
-var markupForDateRange = require('./markupForDateRange')
-var headHtml = require('./head.html')
-var filtersHtml = require('./filters.html')
-var modalsHtml = require('./modals.html')
-var scriptsHtml = require('./scripts.html')
-var history = require('./history/history')
-var format = require('./format')
 var calendarEvent = require('./calendarEvent')
+var mainPage = require('./mainPage')
 
 route.use('/front.min.js', babelify(__dirname + '/front.js'))
 route.use('/history.min.js', babelify(__dirname + '/history/history.front.js'))
@@ -19,43 +12,5 @@ route.get('/courts', dao.sendFreeCourts)
 route.use(express.static(__dirname + '/../public'))
 route.get(['/historia', '/historia/:location'], history.historyResponse)
 route.get('/calendar', calendarEvent.show)
-route.get('/', (req, res) => {
-    var refresh = req.query.refresh === 'true'
-    res.write(`<!DOCTYPE html>
-        <html>`)
-    res.write(headHtml())
-    res.write(`<body><div class="container reservations detail">`)
-    res.write(filtersHtml({
-        places: [
-            {id: 'meilahti', name: 'Meilahti'},
-            {id: 'herttoniemi', name: 'Herttoniemi'},
-            {id: 'kulosaari', name: 'Kulosaari'},
-            {id: 'merihaka', name: 'Merihaka'},
-            {id: 'taivallahti', name: 'Taivallahti'},
-            {id: 'tapiola', name: 'Tapiola'},
-            {id: 'tali', name: 'Tali'},
-            {id: 'laajasalo', name: 'Laajasalo'},
-            {id: 'hiekkaharju', name: 'Hiekkaharju'}
-        ],
-        types:  [
-            {id: 'bubble', name: 'Kupla'},
-            {id: 'outdoor', name: 'Ulko'},
-            {id: 'indoor', name: 'Sisä'}
-        ]
-    }))
-    res.write(`<div class="reservationModal modal"></div><section class="" id="schedule">`)
-    dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
-        res.write(markupForDateRange(data, new DateTime()))
-        res.write('</section></div>')
-        res.write(modalsHtml())
-        res.write(scriptsHtml({
-            isTest:     global.isTest,
-            refresh:    refresh,
-            serverDate: new DateTime().toISODateString()
-        }))
-        res.write('</body></html>')
-        res.end()
-    })
-})
-
+route.get('/', mainPage.show)
 module.exports = route
