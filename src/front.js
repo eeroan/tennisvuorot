@@ -40,8 +40,9 @@ schedule.addEventListener('click', e => {
         var fields = JSON.parse(locationBoxes.getAttribute('data-fields'))
         reservationModal.innerHTML = reservationModalMarkup(fields)
         reservationModal.style.display = 'block'
+        var distance = today.distanceInDays(DateTime.fromIsoDate(fields.date))
+        ga('send', 'event', 'Reservation', distance)
     }
-    ga('send', 'event', 'Reservation', openAction ? 'open' : 'close')
 })
 
 elems('.locationMap .close, .information .close')
