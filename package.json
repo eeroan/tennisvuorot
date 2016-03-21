@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "NEW_RELIC_ENABLED=false mocha",
-    "start": "NODE_ENV=prod NEW_RELIC_ENABLED=true forever ./server.js",
+    "start": "NODE_ENV=production NEW_RELIC_ENABLED=true forever ./server.js",
     "dev": "NODE_ENV=test supervisor ./server.js",
     "mongo": "mongod --fork --syslog",
     "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' -o public/styles.prefixed.css public/styles.css",

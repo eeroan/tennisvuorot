@@ -6,5 +6,5 @@ module.exports = o => `<head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="google" content="notranslate" />
     <meta name="Description" content="Helsingin tenniskenttien varaustilanne ja yhteystiedot.">
-    <link rel="stylesheet" type="text/css" href="${process.env.NODE_ENV==='prod' ? '/styles.prefixed.css':'/styles.css'}"/>
+    <link rel="stylesheet" type="text/css" href="${process.env.NODE_ENV==='production' ? '/styles.prefixed.css':'/styles.css'}"/>
 </head>`
