@@ -106,7 +106,12 @@ function listAvailabilityForActiveDate(days) {
     activeDate = activeDate.plusDays(days - 1)
     schedule.classList.add('loading')
     alreadyLoadingMoreResults = true
-    getJson(`/courts?date=${requestedDate}&days=${days}&refresh=${window.refresh}`, allDataWithDates => {
+    const urlParams = encodeUrl({
+        date:    requestedDate,
+        days:    days,
+        refresh: window.refresh
+    })
+    getJson(`/courts?${urlParams}`, allDataWithDates => {
         schedule.classList.remove('loading')
         schedule.innerHTML += markupForDateRange(allDataWithDates, today)
         alreadyLoadingMoreResults = false
