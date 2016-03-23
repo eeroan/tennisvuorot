@@ -1,6 +1,4 @@
 var DateTime = require('dateutils').DateTime
-var DateFormat = require('dateutils').DateFormat
-var DateLocale = require('dateutils').DateLocale
 var attachFastClick = require('fastclick')
 var navigation = require('./navigation')
 attachFastClick(document.body)
