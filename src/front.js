@@ -10,7 +10,9 @@ var alreadyLoadingMoreResults = false
 var today = DateTime.fromIsoDate(window.serverDate)
 var activeDate = today.plusDays(2)
 const body = document.body
-window.addEventListener('scroll', () => { didScroll = true })
+window.addEventListener('scroll', () => {
+    didScroll = true
+})
 setInterval(() => {
     if (didScroll) {
         didScroll = false
@@ -35,10 +37,14 @@ schedule.addEventListener('click', e => {
     var openAction = clickArea.classList.contains('locationLabel')
     if (openAction) {
         var locationBoxes = clickArea.parentNode
-        var fields = JSON.parse(locationBoxes.getAttribute('data-fields'))
-        reservationModal.innerHTML = reservationModalMarkup(fields)
+        var obj = JSON.parse(locationBoxes.getAttribute('data-fields'))
+        var date = obj.date
+        var time = obj.time
+        var fields = obj.fields
+        var location = obj.location
+        reservationModal.innerHTML = reservationModalMarkup(date, time, fields, location)
         reservationModal.style.display = 'block'
-        var distance = today.distanceInDays(DateTime.fromIsoDate(fields.date))
+        var distance = today.distanceInDays(DateTime.fromIsoDate(date))
         ga('send', 'event', 'Reservation', distance)
     }
 })
@@ -53,28 +59,27 @@ function loadMoreResults(days) {
     }
 }
 
-function reservationModalMarkup(obj) {
-    var dateTime = DateTime.fromIsoDate(obj.date)
-    var currentLocation = obj.location
-    var locationObject = locations.find(location => location.title === currentLocation)
+function reservationModalMarkup(date, time, fields, location) {
+    var dateTime = DateTime.fromIsoDate(date)
+    var locationObject = locations.find(location => location.title === location)
     var address = locationObject.address
     var url = locationObject.url
     var tel = locationObject.tel
-
-    return `<h2>${currentLocation}</h2> <p>${format.formatDate(dateTime)} klo ${obj.time}</p>
-        <h3>Lisää kalenteriin</h3> <div class="fields">${obj.fields.map(toButtonMarkup).join('')}</div>
+    var title = locationObject.title
+    return `<h2>${location}</h2> <p>${format.formatDate(dateTime)} klo ${time}</p>
+        <h3>Lisää kalenteriin</h3> <div class="fields">${fields.map(toButtonMarkup).join('')}</div>
         <h3>Tiedot</h3>
-        ${linksMarkup(locationObject)}
+        ${linksMarkup(address, url, tel, title)}
         <div class="close">&times;</div>`
 
     function toButtonMarkup(field) {
         const urlParams = encodeUrl({
-            location: currentLocation,
+            location: location,
             field:    field.field,
             price:    field.price,
             tel:      tel,
-            date:     obj.date,
-            time:     obj.time,
+            date:     date,
+            time:     time,
             address:  address,
             url:      url
         })
@@ -89,15 +94,12 @@ function reservationModalMarkup(obj) {
     }
 }
 
-function linksMarkup(locationObject) {
-    var address = locationObject.address
-    var url = locationObject.url
-    var tel = locationObject.tel
+function linksMarkup(address, url, tel, title) {
     return `<div class="links"><div><a class="tel"
-    onclick="ga('send', 'event', 'Telephone', '${locationObject.title}'); return true;" href="tel:${tel}">${tel}</a></div>
+    onclick="ga('send', 'event', 'Telephone', '${title}'); return true;" href="tel:${tel}">${tel}</a></div>
     <div><a class="map" target="_blank"
-    onclick="ga('send', 'event', 'Map', '${locationObject.title}'); return true;" href="http://maps.google.com/?q=${address}">${address}</a></div>` +
-        (url ? `<div><a target="_blank" onclick="ga('send', 'event', 'Booking', '${locationObject.title}'); return true;" href="${url}">Siirry varausjärjestelmään</a></div>` : '') + '</div>'
+    onclick="ga('send', 'event', 'Map', '${title}'); return true;" href="http://maps.google.com/?q=${address}">${address}</a></div>` +
+        (url ? `<div><a target="_blank" onclick="ga('send', 'event', 'Booking', '${title}'); return true;" href="${url}">Siirry varausjärjestelmään</a></div>` : '') + '</div>'
 }
 
 function listAvailabilityForActiveDate(days) {
@@ -135,4 +137,6 @@ function encodeUrl(obj) {
     return encodeURI(Object.keys(obj).map(k=>k + '=' + obj[k]).join('&'))
 }
 
-function elems(selector) { return Array.prototype.slice.call(document.querySelectorAll(selector)) }
+function elems(selector) {
+    return Array.prototype.slice.call(document.querySelectorAll(selector))
+}
