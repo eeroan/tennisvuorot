@@ -82,7 +82,6 @@ function mongoQuery(filter, callback) {
                 return doc
             })
             callback(err, transformedDoc)
-            //db.close()
         })
     })
 }
@@ -98,7 +97,7 @@ function upsertToMongo(isoDate, obj) {
         }, {
             upsert: true
         }, (err, rs) => {
-            db.close()
+            console.error(err)
         })
     })
 }
