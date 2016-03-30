@@ -8,6 +8,7 @@ var MongoClient = require('mongodb').MongoClient
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
 var rates = require('../../generated/rates')
 var format = require('../format')
+var db = null
 
 module.exports = {
     sendFreeCourts: sendFreeCourts,
@@ -73,7 +74,7 @@ function getFromMongo(isoDate, days, callback) {
 }
 
 function mongoQuery(filter, callback) {
-    MongoClient.connect(mongoUri, (err, db) => {
+    mongoConnect((err, db) => {
         var collection = db.collection('tennishelsinki')
         collection.find(filter).sort({date: 1}).toArray((err, docs) => {
             var transformedDoc = docs.map((doc) => {
@@ -81,13 +82,13 @@ function mongoQuery(filter, callback) {
                 return doc
             })
             callback(err, transformedDoc)
-            db.close()
+            //db.close()
         })
     })
 }
 
 function upsertToMongo(isoDate, obj) {
-    MongoClient.connect(mongoUri, (err, db) => {
+    mongoConnect((err, db) => {
         const collection = db.collection('tennishelsinki')
         const date = new Date(isoDate)
         collection.updateOne({date: date}, {
@@ -161,4 +162,18 @@ function nextHour(time) {
     var hm = time.split(':')
     var next = Number(hm[0]) + 1
     return (next > 9 ? '' : '0') + next + ':' + hm[1]
+}
+
+function mongoConnect(cb) {
+    if(db) cb(null, db)
+    else {
+        MongoClient.connect(mongoUri, (err, dbConn) => {
+            if(db) {
+                dbConn.close()
+            } else {
+                db = dbConn
+            }
+            cb(err, db)
+        })
+    }
 }
