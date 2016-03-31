@@ -1,5 +1,5 @@
 module.exports = o => `<head>
-    <title>Tennisvuorot Helsingissä</title>
+    <title>Vapaat Tennisvuorot Helsingissä</title>
     <meta charset="utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link rel="apple-touch-icon" href="/tennisBall.png"/>
