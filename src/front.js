@@ -59,14 +59,14 @@ function loadMoreResults(days) {
     }
 }
 
-function reservationModalMarkup(date, time, fields, location) {
+function reservationModalMarkup(date, time, fields, selectedLocation) {
     var dateTime = DateTime.fromIsoDate(date)
-    var locationObject = locations.find(location => location.title === location)
+    var locationObject = locations.find(loc => loc.title === selectedLocation)
     var address = locationObject.address
     var url = locationObject.url
     var tel = locationObject.tel
     var title = locationObject.title
-    return `<h2>${location}</h2> <p>${format.formatDate(dateTime)} klo ${time}</p>
+    return `<h2>${selectedLocation}</h2> <p>${format.formatDate(dateTime)} klo ${time}</p>
         <h3>Lisää kalenteriin</h3> <div class="fields">${fields.map(toButtonMarkup).join('')}</div>
         <h3>Tiedot</h3>
         ${linksMarkup(address, url, tel, title)}
@@ -74,7 +74,7 @@ function reservationModalMarkup(date, time, fields, location) {
 
     function toButtonMarkup(field) {
         const urlParams = encodeUrl({
-            location: location,
+            location: selectedLocation,
             field:    field.field,
             price:    field.price,
             tel:      tel,
@@ -86,7 +86,7 @@ function reservationModalMarkup(date, time, fields, location) {
         const classes = [
             'button',
             'fieldLabel',
-            obj.location,
+            selectedLocation,
             field.type,
             format.durationClass(field.doubleLesson)
         ].join(' ')
