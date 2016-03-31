@@ -15,10 +15,28 @@ module.exports = {
 function show(req, res) {
     var refresh = req.query.refresh === 'true'
     res.write(`<!DOCTYPE html>
-        <html>`)
+<html>`)
     res.write(headHtml())
     res.write(`<body><div class="container reservations detail">`)
-    res.write(filtersHtml({
+    res.write(filters())
+    res.write(quickLinks())
+    res.write(`<div class="reservationModal modal"></div> <section class="" id="schedule">`)
+    dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
+        res.write(markupForDateRange(data, new DateTime()))
+        res.write('</section></div>')
+        res.write(modalsHtml())
+        res.write(scriptsHtml({
+            isTest: global.isTest,
+            refresh: refresh,
+            serverDate: new DateTime().toISODateString()
+        }))
+        res.write('</body></html>')
+        res.end()
+    })
+}
+
+function filters() {
+    return filtersHtml({
         places: [
             {id: 'meilahti', name: 'Meilahti'},
             {id: 'herttoniemi', name: 'Herttoniemi'},
@@ -35,23 +53,12 @@ function show(req, res) {
             {id: 'outdoor', name: 'Ulko'},
             {id: 'indoor', name: 'Sisä'}
         ]
-    }))
-    res.write(`<div class="quickLinks">${_.range(0, 30)
+    })
+}
+
+function quickLinks() {
+    return `<div class="quickLinks">${_.range(0, 30)
         .map(delta => DateTime.today().plusDays(delta))
         .map(dateTime => `<a href="#date-${dateTime.toISODateString()}">${DateFormat.format(dateTime, 'D j.n', DateLocale.FI)}</a>`)
-        .join('')}</div>
-<div class="reservationModal modal"></div>
-<section class="" id="schedule">`)
-    dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
-        res.write(markupForDateRange(data, new DateTime()))
-        res.write('</section></div>')
-        res.write(modalsHtml())
-        res.write(scriptsHtml({
-            isTest: global.isTest,
-            refresh: refresh,
-            serverDate: new DateTime().toISODateString()
-        }))
-        res.write('</body></html>')
-        res.end()
-    })
+        .join('')}</div>`
 }
