@@ -18,15 +18,15 @@ function show(req, res) {
 <html>`)
     res.write(headHtml())
     res.write(`<body>`)
+    res.write(`<div class="reservationModal modal"></div>`)
+    res.write(modalsHtml())
     res.write(`<div class="container reservations detail">`)
     res.write(filters())
     res.write(quickLinks())
-    res.write(`<div class="reservationModal modal"></div>`)
     res.write(`<section class="" id="schedule">`)
     dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
         res.write(markupForDateRange(data, new DateTime()))
         res.write('</section></div>')
-        res.write(modalsHtml())
         res.write(scriptsHtml({
             isTest: global.isTest,
             refresh: refresh,
