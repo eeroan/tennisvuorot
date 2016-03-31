@@ -1,11 +1,13 @@
 const dao = require('../dao/dao')
 const DateTime = require('dateutils').DateTime
+const DateLocale = require('dateutils').DateLocale
+const DateFormat = require('dateutils').DateFormat
 const markupForDateRange = require('../markupForDateRange')
 const headHtml = require('../head.html')
 const filtersHtml = require('./filters.html')
 const modalsHtml = require('./modals.html')
 const scriptsHtml = require('./scripts.html')
-
+const _ = require('lodash')
 module.exports = {
     show: show
 }
@@ -28,20 +30,25 @@ function show(req, res) {
             {id: 'laajasalo', name: 'Laajasalo'},
             {id: 'hiekkaharju', name: 'Hiekkaharju'}
         ],
-        types:  [
+        types: [
             {id: 'bubble', name: 'Kupla'},
             {id: 'outdoor', name: 'Ulko'},
             {id: 'indoor', name: 'Sisä'}
         ]
     }))
-    res.write(`<div class="reservationModal modal"></div><section class="" id="schedule">`)
+    res.write(`<div class="quickLinks">${_.range(0, 30)
+        .map(delta => DateTime.today().plusDays(delta))
+        .map(dateTime => `<a href="#date-${dateTime.toISODateString()}">${DateFormat.format(dateTime, 'D j.n', DateLocale.FI)}</a>`)
+        .join('')}</div>
+<div class="reservationModal modal"></div>
+<section class="" id="schedule">`)
     dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
         res.write(markupForDateRange(data, new DateTime()))
         res.write('</section></div>')
         res.write(modalsHtml())
         res.write(scriptsHtml({
-            isTest:     global.isTest,
-            refresh:    refresh,
+            isTest: global.isTest,
+            refresh: refresh,
             serverDate: new DateTime().toISODateString()
         }))
         res.write('</body></html>')
