@@ -23,7 +23,7 @@ function reportSettings(settings) {
     return `${activeFilters(settings).sort().join(' ')} ${settings.start}-${settings.end} ${settings.collapsed ? 'collapsed' : ''}`
 }
 
-function initNavigation() {
+function initNavigation(bindEsc) {
     activeFilters(settings).forEach(name => {
         document.getElementById(name).classList.add('inactive')
     })
@@ -46,6 +46,7 @@ function initNavigation() {
     elem('.toggleInformation').addEventListener('click',() => {
         ga('send', 'event', 'Info', 'open')
         elem('.information').style.display='block'
+        bindEsc()
     })
     elem('.toggleMapInformation').addEventListener('click',() => {
         elem('#map_wrapper').style.display='block'
@@ -53,6 +54,7 @@ function initNavigation() {
             mapView.renderMap()
             mapMissing = false
         }
+        bindEsc()
     })
     toggleNavi()
     elem('.toggleFilters').addEventListener('click', () => toggle(false))

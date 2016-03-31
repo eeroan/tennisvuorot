@@ -14,28 +14,29 @@ window.addEventListener('scroll', () => {
     didScroll = true
 })
 setInterval(() => {
-    if (didScroll) {
+    if(didScroll) {
         didScroll = false
-        if (!alreadyLoadingMoreResults && body.scrollTop + window.innerHeight > body.scrollHeight - 400) {
+        if(!alreadyLoadingMoreResults && body.scrollTop + window.innerHeight > body.scrollHeight - 400) {
             loadMoreResults(5)
             ga('send', 'event', 'Scroll to end', today.distanceInDays(activeDate))
         }
     }
 }, 250)
 var schedule = document.getElementById('schedule')
-navigation.init()
+navigation.init(bindEsc)
 listAvailabilityForActiveDate(30)
 var reservationModal = document.querySelector('.reservationModal')
 reservationModal.addEventListener('click', e => {
     var clickArea = e.target
-    if (clickArea.classList.contains('close')) {
+    if(clickArea.classList.contains('close')) {
         reservationModal.style.display = 'none'
+        unbindEsc()
     }
 })
 schedule.addEventListener('click', e => {
     var clickArea = e.target
     var openAction = clickArea.classList.contains('locationLabel')
-    if (openAction) {
+    if(openAction) {
         var locationBoxes = clickArea.parentNode
         var obj = JSON.parse(locationBoxes.getAttribute('data-fields'))
         var date = obj.date
@@ -46,14 +47,18 @@ schedule.addEventListener('click', e => {
         reservationModal.style.display = 'block'
         var distance = today.distanceInDays(DateTime.fromIsoDate(date))
         ga('send', 'event', 'Reservation', distance)
+        bindEsc()
     }
 })
 
 elems('.locationMap .close, .information .close')
-    .forEach(el => el.addEventListener('click', e => e.target.parentNode.style.display = 'none'))
+    .forEach(el => el.addEventListener('click', e => {
+        e.target.parentNode.style.display = 'none'
+        unbindEsc()
+    }))
 
 function loadMoreResults(days) {
-    if (!alreadyLoadingMoreResults) {
+    if(!alreadyLoadingMoreResults) {
         alreadyLoadingMoreResults = true
         listAvailabilityForActiveDate(days)
     }
@@ -75,13 +80,13 @@ function reservationModalMarkup(date, time, fields, selectedLocation) {
     function toButtonMarkup(field) {
         const urlParams = encodeUrl({
             location: selectedLocation,
-            field:    field.field,
-            price:    field.price,
-            tel:      tel,
-            date:     date,
-            time:     time,
-            address:  address,
-            url:      url
+            field: field.field,
+            price: field.price,
+            tel: tel,
+            date: date,
+            time: time,
+            address: address,
+            url: url
         })
         const classes = [
             'button',
@@ -108,8 +113,8 @@ function listAvailabilityForActiveDate(days) {
     schedule.classList.add('loading')
     alreadyLoadingMoreResults = true
     const urlParams = encodeUrl({
-        date:    requestedDate,
-        days:    days,
+        date: requestedDate,
+        days: days,
         refresh: window.refresh
     })
     getJson(`/courts?${urlParams}`, allDataWithDates => {
@@ -123,7 +128,7 @@ function getJson(url, cb) {
     var request = new XMLHttpRequest()
     request.open('GET', url, true)
     request.onload = () => {
-        if (request.status >= 200 && request.status < 400) {
+        if(request.status >= 200 && request.status < 400) {
             cb(JSON.parse(request.responseText))
         } else {
             console.error('Error with ajax request')
@@ -139,4 +144,19 @@ function encodeUrl(obj) {
 
 function elems(selector) {
     return Array.prototype.slice.call(document.querySelectorAll(selector))
+}
+
+function bindEsc() {
+    document.addEventListener('keyup', escListener)
+}
+
+function escListener(e) {
+    if(e.keyCode === 27 && !e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+        elems('.modal').forEach(el => el.style.display = 'none')
+        unbindEsc()
+    }
+}
+
+function unbindEsc() {
+    document.removeEventListener('keyup', escListener)
 }
