@@ -20,7 +20,7 @@ function show(req, res) {
     res.write(`<body>`)
     res.write(`<div class="reservationModal modal"></div>`)
     res.write(modalsHtml())
-    res.write(`<div class="container reservations detail">`)
+    res.write(`<div class="container detail">`)
     res.write(filters())
     res.write(quickLinks())
     res.write(`<section class="" id="schedule">`)
