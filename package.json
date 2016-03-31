@@ -25,8 +25,12 @@
   },
   "homepage": "https://github.com/eeroan/tennishelsinki",
   "dependencies": {
+    "autoprefix": "^0.1.4",
+    "autoprefixer": "^6.3.3",
+    "autoprefixer-cli": "^1.0.0",
     "baconjs": "^0.7.83",
     "chartist": "^0.9.7",
+    "compression": "^1.6.1",
     "dateutils": "^0.2.4",
     "express": "^4.13.4",
     "express-babelify-middleware": "^0.2.1",
@@ -37,10 +41,7 @@
     "newrelic": "^1.25.5",
     "nouislider": "^8.3.0",
     "request": "^2.69.0",
-    "request-debug": "^0.2.0",
-    "autoprefix": "^0.1.4",
-    "autoprefixer": "^6.3.3",
-    "autoprefixer-cli": "^1.0.0"
+    "request-debug": "^0.2.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -50,6 +51,6 @@
   },
   "engines": {
     "node": "5.6.0",
-    "npm":"3.8.1"
+    "npm": "3.8.1"
   }
 }
