@@ -27,6 +27,7 @@ function show(req, res) {
     dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
         res.write(markupForDateRange(data, new DateTime()))
         res.write('</section></div>')
+        res.write('<a href="javascript:void(0)" class="toggle toggleInformation">Tietoja</a>')
         res.write(scriptsHtml({
             isTest: global.isTest,
             refresh: refresh,

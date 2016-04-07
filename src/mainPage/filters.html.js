@@ -3,7 +3,6 @@ module.exports = o => { with(o) return `<div class="filters">
 
         <div class="locationsContainer">
             <a href="javascript:void(0)" class="toggle toggleMapInformation"></a>
-            <a href="javascript:void(0)" class="toggle toggleInformation">i</a>
             ${places.map(place => `
             <button type="button" class="button ${place.id}" id="${place.id}">${place.name}</button>
             `).join('')}
