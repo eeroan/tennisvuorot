@@ -84,8 +84,8 @@ nav li.selected { cursor: default; }
 .filters .close { font-size: 40px; border: none; right: 0; top: 20px; left: initial; background: none; color: #ff6900;  }
 .filters .toggleFilters { display: none; }
 .filters.collapsed .toggleFilters { display: block }
-.filters.collapsed { padding-bottom: 10px; }
-.filters.collapsed .locationsContainer .inactive,
+.filters.collapsed { border:none; padding: 0;}
+.filters.collapsed .locationsContainer,
 .filters.collapsed .toggle,
 .filters.collapsed .fieldTypeContainer,
 .filters.collapsed .timeFilterContainer,
@@ -103,7 +103,7 @@ input[type="checkbox"] { margin-right: 1px; }
 a,
 a:visited { color: #258DAB; }
 #schedule { padding: 200px 10px 0; }
-#schedule.collapsed { padding: 120px 10px 0; }
+#schedule.collapsed { padding: 0 10px 0; }
 .noUi-connect { background: #258DAB; }
 .fields { display: flex; font-size: 11px; min-height: inherit; }
 .ct-horizontal { padding-right: 10px; transform: rotate(-90deg); }
