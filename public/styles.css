@@ -80,7 +80,7 @@ nav li.selected { cursor: default; }
 .locationsContainer { flex-wrap: wrap; display: flex; margin-right: 40px; padding-bottom: 0; }
 .locationsContainer .button { margin: 10px 0 0 5px; }
 .toggleInformation { position: fixed; bottom: 10px; right: 5px; display: inline-block; color: #ff6900; }
-.toggleInformation:before { content: 'i'; width: 20px; height: 20px; margin-right:5px; display: inline-block; color: #fff; background: #ff6900; font-family: "Times New Roman", serif; text-align: center; line-height: 1; font-size: 20px; border-radius: 100px; text-decoration: none; font-style: italic; font-weight: bold; }
+.toggleInformation:before { content: 'i'; width: 15px; height: 15px; margin-right:5px; display: inline-block; color: #fff; background: #ff6900; font-family: "Times New Roman", serif; text-align: center; line-height: 1; font-size: 15px; border-radius: 100px; text-decoration: none; font-style: italic; font-weight: bold; }
 .filters .close { font-size: 40px; border: none; right: 0; top: 20px; left: initial; background: none; color: #ff6900;  }
 .filters .toggleFilters { display: none; }
 .filters.collapsed .toggleFilters { display: block }
