@@ -64,12 +64,12 @@ label { font-size: 11px; cursor: pointer; margin-left: 20px; }
 .bubble .bubble { display: none; }
 .submitFeedback { border: 2px solid; }
 .submitFeedback:disabled { color: #999; border-color: #eee; }
-.filters { margin: 0 auto; max-width: 1024px; box-sizing: border-box; box-shadow: 0 3px 4px -3px #333; padding: 0 10px 0; width: 100%; position: fixed; background-color: #fff; z-index: 1; }
+.filters { margin: 0 auto; max-width: 1024px; box-sizing: border-box; box-shadow: 0 3px 4px -3px #333; padding: 0 10px 0; width: 100%; position: fixed; background-color: #fff; z-index: 1; top:0;}
 .timeFilterContainer { display: inline-flex; align-items: center; flex-wrap: wrap; margin-bottom: 10px;}
 .timeFilterStart,
 .timeFilterEnd { display: block }
 .rangeLabel { width: 100px; font: 14px "Courier New"; font-weight: bold; }
-#slider { margin: 10px 20px 10px 10px; width: 200px; }
+#slider { margin: 10px 20px 10px 10px; width: 200px; height:20px;}
 header { position: fixed; top: 0; background: #31b0d5; color: #fff; width: 100%; text-transform: uppercase; z-index: 1; }
 nav ul { display: flex; flex-direction: row; justify-content: space-between; align-items: stretch; padding: 0; margin: 0 20px; }
 nav li { display: inline-block; padding: 10px 0; cursor: pointer; }
@@ -111,8 +111,10 @@ input[type="checkbox"] { margin-right: 1px; }
 .timeWrapper { position: relative; overflow: hidden; }
 a,
 a:visited { color: #ff6900; }
-#schedule { padding: 200px 10px 0; }
+#schedule { padding: 0 10px 0; }
+#schedule .filters { position: static; visibility: hidden;}
 #schedule.collapsed { padding: 0 10px 0; }
+#schedule.collapsed  .filters { display:none; }
 .noUi-connect { background: #258DAB; }
 .fields { display: flex; font-size: 11px; min-height: inherit; }
 .ct-horizontal { padding-right: 10px; transform: rotate(-90deg); }

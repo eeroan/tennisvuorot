@@ -24,6 +24,7 @@ function show(req, res) {
     res.write(filters())
     res.write(quickLinks())
     res.write(`<section class="" id="schedule">`)
+    res.write(filters())
     dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
         res.write(markupForDateRange(data, new DateTime()))
         res.write('</section></div>')
