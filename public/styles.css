@@ -110,7 +110,7 @@ input[type="checkbox"] { margin-right: 1px; }
 .timeRow { display: flex; line-height: 0; flex-wrap: wrap; }
 .timeWrapper { position: relative; overflow: hidden; }
 a,
-a:visited { color: #258DAB; }
+a:visited { color: #ff6900; }
 #schedule { padding: 200px 10px 0; }
 #schedule.collapsed { padding: 0 10px 0; }
 .noUi-connect { background: #258DAB; }
