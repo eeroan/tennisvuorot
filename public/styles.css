@@ -75,8 +75,14 @@ nav li { display: inline-block; padding: 10px 0; cursor: pointer; }
 nav li.selected { cursor: default; }
 .selected { text-decoration: underline; }
 .container { margin: 0 auto; background: #fff; }
-.toggleFilters:before { content: "NAVI"; letter-spacing: 2px; font-weight: bold; text-decoration: none; font-size: 9px;}
-.toggleFilters { display: block; border-top: 6px solid #ff6900; text-decoration: none; border-bottom: 6px solid #ff6900;color:#ff6900; width: 28px; height: 15px; position: absolute; right: 10px; top: 10px; line-height: 0.9;}
+.toggleFilters {   background: linear-gradient(
+        to bottom,
+        #ff6900, #ff6900 20%,
+        transparent 20%, transparent 40%,
+        #ff6900 40%, #ff6900 60%,
+        transparent 60%, transparent 80%,
+        #ff6900 80%, #ff6900 100%
+); display: block; ;color:#ff6900; width: 28px; height: 20px; position: absolute; right: 10px; top: 10px; }
 .toggleMapInformation { display: inline-block; background: url(tennisvuorot.png) no-repeat 0 50%; background-size: 20px; padding-left: 25px; line-height: 2; margin-left: 10px;}
 .locationsContainer { flex-wrap: wrap; display: flex; padding-bottom: 0; }
 .locationsContainer .button { margin: 10px 0 0 5px; }
