@@ -85,9 +85,10 @@ nav li.selected { cursor: default; }
 .filters .close { font-size: 40px; border: none; right: 0; top: 20px; left: initial; background: none; color: #ff6900;  }
 .filters .toggleFilters { display: none; }
 .filters.collapsed .toggleFilters { display: block }
-.filters.collapsed { border:none; padding: 0;}
+.filters.collapsed { border:none; padding: 0;, box-shadow: none;}
 .filters.collapsed .locationsContainer,
 .filters.collapsed .toggle,
+.filters.collapsed h3,
 .filters.collapsed .fieldTypeContainer,
 .filters.collapsed .timeFilterContainer,
 .filters.collapsed .toggleMapInformation,
