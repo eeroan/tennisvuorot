@@ -1,5 +1,5 @@
 module.exports = o => `<head>
-    <title>Vapaat Tennisvuorot Helsingissä</title>
+    <title>Vapaat Tenniskentät Helsingissä</title>
     <meta charset="utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -13,10 +13,10 @@ module.exports = o => `<head>
     <meta property="og:title" content="Vapaat Tennisvuorot Helsingissä">
     <meta property="og:description" content="Helsingin tenniskenttien varaustilanne ja yhteystiedot.">
     <meta property="og:url" content="http://tennisvuorot.fi/">
-    <meta property="og:site_name" content="Vapaat Tennisvuorot Helsingissä">
+    <meta property="og:site_name" content="Tennisvuorot.fi">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:description" content="Helsingin tenniskenttien varaustilanne ja yhteystiedot.">
-    <meta name="twitter:title" content="Vapaat Tennisvuorot Helsingissä">
+    <meta name="twitter:title" content="Tennisvuorot.fi - Vapaat tennisvuorot Helsingissä">
     <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-icon-72x72.png">
