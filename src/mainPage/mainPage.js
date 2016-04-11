@@ -65,6 +65,6 @@ function filters() {
 function quickLinks() {
     return `<div class="quickLinks">${_.range(0, 30)
         .map(delta => DateTime.today().plusDays(delta))
-        .map(dateTime => `<a href="#date-${dateTime.toISODateString()}">${DateFormat.format(dateTime, 'D j.n', DateLocale.FI)}</a>`)
+        .map(dateTime => `<a href="#date-${dateTime.toISODateString()}" class="day${dateTime.getDay()}">${DateFormat.format(dateTime, 'D j.n', DateLocale.FI)}</a>`)
         .join('')}</div>`
 }
