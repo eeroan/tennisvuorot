@@ -8,6 +8,8 @@ const filtersHtml = require('./filters.html')
 const modalsHtml = require('./modals.html')
 const scriptsHtml = require('./scripts.html')
 const _ = require('lodash')
+const locations = require('../../generated/locations')
+
 module.exports = {
     show: show
 }
@@ -16,7 +18,7 @@ function show(req, res) {
     var refresh = req.query.refresh === 'true'
     res.write(`<!DOCTYPE html>
 <html>`)
-    res.write(headHtml())
+    res.write(headHtml({locations: locations, _:_}))
     res.write(`<body>`)
     res.write(`<div class="reservationModal modal"></div>`)
     res.write(modalsHtml())

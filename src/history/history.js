@@ -9,7 +9,7 @@ const rates = require('../../generated/rates')
 const historyHtml = require('./history.html')
 const headHtml = require('../head.html')
 const dao = require('../dao/dao')
-
+const locationsObj = require('../../generated/locations')
 const times = _.range(60, 230, 5).map(format.formatIsoTime)
 
 module.exports = {
@@ -44,7 +44,10 @@ function historyMarkup(location, historyData) {
     const maxAvailability = _.max(location ?
         availabilities.map(l=>_.get(l.find(x=>x.location === location), 'available', 0)) :
         availabilities.map(locs=>_.sum(locs.map(loc=>loc.available))))
-    return headHtml() + historyHtml({
+    return headHtml({
+            locations: locationsObj,
+            _:_
+        }) + historyHtml({
             times:                   times,
             dates:                   dates,
             weeklyAvailability:      weeklyAvailability,
