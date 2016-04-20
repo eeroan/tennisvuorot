@@ -4,7 +4,7 @@ module.exports = o => { with(o) return `<div class="filters">
         <h3>Tennispaikat <a href="javascript:void(0)" class="toggle toggleMapInformation">Näytä kartalla</a></h3> 
         <div class="locationsContainer">
             ${places.map(place => `
-            <button type="button" class="button ${place.id}" id="${place.id}">${place.name}</button>
+            <button type="button" class="button ${place.id}" id="${place.id}" ${place.disabled ? 'disabled' : ''}>${place.name}</button>
             `).join('')}
         </div>
         <h3>Kentän tyyppi</h3>
