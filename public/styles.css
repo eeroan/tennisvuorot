@@ -14,10 +14,6 @@ body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-ser
 .links { font-size: 16px; line-height: 2; }
 .showDetails .modal { display: block; }
 .place { text-transform: capitalize; }
-.links .tel,
-.links .map { background: 100% 50% no-repeat; padding: 10px 35px 10px 0; }
-/*.links .tel { background-image: url(tel.png); }*/
-.links .map { background-image: url(tennisvuorot.png); background-size: 20px;}
 #map_wrapper { padding: 0; }
 #map_canvas { width: 100%; height: 100%; }
 h1,
@@ -87,7 +83,7 @@ nav li.selected { cursor: default; }
         transparent 60%, transparent 80%,
         #ff8b01 80%, #ff8b01 100%
 ); display: block; width: 28px; height: 20px; position: absolute; right: 10px; top: 10px; }
-.toggleMapInformation { display: inline-block; background: url(tennisvuorot.png) no-repeat 0 50%; background-size: 20px; padding-left: 25px; line-height: 2; margin-left: 10px;}
+.toggleMapInformation { display: inline-block; line-height: 2; margin-left: 10px;}
 .locationsContainer { flex-wrap: wrap; display: flex; padding-bottom: 0; }
 .locationsContainer .button { margin: 10px 0 0 5px; }
 .toggleInformation { position: fixed; bottom: 10px; right: 5px; display: inline-block; color: #ff6900; }

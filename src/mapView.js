@@ -17,7 +17,8 @@ function renderMap() {
         var marker = new google.maps.Marker({
             position: position,
             map:      map,
-            title:    loc.title
+            title:    loc.title,
+            icon:     '/tennisvuorot-marker.png'
         })
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
