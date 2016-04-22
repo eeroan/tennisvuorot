@@ -1,5 +1,5 @@
 @import url(vendor/nouislider.min.css);
-body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.4; color: #333; margin: 0; }
+body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.4; color: #994000; margin: 0; }
 .time { top: 13px; position: relative; margin-right: 5px; }
 .locationLabel { text-transform: capitalize; cursor: pointer; padding: 7px 7px 0; }
 .information { font-size: 16px; }
