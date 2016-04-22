@@ -16,6 +16,8 @@ body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-ser
 .place { text-transform: capitalize; }
 #map_wrapper { padding: 0; }
 #map_canvas { width: 100%; height: 100%; }
+.mainHeader { margin-left: 10px; font: 20px "Lucida Sans Unicode", "Lucida Grande", sans-serif; z-index:2; color: #ff6900; position:fixed;line-height: 2; letter-spacing: 1px; text-transform: uppercase;  background: #fff;}
+.mainHeader img { width: 25px; margin-right: 5px;position:relative; top:7px;}
 h1,
 h2 { text-transform: capitalize; color: #ff6900; }
 h3,

@@ -23,6 +23,7 @@ function show(req, res) {
     res.write(`<div class="reservationModal modal"></div>`)
     res.write(modalsHtml())
     res.write(`<div class="container detail">`)
+    res.write('<div class="mainHeader"><img src="/tennisvuorot.png"/>Tennisvuorot.fi</div>')
     res.write(filters())
     res.write(quickLinks())
     res.write(`<section class="" id="schedule">`)
