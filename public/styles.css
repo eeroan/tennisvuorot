@@ -32,6 +32,7 @@ h3 a {font-size: 12px; font-weight: normal; color: #ff6900;}
 .fieldTypeContainer { display: flex; margin-top: 10px; }
 .button { text-align: center; width: 50px; outline: none; background-color: #fff; display: block; margin-bottom: 10px; margin-left: 5px; color: #333; padding: 5px; border: 2px solid #333; border-bottom-style: none; border-radius: 2px; line-height: 1; text-decoration: none; }
 .filters .button { height: 30px; width: 80px; border: 2px solid #666; color: black; cursor: pointer; margin-bottom: 0;}
+.filters .button:before { content: '✓'; margin-right: 2px; margin-left: -3px;}
 .fieldTypeContainer .button { width: 60px; }
 label { font-size: 11px; cursor: pointer; margin-left: 20px; }
 .button.bubble { border-bottom: none; border-radius: 20px 20px 0 0; }
@@ -105,6 +106,7 @@ nav li.selected { cursor: default; }
 .button:active { outline: none; }
 input[type="checkbox"] { margin-right: 1px; }
 .button.inactive { color: #999; background: none; border-color: #eee; box-shadow: 0 1px 1px 0 #aaa; }
+.filters .button.inactive:before { visibility: hidden;}
 .loading:after { content: 'Ladataan...'; display: block; font-style: italic; margin: 10px 0; }
 .timestamp { margin-left: 10px; font-size: 10px; margin-bottom: 10px; }
 .timeRow { display: flex; line-height: 0; flex-wrap: wrap; }
