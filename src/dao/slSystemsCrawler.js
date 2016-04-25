@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-var url = require('url')
-var request = require('request')
-var Bacon = require('baconjs').Bacon
-var _ = require('lodash')
+const url = require('url')
+const request = require('request')
+const Bacon = require('baconjs').Bacon
+const _ = require('lodash')
 
 module.exports = {
     getMeilahti:    getMeilahti,
@@ -50,7 +50,7 @@ function getTapiola(isoDate) {
     }))
 }
 
-var laajasaloCodes = {
+const laajasaloCodes = {
     '1': 'A',
     '2': 'B',
     '3': 'C',
@@ -64,7 +64,7 @@ function getLaajasalo(isoDate) {
     }))
 }
 //sisä 7-9, kupla 5-6
-var hiekkaHarjuCodes = {
+const hiekkaHarjuCodes = {
     '1': 'K7',
     '2': 'K8',
     '3': 'K9',

@@ -1,21 +1,21 @@
 #!/usr/bin/env node
-var request = require('request')
-var Bacon = require('baconjs').Bacon
-var fs = require('fs')
-var _ = require('lodash')
-var courts = require('../src/courts')
-var util = require('util')
+const request = require('request')
+const Bacon = require('baconjs').Bacon
+const fs = require('fs')
+const _ = require('lodash')
+const courts = require('../src/courts')
+const util = require('util')
 const format = require('../src/format')
 
 locations()
 
 function locations() {
-    var fileName = 'locations.js'
-    Bacon.combineAsArray(_.map(courts, function (val, key) {
-        return getLocation(val.address).map(function (location) {
-            return _.extend({title: key}, location, val)
-        })
-    })).onValue(function (data) {
+    const fileName = 'locations.js'
+    Bacon.combineAsArray(_.map(courts, (val, key) =>
+        getLocation(val.address).map(location =>
+            _.extend({title: key}, location, val)
+        )
+    )).onValue(data => {
         console.log('Writing locations to ' + fileName)
         fs.writeFileSync(__dirname + '/../generated/' + fileName, format.formatModule(data))
     })

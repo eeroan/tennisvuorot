@@ -1,13 +1,13 @@
-var nr = require('newrelic')
-var slSystems = require('./slSystemsCrawler')
-var Bacon = require('baconjs').Bacon
-var _ = require('lodash')
-var webTimmi = require('./webTimmiCrawler')
-var DateTime = require('dateutils').DateTime
-var MongoClient = require('mongodb').MongoClient
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
-var rates = require('../../generated/rates')
-var format = require('../format')
+const nr = require('newrelic')
+const slSystems = require('./slSystemsCrawler')
+const Bacon = require('baconjs').Bacon
+const _ = require('lodash')
+const webTimmi = require('./webTimmiCrawler')
+const DateTime = require('dateutils').DateTime
+const MongoClient = require('mongodb').MongoClient
+const mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
+const rates = require('../../generated/rates')
+const format = require('../format')
 var db = null
 
 module.exports = {
@@ -57,8 +57,8 @@ function refresh(isoDate, days, callback) {
 }
 
 function getHistoryData(callback) {
-    var start = DateTime.fromDate(2015,10,5)
-    var end = new DateTime()
+    const start = DateTime.fromDate(2015,10,5)
+    const end = new DateTime()
     mongoQuery({date: {$gte: start.date, $lte:end.date}}, (err, data) => callback(err, transform(data)) )
 }
 
@@ -67,17 +67,17 @@ function transform(data) {
 }
 
 function getFromMongo(isoDate, days, callback) {
-    var start = DateTime.fromIsoDate(isoDate)
-    var end = start.plusDays(days - 1)
-    var filter = {date: {$gte: start.date, $lte: end.date}}
+    const start = DateTime.fromIsoDate(isoDate)
+    const end = start.plusDays(days - 1)
+    const filter = {date: {$gte: start.date, $lte: end.date}}
     mongoQuery(filter, callback)
 }
 
 function mongoQuery(filter, callback) {
     mongoConnect((err, db) => {
-        var collection = db.collection('tennishelsinki')
+        const collection = db.collection('tennishelsinki')
         collection.find(filter).sort({date: 1}).toArray((err, docs) => {
-            var transformedDoc = docs.map((doc) => {
+            const transformedDoc = docs.map(doc => {
                 doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
                 return doc
             })
@@ -116,14 +116,14 @@ function fetch(isoDate) {
             slSystems.getTapiola,
             slSystems.getLaajasalo,
             slSystems.getHiekkaharju,
-            webTimmi.getAll].map(function (fn) { return fn(isoDate) }))
-        .map(function (allData) {
-            var freeCourts = _.flatten(allData).filter(function (reservation) {
+            webTimmi.getAll].map(fn => fn(isoDate)))
+        .map(allData => {
+            const freeCourts = _.flatten(allData).filter(reservation => {
                 if (!reservation || !reservation.field) return false
                 return reservation.date === isoDate
-            }).map(function (reservation) {
-                var dateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
-                var type = getType(reservation)
+            }).map(reservation => {
+                const dateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
+                const type = getType(reservation)
                 reservation.type = type
                 reservation.price = getPrice(dateTime, reservation.time, reservation.location, type)
                 return reservation
@@ -147,19 +147,19 @@ function getPrice(dateTime, time, location, type) {
 
 function withDoubleLessonInfo(freeCourts) {
     var timeAndPlace = {}
-    freeCourts.forEach(function (court) {
+    freeCourts.forEach(court => {
         timeAndPlace[court.date + 'T' + court.time + court.location + court.field] = true
     })
-    return freeCourts.map(function (court) {
-        var nextTime = nextHour(court.time)
+    return freeCourts.map(court => {
+        const nextTime = nextHour(court.time)
         court.doubleLesson = (court.date + 'T' + nextTime + court.location + court.field) in timeAndPlace
         return court
     })
 }
 
 function nextHour(time) {
-    var hm = time.split(':')
-    var next = Number(hm[0]) + 1
+    const hm = time.split(':')
+    const next = Number(hm[0]) + 1
     return (next > 9 ? '' : '0') + next + ':' + hm[1]
 }
 

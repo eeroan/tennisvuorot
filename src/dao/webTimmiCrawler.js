@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-var url = require('url')
-var request = require('request')
-var Bacon = require('baconjs').Bacon
-var _ = require('lodash')
-var webTimmiResources = require('./webTimmiResources')
-var dateutils = require('dateutils')
-var DateTime = dateutils.DateTime
-var DateFormat = dateutils.DateFormat
-var DateLocale = dateutils.DateLocale
+const url = require('url')
+const request = require('request')
+const Bacon = require('baconjs').Bacon
+const _ = require('lodash')
+const webTimmiResources = require('./webTimmiResources')
+const dateutils = require('dateutils')
+const DateTime = dateutils.DateTime
+const DateFormat = dateutils.DateFormat
+const DateLocale = dateutils.DateLocale
 module.exports = {
     getAll:            getAll,
     getAllInSequence:  getAllInSequence,
@@ -25,10 +25,10 @@ function getAll(isoDate) {
 }
 
 function getAllInSequence(isoDate) {
-    var tali1 = login().flatMap(getWeek).flatMap(weekForProfile(1018, isoDate)).flatMapError(emptyList)
-    var tali2 = tali1.flatMap(weekForProfile(1019, isoDate)).flatMapError(emptyList)
-    var taivallahti1 = tali2.flatMap(weekForProfile(2186, isoDate)).flatMapError(emptyList)
-    var taivallahti2 = taivallahti1.flatMap(weekForProfile(2189, isoDate)).flatMapError(emptyList)
+    const tali1 = login().flatMap(getWeek).flatMap(weekForProfile(1018, isoDate)).flatMapError(emptyList)
+    const tali2 = tali1.flatMap(weekForProfile(1019, isoDate)).flatMapError(emptyList)
+    const taivallahti1 = tali2.flatMap(weekForProfile(2186, isoDate)).flatMapError(emptyList)
+    const taivallahti2 = taivallahti1.flatMap(weekForProfile(2189, isoDate)).flatMapError(emptyList)
 
     return Bacon.combineAsArray(tali1.map('.obj'), tali2.map('.obj'), taivallahti1.map('.obj'), taivallahti2.map('.obj'))
         .map((list) => _.flatten(list))
@@ -112,12 +112,12 @@ function weekView(cookie, token, fieldGroup, isoDate) {
 
 function parseMarkup(markup) {
     return _.uniq(markup.match(/getCreateBooking.do[^,"']+/g).map((el) => url.parse(el, true).query).map((obj) => {
-        var startDateTime = obj.startTime.split(' ')
-        var courtName = webTimmiResources[obj['amp;roomPartId']]
-        var endTime = obj['amp;endTime'].split(' ')[1]
-        var startDate = startDateTime[0].split('.')
-        var isoDate = startDate[2] + '-' + startDate[1] + '-' + startDate[0]
-        var startTime = startDateTime[1]
+        const startDateTime = obj.startTime.split(' ')
+        const courtName = webTimmiResources[obj['amp;roomPartId']]
+        const endTime = obj['amp;endTime'].split(' ')[1]
+        const startDate = startDateTime[0].split('.')
+        const isoDate = startDate[2] + '-' + startDate[1] + '-' + startDate[0]
+        const startTime = startDateTime[1]
         return {
             time:     startTime,
             duration: toMinutes(endTime) - toMinutes(startTime),

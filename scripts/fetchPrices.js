@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-var Bacon = require('baconjs').Bacon
-var request = require('request')
-var util = require('util')
-var fs = require('fs')
-var _ = require('lodash')
+const Bacon = require('baconjs').Bacon
+const request = require('request')
+const util = require('util')
+const fs = require('fs')
+const _ = require('lodash')
 const format = require('../src/format')
 
 //Url for editing: https://docs.google.com/spreadsheets/d/1TwYmdHhGnB0RZh75bRdHaJy9erXTJpsVxCvCX0SX8f4/edit
-var url = 'https://docs.google.com/spreadsheets/d/1TwYmdHhGnB0RZh75bRdHaJy9erXTJpsVxCvCX0SX8f4/pub?output=csv&gid='
-var sheets = {
+const url = 'https://docs.google.com/spreadsheets/d/1TwYmdHhGnB0RZh75bRdHaJy9erXTJpsVxCvCX0SX8f4/pub?output=csv&gid='
+const sheets = {
     taivallahti: 1343553212,
     tali:        1463418362,
     kulosaari:   1730330027,
@@ -23,27 +23,25 @@ var sheets = {
 function fetchFor(id) {
     return Bacon.fromNodeCallback(request.get, {
         url: url + id
-    }).map('.body').map(function (csv) {
-        var list = csv.split('\r\n').splice(1)
-        var obj = {}
-        list.forEach(function (rowCsv) {
-            var row = rowCsv.split(',').map(Number)
+    }).map('.body').map(csv => {
+        const list = csv.split('\r\n').splice(1)
+        const obj = {}
+        list.forEach(rowCsv => {
+            const row = rowCsv.split(',').map(Number)
             obj[row[0]] = row.splice(1)
         })
         return obj
     })
 }
 
-function fetchForOrCombineTemplate(id) {
-    if (typeof id === 'number') {
-        return fetchFor(id)
-    } else return Bacon.combineTemplate(_.mapValues(id, fetchFor))
-}
+const fetchForOrCombineTemplate = id =>
+    typeof id === 'number' ? fetchFor(id) : Bacon.combineTemplate(_.mapValues(id, fetchFor))
+
 
 function fetchAll() {
-    var fileName = 'rates.js'
+    const fileName = 'rates.js'
     Bacon.combineTemplate(_.mapValues(sheets, fetchForOrCombineTemplate))
-        .onValue(function (data) {
+        .onValue(data => {
             console.log('Writing rates to ' + fileName)
             fs.writeFileSync(__dirname + '/../generated/' + fileName, format.formatModule(data))
         })

@@ -8,7 +8,7 @@ dao.getHistoryData((err, data) => {
     if (err) {
         console.log('Error occured:', err)
     } else {
-        var fileName = 'historyData.js'
+        const fileName = 'historyData.js'
         console.log('Writing history data to ' + fileName)
         fs.writeFileSync(__dirname + '/../generated/' + fileName, format.formatModule(data))
     }
