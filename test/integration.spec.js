@@ -9,7 +9,7 @@ describe('Loads list of free courts', function () {
 
     before(done => browser.visit('http://localhost:' + port, done))
 
-    it('Should load page with correct title', () => browser.assert.text('title', 'Vapaat Tennisvuorot Helsingissä'))
+    it('Should load page with correct title', () => browser.assert.text('title', 'Tennisvuorot.fi'))
 
     it('Should load some results', () => browser.assert.elements('.timeRow', {atLeast: 10}))
 });
