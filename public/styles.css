@@ -92,16 +92,7 @@ nav li.selected { cursor: default; }
 .toggleInformation:before { content: 'i'; width: 15px; height: 15px; margin-right:5px; display: inline-block; color: #fff; background: #ff8b01; font-family: "Times New Roman", serif; text-align: center; line-height: 1; font-size: 15px; border-radius: 100px; text-decoration: none; font-style: italic; font-weight: bold; }
 .filters .close { font-size: 40px; border: none; right: 0; top: 20px; left: initial; background: none; color: #ff8b01;  }
 .filters .toggleFilters { display: none; }
-.filters.collapsed .toggleFilters { display: block }
-.filters.collapsed { border:none; padding: 0;, box-shadow: none;}
-.filters.collapsed .locationsContainer,
-.filters.collapsed .toggle,
-.filters.collapsed h3,
-.filters.collapsed .fieldTypeContainer,
-.filters.collapsed .timeFilterContainer,
-.filters.collapsed .toggleMapInformation,
-.filters.collapsed .toggleInformation,
-.filters.collapsed .close { display: none; }
+.filters.collapsed { display:none;}
 .detail { box-shadow: 0 0 3px 0 #ccc; min-height: 1024px; max-width: 1024px; }
 .button:active { outline: none; }
 input[type="checkbox"] { margin-right: 1px; }
