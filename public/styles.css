@@ -1,6 +1,6 @@
 @import url(vendor/nouislider.min.css);
 body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.4; color: #994000; margin: 0; }
-.time { top: 13px; position: relative; margin-right: 5px; }
+.time { top: 15px; position: relative; margin-right: 20px; }
 .locationLabel { text-transform: capitalize; cursor: pointer; padding: 7px 7px 0; }
 .information { font-size: 16px; }
 .locationBoxes { display: flex; overflow: hidden; }
@@ -30,11 +30,10 @@ h3 a {font-size: 12px; font-weight: normal; color: #ff6900;}
 .titleContainer { align-items: baseline; display: flex; }
 .titleContainer:first-of-type { border: none; }
 .fieldTypeContainer { display: flex; margin-top: 10px; }
-.button { text-align: center; width: 50px; outline: none; background-color: #fff; display: block; margin-bottom: 10px; margin-left: 5px; color: #333; padding: 5px; border: 2px solid #333; border-bottom-style: none; border-radius: 2px; line-height: 1; text-decoration: none; }
-.filters .button { height: 30px; width: 80px; border: 2px solid #666; color: black; cursor: pointer; margin-bottom: 0;}
+.button { text-align: center; width: 50px; outline: none; background-color: #fff; display: block; margin-bottom: 10px; margin-right: 5px; color: #333; padding: 5px; border: 2px solid #333; border-bottom-style: none; border-radius: 2px; line-height: 1; text-decoration: none; }
+.filters .button { height: 30px; width: 80px; border: 2px solid #666; color: black; cursor: pointer; margin: 5px 0 0 5px;}
 .filters .button:before { content: '✓'; margin-right: 2px; margin-left: -3px;}
-.fieldTypeContainer .button { width: 60px; }
-label { font-size: 11px; cursor: pointer; margin-left: 20px; }
+label { font-size: 11px; cursor: pointer; }
 .button.bubble { border-bottom: none; border-radius: 20px 20px 0 0; }
 .button.indoor { border-bottom: none; }
 .button.outdoor { border: none; border-bottom: 2px solid #666; }
@@ -87,7 +86,6 @@ nav li.selected { cursor: default; }
 ); display: block; width: 28px; height: 20px; position: absolute; right: 10px; top: 10px; }
 .toggleMapInformation { display: inline-block; line-height: 2; margin-left: 10px;}
 .locationsContainer { flex-wrap: wrap; display: flex; padding-bottom: 0; }
-.locationsContainer .button { margin: 5px 0 0 5px; }
 .toggleInformation { position: fixed; bottom: 10px; right: 5px; display: inline-block; color: #ff6900; }
 .toggleInformation:before { content: 'i'; width: 15px; height: 15px; margin-right:5px; display: inline-block; color: #fff; background: #ff8b01; font-family: "Times New Roman", serif; text-align: center; line-height: 1; font-size: 15px; border-radius: 100px; text-decoration: none; font-style: italic; font-weight: bold; }
 .filters .close { font-size: 40px; border: none; right: 0; top: 20px; left: initial; background: none; color: #ff8b01;  }
