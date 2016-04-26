@@ -64,7 +64,8 @@ label { font-size: 11px; cursor: pointer; }
 .submitFeedback { border: 2px solid; }
 .submitFeedback:disabled { color: #999; border-color: #eee; }
 .filters { margin: 0 auto; max-width: 1024px; box-sizing: border-box; box-shadow: 0 3px 4px -3px #333; padding: 0 10px 0; width: 100%; position: fixed; background-color: #fff; z-index: 1; top:0;}
-.filters h3 { font-size: 12px; text-transform: uppercase; margin: 10px 0 0; letter-spacing: 1px;}
+.filters h3 { font-size: 12px; text-transform: uppercase; margin: 20px 0 0; letter-spacing: 1px;}
+.filters h3:first-child { margin:0; }
 .timeFilterContainer { display: inline-flex; align-items: center; flex-wrap: wrap; margin-bottom: 10px;}
 .timeFilterStart,
 .timeFilterEnd { display: block }
