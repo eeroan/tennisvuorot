@@ -22,7 +22,7 @@ function show(req, res) {
     res.write(`<body>`)
     res.write(`<div class="reservationModal modal"></div>`)
     res.write(modalsHtml())
-    res.write(`<div class="container detail">`)
+    res.write(`<div class="container">`)
     res.write(`<a href="javascript:void(0)" class="toggleFilters" title="Hakuehdot"></a>`)
     res.write(filters())
     res.write(quickLinks())

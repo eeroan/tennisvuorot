@@ -1,7 +1,7 @@
 module.exports = o => { with(o) return `<!DOCTYPE html>`+
 `<body>
 <link rel="stylesheet" href="/history.css"/>
-<div class="container detail">
+<div class="container">
     <a href="/" class="back">Vapaat vuorot</a>
 <h1>Tilastoja - ${location ? location : 'Kaikki paikat'}</h1>
     <ul>

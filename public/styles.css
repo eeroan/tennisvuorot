@@ -76,7 +76,7 @@ nav ul { display: flex; flex-direction: row; justify-content: space-between; ali
 nav li { display: inline-block; padding: 10px 0; cursor: pointer; }
 nav li.selected { cursor: default; }
 .selected { text-decoration: underline; }
-.container { margin: 0 auto; background: #fff; }
+.container { margin: 0 auto; background: #fff; box-shadow: 0 0 3px 0 #ccc; min-height: 1024px; max-width: 1024px; }
 .toggleFilters {   background: linear-gradient(
         to bottom,
         #ff8b01, #ff8b01 20%,
@@ -93,7 +93,6 @@ nav li.selected { cursor: default; }
 .filters .close { font-size: 40px; border: none; right: 0; top: 20px; left: initial; background: none; color: #ff8b01;  }
 .filters .toggleFilters { display: none; }
 .filters.collapsed { display:none;}
-.detail { box-shadow: 0 0 3px 0 #ccc; min-height: 1024px; max-width: 1024px; }
 .button:active { outline: none; }
 input[type="checkbox"] { margin-right: 1px; }
 .button.inactive { color: #999; background: none; border-color: #eee; box-shadow: 0 1px 1px 0 #aaa; }
