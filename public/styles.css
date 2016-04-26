@@ -110,7 +110,8 @@ a:visited { color: #ff6900; }
 .noUi-connect { background: #ff6900; }
 .fields { display: flex; font-size: 11px; min-height: inherit; }
 .ct-horizontal { padding-right: 10px; transform: rotate(-90deg); }
-.quickLinks { position: fixed; top: 0; bottom: 0; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: stretch;display:none;}
+.quickLinksWrapper { float:right; display:none;}
+.quickLinks { position: fixed; top: 40px; bottom: 0; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: stretch; margin-left: -43px;}
 .quickLinks a { display: block; text-decoration: none; font-size: 11px; background: #fff; padding: 2px; }
 .quickLinks a:hover { background: #fff; }
 .h60 .h60,
