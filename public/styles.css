@@ -10,7 +10,7 @@ body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-ser
 .modal { margin: 0 auto; max-width: 700px; box-shadow: 1px 1px 3px 10000px rgba(0, 0, 0, 0.5); line-height: 1.5; right: 20px; position: fixed; padding: 10px; display: none; left: 20px; top: 20px; background: #fff; z-index: 2; bottom: 20px; max-height: 900px; }
 .modal .button {width: auto; padding: 5px 10px;}
 .feedbackForm { display: flex; max-width: 100%; width: 300px; flex-wrap: wrap; justify-content: flex-end; }
-.feedback { margin-bottom: 10px; width: 100%; height: 50px; display: block; }
+.feedback { margin-bottom: 10px; width: 100%; height: 50px; display: block; border: 1px solid #333;}
 .links { font-size: 16px; line-height: 2; }
 .showDetails .modal { display: block; }
 .place { text-transform: capitalize; }
