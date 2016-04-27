@@ -24,6 +24,7 @@ function show(req, res) {
     res.write(modalsHtml())
     res.write(`<div class="container">`)
     res.write(`<div class="toggleFiltersWrapper"><a href="javascript:void(0)" class="toggleFilters" title="Hakuehdot"></a></div>`)
+    res.write('<div class="toggleInformationWrapper"><a href="javascript:void(0)" class="toggle toggleInformation">Tietoja</a></div>')
     res.write(filters())
     res.write(quickLinks())
     res.write(`<section class="" id="schedule">`)
@@ -31,7 +32,6 @@ function show(req, res) {
     dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
         res.write(markupForDateRange(data, new DateTime()))
         res.write('</section></div>')
-        res.write('<a href="javascript:void(0)" class="toggle toggleInformation">Tietoja</a>')
         res.write(scriptsHtml({
             isTest: global.isTest,
             refresh: refresh,
