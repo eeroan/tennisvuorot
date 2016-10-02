@@ -29,9 +29,9 @@ const login = () => get('login.do?loginName=GUEST&password=GUEST').flatMap(res =
 
 const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cookie))
 const getProfiles = cookie => json(post('autoCompleteAjax.do', cookie, {actionCode: 'getProfiles'}))
-const getRoomPartsForCalendarAjax = cookie => json(post('getRoomPartsForCalendarAjax.do', cookie, {
+const getRoomPartsForCalendarAjax = (cookie, profileId) => json(post('getRoomPartsForCalendarAjax.do', cookie, {
     actionCode: 'getRoomPartsForProfile',
-    id: 2
+    id: profileId
 }))
 const getRightsResourcesForCalendar = cookie => json(post('weekViewAjaxAction.do', cookie, {oper: 'getRightsResourcesForCalendar'}))
 const updateStructure = (cookie, roomParts) => post('weekViewAjaxAction.do', cookie, {
@@ -72,10 +72,10 @@ login().flatMap(cookie =>
     getProfiles(cookie)
     //.flatMap(x => timeZoneAjax(cookie))
     //.flatMap(x => getRightsResourcesForCalendar(cookie))
-        .flatMap(x => getProfiles(cookie))
-        .flatMap(x => getRoomPartsForCalendarAjax(cookie))
+    //    .flatMap(x => getProfiles(cookie))
+        .flatMap(profiles => getRoomPartsForCalendarAjax(cookie, profiles[0].profileId))
         .flatMap(roomParts => updateStructure(cookie, roomParts))
-        .flatMap(x => getRightsResourcesForCalendar(cookie))
-        .flatMap(x => getTimeCells(cookie))
+        //.flatMap(x => getRightsResourcesForCalendar(cookie))
+        //.flatMap(x => getTimeCells(cookie))
         .flatMap(x => getItems(cookie)))
     .map(format.prettyPrint).log()
