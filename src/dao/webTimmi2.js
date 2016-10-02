@@ -34,12 +34,12 @@ const getRoomPartsForCalendarAjax = cookie => json(post('getRoomPartsForCalendar
     id: 2
 }))
 const getRightsResourcesForCalendar = cookie => json(post('weekViewAjaxAction.do', cookie, {oper: 'getRightsResourcesForCalendar'}))
-const updateStructure = cookie => post('weekViewAjaxAction.do', cookie, {
+const updateStructure = (cookie, roomParts) => post('weekViewAjaxAction.do', cookie, {
     oper: 'updateStructure',
     structure: JSON.stringify({
         "structure": [{
-            //res.map(x=> x.roomPartBean.roomPartId)
-            roomPartIds: ['5741', '5742', '5743', '5744', '5745', '5746', '5799', '5800', '5846', '5847', '5848', '5823'],
+            //roomParts.map(x=> x.roomPartBean.roomPartId)
+            roomPartIds: roomParts.map(x=> x.roomPartBean.roomPartId).map(String),
             roomPartNames: [],
             roomPartColors: [],
             startTime: '06:30',
@@ -70,11 +70,11 @@ const timeZoneAjax = cookie => json(get('timeZoneAjax.do', cookie))
 //login().flatMap(getRoomParts).map(format.prettyPrint).log()
 login().flatMap(cookie =>
     getProfiles(cookie)
-        .flatMap(x => timeZoneAjax(cookie))
-        .flatMap(x => getRightsResourcesForCalendar(cookie))
+    //.flatMap(x => timeZoneAjax(cookie))
+    //.flatMap(x => getRightsResourcesForCalendar(cookie))
         .flatMap(x => getProfiles(cookie))
         .flatMap(x => getRoomPartsForCalendarAjax(cookie))
-        .flatMap(x => updateStructure(cookie))
+        .flatMap(roomParts => updateStructure(cookie, roomParts))
         .flatMap(x => getRightsResourcesForCalendar(cookie))
         .flatMap(x => getTimeCells(cookie))
         .flatMap(x => getItems(cookie)))
