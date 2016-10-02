@@ -142,10 +142,7 @@ const timeZoneAjax = cookie => json(get('timeZoneAjax.do', cookie))
 
 login().flatMap(cookie =>
     getProfiles(cookie)
-        .flatMap(profiles => Bacon.combineAsArray([
-            getRoomPartsForCalendarAjax(cookie, profiles[0].profileId),
-            getRoomPartsForCalendarAjax(cookie, profiles[1].profileId)
-        ]))
+        .flatMap(profiles => Bacon.combineAsArray(profiles.map(profile => getRoomPartsForCalendarAjax(cookie, profile.profileId))))
         .flatMap(roomParts => updateStructure(cookie, [].concat.apply([], roomParts), DateTime.today().plusDays(1)))
         .flatMap(x => getItems(cookie)))
     .map(format.prettyPrint).log()
