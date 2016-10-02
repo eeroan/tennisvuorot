@@ -3,15 +3,15 @@ const DateLocale = require('dateutils').DateLocale
 const util = require('util')
 
 module.exports = {
-    formatDate:    formatDate,
+    formatDate: formatDate,
     durationClass: durationClass,
-    formatModule:  formatModule,
+    formatModule: formatModule,
     formatTimeKey: formatTimeKey,
-    formatPrice:   formatPrice,
-    formatTime:    formatTime,
-    parseTime:     parseTime,
+    formatPrice: formatPrice,
+    formatTime: formatTime,
+    parseTime: parseTime,
     formatIsoTime: formatIsoTime,
-    prettyPrint:   prettyPrint
+    prettyPrint: prettyPrint
 }
 
 function formatDate(dateTime) {
@@ -29,7 +29,8 @@ function formatModule(data) {
 function prettyPrint(data) {
     return util.inspect(data, {
         colors: false,
-        depth:  null
+        depth: null,
+        maxArrayLength: null
     })
 }
 
@@ -55,7 +56,7 @@ function formatIsoTime(val) {
 }
 
 function formatPrice(num) {
-    if (num === 0) return '-,-'
+    if(num === 0) return '-,-'
     return num % 1 === 0 ? num + ',-' : withDecimals(String(num).split('.'))
 }
 
