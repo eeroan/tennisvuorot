@@ -50,13 +50,7 @@ const getRightsResourcesForCalendar = cookie => json(post('weekViewAjaxAction.do
 const updateStructure = (cookie, roomParts, dateTime) => {
     var form = {
         startTime: '06:30',
-        endTime: '22:30',
-        timePeriod: '60',
-        copyMoveDefault: '0',
-        copyMoveOption: '0',
-        lockTimeOnChoose: '1',
-        minTimeChange: '15',
-        calendarSize: '4'
+        endTime: '22:30'
     }
     var dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase() + 'Selected'
     form[dayName] = '1'
