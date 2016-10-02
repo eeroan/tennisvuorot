@@ -41,67 +41,6 @@ const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cooki
         .map(item => `${item.name} ${item.startTime}-${item.endTime}`)
     )
     .map(res => ({reservations: res, length: res.length}))
-/*{
-    usageRestrictionId: 0,
-    roomPartName: 'TK 10',
-    eventActionLinks: [],
-    eventBookingId: 3921343,
-    colorPrintAlways: false,
-    roomId: 5516,
-    eventInfo: [],
-    eventColorBlue: 211,
-    endTime: {
-        time: 1475382600000,
-        minutes: 30,
-        seconds: 0,
-        hours: 7,
-        month: 9,
-        year: 116,
-        timezoneOffset: -180,
-        day: 0,
-        date: 2
-    },
-    hideBookingsUnderUsageRestriction: 0,
-    startTime: {
-        time: 1475379000000,
-        minutes: 30,
-        seconds: 0,
-        hours: 6,
-        month: 9,
-        year: 116,
-        timezoneOffset: -180,
-        day: 0,
-        date: 2
-    },
-    endDateInMills: 1475382600000,
-    customerId: 0,
-    startDateInMills: 1475379000000,
-    overDrawable: false,
-    eventId: 3546217,
-    showTimeSpan: false,
-    colNumber: 2,
-    userId: 71,
-    meetingStatus: '',
-    sAreaActionLinks: [],
-    selectedTimeSpanId: 0,
-    orderId: 511700,
-    roomPartIdOnCalendar: 5742,
-    bookingGroupId: 0,
-    invoiceId: 0,
-    eventColorGreen: 211,
-    reservationType: 1,
-    roomPartId: 5742,
-    cashId: 0,
-    extraOperations: '',
-    weekNumber: 39,
-    privateEvent: false,
-    meeting: false,
-    eventColorRed: 211,
-    eventStyle: null,
-    personalPrivateEvent: false,
-    eventTextField: ['Varaus'],
-    paymentMethod: 'M'
-}*/
 const getProfiles = cookie => json(post('autoCompleteAjax.do', cookie, {actionCode: 'getProfiles'}))
 const getRoomPartsForCalendarAjax = (cookie, profileId) => json(post('getRoomPartsForCalendarAjax.do', cookie, {
     actionCode: 'getRoomPartsForProfile',
