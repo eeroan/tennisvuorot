@@ -38,7 +38,6 @@ const updateStructure = (cookie, roomParts) => post('weekViewAjaxAction.do', coo
     oper: 'updateStructure',
     structure: JSON.stringify({
         "structure": [{
-            //roomParts.map(x=> x.roomPartBean.roomPartId)
             roomPartIds: roomParts.map(x=> x.roomPartBean.roomPartId).map(String),
             roomPartNames: [],
             roomPartColors: [],
@@ -66,16 +65,9 @@ const updateStructure = (cookie, roomParts) => post('weekViewAjaxAction.do', coo
 const getTimeCells = cookie => json(get('weekViewAjaxAction.do?oper=getTimeCells', cookie))
 const timeZoneAjax = cookie => json(get('timeZoneAjax.do', cookie))
 
-//login().flatMap(getProfiles).onValue(x => console.log('jee', format.prettyPrint(x)))
-//login().flatMap(getRoomParts).map(format.prettyPrint).log()
 login().flatMap(cookie =>
     getProfiles(cookie)
-    //.flatMap(x => timeZoneAjax(cookie))
-    //.flatMap(x => getRightsResourcesForCalendar(cookie))
-    //    .flatMap(x => getProfiles(cookie))
         .flatMap(profiles => getRoomPartsForCalendarAjax(cookie, profiles[0].profileId))
         .flatMap(roomParts => updateStructure(cookie, roomParts))
-        //.flatMap(x => getRightsResourcesForCalendar(cookie))
-        //.flatMap(x => getTimeCells(cookie))
         .flatMap(x => getItems(cookie)))
     .map(format.prettyPrint).log()
