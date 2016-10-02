@@ -40,6 +40,7 @@ const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cooki
         }))
         .map(item => `${item.name} ${item.startTime}-${item.endTime}`)
     )
+    .map(res => ({reservations: res, length: res.length}))
 /*{
     usageRestrictionId: 0,
     roomPartName: 'TK 10',
@@ -141,7 +142,10 @@ const timeZoneAjax = cookie => json(get('timeZoneAjax.do', cookie))
 
 login().flatMap(cookie =>
     getProfiles(cookie)
-        .flatMap(profiles => getRoomPartsForCalendarAjax(cookie, profiles[0].profileId))
-        .flatMap(roomParts => updateStructure(cookie, roomParts, DateTime.today().plusDays(1)))
+        .flatMap(profiles => Bacon.combineAsArray([
+            getRoomPartsForCalendarAjax(cookie, profiles[0].profileId),
+            getRoomPartsForCalendarAjax(cookie, profiles[1].profileId)
+        ]))
+        .flatMap(roomParts => updateStructure(cookie, [].concat.apply([], roomParts), DateTime.today().plusDays(1)))
         .flatMap(x => getItems(cookie)))
     .map(format.prettyPrint).log()
