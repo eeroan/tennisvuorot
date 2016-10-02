@@ -2,6 +2,10 @@
 const request = require('request')
 const Bacon = require('baconjs').Bacon
 const format = require('../format')
+const dateutils = require('dateutils')
+const DateTime = dateutils.DateTime
+const DateFormat = dateutils.DateFormat
+const DateLocale = dateutils.DateLocale
 
 const req = (method, url, cookie, form) => {
     var opts = {
@@ -103,24 +107,8 @@ const getRoomPartsForCalendarAjax = (cookie, profileId) => json(post('getRoomPar
     id: profileId
 }))
 const getRightsResourcesForCalendar = cookie => json(post('weekViewAjaxAction.do', cookie, {oper: 'getRightsResourcesForCalendar'}))
-const updateStructure = (cookie, roomParts) => post('weekViewAjaxAction.do', cookie, {
-    oper: 'updateStructure',
-    structure: JSON.stringify({
-        "structure": [{
-            roomPartIds: roomParts.map(x=> x.roomPartBean.roomPartId).map(String),
-            roomPartNames: [],
-            roomPartColors: [],
-            startTime: '06:30',
-            endTime: '22:30',
-            periodization: '60',
-            calendarSize: 4,
-            selectedDays: [0, 0, 0, 0, 0, 0, 1],
-            singlePickedDates: false,
-            referenceDateMills: 1474885798000
-        }]
-    }),
-    form: JSON.stringify({
-        sundaySelected: '1',
+const updateStructure = (cookie, roomParts, dateTime) => {
+    var form = {
         startTime: '06:30',
         endTime: '22:30',
         timePeriod: '60',
@@ -129,14 +117,31 @@ const updateStructure = (cookie, roomParts) => post('weekViewAjaxAction.do', coo
         lockTimeOnChoose: '1',
         minTimeChange: '15',
         calendarSize: '4'
+    }
+    var dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase() + 'Selected'
+    form[dayName] = '1'
+
+    return post('weekViewAjaxAction.do', cookie, {
+        oper: 'updateStructure',
+        structure: JSON.stringify({
+            structure: [{
+                roomPartIds: roomParts.map(x=> x.roomPartBean.roomPartId).map(String),
+                roomPartNames: [],
+                roomPartColors: [],
+                calendarSize: 4,
+                singlePickedDates: false,
+                referenceDateMills: dateTime.getTime()
+            }]
+        }),
+        form: JSON.stringify(form)
     })
-})
+}
 const getTimeCells = cookie => json(get('weekViewAjaxAction.do?oper=getTimeCells', cookie))
 const timeZoneAjax = cookie => json(get('timeZoneAjax.do', cookie))
 
 login().flatMap(cookie =>
     getProfiles(cookie)
         .flatMap(profiles => getRoomPartsForCalendarAjax(cookie, profiles[0].profileId))
-        .flatMap(roomParts => updateStructure(cookie, roomParts))
+        .flatMap(roomParts => updateStructure(cookie, roomParts, DateTime.today().plusDays(1)))
         .flatMap(x => getItems(cookie)))
     .map(format.prettyPrint).log()
