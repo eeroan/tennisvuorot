@@ -29,15 +29,16 @@ const login = () => get('login.do?loginName=GUEST&password=GUEST').flatMap(res =
 
 const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cookie))
 const getProfiles = cookie => json(post('autoCompleteAjax.do', cookie, {actionCode: 'getProfiles'}))
-const getRoomParts = cookie => json(post('getRoomPartsForCalendarAjax.do', cookie, {
+const getRoomPartsForCalendarAjax = cookie => json(post('getRoomPartsForCalendarAjax.do', cookie, {
     actionCode: 'getRoomPartsForProfile',
     id: 2
 }))
-const getWeekView = cookie => json(post('weekViewAjaxAction.do', cookie, {oper: 'getRightsResourcesForCalendar'}))
+const getRightsResourcesForCalendar = cookie => json(post('weekViewAjaxAction.do', cookie, {oper: 'getRightsResourcesForCalendar'}))
 const updateStructure = cookie => post('weekViewAjaxAction.do', cookie, {
     oper: 'updateStructure',
     structure: JSON.stringify({
         "structure": [{
+            //res.map(x=> x.roomPartBean.roomPartId)
             roomPartIds: ['5741', '5742', '5743', '5744', '5745', '5746', '5799', '5800', '5846', '5847', '5848', '5823'],
             roomPartNames: [],
             roomPartColors: [],
@@ -63,18 +64,18 @@ const updateStructure = cookie => post('weekViewAjaxAction.do', cookie, {
     })
 })
 const getTimeCells = cookie => json(get('weekViewAjaxAction.do?oper=getTimeCells', cookie))
-const getTimeZone = cookie => json(get('timeZoneAjax.do', cookie))
+const timeZoneAjax = cookie => json(get('timeZoneAjax.do', cookie))
 
 //login().flatMap(getProfiles).onValue(x => console.log('jee', format.prettyPrint(x)))
 //login().flatMap(getRoomParts).map(format.prettyPrint).log()
 login().flatMap(cookie =>
     getProfiles(cookie)
-        .flatMap(x => getTimeZone(cookie))
-        .flatMap(x => getWeekView(cookie))
+        .flatMap(x => timeZoneAjax(cookie))
+        .flatMap(x => getRightsResourcesForCalendar(cookie))
         .flatMap(x => getProfiles(cookie))
-        .flatMap(x => getRoomParts(cookie))
+        .flatMap(x => getRoomPartsForCalendarAjax(cookie))
         .flatMap(x => updateStructure(cookie))
-        .flatMap(x => getWeekView(cookie))
+        .flatMap(x => getRightsResourcesForCalendar(cookie))
         .flatMap(x => getTimeCells(cookie))
         .flatMap(x => getItems(cookie)))
     .map(format.prettyPrint).log()
