@@ -133,9 +133,3 @@ function toMinutes(hoursAndMinutes) {
     var splitted = hoursAndMinutes.split(':')
     return Number(splitted[0]) * 60 + Number(splitted[1])
 }
-function courtsTableToObj($table) {
-    return $table.filter(':first tr').map(function (tr) {
-        var tds = $(this).find('td');
-        return {id: tds.find('input').val(), type: tds.eq(1).text(), name: tds.eq(3).text()}
-    }).toArray()
-}
