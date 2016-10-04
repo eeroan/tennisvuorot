@@ -6,6 +6,7 @@ const dateutils = require('dateutils')
 const DateTime = dateutils.DateTime
 const DateFormat = dateutils.DateFormat
 const DateLocale = dateutils.DateLocale
+const profiles = require('../../generated/profiles')
 
 const req = (method, url, cookie, form) => {
     var opts = {
@@ -41,16 +42,24 @@ const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cooki
         .map(item => `${item.name} ${item.startTime}-${item.endTime}`)
     )
     .map(res => ({reservations: res, length: res.length}))
+
 const getProfiles = cookie => json(post('autoCompleteAjax.do', cookie, {actionCode: 'getProfiles'}))
+    .map(res => res
+        .map(profile => ({
+            id:        profile.profileId,
+            name:      profile.profileName,
+            startTime: profile.roomPartStartTime,
+            endTime:   profile.roomPartEndTime
+        })))
+
 const getRoomPartsForCalendarAjax = (cookie, profileId) => json(post('getRoomPartsForCalendarAjax.do', cookie, {
     actionCode: 'getRoomPartsForProfile',
     id: profileId
 }))
-const getRightsResourcesForCalendar = cookie => json(post('weekViewAjaxAction.do', cookie, {oper: 'getRightsResourcesForCalendar'}))
-const updateStructure = (cookie, roomParts, dateTime) => {
+const updateStructure = (cookie, startTime, endTime, roomParts, dateTime) => {
     var form = {
-        startTime: '06:30',
-        endTime: '22:30'
+        startTime: startTime,
+        endTime: endTime
     }
     var dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase() + 'Selected'
     form[dayName] = '1'
@@ -59,23 +68,30 @@ const updateStructure = (cookie, roomParts, dateTime) => {
         oper: 'updateStructure',
         structure: JSON.stringify({
             structure: [{
-                roomPartIds: roomParts.map(x=> x.roomPartBean.roomPartId).map(String),
-                roomPartNames: [],
-                roomPartColors: [],
-                calendarSize: 4,
-                singlePickedDates: false,
+                roomPartIds:        roomParts.map(x=> x.roomPartBean.roomPartId).map(String),
+                roomPartNames:      [],
+                roomPartColors:     [],
+                calendarSize:       4,
+                singlePickedDates:  false,
                 referenceDateMills: dateTime.getTime()
             }]
         }),
         form: JSON.stringify(form)
     })
 }
-const getTimeCells = cookie => json(get('weekViewAjaxAction.do?oper=getTimeCells', cookie))
-const timeZoneAjax = cookie => json(get('timeZoneAjax.do', cookie))
+const getItemsWithStructure = (cookie, startTime, endTime, roomParts, startDateTime) =>
+    updateStructure(cookie, startTime, endTime, roomParts, startDateTime)
+        .flatMap(() => getItems(cookie))
 
 login().flatMap(cookie =>
-    getProfiles(cookie)
-        .flatMap(profiles => Bacon.combineAsArray(profiles.map(profile => getRoomPartsForCalendarAjax(cookie, profile.profileId))))
-        .flatMap(roomParts => updateStructure(cookie, [].concat.apply([], roomParts), DateTime.today().plusDays(1)))
-        .flatMap(x => getItems(cookie)))
+    Bacon.combineAsArray(profiles.map(profile =>
+        Bacon.combineTemplate({
+            items:   getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts =>
+                getItemsWithStructure(cookie, profile.startTime, profile.endTime, roomParts, DateTime.today().plusDays(1))),
+            profile: profile
+        }))))
     .map(format.prettyPrint).log()
+
+module.exports = {
+    getProfiles: login().flatMap(getProfiles)
+}
