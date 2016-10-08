@@ -42,13 +42,13 @@ const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cooki
             id: item.roomPartId,
             name: item.roomPartName,
             date: new Date(item.startTime.time),
-            startDate: new Date(item.startTime.time).getDate(),
+            startDate: DateTime.fromMillis(item.startTime.time).toISOString(),
             startTime: formatTime(item.startTime.time),
             endTime: formatTime(item.endTime.time),
             rest: item
         }))
         .sort((a, b) => a.id === b.id ? a.date < b.date ? -1 : 1 : a.id - b.id)
-        .map(item => `${item.id} ${item.name} ${item.startDate}. ${item.startTime}-${item.endTime}`)
+        .map(item => `${item.id} ${item.name} ${item.startDate} -${item.endTime}`)
     )
     .map(res => ({reservations: res, length: res.length}))
 
@@ -94,10 +94,17 @@ const getItemsWithStructure = (cookie, startTime, endTime, roomParts, startDateT
                        .flatMap(() => getItems(cookie)),
         roomParts: roomParts.map(roomPart => roomPart.roomPartBean.roomPartId + ' ' + roomPart.roomBean.name)
     })
+const taliProfileIds = [2]
+//const taliProfileIds = [2, 5, 14, 13]
+const taivallahtiProfileIds = [3, 4, 18]
 
-console.log(profiles)
+const taliProfiles = profiles.filter(p => taliProfileIds.indexOf(p.id) !== -1)
+const taivallahtiProfiles = profiles.filter(p => taivallahtiProfileIds.indexOf(p.id) !== -1)
+console.log('tali', taliProfiles)
+console.log('taivallahti', taivallahtiProfiles)
+
 login().flatMap(cookie =>
-    Bacon.combineAsArray(profiles.slice(0, 4).map(profile =>
+    Bacon.combineAsArray(taliProfiles.map(profile =>
         Bacon.combineTemplate({
             data:   getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts =>
                 getItemsWithStructure(cookie, profile.startTime, profile.endTime, roomParts, DateTime.today().plusDays(1))),
