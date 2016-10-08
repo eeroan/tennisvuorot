@@ -65,7 +65,7 @@ const getRoomPartsForCalendarAjax = (cookie, profileId) => json(post('getRoomPar
     actionCode: 'getRoomPartsForProfile',
     id: profileId
 }))
-const updateStructure = (cookie, startTime, endTime, roomParts, dateTime) => {
+const updateStructure = (cookie, startTime, endTime, roomPartIds, dateTime) => {
     var form = {
         startTime: startTime,
         endTime: endTime
@@ -77,7 +77,7 @@ const updateStructure = (cookie, startTime, endTime, roomParts, dateTime) => {
         oper: 'updateStructure',
         structure: JSON.stringify({
             structure: [{
-                roomPartIds:        roomParts.map(x=> x.roomPartBean.roomPartId).map(String),
+                roomPartIds:        roomPartIds,
                 roomPartNames:      [],
                 roomPartColors:     [],
                 calendarSize:       4,
@@ -90,7 +90,7 @@ const updateStructure = (cookie, startTime, endTime, roomParts, dateTime) => {
 }
 const getItemsWithStructure = (cookie, startTime, endTime, roomParts, startDateTime) =>
     Bacon.combineTemplate({
-        items:     updateStructure(cookie, startTime, endTime, roomParts, startDateTime)
+        items:     updateStructure(cookie, startTime, endTime, roomParts.map(x=> String(x.roomPartBean.roomPartId)), startDateTime)
                        .flatMap(() => getItems(cookie)),
         roomParts: roomParts.map(roomPart => roomPart.roomPartBean.roomPartId + ' ' + roomPart.roomBean.name)
     })
