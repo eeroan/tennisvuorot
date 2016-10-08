@@ -44,7 +44,7 @@ function initNavigation(bindEsc) {
     }
 
     elem('.toggleInformation').addEventListener('click',() => {
-        ga('send', 'event', 'Info', 'open')
+        window.ga('send', 'event', 'Info', 'open')
         elem('.information').style.display='block'
         bindEsc()
     })
@@ -74,7 +74,7 @@ function initFeedback() {
         e.preventDefault()
         var feedback = elem('.feedback')
         var text = feedback.value
-        ga('send', 'event', 'Feedback', text)
+        window.ga('send', 'event', 'Feedback', text)
         feedback.value = ''
         const submitFeedback = elem('.submitFeedback')
         submitFeedback.disabled = true
@@ -137,7 +137,7 @@ function setContainerFilterClasses() {
 function activeFilters(settings) { return _.map(_.extend({}, settings.fieldToggles, settings.typeToggles), (v, k) => k) }
 
 function saveFilters() {
-    localStorage.setItem('filters', JSON.stringify({
+    window.localStorage.setItem('filters', JSON.stringify({
         toggles:   _.extend({}, settings.fieldToggles, settings.typeToggles),
         start:     settings.start,
         end:       settings.end,
@@ -146,10 +146,10 @@ function saveFilters() {
 }
 
 function loadFilters() {
-    var jsonString = localStorage.getItem('filters')
+    var jsonString = window.localStorage.getItem('filters')
     var parsedJson = JSON.parse(jsonString)
     if (!parsedJson) return null
-    if (jsonString) ga('send', 'event', 'User settings', reportSettings(parsedJson))
+    if (jsonString) window.ga('send', 'event', 'User settings', reportSettings(parsedJson))
     return {
         fieldToggles: _.omit(parsedJson.toggles, typeToggles),
         typeToggles:  _.pick(parsedJson.toggles, typeToggles),
