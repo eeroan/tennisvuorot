@@ -56,7 +56,6 @@ const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cooki
             startTime: toMinutes(item.startTime.time),
             endTime: toMinutes(item.endTime.time)
         }))
-        .sort((a, b) => a.id === b.id ? a.date < b.date ? -1 : 1 : a.id - b.id)
     )
 
 const getProfiles = cookie => json(post('autoCompleteAjax.do', cookie, {actionCode: 'getProfiles'}))
@@ -102,51 +101,36 @@ function groupBySortedAsList(list, key) {
 function objectToArray(val, key) {
     return {key: key, val: val}
 }
-/*
-  {
-    "time": "11:30",
-    "duration": 60,
-    "date": "2015-09-10",
-    "res": "TAIVALLAHTI SISÄTENNIS K 1",
-    "location": "taivallahti",
-    "field": "K 1"
-  },
- */
-const getItemsWithStructure = (cookie, profile, location, roomParts, startDateTime) =>
-    Bacon.combineTemplate({
-        items: updateStructure(cookie, profile.startTime, profile.endTime, roomParts.map(x=> String(x.roomPartBean.roomPartId)), startDateTime)
-            .flatMap(() => getItems(cookie))
-            .flatMap(reservations => [].concat.apply([], groupBySortedAsList(reservations, 'name').map(keyVal =>
-                    date.freeSlots(profile.startTime, profile.endTime, keyVal.val).map(time => ({
-                            time: date.formatTime(time),
-                            duration: 60,
-                            date: startDateTime.toISODateString(),
-                            res: profile.name + ' ' + keyVal.key,
-                            location: location,
-                            field: keyVal.key
 
-                        })
-                    )
-                ))
-            ),
-        roomParts: roomParts.map(roomPart => roomPart.roomPartBean.roomPartId + ' ' + roomPart.roomBean.name)
-    })
+const getItemsWithStructure = (cookie, profile, location, roomParts, startDateTime) =>
+    updateStructure(cookie, profile.startTime, profile.endTime, roomParts.map(x=> String(x.roomPartBean.roomPartId)), startDateTime)
+        .flatMap(() => getItems(cookie))
+        .flatMap(reservations => [].concat.apply([], groupBySortedAsList(reservations, 'name').map(keyVal =>
+                date.freeSlots(profile.startTime, profile.endTime, keyVal.val).map(time => ({
+                        time: date.formatTime(time),
+                        duration: 60,
+                        date: startDateTime.toISODateString(),
+                        res: profile.name + ' ' + keyVal.key,
+                        location: location,
+                        field: keyVal.key
+                    })
+                )
+            ))
+        )
 const taliProfileIds = [2, 5, 14, 13]
 const taivallahtiProfileIds = [3, 4, 18]
 
 const taliProfiles = profiles.filter(p => [2].indexOf(p.id) !== -1)
 const taivallahtiProfiles = profiles.filter(p => taivallahtiProfileIds.indexOf(p.id) !== -1)
-console.log('tali', taliProfiles)
-console.log('taivallahti', taivallahtiProfiles)
+//console.log('tali', taliProfiles)
+//console.log('taivallahti', taivallahtiProfiles)
 
 var startDdateTime = DateTime.today().plusDays(1)
 login().flatMap(cookie =>
     Bacon.combineAsArray(taliProfiles.map(profile =>
-        Bacon.combineTemplate({
-            data: getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts =>
-                getItemsWithStructure(cookie, profile, taliProfileIds.indexOf(profile.id) !== -1 ? 'tali' : 'taivallahti', roomParts, startDdateTime)),
-            profile: profile
-        }))))
+        getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts =>
+            getItemsWithStructure(cookie, profile, taliProfileIds.indexOf(profile.id) !== -1 ? 'tali' : 'taivallahti', roomParts, startDdateTime))
+    )))
     .map(format.prettyPrint).log()
 
 module.exports = {
