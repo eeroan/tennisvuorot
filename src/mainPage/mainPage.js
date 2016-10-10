@@ -51,7 +51,7 @@ function filters() {
             {id: 'merihaka', name: 'Merihaka'},
             {id: 'taivallahti', name: 'Taivallahti', disabled:true},
             {id: 'tapiola', name: 'Tapiola'},
-            {id: 'tali', name: 'Tali', disabled:true},
+            {id: 'tali', name: 'Tali' },
             {id: 'laajasalo', name: 'Laajasalo'},
             {id: 'hiekkaharju', name: 'Hiekkaharju'}
         ],

@@ -12,11 +12,12 @@ function minutes(hoursAndMinutes) {
     const splitted = hoursAndMinutes.split(':')
     return (Number(splitted[0]) * 60) + Number(splitted[1])
 }
+const fill = val => (val > 9 ? '' : '0') + val
 
 function formatTime(minutes) {
     const m = minutes % 60
     const h = (minutes - m) / 60
-    return `${h}:${m}`
+    return `${fill(h)}:${fill(m)}`
 }
 
 module.exports = {
