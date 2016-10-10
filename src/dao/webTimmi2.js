@@ -115,7 +115,7 @@ const getItemsWithStructure = (cookie, profile, location, roomParts, startDateTi
                         field: keyVal.key
                     })
                 )
-            ))
+            )).filter(booking => booking.field !== 'HUOM')
         )
 const taliProfileIds = [2, 5, 14, 13]
 const taivallahtiProfileIds = [3, 4, 18]
@@ -126,10 +126,11 @@ const taivallahtiProfiles = profiles.filter(p => taivallahtiProfileIds.indexOf(p
 //console.log('taivallahti', taivallahtiProfiles)
 
 var startDdateTime = DateTime.today().plusDays(1)
-login().flatMap(cookie =>
-    Bacon.combineAsArray(taliProfiles.map(profile =>
-        getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts =>
-            getItemsWithStructure(cookie, profile, taliProfileIds.indexOf(profile.id) !== -1 ? 'tali' : 'taivallahti', roomParts, startDdateTime))
+const location = profileId =>taliProfileIds.indexOf(profileId) !== -1 ? 'tali' : 'taivallahti'
+login()
+    .flatMap(cookie => Bacon.combineAsArray(taliProfiles.map(profile =>
+        getRoomPartsForCalendarAjax(cookie, profile.id)
+            .flatMap(roomParts => getItemsWithStructure(cookie, profile, location(profile.id), roomParts, startDdateTime))
     )))
     .map(format.prettyPrint).log()
 
