@@ -38,11 +38,11 @@ describe('date lib', () => {
 
 describe('is overlapping', () => {
     it('works as expected', () => {
-        expect(date.isOverlapping(540, [540, 600])).to.be.true
-        expect(date.isOverlapping(570, [540, 600])).to.be.true
-        expect(date.isOverlapping(600, [540, 600])).to.be.false
-        expect(date.isOverlapping(660, [540, 600])).to.be.false
-        expect(date.isOverlapping(date.minutes('8:30'), ['9:00','10:00'].map(date.minutes))).to.be.true
-        expect(date.isOverlapping(date.minutes('8:00'), ['9:00','10:00'].map(date.minutes))).to.be.false
+        expect(date.notOverlapping(540, [540, 600])).to.be.false
+        expect(date.notOverlapping(570, [540, 600])).to.be.false
+        expect(date.notOverlapping(600, [540, 600])).to.be.true
+        expect(date.notOverlapping(660, [540, 600])).to.be.true
+        expect(date.notOverlapping(date.minutes('8:30'), ['9:00','10:00'].map(date.minutes))).to.be.false
+        expect(date.notOverlapping(date.minutes('8:00'), ['9:00','10:00'].map(date.minutes))).to.be.true
     })
 })
