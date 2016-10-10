@@ -7,6 +7,8 @@ const DateTime = dateutils.DateTime
 const DateFormat = dateutils.DateFormat
 const DateLocale = dateutils.DateLocale
 const profiles = require('../../generated/profiles')
+const date = require('../date')
+const _ = require('lodash')
 
 const req = (method, url, cookie, form) => {
     var opts = {
@@ -31,9 +33,15 @@ const login = () => get('login.do?loginName=GUEST&password=GUEST').flatMap(res =
         return new Bacon.Error(e)
     }
 })
+
 const formatTime = timeInMillis => {
     const date = new Date(timeInMillis)
     return date.getHours() + ':' + date.getMinutes()
+}
+
+const toMinutes = timeInMillis => {
+    const date = new Date(timeInMillis)
+    return (date.getHours() * 60) + date.getMinutes()
 }
 
 const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cookie))
@@ -42,23 +50,22 @@ const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cooki
             id: item.roomPartId,
             name: item.roomPartName,
             date: new Date(item.startTime.time),
+            formattedStartTime: formatTime(item.startTime.time),
+            formattedEndTime: formatTime(item.endTime.time),
             startDate: DateTime.fromMillis(item.startTime.time).toISOString(),
-            startTime: formatTime(item.startTime.time),
-            endTime: formatTime(item.endTime.time),
-            rest: item
+            startTime: toMinutes(item.startTime.time),
+            endTime: toMinutes(item.endTime.time)
         }))
         .sort((a, b) => a.id === b.id ? a.date < b.date ? -1 : 1 : a.id - b.id)
-        .map(item => `${item.id} ${item.name} ${item.startDate} -${item.endTime}`)
     )
-    .map(res => ({reservations: res, length: res.length}))
 
 const getProfiles = cookie => json(post('autoCompleteAjax.do', cookie, {actionCode: 'getProfiles'}))
     .map(res => res
         .map(profile => ({
-            id:        profile.profileId,
-            name:      profile.profileName,
+            id: profile.profileId,
+            name: profile.profileName,
             startTime: profile.roomPartStartTime,
-            endTime:   profile.roomPartEndTime
+            endTime: profile.roomPartEndTime
         })))
 
 const getRoomPartsForCalendarAjax = (cookie, profileId) => json(post('getRoomPartsForCalendarAjax.do', cookie, {
@@ -77,21 +84,37 @@ const updateStructure = (cookie, startTime, endTime, roomPartIds, dateTime) => {
         oper: 'updateStructure',
         structure: JSON.stringify({
             structure: [{
-                roomPartIds:        roomPartIds,
-                roomPartNames:      [],
-                roomPartColors:     [],
-                calendarSize:       4,
-                singlePickedDates:  false,
+                roomPartIds: roomPartIds,
+                roomPartNames: [],
+                roomPartColors: [],
+                calendarSize: 4,
+                singlePickedDates: false,
                 referenceDateMills: dateTime.getTime()
             }]
         }),
         form: JSON.stringify(form)
     })
 }
+function groupBySortedAsList(list, key) {
+    return _.sortBy(_.map(_.groupBy(list, key), objectToArray), 'key')
+}
+
+function objectToArray(val, key) {
+    return {key: key, val: val}
+}
+
 const getItemsWithStructure = (cookie, startTime, endTime, roomParts, startDateTime) =>
     Bacon.combineTemplate({
-        items:     updateStructure(cookie, startTime, endTime, roomParts.map(x=> String(x.roomPartBean.roomPartId)), startDateTime)
-                       .flatMap(() => getItems(cookie)),
+        items: updateStructure(cookie, startTime, endTime, roomParts.map(x=> String(x.roomPartBean.roomPartId)), startDateTime)
+            .flatMap(() => getItems(cookie))
+            .flatMap(reservations => groupBySortedAsList(reservations, 'name').map(keyVal =>
+                    date.freeSlots(startTime, endTime, keyVal.val).map(time => ({
+                            name: keyVal.key,
+                            startTime: date.formatTime(time)
+                        })
+                    )
+                )
+            ),
         roomParts: roomParts.map(roomPart => roomPart.roomPartBean.roomPartId + ' ' + roomPart.roomBean.name)
     })
 const taliProfileIds = [2]
@@ -106,7 +129,7 @@ console.log('taivallahti', taivallahtiProfiles)
 login().flatMap(cookie =>
     Bacon.combineAsArray(taliProfiles.map(profile =>
         Bacon.combineTemplate({
-            data:   getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts =>
+            data: getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts =>
                 getItemsWithStructure(cookie, profile.startTime, profile.endTime, roomParts, DateTime.today().plusDays(1))),
             profile: profile
         }))))

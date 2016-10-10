@@ -1,14 +1,12 @@
 var _ = require('lodash')
 
-function freeSlots(startTime, endTime, reservations) {
+function freeSlots(startTime, endTime, reservationObjects) {
     const startTimes = _.range(minutes(startTime), minutes(endTime), 60)
-    const reservationTuples = reservations.map(span => span.split('-').map(minutes))
     return startTimes
-        .filter(startTime => reservationTuples.every(reservationTuple => notOverlapping(startTime, reservationTuple)))
-        .map(formatTime)
+        .filter(startTime => reservationObjects.every(reservationObject => notOverlapping(startTime, reservationObject)))
 }
 
-const notOverlapping = (startTime, reservation) => startTime >= reservation[1] || startTime + 60 <= reservation[0]
+const notOverlapping = (startTime, reservationObj) => startTime >= reservationObj.endTime || startTime + 60 <= reservationObj.startTime
 
 function minutes(hoursAndMinutes) {
     const splitted = hoursAndMinutes.split(':')
