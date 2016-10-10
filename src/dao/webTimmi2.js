@@ -104,7 +104,7 @@ function objectToArray(val, key) {
 
 //TODO show availability also for fully empty days
 const getItemsWithStructure = (cookie, profile, location, roomParts, startDateTime) =>
-    updateStructure(cookie, profile.startTime, profile.endTime, roomParts.map(x=> String(x.roomPartBean.roomPartId)), startDateTime)
+    updateStructure(cookie, profile.startTime, profile.endTime, roomParts.map(x=> String(x.id)), startDateTime)
         .flatMap(() => getItems(cookie))
         .flatMap(reservations => groupBySortedAsList(reservations, 'name').map(keyVal =>
                 date.freeSlots(profile.startTime, profile.endTime, keyVal.val).map(time => ({
@@ -127,15 +127,23 @@ const taivallahtiProfiles = profiles.filter(p => taivallahtiProfileIds.indexOf(p
 const location = profileId => taliProfileIds.indexOf(profileId) !== -1 ? 'tali' : 'taivallahti'
 
 function getAll(isoDate) {
+    const dateTime = DateTime.fromIsoDate(isoDate)
     return login()
-        .flatMap(cookie => Bacon.combineAsArray(taliProfiles.map(profile =>
-            getRoomPartsForCalendarAjax(cookie, profile.id)
-                .flatMap(roomParts =>
-                    getItemsWithStructure(cookie, profile, location(profile.id), roomParts, DateTime.fromIsoDate(isoDate)))
-        ))).map(_.flattenDeep)
+        .flatMap(cookie => Bacon.combineAsArray(profiles.map(profile =>
+                getItemsWithStructure(cookie, profile.profile, location(profile.profile.id), profile.roomParts, dateTime))
+        )).map(_.flattenDeep)
 }
 
+const mapRoomPart = roomPart => ({
+    id: roomPart.roomPartBean.roomPartId,
+    name: roomPart.roomBean.name,
+    code: roomPart.roomBean.roomCode
+
+})
+getAll('2016-10-17').log()
 module.exports = {
     getAll: getAll,
-    getProfiles: login().flatMap(getProfiles)
+    getProfiles: login()
+        .flatMap(cookie => getProfiles(cookie)
+        .flatMap(profiles => Bacon.combineAsArray(profiles.map(profile => getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts => ({profile:profile, roomParts: roomParts.map(mapRoomPart)}))))))
 }
