@@ -102,6 +102,7 @@ function objectToArray(val, key) {
     return {key: key, val: val}
 }
 
+//TODO show availability also for fully empty days
 const getItemsWithStructure = (cookie, profile, location, roomParts, startDateTime) =>
     updateStructure(cookie, profile.startTime, profile.endTime, roomParts.map(x=> String(x.roomPartBean.roomPartId)), startDateTime)
         .flatMap(() => getItems(cookie))
