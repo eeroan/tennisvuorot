@@ -106,6 +106,7 @@ a,
 a:visited { color: #ff6900; }
 #schedule { padding: 0 10px 0; }
 #schedule .filters { position: static; visibility: hidden;}
+#schedule .filters .button { display: block;}
 #schedule.collapsed { padding: 0 10px 0; }
 #schedule.collapsed  .filters { display:none; }
 .noUi-connect { background: #ff6900; }
