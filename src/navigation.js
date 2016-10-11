@@ -85,7 +85,9 @@ function initFeedback() {
 
 function toggleNavi() {
     elem('.filters').classList.toggle('collapsed', settings.collapsed)
+    elem('.filters').classList.toggle('expanded', !settings.collapsed)
     schedule.classList.toggle('collapsed', settings.collapsed)
+    schedule.classList.toggle('expanded', !settings.collapsed)
 }
 
 function toggleObj(key, objRoot) {
