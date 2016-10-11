@@ -21,7 +21,7 @@ const startTime = '6:30'
 const endTime = '22:30'
 
 const availableSlots = [
-    '6:30',
+    '06:30',
     '14:30',
     '15:30',
     '20:30',
