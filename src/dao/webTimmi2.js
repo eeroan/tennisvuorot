@@ -115,7 +115,7 @@ const getItemsWithStructure = (cookie, profile, location, roomParts, startDateTi
                         location: location,
                         field: keyVal.key
                     })
-                ).filter(booking => booking.field !== 'HUOM')
+                ).filter(booking => booking.field.indexOf('HUOM') === -1)
             )
         )
 const taliProfileIds = [2, 5, 14, 13]
