@@ -93,16 +93,16 @@ const updateStructure = (cookie, startTime, endTime, roomPartIds, dateTime) => {
         form: JSON.stringify(form)
     })
 }
-function groupBySortedAsList(list, key) {
-    return _.sortBy(_.map(_.groupBy(list, key), objectToArray), 'key')
-}
+const objectToArray = (val, key) => ({key: key, val: val})
 
-function objectToArray(val, key) {
-    return {key: key, val: val}
-}
+const groupBySortedAsList = (list, key) => _.sortBy(_.map(_.groupBy(list, key), objectToArray), 'key')
+
+const taliProfileIds = [2, 5, 14, 13]
+
+const location = profileId => taliProfileIds.indexOf(profileId) !== -1 ? 'tali' : 'taivallahti'
 
 //TODO show availability also for fully empty days
-const getItemsWithStructure = (cookie, profile, location, roomParts, startDateTime) =>
+const getItemsWithStructure = (cookie, profile, roomParts, startDateTime) =>
     updateStructure(cookie, profile.startTime, profile.endTime, roomParts.map(x=> String(x.id)), startDateTime)
         .flatMap(() => getItems(cookie))
         .flatMap(reservations => groupBySortedAsList(reservations, 'name').map(keyVal =>
@@ -111,29 +111,23 @@ const getItemsWithStructure = (cookie, profile, location, roomParts, startDateTi
                         duration: 60,
                         date: startDateTime.toISODateString(),
                         res: profile.name + ' ' + keyVal.key,
-                        location: location,
+                        location: location(profile.id),
                         field: keyVal.key
                     })
                 ).filter(booking => booking.field.indexOf('HUOM') === -1)
             )
         )
-const taliProfileIds = [2, 5, 14, 13]
 
-const location = profileId => taliProfileIds.indexOf(profileId) !== -1 ? 'tali' : 'taivallahti'
-
-function getAll(isoDate) {
-    const dateTime = DateTime.fromIsoDate(isoDate)
-    return login()
-        .flatMap(cookie => Bacon.combineAsArray(profiles.map(profile =>
-                getItemsWithStructure(cookie, profile.profile, location(profile.profile.id), profile.roomParts, dateTime))
-        )).map(_.flattenDeep)
-}
+const getAll = isoDate => login()
+    .flatMap(cookie => Bacon.combineAsArray(profiles.map(profile =>
+        getItemsWithStructure(cookie, profile.profile, profile.roomParts, DateTime.fromIsoDate(isoDate)))
+    ))
+    .map(_.flattenDeep)
 
 const mapRoomPart = roomPart => ({
     id: roomPart.roomPartBean.roomPartId,
     name: roomPart.roomBean.name,
     code: roomPart.roomBean.roomCode
-
 })
 
 module.exports = {
