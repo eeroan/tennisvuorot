@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const request = require('request')
 const Bacon = require('baconjs').Bacon
-const format = require('../format')
 const dateutils = require('dateutils')
 const DateTime = dateutils.DateTime
 const DateFormat = dateutils.DateFormat
@@ -119,10 +118,6 @@ const getItemsWithStructure = (cookie, profile, location, roomParts, startDateTi
             )
         )
 const taliProfileIds = [2, 5, 14, 13]
-const taivallahtiProfileIds = [3, 4, 18]
-
-const taliProfiles = profiles.filter(p => [2].indexOf(p.id) !== -1)
-const taivallahtiProfiles = profiles.filter(p => taivallahtiProfileIds.indexOf(p.id) !== -1)
 
 const location = profileId => taliProfileIds.indexOf(profileId) !== -1 ? 'tali' : 'taivallahti'
 
@@ -140,7 +135,7 @@ const mapRoomPart = roomPart => ({
     code: roomPart.roomBean.roomCode
 
 })
-//getAll('2016-10-17').log()
+
 module.exports = {
     getAll: getAll,
     getProfiles: login()
