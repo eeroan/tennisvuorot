@@ -49,7 +49,7 @@ function filters() {
             {id: 'herttoniemi', name: 'Herttoniemi'},
             {id: 'kulosaari', name: 'Kulosaari'},
             {id: 'merihaka', name: 'Merihaka'},
-            {id: 'taivallahti', name: 'Taivallahti', disabled:true},
+            {id: 'taivallahti', name: 'Taivallahti'},
             {id: 'tapiola', name: 'Tapiola'},
             {id: 'tali', name: 'Tali' },
             {id: 'laajasalo', name: 'Laajasalo'},

@@ -140,7 +140,7 @@ const mapRoomPart = roomPart => ({
     code: roomPart.roomBean.roomCode
 
 })
-getAll('2016-10-17').log()
+//getAll('2016-10-17').log()
 module.exports = {
     getAll: getAll,
     getProfiles: login()
