@@ -99,6 +99,13 @@ const groupBySortedAsList = (list, key) => _.sortBy(_.map(_.groupBy(list, key), 
 
 const taliProfileIds = [2, 5, 14, 13]
 
+const getType = profileId => {
+    const indoors = [2, 3, 4, 5]
+    const outdoor = [13, 14, 18]
+    if(indoors.indexOf(profileId) !== -1) return 'indoor'
+    else if(outdoor.indexOf(profileId) !== -1) return 'outdoor'
+    else return undefined
+}
 const location = profileId => taliProfileIds.indexOf(profileId) !== -1 ? 'tali' : 'taivallahti'
 
 //TODO show availability also for fully empty days
@@ -112,7 +119,8 @@ const getItemsWithStructure = (cookie, profile, roomParts, startDateTime) =>
                         date: startDateTime.toISODateString(),
                         res: profile.name + ' ' + keyVal.key,
                         location: location(profile.id),
-                        field: keyVal.key
+                        field: keyVal.key,
+                        type: getType(profile.id)
                     })
                 ).filter(booking => booking.field.indexOf('HUOM') === -1)
             )

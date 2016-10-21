@@ -103,6 +103,9 @@ function upsertToMongo(isoDate, obj) {
 }
 
 function getType(reservation) {
+    if(reservation.type) {
+        return reservation.type
+    }
     var isBubble = /kupla/i.test(reservation.field) || /kupla/i.test(reservation.res) || /Kaarihalli.*/i.test(reservation.field)
     var isOutdoor = /ulko/i.test(reservation.field) || /ulko/i.test(reservation.res)
     return isBubble ? 'bubble' : (isOutdoor ? 'outdoor' : 'indoor')
