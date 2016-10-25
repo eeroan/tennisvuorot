@@ -97,7 +97,7 @@ function upsertToMongo(isoDate, obj) {
         }, {
             upsert: true
         }, (err, rs) => {
-            console.error(err)
+            if(err) console.error(err)
         })
     })
 }
