@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const request = require('request')
+//require('request-debug')(request)
 const Bacon = require('baconjs').Bacon
 const dateutils = require('dateutils')
 const DateTime = dateutils.DateTime
@@ -126,9 +127,14 @@ const getItemsWithStructure = (cookie, profile, roomParts, startDateTime) =>
         )
 
 const getAll = isoDate => login()
-    .flatMap(cookie => Bacon.combineAsArray(profiles.map(profile =>
-        getItemsWithStructure(cookie, profile.profile, profile.roomParts, DateTime.fromIsoDate(isoDate)))
-    ))
+    .flatMap(cookie =>
+        profiles.reduce((resultsStream, profile) =>
+                resultsStream.flatMap(res =>
+                        getItemsWithStructure(cookie, profile.profile, profile.roomParts, DateTime.fromIsoDate(isoDate))
+                            .map(newRes => res.concat(newRes))
+                    ),
+            Bacon.once([]))
+    )
     .map(_.flattenDeep)
 
 const mapRoomPart = roomPart => ({
