@@ -77,7 +77,6 @@ const updateStructure = (cookie, startTime, endTime, roomPartIds, dateTime) => {
     }
     var dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase() + 'Selected'
     form[dayName] = '1'
-
     return post('weekViewAjaxAction.do', cookie, {
         oper: 'updateStructure',
         structure: JSON.stringify({
@@ -138,9 +137,14 @@ const mapRoomPart = roomPart => ({
     code: roomPart.roomBean.roomCode
 })
 
+const getLatestProfiles = () => login()
+    .flatMap(cookie => getProfiles(cookie)
+        .flatMap(profiles => Bacon.combineAsArray(profiles.map(profile => getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts => ({
+            profile:   profile,
+            roomParts: roomParts.map(mapRoomPart)
+        }))))))
+
 module.exports = {
-    getAll: getAll,
-    getProfiles: login()
-        .flatMap(cookie => getProfiles(cookie)
-        .flatMap(profiles => Bacon.combineAsArray(profiles.map(profile => getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts => ({profile:profile, roomParts: roomParts.map(mapRoomPart)}))))))
+    getAll:      getAll,
+    getProfiles: getLatestProfiles
 }
