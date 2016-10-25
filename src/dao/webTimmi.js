@@ -40,7 +40,7 @@ const formatTime = timeInMillis => {
 
 const toMinutes = timeInMillis => {
     const date = new Date(timeInMillis)
-    return (date.getHours() * 60) + date.getMinutes()
+    return (date.getHours() * 60) + date.getMinutes() || (24 * 60)
 }
 
 const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cookie))

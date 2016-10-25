@@ -10,7 +10,7 @@ const notOverlapping = (startTime, reservationObj) => startTime >= reservationOb
 
 function minutes(hoursAndMinutes) {
     const splitted = hoursAndMinutes.split(':')
-    return (Number(splitted[0]) * 60) + Number(splitted[1])
+    return (Number(splitted[0]) * 60) + Number(splitted[1]) || (24 * 60)
 }
 const fill = val => (val > 9 ? '' : '0') + val
 
