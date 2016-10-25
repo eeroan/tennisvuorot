@@ -28,15 +28,15 @@ function show(req, res) {
     res.write(filters())
     res.write(quickLinks())
     res.write(`<section class="" id="schedule">`)
+    res.write(scriptsHtml({
+        isTest: global.isTest,
+        refresh: refresh,
+        serverDate: new DateTime().toISODateString()
+    }))
     res.write(filters())
     dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
         res.write(markupForDateRange(data, new DateTime()))
         res.write('</section></div>')
-        res.write(scriptsHtml({
-            isTest: global.isTest,
-            refresh: refresh,
-            serverDate: new DateTime().toISODateString()
-        }))
         res.write('</body></html>')
         res.end()
     })
