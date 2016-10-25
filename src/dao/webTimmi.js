@@ -122,7 +122,7 @@ const getItemsWithStructure = (cookie, profile, roomParts, startDateTime) =>
                         field: keyVal.key,
                         type: getType(profile.id)
                     })
-                ).filter(booking => booking.field.indexOf('HUOM') === -1)
+                ).filter(booking => booking.field.indexOf('HUOM') === -1 && booking.type)
             )
         )
 
