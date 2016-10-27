@@ -5,14 +5,14 @@ const Bacon = require('baconjs').Bacon
 const _ = require('lodash')
 
 module.exports = {
-    getMeilahti:    getMeilahti,
-    getHerttoniemi: getHerttoniemi,
-    getKulosaari:   getKulosaari,
-    getMerihaka:    getMerihaka,
-    table:          fromSlSystemsTable,
-    getTapiola:     getTapiola,
-    getLaajasalo:   getLaajasalo,
-    getHiekkaharju: getHiekkaharju
+    getMeilahti,
+    getHerttoniemi,
+    getKulosaari,
+    getMerihaka,
+    table,
+    getTapiola,
+    getLaajasalo,
+    getHiekkaharju
 }
 
 function getMeilahti(isoDate) {
@@ -86,10 +86,10 @@ function getSlSystemsTable(isoDate, client, sportTypeId) {
     return Bacon.fromNodeCallback(request.get, {
         url: 'https://www.slsystems.fi/' + client + '/ftpages/ft-varaus-table-01.php?laji=' + sportTypeId +
              '&pvm=' + isoDate + '&goto=0'
-    }).map('.body').map(fromSlSystemsTable)
+    }).map('.body').map(table)
 }
 
-function fromSlSystemsTable(html) {
+function table(html) {
     return (html.match(/res=[^"]+/g) || []).map((el) => url.parse('?' + el, true).query).map(fromSlSystemsResult)
 }
 

@@ -5,4 +5,4 @@ const webTimmi = require('../src/dao/webTimmi')
 
 const fileName = 'profiles.js'
 
-webTimmi.getProfiles.onValue(data => fs.writeFileSync(__dirname + '/../generated/' + fileName, format.formatModule(data)))
+webTimmi.getLatestProfiles.onValue(data => fs.writeFileSync(__dirname + '/../generated/' + fileName, format.formatModule(data)))

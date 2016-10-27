@@ -3,15 +3,15 @@ const DateLocale = require('dateutils').DateLocale
 const util = require('util')
 
 module.exports = {
-    formatDate: formatDate,
-    durationClass: durationClass,
-    formatModule: formatModule,
-    formatTimeKey: formatTimeKey,
-    formatPrice: formatPrice,
-    formatTime: formatTime,
-    parseTime: parseTime,
-    formatIsoTime: formatIsoTime,
-    prettyPrint: prettyPrint
+    formatDate,
+    durationClass,
+    formatModule,
+    formatTimeKey,
+    formatPrice,
+    formatTime,
+    parseTime,
+    formatIsoTime,
+    prettyPrint
 }
 
 function formatDate(dateTime) {

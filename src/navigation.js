@@ -14,7 +14,7 @@ var settings = loadFilters() || defaults
 var schedule = document.getElementById('schedule')
 
 module.exports = {
-    init: initNavigation
+    init
 }
 
 var mapMissing = true
@@ -23,7 +23,7 @@ function reportSettings(settings) {
     return `${activeFilters(settings).sort().join(' ')} ${settings.start}-${settings.end} ${settings.collapsed ? 'collapsed' : ''}`
 }
 
-function initNavigation(bindEsc) {
+function init(bindEsc) {
     activeFilters(settings).forEach(name => {
         document.getElementById(name).classList.add('inactive')
     })

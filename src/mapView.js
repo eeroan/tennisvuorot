@@ -1,7 +1,7 @@
 var locations = require('../generated/locations')
 
 module.exports = {
-    renderMap: renderMap
+    renderMap
 }
 
 const locationTooltip = location => `<h3>${location.title}</h3>${linksMarkup(location)}`

@@ -4,8 +4,8 @@ const DateTime = require('dateutils').DateTime
 const calendarTmpl = require('./calendarTmpl')
 
 module.exports = {
-    show:            show,
-    getCalendarLink: getCalendarLink
+    show,
+    getCalendarLink
 }
 function show(req, res) {
     res.set('Content-Type', 'text/calendar;charset=UTF-8')

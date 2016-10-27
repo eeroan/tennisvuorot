@@ -13,7 +13,7 @@ const locationsObj = require('../../generated/locations')
 const times = _.range(60, 230, 5).map(format.formatIsoTime)
 
 module.exports = {
-    historyResponse: historyResponse
+    historyResponse
 }
 
 function historyResponse(req, res) {

@@ -11,7 +11,7 @@ const _ = require('lodash')
 const locations = require('../../generated/locations')
 
 module.exports = {
-    show: show
+    show
 }
 
 function show(req, res) {

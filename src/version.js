@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 module.exports = {
-    show: show
+    show
 }
 
 function show(req, res) {

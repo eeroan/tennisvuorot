@@ -151,6 +151,6 @@ const getLatestProfiles = () => login()
         }))))))
 
 module.exports = {
-    getAll:      getAll,
-    getProfiles: getLatestProfiles
+    getAll,
+    getLatestProfiles
 }

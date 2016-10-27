@@ -11,11 +11,11 @@ const format = require('../format')
 var db = null
 
 module.exports = {
-    sendFreeCourts: sendFreeCourts,
-    freeCourts:     freeCourts,
-    refresh:        refresh,
-    fetch:          fetch,
-    getHistoryData: getHistoryData
+    sendFreeCourts,
+    freeCourts,
+    refresh,
+    fetch,
+    getHistoryData
 }
 
 function sendFreeCourts(req, res) {
