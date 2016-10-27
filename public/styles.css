@@ -1,5 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 @import url(vendor/nouislider.min.css);
-body { background: #eee; font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.4; color: #994000; margin: 0; }
+body { background: #eee; font: 14px 'Droid Sans', sans-serif; line-height: 1.4; color: #994000; margin: 0; }
 .time { top: 15px; position: relative; margin-right: 20px; }
 .locationLabel { text-transform: capitalize; cursor: pointer; padding: 7px 7px 0; }
 .information { font-size: 16px; }
