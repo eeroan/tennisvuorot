@@ -11,7 +11,8 @@ const defaults = {
     collapsed:    false
 }
 var settings = loadFilters() || defaults
-var schedule = document.getElementById('schedule')
+const schedule = document.getElementById('schedule')
+const body = document.body
 
 module.exports = {
     init
@@ -38,7 +39,7 @@ function init(bindEsc) {
         const id = button.id
         toggleObj(id, settings)
         setTimeout(() => {
-            schedule.classList.toggle(id)
+            body.classList.toggle(id)
             saveFilters()
         }, 1)
     }
@@ -84,10 +85,8 @@ function initFeedback() {
 }
 
 function toggleNavi() {
-    elem('.filters').classList.toggle('collapsed', settings.collapsed)
-    elem('.filters').classList.toggle('expanded', !settings.collapsed)
-    schedule.classList.toggle('collapsed', settings.collapsed)
-    schedule.classList.toggle('expanded', !settings.collapsed)
+    body.classList.toggle('collapsed', settings.collapsed)
+    body.classList.toggle('expanded', !settings.collapsed)
 }
 
 function toggleObj(key, objRoot) {
@@ -133,7 +132,7 @@ function setStartAndEndLabels(isStart, val) {
 
 function setContainerFilterClasses() {
     var hiddenTimes = all.filter(time => time < settings.start || time > settings.end)
-    schedule.className = activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' ')
+    body.className = activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' ')
 }
 
 function activeFilters(settings) { return _.map(_.extend({}, settings.fieldToggles, settings.typeToggles), (v, k) => k) }
