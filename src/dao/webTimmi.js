@@ -60,11 +60,11 @@ const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cooki
 
 const getProfiles = cookie => json(post('autoCompleteAjax.do', cookie, {actionCode: 'getProfiles'}))
     .map(res => res
-        .map(profile => ({
-            id: profile.profileId,
-            name: profile.profileName,
-            startTime: profile.roomPartStartTime,
-            endTime: profile.roomPartEndTime
+        .map(({profileId, profileName, roomPartStartTime, roomPartEndTime}) => ({
+            id: profileId,
+            name: profileName,
+            startTime: roomPartStartTime,
+            endTime: roomPartEndTime
         })))
 
 const getRoomPartsForCalendarAjax = (cookie, profileId) => json(post('getRoomPartsForCalendarAjax.do', cookie, {
@@ -112,17 +112,17 @@ const location = profileId => taliProfileIds.indexOf(profileId) !== -1 ? 'tali' 
 const getItemsWithStructure = (cookie, profile, roomParts, startDateTime) =>
     updateStructure(cookie, profile.startTime, profile.endTime, roomParts.map(x=> String(x.id)), startDateTime)
         .flatMap(() => getItems(cookie))
-        .flatMap(reservations => groupBySortedAsList(reservations, 'name').map(keyVal =>
-                date.freeSlots(profile.startTime, profile.endTime, keyVal.val).map(time => ({
+        .flatMap(reservations => groupBySortedAsList(reservations, 'name').map(({key, val}) =>
+                date.freeSlots(profile.startTime, profile.endTime, val).map(time => ({
                         time: date.formatTime(time),
                         duration: 60,
                         date: startDateTime.toISODateString(),
-                        res: profile.name + ' ' + keyVal.key,
+                        res: profile.name + ' ' + key,
                         location: location(profile.id),
-                        field: keyVal.key,
+                        field: key,
                         type: getType(profile.id)
                     })
-                ).filter(booking => booking.field.indexOf('HUOM') === -1 && booking.type)
+                ).filter(({field, type}) => field.indexOf('HUOM') === -1 && type)
             )
         )
 
@@ -137,10 +137,10 @@ const getAll = isoDate => login()
     )
     .map(_.flattenDeep)
 
-const mapRoomPart = roomPart => ({
-    id: roomPart.roomPartBean.roomPartId,
-    name: roomPart.roomBean.name,
-    code: roomPart.roomBean.roomCode
+const mapRoomPart = ({roomPartBean, roomBean}) => ({
+    id: roomPartBean.roomPartId,
+    name: roomBean.name,
+    code: roomBean.roomCode
 })
 
 const getLatestProfiles = () => login()

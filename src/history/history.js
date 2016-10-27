@@ -78,23 +78,23 @@ var timesObj = {}
 times.forEach(time=>timesObj[time] = 0)
 
 function getWeeklyAvailability(historyData, location) {
-    return _.map(_.groupBy(historyData.map(mapData).filter(res => location ? res.location === location : true), 'weekDay'), (availableForWeekday) => {
+    return _.map(_.groupBy(historyData.map(mapData).filter(res => location ? res.location === location : true), 'weekDay'), availableForWeekday => {
         const dates = Object.keys(_.groupBy(availableForWeekday, 'date'))
         const availablePerTime = _.groupBy(availableForWeekday, 'time')
         return times.map(time=> time in availablePerTime ? availablePerTime[time].length / dates.length : 0)
     })
 }
 
-function mapData(res) {
-    const dateTimeStr = res.date + 'T' + res.time
+function mapData({date, time, location, type, price}) {
+    const dateTimeStr = date + 'T' + time
     const dateTime = DateTime.fromIsoDateTime(dateTimeStr)
     return {
         dateTime:    dateTimeStr,
-        time:        res.time, //'22:00',
-        date:        res.date,// '2015-12-08',
-        location:    res.location,//'taivallahti',
-        type:        res.type,//'indoor',
-        price:       res.price,//24,
+        time:        time,
+        date:        date,
+        location:    location,
+        type:        type,
+        price:       price,
         dateTimeObj: dateTime,
         weekDay:     dateTime.getDay()
     }

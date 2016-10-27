@@ -86,14 +86,14 @@ function mongoQuery(filter, callback) {
     })
 }
 
-function upsertToMongo(isoDate, obj) {
+function upsertToMongo(isoDate, {freeCourts, timestamp}) {
     mongoConnect((err, db) => {
         const collection = db.collection('tennishelsinki')
         const date = new Date(isoDate)
         collection.updateOne({date: date}, {
             date:       date,
-            freeCourts: obj.freeCourts,
-            timestamp:  obj.timestamp
+            freeCourts: freeCourts,
+            timestamp:  timestamp
         }, {
             upsert: true
         }, (err, rs) => {
@@ -102,12 +102,12 @@ function upsertToMongo(isoDate, obj) {
     })
 }
 
-function getType(reservation) {
-    if(reservation.type) {
-        return reservation.type
+function getType({type, field, res}) {
+    if(type) {
+        return type
     }
-    var isBubble = /kupla/i.test(reservation.field) || /kupla/i.test(reservation.res) || /Kaarihalli.*/i.test(reservation.field)
-    var isOutdoor = /ulko/i.test(reservation.field) || /ulko/i.test(reservation.res)
+    var isBubble = /kupla/i.test(field) || /kupla/i.test(res) || /Kaarihalli.*/i.test(field)
+    var isOutdoor = /ulko/i.test(field) || /ulko/i.test(res)
     return isBubble ? 'bubble' : (isOutdoor ? 'outdoor' : 'indoor')
 }
 function fetch(isoDate) {

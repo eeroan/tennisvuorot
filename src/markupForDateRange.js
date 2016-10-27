@@ -33,9 +33,9 @@ function toDateSection(dateObject, timeStamp, today) {
     <div class="timestamp">${timeStamp}</div></div>` + groupBySortedAsList(times, 'time').map(toTimeRow).join('')
 }
 
-function toTimeRow(timeObject) {
-    const isoTime = timeObject.key
-    const fields = timeObject.val
+function toTimeRow({key, val}) {
+    const isoTime = key
+    const fields = val
     const hm = isoTime.split(':')
     return `<div class="timeRow h${format.formatTimeKey(hm)}">
     <span class="timeWrapper"><span class="time">${isoTime}</span></span>

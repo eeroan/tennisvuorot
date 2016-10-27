@@ -93,11 +93,11 @@ function table(html) {
     return (html.match(/res=[^"]+/g) || []).map((el) => url.parse('?' + el, true).query).map(fromSlSystemsResult)
 }
 
-function fromSlSystemsResult(item) {
+function fromSlSystemsResult({kesto, klo, pvm, res}) {
     return {
-        duration: item.kesto,
-        time:     item.klo.substring(0, 5),
-        date:     item.pvm,
-        res:      Number(item.res)
+        duration: kesto,
+        time:     klo.substring(0, 5),
+        date:     pvm,
+        res:      Number(res)
     }
 }
