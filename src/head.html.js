@@ -17,7 +17,7 @@ module.exports = o => { with(o) return `<head>
     <meta name="twitter:card" content="summary">
     <meta name="twitter:description" content="Helsingin tenniskenttien varaustilanne ja yhteystiedot.">
     <meta name="twitter:title" content="Tennisvuorot.fi - Vapaat tenniskentät Helsingissä">
-    <link rel="apple-touch-icon" href="/tennisvuorot.png"/>
+    <link rel="apple-touch-icon" href="/icon/tennisvuorot-black.png"/>
     <link id="page_favicon" href="/icon/favicon.ico" rel="icon" type="image/x-icon"/>
     <link rel="manifest" href="/icon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
