@@ -3,7 +3,6 @@
   "quotmark": "single",
   "undef": true,
   "unused": true,
-  "asi": true,
   "node": true,
   // Custom globals.
   "predef": [
