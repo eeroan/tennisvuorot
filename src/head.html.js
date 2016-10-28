@@ -22,5 +22,5 @@ module.exports = o => { with(o) return `<head>
     <link rel="manifest" href="/icon/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/icon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#ff6900">
 </head>`}
