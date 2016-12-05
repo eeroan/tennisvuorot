@@ -15,7 +15,7 @@ module.exports = {
 }
 
 function show(req, res) {
-    var refresh = req.query.refresh === 'true'
+    const refresh = req.query.refresh === 'true'
     res.write(`<!DOCTYPE html>
 <html>`)
     res.write(headHtml({locations: locations, _:_}))

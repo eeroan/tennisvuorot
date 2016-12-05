@@ -32,8 +32,8 @@ function historyMarkup(location, historyData) {
     const sortedDates = historyDataGrouped.map(x=>x.dateTime)
     const firstDate = DateTime.fromIsoDateTime(_.first(sortedDates))
     const lastDate = DateTime.fromIsoDateTime(_.last(sortedDates))
-    var days = firstDate.distanceInDays(lastDate)
-    var dates = _.range(0, days + 1).map(num=>firstDate.plusDays(num)).map(date=>({
+    const days = firstDate.distanceInDays(lastDate)
+    const dates = _.range(0, days + 1).map(num=>firstDate.plusDays(num)).map(date=>({
         dateTime:      date,
         formattedDate: DateFormat.format(date, 'D j.n', DateLocale.FI)
     }))
@@ -74,7 +74,7 @@ function groupByDate(data) {
     })).sort((a, b) => a.dateTime > b.dateTime ? 1 : -1)
 }
 
-var timesObj = {}
+const timesObj = {}
 times.forEach(time=>timesObj[time] = 0)
 
 function getWeeklyAvailability(historyData, location) {

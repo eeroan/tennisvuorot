@@ -10,7 +10,7 @@ const defaults = {
     end:          235,
     collapsed:    false
 }
-var settings = loadFilters() || defaults
+const settings = loadFilters() || defaults
 const schedule = document.getElementById('schedule')
 const body = document.body
 
@@ -18,7 +18,7 @@ module.exports = {
     init
 }
 
-var mapMissing = true
+let mapMissing = true
 
 function reportSettings(settings) {
     return `${activeFilters(settings).sort().join(' ')} ${settings.start}-${settings.end} ${settings.collapsed ? 'collapsed' : ''}`
@@ -73,8 +73,8 @@ function init(bindEsc) {
 function initFeedback() {
     elem('.feedbackForm').addEventListener('submit', e => {
         e.preventDefault()
-        var feedback = elem('.feedback')
-        var text = feedback.value
+        const feedback = elem('.feedback')
+        const text = feedback.value
         window.ga('send', 'event', 'Feedback', text)
         feedback.value = ''
         const submitFeedback = elem('.submitFeedback')
@@ -90,16 +90,16 @@ function toggleNavi() {
 }
 
 function toggleObj(key, objRoot) {
-    var obj = (typeToggles.indexOf(key) >= 0) ? objRoot.typeToggles : objRoot.fieldToggles
+    const obj = (typeToggles.indexOf(key) >= 0) ? objRoot.typeToggles : objRoot.fieldToggles
     if (key in obj) delete obj[key]
     else obj[key] = true
 
 }
 
-var all = _.range(60, 235, 5)
+const all = _.range(60, 235, 5)
 
 function initTimeFilter() {
-    var slider = document.getElementById('slider')
+    const slider = document.getElementById('slider')
     noUiSlider.create(slider, {
         start:   [settings.start, settings.end],
         step:    5,
@@ -114,7 +114,7 @@ function initTimeFilter() {
         }
     })
     slider.noUiSlider.on('update', (values, endTime) => {
-        var isStart = !endTime
+        const isStart = !endTime
         setStartAndEndLabels(isStart, format.parseTime(values[endTime]))
     })
     slider.noUiSlider.on('change', () => {
@@ -122,7 +122,7 @@ function initTimeFilter() {
         saveFilters()
     })
 }
-var $rangeLabel = elem('.rangeLabel')
+const $rangeLabel = elem('.rangeLabel')
 
 function setStartAndEndLabels(isStart, val) {
     if (isStart) settings.start = Number(val)
@@ -131,7 +131,7 @@ function setStartAndEndLabels(isStart, val) {
 }
 
 function setContainerFilterClasses() {
-    var hiddenTimes = all.filter(time => time < settings.start || time > settings.end)
+    const hiddenTimes = all.filter(time => time < settings.start || time > settings.end)
     body.className = activeFilters(settings).concat(hiddenTimes.map(time => 'h' + time)).join(' ')
 }
 
@@ -147,8 +147,8 @@ function saveFilters() {
 }
 
 function loadFilters() {
-    var jsonString = window.localStorage.getItem('filters')
-    var parsedJson = JSON.parse(jsonString)
+    const jsonString = window.localStorage.getItem('filters')
+    const parsedJson = JSON.parse(jsonString)
     if (!parsedJson) return null
     if (jsonString) window.ga('send', 'event', 'User settings', reportSettings(parsedJson))
     return {

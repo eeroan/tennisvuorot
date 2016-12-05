@@ -1,15 +1,13 @@
 process.env.NEW_RELIC_ENABLED = true
 require('newrelic')
-var DateTime = require('dateutils').DateTime
-var dao = require('./src/dao/dao')
+const DateTime = require('dateutils').DateTime
+const dao = require('./src/dao/dao')
 
 updateReservations(2)
 setTimeout(() => updateReservations(60), 1000 * 60 * 2)
 
-function updateReservations(days) {
-    var daysAhead = 0
-    var maxDaysAhead = days
-
+function updateReservations(maxDaysAhead) {
+    let daysAhead = 0
     doRefresh()
     setInterval(() => {
         doRefresh()

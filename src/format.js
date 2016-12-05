@@ -39,19 +39,19 @@ function formatTimeKey(hm) {
 }
 
 function parseTime(isoTime) {
-    var hm = isoTime.split(':')
+    const hm = isoTime.split(':')
     return String(formatTimeKey(hm))
 }
 
 function formatTime(val) {
-    var hour = Math.floor(val / 10)
-    var min = Math.round(val % 10 * .6)
+    const hour = Math.floor(val / 10)
+    const min = Math.round(val % 10 * .6)
     return hour + ':' + min + '0'
 }
 
 function formatIsoTime(val) {
-    var hour = Math.floor(val / 10)
-    var min = Math.round(val % 10 * .6)
+    const hour = Math.floor(val / 10)
+    const min = Math.round(val % 10 * .6)
     return (hour >= 10 ? hour : '0' + hour) + ':' + min + '0'
 }
 

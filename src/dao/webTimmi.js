@@ -11,7 +11,7 @@ const date = require('../date')
 const _ = require('lodash')
 
 const req = (method, url, cookie, form) => {
-    var opts = {
+    const opts = {
         url: `https://timmi.talintenniskeskus.fi/WebTimmi/${url}`,
         headers: {
             Cookie: cookie,
@@ -72,11 +72,11 @@ const getRoomPartsForCalendarAjax = (cookie, profileId) => json(post('getRoomPar
     id: profileId
 }))
 const updateStructure = (cookie, startTime, endTime, roomPartIds, dateTime) => {
-    var form = {
+    const form = {
         startTime: startTime,
         endTime: endTime
     }
-    var dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase() + 'Selected'
+    const dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase() + 'Selected'
     form[dayName] = '1'
     return post('weekViewAjaxAction.do', cookie, {
         oper: 'updateStructure',

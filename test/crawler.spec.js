@@ -1,9 +1,9 @@
-var fs = require('fs')
-var slSystems = require('../src/dao/slSystemsCrawler')
+const fs = require('fs')
+const slSystems = require('../src/dao/slSystemsCrawler')
 
 describe('sls systems crawler', () => {
-    var obj
-    var expected
+    let obj
+    let expected
     before(() => {
         obj = slSystems.table(fs.readFileSync(__dirname + '/fixture/meilahti.html', 'utf-8'))
         expected = JSON.parse(fs.readFileSync(__dirname + '/fixture/meilahti.json', 'utf-8'))

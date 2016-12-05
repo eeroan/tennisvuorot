@@ -8,7 +8,7 @@ const MongoClient = require('mongodb').MongoClient
 const mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
 const rates = require('../../generated/rates')
 const format = require('../format')
-var db = null
+let db = null
 
 module.exports = {
     sendFreeCourts,
@@ -19,7 +19,7 @@ module.exports = {
 }
 
 function sendFreeCourts(req, res) {
-    var forceRefresh = req.query.refresh === 'true' || false
+    const forceRefresh = req.query.refresh === 'true' || false
     freeCourts(req.query.date, Number(req.query.days) || 1, forceRefresh,
         data => res.send(data),
         err => res.status(500).send(err))
@@ -106,8 +106,8 @@ function getType({type, field, res}) {
     if(type) {
         return type
     }
-    var isBubble = /kupla/i.test(field) || /kupla/i.test(res) || /Kaarihalli.*/i.test(field)
-    var isOutdoor = /ulko/i.test(field) || /ulko/i.test(res)
+    const isBubble = /kupla/i.test(field) || /kupla/i.test(res) || /Kaarihalli.*/i.test(field)
+    const isOutdoor = /ulko/i.test(field) || /ulko/i.test(res)
     return isBubble ? 'bubble' : (isOutdoor ? 'outdoor' : 'indoor')
 }
 function fetch(isoDate) {
@@ -140,16 +140,16 @@ function fetch(isoDate) {
 }
 
 function getPrice(dateTime, time, location, type) {
-    var hm = time.split(':')
-    var timeKey = format.formatTimeKey(hm)
-    var weekDay = (dateTime.getDay() + 6) % 7
-    var priceByType = _.get(rates, [location, type, timeKey, weekDay], 0)
-    var commonPrice = _.get(rates, [location, timeKey, weekDay], 0)
+    const hm = time.split(':')
+    const timeKey = format.formatTimeKey(hm)
+    const weekDay = (dateTime.getDay() + 6) % 7
+    const priceByType = _.get(rates, [location, type, timeKey, weekDay], 0)
+    const commonPrice = _.get(rates, [location, timeKey, weekDay], 0)
     return priceByType || commonPrice
 }
 
 function withDoubleLessonInfo(freeCourts) {
-    var timeAndPlace = {}
+    const timeAndPlace = {}
     freeCourts.forEach(court => {
         timeAndPlace[court.date + 'T' + court.time + court.location + court.field] = true
     })
