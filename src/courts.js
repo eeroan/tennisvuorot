@@ -1,11 +1,11 @@
 module.exports = {
     tali: {
-        url: 'https://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST',
+        url: 'https://timmi.talintenniskeskus.fi/WebTimmi/login.do?loginName=GUEST&password=GUEST',
         address: 'Kutomokuja 4, 00381 Helsinki',
         tel: '09 5656050'
     },
     taivallahti: {
-        url: 'https://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST',
+        url: 'https://timmi.talintenniskeskus.fi/WebTimmi/login.do?loginName=GUEST&password=GUEST',
         address: 'Hiekkarannantie 2, 00100 Helsinki',
         tel: '09 4770490'
     },

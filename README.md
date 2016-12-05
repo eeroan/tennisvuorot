@@ -13,7 +13,7 @@ http://www.hel.fi/www/Helsinki/fi/kulttuuri-ja-vapaa-aika/liikunta/ulkoliikuntap
 
 ## Maksulliset
 
-Tali+taivallahti: https://webtimmi.talintenniskeskus.fi/login.do?loginName=GUEST&password=GUEST, Kutomokuja 4, 00381 Helsinki
+Tali+taivallahti: https://timmi.talintenniskeskus.fi/WebTimmi/login.do?loginName=GUEST&password=GUEST, Kutomokuja 4, 00381 Helsinki
 
 Taivallahti: Hiekkarannantie 2, 00100 Helsinki
 
