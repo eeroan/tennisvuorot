@@ -21,7 +21,9 @@ setInterval(() => {
             ga('send', 'event', 'Scroll to end', today.distanceInDays(activeDate))
         }
     }
+
 }, 250)
+elems('.modal, .overlay').forEach(el => el.addEventListener('touchmove', e => e.preventDefault()))
 const schedule = document.getElementById('schedule')
 navigation.init(bindEsc)
 listAvailabilityForActiveDate(30)
@@ -147,7 +149,7 @@ function elems(selector) {
 }
 
 function bindEsc() {
-    document.body.classList.add('overlay')
+    document.querySelector('.overlay').style.display = 'block'
     document.addEventListener('keyup', escListener)
 }
 
@@ -159,6 +161,6 @@ function escListener(e) {
 }
 
 function unbindEsc() {
-    document.body.classList.remove('overlay')
+    document.querySelector('.overlay').style.display = 'none'
     document.removeEventListener('keyup', escListener)
 }

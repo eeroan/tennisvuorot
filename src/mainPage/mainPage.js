@@ -20,7 +20,7 @@ function show(req, res) {
 <html>`)
     res.write(headHtml({locations: locations, _:_}))
     res.write(`<body class="collapsed">`)
-    res.write(`<div class="reservationModal modal"></div>`)
+    res.write(`<div class="overlay" style="display: none"></div><div class="reservationModal modal"></div>`)
     res.write(modalsHtml())
     res.write(`<div class="container">`)
     res.write(`<div class="toggleFiltersWrapper"><a href="javascript:void(0)" class="toggleFilters" title="Hakuehdot"></a></div>`)
