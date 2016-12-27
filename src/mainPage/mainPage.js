@@ -19,7 +19,7 @@ function show(req, res) {
     res.write(`<!DOCTYPE html>
 <html>`)
     res.write(headHtml({locations: locations, _:_}))
-    res.write(`<body>`)
+    res.write(`<body class="collapsed">`)
     res.write(`<div class="reservationModal modal"></div>`)
     res.write(modalsHtml())
     res.write(`<div class="container">`)
