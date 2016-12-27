@@ -147,6 +147,7 @@ function elems(selector) {
 }
 
 function bindEsc() {
+    document.body.classList.add('overlay')
     document.addEventListener('keyup', escListener)
 }
 
@@ -158,5 +159,6 @@ function escListener(e) {
 }
 
 function unbindEsc() {
+    document.body.classList.remove('overlay')
     document.removeEventListener('keyup', escListener)
 }
