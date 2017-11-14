@@ -96,7 +96,7 @@ function table(html) {
 function fromSlSystemsResult({kesto, klo, pvm, res}) {
     return {
         duration: kesto,
-        time:     klo.substring(0, 5),
+        time:     (klo || '').substring(0, 5),
         date:     pvm,
         res:      Number(res)
     }
