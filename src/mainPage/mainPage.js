@@ -49,9 +49,9 @@ function filters() {
             {id: 'herttoniemi', name: 'Herttoniemi'},
             {id: 'kulosaari', name: 'Kulosaari'},
             {id: 'merihaka', name: 'Merihaka'},
-            {id: 'taivallahti', name: 'Taivallahti'},
+            {id: 'taivallahti', name: 'Taivallahti', disabled: true},
             {id: 'tapiola', name: 'Tapiola'},
-            {id: 'tali', name: 'Tali' },
+            {id: 'tali', name: 'Tali' , disabled: true},
             {id: 'laajasalo', name: 'Laajasalo'},
             {id: 'hiekkaharju', name: 'Hiekkaharju'}
         ],
