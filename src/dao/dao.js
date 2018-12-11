@@ -118,8 +118,8 @@ function fetch(isoDate) {
             slSystems.getMerihaka,
             slSystems.getTapiola,
             slSystems.getLaajasalo,
-            slSystems.getHiekkaharju,
-            webTimmi.getAll].map(fn => fn(isoDate)))
+            slSystems.getHiekkaharju
+    ].map(fn => fn(isoDate)))
         .map(allData => {
             const freeCourts = _.flatten(allData).filter(reservation => {
                 if (!reservation || !reservation.field) return false
