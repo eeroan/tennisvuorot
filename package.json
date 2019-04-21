@@ -4,8 +4,8 @@
   "description": "Lists tennis courts of helsinki in one view",
   "main": "server.js",
   "scripts": {
-    "test": "NEW_RELIC_ENABLED=false mocha",
-    "start": "NODE_ENV=production NEW_RELIC_ENABLED=true forever ./server.js",
+    "test": "mocha",
+    "start": "NODE_ENV=production forever ./server.js",
     "dev": "NODE_ENV=test supervisor ./server.js",
     "mongo": "mongod --fork --syslog",
     "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' -o public/styles.prefixed.css public/styles.css",
@@ -38,7 +38,6 @@
     "forever": "^1.0.0",
     "lodash": "^4.17.11",
     "mongodb": "^3.2.3",
-    "newrelic": "^5.6.4",
     "nouislider": "^13.1.4",
     "request": "^2.88.0",
     "request-debug": "^0.2.0"

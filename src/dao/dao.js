@@ -1,4 +1,3 @@
-const nr = require('newrelic')
 const slSystems = require('./slSystemsCrawler')
 const Bacon = require('baconjs').Bacon
 const _ = require('lodash')
@@ -48,11 +47,10 @@ function freeCourts(isoDate, days, forceRefresh, callback, errCallback) {
 
 function refresh(isoDate, days, callback) {
     console.log('fetching from servers for date', isoDate)
-    nr.createBackgroundTransaction('fetch:reservations', fetch(isoDate).onValue((obj) => {
+    fetch(isoDate).onValue((obj) => {
         upsertToMongo(isoDate, obj)
-        nr.endTransaction()
         callback(obj)
-    }))
+    })
 
 }
 
