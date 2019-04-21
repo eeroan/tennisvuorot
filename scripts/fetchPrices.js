@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const Bacon = require('baconjs').Bacon
+const Bacon = require('baconjs')
 const request = require('request')
 const util = require('util')
 const fs = require('fs')

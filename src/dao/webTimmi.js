@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const request = require('request')
 //require('request-debug')(request)
-const Bacon = require('baconjs').Bacon
+const Bacon = require('baconjs')
 const dateutils = require('dateutils')
 const DateTime = dateutils.DateTime
 const DateFormat = dateutils.DateFormat

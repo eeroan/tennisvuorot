@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const url = require('url')
 const request = require('request')
-const Bacon = require('baconjs').Bacon
+const Bacon = require('baconjs')
 const _ = require('lodash')
 
 module.exports = {
@@ -86,7 +86,7 @@ function getSlSystemsTable(isoDate, client, sportTypeId) {
     return Bacon.fromNodeCallback(request.get, {
         url: 'https://www.slsystems.fi/' + client + '/ftpages/ft-varaus-table-01.php?laji=' + sportTypeId +
              '&pvm=' + isoDate + '&goto=0'
-    }).map('.body').map(table)
+    }).map(function(res) { return res.body}).map(table)
 }
 
 function table(html) {

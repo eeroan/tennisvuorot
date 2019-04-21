@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const request = require('request')
-const Bacon = require('baconjs').Bacon
+const Bacon = require('baconjs')
 const fs = require('fs')
 const _ = require('lodash')
 const courts = require('../src/courts')

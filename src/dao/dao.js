@@ -1,10 +1,15 @@
 const slSystems = require('./slSystemsCrawler')
-const Bacon = require('baconjs').Bacon
+const Bacon = require('baconjs')
 const _ = require('lodash')
 const webTimmi = require('./webTimmi')
 const DateTime = require('dateutils').DateTime
 const MongoClient = require('mongodb').MongoClient
-const mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
+const [, mongoUri, mongoDbName ]= (process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test').match('(.*)\/([^/]+)')
+const mongoOptions = {
+    useNewUrlParser: true,
+    authMechanism: mongoUri.includes('localhost') ? undefined : 'SCRAM-SHA-1',
+    authSource: mongoDbName
+}
 const rates = require('../../generated/rates')
 const format = require('../format')
 let db = null
@@ -88,14 +93,14 @@ function upsertToMongo(isoDate, {freeCourts, timestamp}) {
     mongoConnect((err, db) => {
         const collection = db.collection('tennishelsinki')
         const date = new Date(isoDate)
-        collection.updateOne({date: date}, {
-            date:       date,
-            freeCourts: freeCourts,
-            timestamp:  timestamp
-        }, {
-            upsert: true
+        collection.replaceOne({date: date}, {
+            $set: {
+                date: date,
+                freeCourts: freeCourts,
+                timestamp: timestamp
+            }
         }, (err, rs) => {
-            if(err) console.error(err)
+            if (err) console.error(err)
         })
     })
 }
@@ -167,11 +172,11 @@ function nextHour(time) {
 function mongoConnect(cb) {
     if(db) cb(null, db)
     else {
-        MongoClient.connect(mongoUri, (err, dbConn) => {
+        MongoClient.connect(mongoUri, mongoOptions, (err, client) => {
             if(db) {
-                dbConn.close()
+                client.close()
             } else {
-                db = dbConn
+                db = client.db(mongoDbName)
             }
             cb(err, db)
         })
