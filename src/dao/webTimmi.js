@@ -10,147 +10,19 @@ const profiles = require('../../generated/profiles')
 const date = require('../date')
 const _ = require('lodash')
 
-const req = (method, url, cookie, form) => {
-    const opts = {
-        url: `https://timmi.talintenniskeskus.fi/WebTimmi/${url}`,
-        headers: {
-            Cookie: cookie,
-            'Cache-Control': 'no-cache'
-        }
-    }
-    if(cookie) opts.headers = {Cookie: cookie}
-    if(form) opts.form = form
-    return Bacon.fromNodeCallback(request[method], opts)
-}
-const get = (url, cookie, form) => req('get', url, cookie, form)
-const post = (url, cookie, form) => req('post', url, cookie, form)
-const json = observable => observable.map('.body').map(JSON.parse)
-
-const login = () => get('login.do?loginName=GUEST&password=GUEST').flatMap(res => {
-    try {
-        return res.headers['set-cookie'][0].split(';')[0]
-    } catch (e) {
-        return new Bacon.Error(e)
-    }
-})
-
-const formatTime = timeInMillis => {
-    const date = new Date(timeInMillis)
-    return (date.getHours() > 9 ? '' : '0' ) + date.getHours() + ':' + (date.getMinutes() > 9 ? '' : '0') + date.getMinutes()
-}
-
-const toMinutes = timeInMillis => {
-    const date = new Date(timeInMillis)
-    return (date.getHours() * 60) + date.getMinutes() || (24 * 60)
-}
-
-const getItems = cookie => json(get('weekViewAjaxAction.do?oper=getItems', cookie))
-    .map(res => res
-        .map(item => ({
-            id: item.roomPartId,
-            name: item.roomPartName,
-            date: new Date(item.startTime.time),
-            formattedStartTime: formatTime(item.startTime.time),
-            formattedEndTime: formatTime(item.endTime.time),
-            startDate: DateTime.fromMillis(item.startTime.time).toISOString(),
-            startTime: toMinutes(item.startTime.time),
-            endTime: toMinutes(item.endTime.time)
+function table(html) {
+    return html.match(/create-booking([^<])+/g)
+        .map(decodeURIComponent)
+        .map(x => x.match(/alkuaika=(.*)\+(.*):00&kesto=(.*)&resid=(.*)">(.*) (.*)/))
+        .filter(x => x)
+        .map(x => ({
+            duration: x[3],
+            time: x[2],
+            date: x[1],
+            res: x[4]
         }))
-    )
-
-const getProfiles = cookie => json(post('autoCompleteAjax.do', cookie, {actionCode: 'getProfiles'}))
-    .map(res => res
-        .map(({profileId, profileName, roomPartStartTime, roomPartEndTime}) => ({
-            id: profileId,
-            name: profileName,
-            startTime: roomPartStartTime,
-            endTime: roomPartEndTime
-        })))
-
-const getRoomPartsForCalendarAjax = (cookie, profileId) => json(post('getRoomPartsForCalendarAjax.do', cookie, {
-    actionCode: 'getRoomPartsForProfile',
-    id: profileId
-}))
-const updateStructure = (cookie, startTime, endTime, roomPartIds, dateTime) => {
-    const form = {
-        startTime: startTime,
-        endTime: endTime
-    }
-    const dayName = DateFormat.format(dateTime, 'l', DateLocale.EN).toLocaleLowerCase() + 'Selected'
-    form[dayName] = '1'
-    return post('weekViewAjaxAction.do', cookie, {
-        oper: 'updateStructure',
-        structure: JSON.stringify({
-            structure: [{
-                roomPartIds: roomPartIds,
-                roomPartNames: [],
-                roomPartColors: [],
-                calendarSize: 4,
-                singlePickedDates: false,
-                referenceDateMills: dateTime.getTime()
-            }]
-        }),
-        form: JSON.stringify(form)
-    })
 }
-const objectToArray = (val, key) => ({key: key, val: val})
-
-const groupBySortedAsList = (list, key) => _.sortBy(_.map(_.groupBy(list, key), objectToArray), 'key')
-
-const taliProfileIds = [2, 5, 14, 13]
-
-const getType = profileId => {
-    const indoors = [2, 3, 4, 5]
-    const outdoor = [13, 14, 18]
-    if(indoors.indexOf(profileId) !== -1) return 'indoor'
-    else if(outdoor.indexOf(profileId) !== -1) return 'outdoor'
-    else return undefined
-}
-const location = profileId => taliProfileIds.indexOf(profileId) !== -1 ? 'tali' : 'taivallahti'
-
-//TODO show availability also for fully empty days
-const getItemsWithStructure = (cookie, profile, roomParts, startDateTime) =>
-    updateStructure(cookie, profile.startTime, profile.endTime, roomParts.map(x=> String(x.id)), startDateTime)
-        .flatMap(() => getItems(cookie))
-        .flatMap(reservations => groupBySortedAsList(reservations, 'name').map(({key, val}) =>
-                date.freeSlots(profile.startTime, profile.endTime, val).map(time => ({
-                        time: date.formatTime(time),
-                        duration: 60,
-                        date: startDateTime.toISODateString(),
-                        res: profile.name + ' ' + key,
-                        location: location(profile.id),
-                        field: key,
-                        type: getType(profile.id)
-                    })
-                ).filter(({field, type}) => field.indexOf('HUOM') === -1 && type)
-            )
-        )
-
-const getAll = isoDate => login()
-    .flatMap(cookie =>
-        profiles.reduce((resultsStream, profile) =>
-                resultsStream.flatMap(res =>
-                        getItemsWithStructure(cookie, profile.profile, profile.roomParts, DateTime.fromIsoDate(isoDate))
-                            .map(newRes => res.concat(newRes))
-                    ),
-            Bacon.once([]))
-    )
-    .map(_.flattenDeep)
-
-const mapRoomPart = ({roomPartBean, roomBean}) => ({
-    id: roomPartBean.roomPartId,
-    name: roomBean.name,
-    code: roomBean.roomCode
-})
-
-const getLatestProfiles = () => login()
-    .flatMap(cookie => getProfiles(cookie)
-        .flatMap(profiles => Bacon.combineAsArray(profiles.map(profile => getRoomPartsForCalendarAjax(cookie, profile.id).flatMap(roomParts => ({
-            profile:   profile,
-            roomParts: roomParts.map(mapRoomPart)
-        }))))))
 
 module.exports = {
-    getAll,
-    getLatestProfiles
+    table
 }

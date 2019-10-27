@@ -1,0 +1,2558 @@
+
+
+
+
+        <!DOCTYPE html>
+    <html lang="fi">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-param" content="_front1csrf">
+    <meta name="csrf-token" content="Z8w7ZE2dG_HeCFIjJ_RYBFTI9C_ohPuHJ3P-MnDIxo8pmQoxdORJwbJBP2dAhxowJaeubJzJibRONbNFMYvy_w==">
+        <title></title>
+        <link href="/assets/b96194ce/css/bootstrap.min.css" rel="stylesheet">
+<link href="/assets/6cebfb13/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+<link href="/assets/6cebfb13/css/datepicker-kv.min.css" rel="stylesheet">
+<link href="/assets/fd3413b6/css/kv-widgets.min.css" rel="stylesheet">
+<link href="/css/site2.css" rel="stylesheet">
+<link href="/assets/8c18d753/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/fc5f19a/css/AdminLTE.min.css" rel="stylesheet">
+<link href="/assets/fc5f19a/css/skins/skin-green.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+<link href="/css/scu-01.css" rel="stylesheet">
+<script type="text/javascript">window.kvDatepicker_814079e2 = {"format":"DD dd.mm.yyyy","weekStart":1,"autoclose":true,"startDate":"27.10.2019","endDate":"17.11.2019","todayHighlight":true,"language":"fi"};
+</script>
+        
+    <meta name="description" content="Tali & Taivallahti" />
+    <meta property="og:description" content="Tali & Taivallahti" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="apple-mobile-web-app-title" content="Tali & Taivallahti">
+<meta name="application-name" content="Tali & Taivallahti">
+<meta name="theme-color" content="#ffffff">
+  
+                <style>
+        body {overflow: auto;}
+        body.fixed > div.wrapper {overflow: visible;}
+        </style>
+        
+    </head>
+    <body class="hold-transition skin-green fixed sidebar-mini" style="background-color: #FAFAFA;">
+        <div class="wrapper">
+
+        
+<header class="main-header">
+
+<div style="display: none;">
+    <a class="logo" href="/"><span class="logo-mini">SC</span><span class="logo-lg">Tali & Taivallahti</span></a></div>
+
+    <nav class="navbar navbar-static-top" role="navigation">
+
+        <a href="#" class="sidebar-toggle visible-xs-block" data-toggle="push-menu" role="button">
+            <span class="sr-only">Valikko</span>
+        </a>
+
+        <h3 class="hidden-xs">Tali & Taivallahti</h3>
+
+        <h4 class="visible-xs-inline">Tali & Taivallahti</h4>
+
+
+    </nav>
+</header>
+
+        <aside class="main-sidebar">
+
+    <section class="sidebar">
+
+        <ul class="sidebar-menu" data-widget="tree"><li class="active"><a href="/booking/booking-calendar"><i class="fa fa-calendar"></i>  <span>Varauskalenteri</span></a></li>
+<li><a href="/booking/my-bookings-view"><i class="fa fa-list"></i>  <span>Omat varaukset</span><!--<span class="pull-right-container"><small class="label pull-right bg-green">3</small></span>--></a></li>
+<li><a href="/site/profile-view"><i class="fa fa-user"></i>  <span>Omat tiedot</span></a></li>
+<li class="treeview treeview"><a href="#"><i class="fa fa-file-text"></i>  <span>Ohjeet ja ehdot</span> <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+<ul class='treeview-menu' >
+<li><a href="/site/ohjeet"><i class="fa fa-circle-o"></i>  <span>Ohjeet</span></a></li>
+<li><a href="/site/varausehdot"><i class="fa fa-circle-o"></i>  <span>Varausehdot</span></a></li>
+<li><a href="/site/rekisteriseloste"><i class="fa fa-circle-o"></i>  <span>Tietosuojaseloste</span></a></li>
+</ul>
+</li>
+<li><a href="/site/contact"><i class="fa fa-envelope"></i>  <span>Palaute</span></a></li>
+<li><a href="/site/yhteystiedot"><i class="fa fa-at"></i>  <span>Yhteystiedot</span></a></li>
+<li><a href="/site/login"><i class="fa fa-sign-in"></i>  <span>Kirjaudu sisään</span></a></li></ul>
+
+
+
+
+
+      <div style="margin-top: 50px; text-align: center; color: #ccc; font-size: 16px;">
+                  <p>Tali & Taivallahti</p>
+      </div>
+
+    </section>
+
+</aside>
+
+        <div class="content-wrapper">
+    <section class="content-header">
+                                        
+    </section>
+
+    <section class="content">
+                <div class="booking-calendar">
+
+
+  
+<div class="booking-form">
+
+    <form id="form-booking" class="form-inline" action="booking-calendar" method="get">
+<div class="nav-tabs-custom">
+<ul id="w0" class="nav nav-tabs"><li class="active"><a class="p_laji" href="#w0-tab0" data-p_laji="1" data-toggle="tab"><small class="text-uppercase">Tali</small><br>Tennis</a></li>
+<li><a class="p_laji" href="#w0-tab1" data-p_laji="2" data-toggle="tab"><small class="text-uppercase">Tali</small><br>Ulkotennis</a></li>
+<li><a class="p_laji" href="#w0-tab2" data-p_laji="3" data-toggle="tab"><small class="text-uppercase">Tali</small><br>Sulkapallo</a></li>
+<li><a class="p_laji" href="#w0-tab3" data-p_laji="5" data-toggle="tab"><small class="text-uppercase">Taivallahti</small><br>Tennis</a></li></ul></div>
+
+
+
+    <div class="error-summary" style="display:none"><p>Korjaa seuraavat virheet:</p><ul></ul></div>
+    <input type="hidden" id="bookingcalform-p_laji" name="BookingCalForm[p_laji]" value="1">    <input type="hidden" id="bookingcalform-p_pvm" name="BookingCalForm[p_pvm]" value="2019-10-29">    <input type="hidden" id="bookingcalform-p_pvm_interval" name="BookingCalForm[p_pvm_interval]" value="">
+    <div class="form-group field-bookingcalform-p_pvm_custom">
+
+              <div class="input-group" style="max-width: 280px;">
+                <div class="input-group-addon"><a href="#" style="display: block;"><span class="glyphicon glyphicon glyphicon-calendar my-glyph my-glyph-light"></span></a></div>
+                <input type="text" id="bookingcalform-p_pvm_custom" class="form-control krajee-datepicker" name="BookingCalForm[p_pvm_custom]" value="Tiistai 29.10.2019" readonly="readonly" style="border-left: 0; border-right: 0; font-weight: bold;" data-datepicker-source="bookingcalform-p_pvm_custom" data-datepicker-type="1" data-krajee-kvDatepicker="kvDatepicker_814079e2">
+                <div class="input-group-addon" style="padding-right: 5px; border-left: 0; border-right: 0;">
+                  <a href="#" class="my-date-interval-arrow" data-interval="-1"><span class="glyphicon glyphicon-chevron-left my-glyph my-glyph-light"></span></a>
+                </div>
+                <div class="input-group-addon" style="padding-left: 5px; border-left: 0;">
+                  <a href="#" class="my-date-interval-arrow" data-interval="1"><span class="glyphicon glyphicon-chevron-right my-glyph my-glyph-light"></span></a>
+                </div>
+              </div>
+              
+              
+            
+</div>
+
+          <div class="calendar-ilmoitus-front">
+        <p style="margin: 0;">Zenniz kentillä 3,4,8,9,10,11,12 ja 15</p>      </div>
+    
+
+
+      <table class="hidden-xs hidden-sm" style="margin-top: 30px; width: 1035px">
+        <tr><td style="width: 45px;"></td><td colspan="22" style="border-bottom: 1px solid black; text-transform: uppercase; font-weight: bold;">Sisäkentät</td></tr>
+        <tr><td style="width: 45px;"></td><td style="width: 45px; font-weight: bold; text-align: center;">K1</td><td style="width: 45px; font-weight: bold; text-align: center;">K2</td><td style="width: 45px; font-weight: bold; text-align: center;">K3</td><td style="width: 45px; font-weight: bold; text-align: center;">K4</td><td style="width: 45px; font-weight: bold; text-align: center;">K5</td><td style="width: 45px; font-weight: bold; text-align: center;">K6</td><td style="width: 45px; font-weight: bold; text-align: center;">K7</td><td style="width: 45px; font-weight: bold; text-align: center;">K8</td><td style="width: 45px; font-weight: bold; text-align: center;">K9</td><td style="width: 45px; font-weight: bold; text-align: center;">K10</td><td style="width: 45px; font-weight: bold; text-align: center;">K11</td><td style="width: 45px; font-weight: bold; text-align: center;">K12</td><td style="width: 45px; font-weight: bold; text-align: center;">K13</td><td style="width: 45px; font-weight: bold; text-align: center;">K14</td><td style="width: 45px; font-weight: bold; text-align: center;">K15</td><td style="width: 45px; font-weight: bold; text-align: center;">K16</td><td style="width: 45px; font-weight: bold; text-align: center;">K17</td><td style="width: 45px; font-weight: bold; text-align: center;">K18</td><td style="width: 45px; font-weight: bold; text-align: center;">K19</td><td style="width: 45px; font-weight: bold; text-align: center;">K20</td><td style="width: 45px; font-weight: bold; text-align: center;">K21</td><td style="width: 45px; font-weight: bold; text-align: center;">K22</td></tr>
+      </table>
+    
+
+    </form>
+
+</div> <!-- .booking-form -->
+
+
+  
+    
+<div class="booking-table hidden-xs hidden-sm">
+  
+<table style="width: 1035px;">
+  <tr>
+    
+      <th style="width: 45px;">
+      </th>
+    
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+    <th style="width: 45px;">
+    </th>
+  
+  </tr>
+
+    <tr>
+      <td rowspan="2" class="s-left-column">
+        06:00
+      </td>
+      <td colspan="22" class="s-no-border">
+        &nbsp;
+      </td>
+    </tr>
+
+    <!-- RIVIMAINS -->
+    <tr>
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&kesto=60&resid=4">K4 06:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&kesto=60&resid=5">K5 06:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&kesto=60&resid=6">K6 06:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&kesto=60&resid=7">K7 06:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&kesto=60&resid=11">K11 06:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&kesto=60&resid=12">K12 06:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&kesto=60&resid=16">K16 06:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&kesto=60&resid=17">K17 06:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&kesto=60&resid=18">K18 06:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&kesto=60&resid=19">K19 06:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">06:30</td></tr><tr>
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&kesto=30&resid=1">K1 06:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&kesto=30&resid=2">K2 06:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&kesto=60&resid=8">K8 06:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&kesto=60&resid=9">K9 06:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&kesto=60&resid=14">K14 06:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&kesto=60&resid=15">K15 06:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&kesto=60&resid=20">K20 06:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&kesto=60&resid=21">K21 06:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&kesto=30&resid=22">K22 06:30<br><strong>Varaa</strong></a>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">07:00</td></tr><tr>
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+07%3A00%3A00&kesto=30&resid=3">K3 07:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+07%3A00%3A00&kesto=30&resid=4">K4 07:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">07:30</td></tr><tr>
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+07%3A30%3A00&kesto=30&resid=20">K20 07:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+07%3A30%3A00&kesto=30&resid=21">K21 07:30<br><strong>Varaa</strong></a>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">08:00</td></tr><tr>
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">08:30</td></tr><tr>
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+08%3A30%3A00&kesto=30&resid=1">K1 08:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+08%3A30%3A00&kesto=30&resid=6">K6 08:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+08%3A30%3A00&kesto=30&resid=7">K7 08:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+08%3A30%3A00&kesto=60&resid=16">K16 08:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+08%3A30%3A00&kesto=60&resid=22">K22 08:30<br><strong>Varaa</strong></a>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">09:00</td></tr><tr>
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+09%3A00%3A00&kesto=60&resid=3">K3 09:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+09%3A00%3A00&kesto=60&resid=4">K4 09:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+09%3A00%3A00&kesto=30&resid=13">K13 09:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+09%3A00%3A00&kesto=60&resid=16">K16 09:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+09%3A00%3A00&kesto=60&resid=19">K19 09:00<br><strong>Varaa</strong></a>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">09:30</td></tr><tr>
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+09%3A30%3A00&kesto=30&resid=5">K5 09:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+09%3A30%3A00&kesto=30&resid=17">K17 09:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+09%3A30%3A00&kesto=30&resid=21">K21 09:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">10:00</td></tr><tr>
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">10:30</td></tr><tr>
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="16">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="16">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="16">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">11:00</td></tr><tr>
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+11%3A00%3A00&kesto=30&resid=14">K14 11:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">11:30</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">12:00</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">12:30</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">13:00</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A00%3A00&kesto=60&resid=4">K4 13:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A00%3A00&kesto=60&resid=15">K15 13:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A00%3A00&kesto=60&resid=17">K17 13:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A00%3A00&kesto=60&resid=19">K19 13:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A00%3A00&kesto=60&resid=20">K20 13:00<br><strong>Varaa</strong></a>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">13:30</td></tr><tr>
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&kesto=30&resid=1">K1 13:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&kesto=60&resid=11">K11 13:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&kesto=60&resid=13">K13 13:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&kesto=60&resid=15">K15 13:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&kesto=30&resid=16">K16 13:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&kesto=60&resid=20">K20 13:30<br><strong>Varaa</strong></a>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">14:00</td></tr><tr>
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+14%3A00%3A00&kesto=30&resid=11">K11 14:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+14%3A00%3A00&kesto=30&resid=12">K12 14:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+14%3A00%3A00&kesto=30&resid=17">K17 14:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+14%3A00%3A00&kesto=30&resid=18">K18 14:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+14%3A00%3A00&kesto=30&resid=19">K19 14:00<br><strong>Varaa</strong></a>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">14:30</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="12">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="12">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="12">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="12">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">15:00</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail-short" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+15%3A00%3A00&kesto=30&resid=14">K14 15:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">15:30</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">16:00</td></tr><tr>
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="12">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">16:30</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">17:00</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="12">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="16">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">17:30</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="14">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="14">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">18:00</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">18:30</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">19:00</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="6">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="8">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">19:30</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">20:00</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">20:30</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="2">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">21:00</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">21:30</td></tr><tr>
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+21%3A30%3A00&kesto=60&resid=2">K2 21:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+21%3A30%3A00&kesto=60&resid=8">K8 21:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+21%3A30%3A00&kesto=60&resid=9">K9 21:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-booked" rowspan="4">
+          <b>Varattu</b>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+21%3A30%3A00&kesto=60&resid=15">K15 21:30<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+21%3A30%3A00&kesto=60&resid=20">K20 21:30<br><strong>Varaa</strong></a>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">22:00</td></tr><tr>
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=3">K3 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=4">K4 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=5">K5 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=6">K6 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=7">K7 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=11">K11 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=12">K12 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=13">K13 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=14">K14 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=16">K16 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=17">K17 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=18">K18 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="4">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=19">K19 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=21">K21 22:00<br><strong>Varaa</strong></a>
+        </td>
+      
+        <td class="s-avail" rowspan="2">
+          <a href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&kesto=60&resid=22">K22 22:00<br><strong>Varaa</strong></a>
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">22:30</td></tr><tr>
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      
+        <td class="s-not-avail" rowspan="2">
+          &nbsp;
+        </td>
+      </tr><tr><td rowspan="2" class="s-left-column">23:00</td></tr><tr>
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      
+        <td class="s-no-border" rowspan="1">
+          &nbsp;
+        </td>
+      </tr>
+
+   </table>
+  </div>
+
+<div class="booking-list hidden-md hidden-lg" style="margin-top: 2em;">
+  <a href="#" class="time-link" data-time_value="0600">06<small>:00</small></a><a href="#" class="time-link" data-time_value="0630">06<small>:30</small></a><a href="#" class="time-link" data-time_value="0700">07<small>:00</small></a><a href="#" class="time-link" data-time_value="0730">07<small>:30</small></a><a href="#" class="time-link" data-time_value="0830">08<small>:30</small></a><a href="#" class="time-link" data-time_value="0900">09<small>:00</small></a><a href="#" class="time-link" data-time_value="0930">09<small>:30</small></a><a href="#" class="time-link" data-time_value="1100">11<small>:00</small></a><a href="#" class="time-link" data-time_value="1300">13<small>:00</small></a><a href="#" class="time-link" data-time_value="1330">13<small>:30</small></a><a href="#" class="time-link" data-time_value="1400">14<small>:00</small></a><a href="#" class="time-link" data-time_value="1500">15<small>:00</small></a><a href="#" class="time-link" data-time_value="2130">21<small>:30</small></a><a href="#" class="time-link" data-time_value="2200">22<small>:00</small></a>  
+
+      <div class="box day_box" id="times_at_0600" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 06:00</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K4</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&amp;kesto=60&amp;resid=4">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K5</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&amp;kesto=60&amp;resid=5">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K6</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&amp;kesto=60&amp;resid=6">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K7</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&amp;kesto=60&amp;resid=7">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K11</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&amp;kesto=60&amp;resid=11">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K12</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&amp;kesto=60&amp;resid=12">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K16</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&amp;kesto=60&amp;resid=16">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K17</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&amp;kesto=60&amp;resid=17">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K18</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&amp;kesto=60&amp;resid=18">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K19</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A00%3A00&amp;kesto=60&amp;resid=19">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_0630" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 06:30</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K1</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&amp;kesto=30&amp;resid=1">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K2</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&amp;kesto=30&amp;resid=2">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K8</td>
+                  <td>Sisäkenttä</td>
+                  <td>22 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&amp;kesto=60&amp;resid=8">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K9</td>
+                  <td>Sisäkenttä</td>
+                  <td>22 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&amp;kesto=60&amp;resid=9">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K14</td>
+                  <td>Sisäkenttä</td>
+                  <td>22 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&amp;kesto=60&amp;resid=14">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K15</td>
+                  <td>Sisäkenttä</td>
+                  <td>22 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&amp;kesto=60&amp;resid=15">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K20</td>
+                  <td>Sisäkenttä</td>
+                  <td>22 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&amp;kesto=60&amp;resid=20">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K21</td>
+                  <td>Sisäkenttä</td>
+                  <td>22 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&amp;kesto=60&amp;resid=21">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K22</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+06%3A30%3A00&amp;kesto=30&amp;resid=22">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_0700" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 07:00</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K3</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+07%3A00%3A00&amp;kesto=30&amp;resid=3">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K4</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+07%3A00%3A00&amp;kesto=30&amp;resid=4">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_0730" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 07:30</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K20</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+07%3A30%3A00&amp;kesto=30&amp;resid=20">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K21</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+07%3A30%3A00&amp;kesto=30&amp;resid=21">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_0830" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 08:30</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K1</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+08%3A30%3A00&amp;kesto=30&amp;resid=1">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K6</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+08%3A30%3A00&amp;kesto=30&amp;resid=6">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K7</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+08%3A30%3A00&amp;kesto=30&amp;resid=7">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K16</td>
+                  <td>Sisäkenttä</td>
+                  <td>22 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+08%3A30%3A00&amp;kesto=60&amp;resid=16">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K22</td>
+                  <td>Sisäkenttä</td>
+                  <td>22 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+08%3A30%3A00&amp;kesto=60&amp;resid=22">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_0900" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 09:00</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K3</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+09%3A00%3A00&amp;kesto=60&amp;resid=3">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K4</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+09%3A00%3A00&amp;kesto=60&amp;resid=4">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K13</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+09%3A00%3A00&amp;kesto=30&amp;resid=13">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K16</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+09%3A00%3A00&amp;kesto=60&amp;resid=16">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K19</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+09%3A00%3A00&amp;kesto=60&amp;resid=19">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_0930" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 09:30</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K5</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+09%3A30%3A00&amp;kesto=30&amp;resid=5">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K17</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+09%3A30%3A00&amp;kesto=30&amp;resid=17">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K21</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+09%3A30%3A00&amp;kesto=30&amp;resid=21">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_1100" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 11:00</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K14</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+11%3A00%3A00&amp;kesto=30&amp;resid=14">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_1300" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 13:00</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K4</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A00%3A00&amp;kesto=60&amp;resid=4">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K15</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A00%3A00&amp;kesto=60&amp;resid=15">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K17</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A00%3A00&amp;kesto=60&amp;resid=17">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K19</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A00%3A00&amp;kesto=60&amp;resid=19">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K20</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A00%3A00&amp;kesto=60&amp;resid=20">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_1330" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 13:30</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K1</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&amp;kesto=30&amp;resid=1">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K11</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&amp;kesto=60&amp;resid=11">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K13</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&amp;kesto=60&amp;resid=13">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K15</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&amp;kesto=60&amp;resid=15">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K16</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&amp;kesto=30&amp;resid=16">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K20</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+13%3A30%3A00&amp;kesto=60&amp;resid=20">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_1400" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 14:00</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K11</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+14%3A00%3A00&amp;kesto=30&amp;resid=11">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K12</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+14%3A00%3A00&amp;kesto=30&amp;resid=12">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K17</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+14%3A00%3A00&amp;kesto=30&amp;resid=17">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K18</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+14%3A00%3A00&amp;kesto=30&amp;resid=18">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K19</td>
+                  <td>Sisäkenttä</td>
+                  <td>9 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+14%3A00%3A00&amp;kesto=30&amp;resid=19">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_1500" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 15:00</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K14</td>
+                  <td>Sisäkenttä</td>
+                  <td>11 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+15%3A00%3A00&amp;kesto=30&amp;resid=14">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_2130" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 21:30</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K2</td>
+                  <td>Sisäkenttä</td>
+                  <td>24 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+21%3A30%3A00&amp;kesto=60&amp;resid=2">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K8</td>
+                  <td>Sisäkenttä</td>
+                  <td>24 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+21%3A30%3A00&amp;kesto=60&amp;resid=8">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K9</td>
+                  <td>Sisäkenttä</td>
+                  <td>24 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+21%3A30%3A00&amp;kesto=60&amp;resid=9">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K15</td>
+                  <td>Sisäkenttä</td>
+                  <td>24 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+21%3A30%3A00&amp;kesto=60&amp;resid=15">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K20</td>
+                  <td>Sisäkenttä</td>
+                  <td>24 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+21%3A30%3A00&amp;kesto=60&amp;resid=20">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    
+
+      <div class="box day_box" id="times_at_2200" style="display:none;">
+        <div class="box-header">
+          <h3 class="box-title">Tiistai 29.10.2019 klo 22:00</h3>
+        </div>
+
+        <div class="box-body no-padding">
+          <table class="table">
+            <tr>
+              <th style="width: 10px" colspan=2>Kenttä</th>
+              <th>Hinta</th>
+              <th>Varaa</th>
+            </tr>
+
+    
+                <tr>
+                  <td>K3</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=3">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K4</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=4">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K5</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=5">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K6</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=6">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K7</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=7">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K11</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=11">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K12</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=12">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K13</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=13">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K14</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=14">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K16</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=16">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K17</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=17">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K18</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=18">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K19</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=19">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K21</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=21">Varaa</a></td>
+                </tr>
+        
+                <tr>
+                  <td>K22</td>
+                  <td>Sisäkenttä</td>
+                  <td>18 €</td>
+                  <td><a class="btn btn-sm bg-olive" href="/booking/create-booking?alkuaika=2019-10-29+22%3A00%3A00&amp;kesto=60&amp;resid=22">Varaa</a></td>
+                </tr>
+        
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+
+
+
+
+  
+
+</div>
+    </section>
+</div>
+
+    </div>
+
+    <script src="/assets/13bf2ce4/jquery.min.js"></script>
+<script src="/assets/b96194ce/js/bootstrap.min.js"></script>
+<script src="/assets/6cebfb13/js/bootstrap-datepicker.min.js"></script>
+<script src="/assets/6cebfb13/js/datepicker-kv.min.js"></script>
+<script src="/assets/6cebfb13/js/locales/bootstrap-datepicker.fi.min.js"></script>
+<script src="/assets/fd3413b6/js/kv-widgets.min.js"></script>
+<script src="/assets/660e1480/yii.js"></script>
+<script src="/assets/660e1480/yii.activeForm.js"></script>
+<script src="/js/mymain.js"></script>
+<script src="/assets/fc5f19a/js/adminlte.min.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script type="text/javascript">
+
+  function local_custom_submit(date_ymd) {
+    $("input[name='BookingCalForm[p_pvm]']").val(date_ymd);
+    $("input[name='BookingCalForm[p_pvm]']").closest("form").submit();
+    return false;
+  }
+
+  $("#form-booking .glyphicon-calendar").click(function() {
+    $("input[name='BookingCalForm[p_pvm_custom]']").kvDatepicker("show");
+    return false;
+  });
+
+  $("#form-booking .my-date-interval-arrow").click(function() {
+    $("input[name='BookingCalForm[p_pvm_interval]']").val($(this).data("interval"));
+    $(this).closest("form").submit();
+    return false;
+  });
+
+  $("#form-booking .p_laji").click(function() {
+    $("input[name='BookingCalForm[p_laji]']").val($(this).data("p_laji"));
+    $(this).closest("form").submit();
+    return false;
+  });
+
+
+
+
+  $(".time-link").click(function() {
+    $(".time-link").removeClass("active");
+    $(this).addClass("active");
+    $(".day_box").hide();
+    $("#times_at_" + $(this).data("time_value")).show();
+
+    return false;
+  });
+
+</script>
+<script type="text/javascript">jQuery(function ($) {
+jQuery('#w0').tab();
+jQuery.fn.kvDatepicker.dates={};
+if (jQuery('#bookingcalform-p_pvm_custom').data('kvDatepicker')) { jQuery('#bookingcalform-p_pvm_custom').kvDatepicker('destroy'); }
+jQuery('#bookingcalform-p_pvm_custom').kvDatepicker(kvDatepicker_814079e2);
+jQuery('#bookingcalform-p_pvm_custom').on('changeDate', function(e) { local_custom_submit(e.format("yyyy-mm-dd")); });
+
+jQuery('#form-booking').yiiActiveForm([], []);
+});</script>    </body>
+    </html>
+    
