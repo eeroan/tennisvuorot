@@ -5,7 +5,7 @@ module.exports = o => { with(o) return `<head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="google" content="notranslate" />
     <meta name="Description" content="Tenniskenttien varaustilanne ja yhteystiedot Helsingin, Espoon ja Vantaan seuraaville kentille: ${locations.map(loc => _.capitalize(loc.title)).join(', ')} ">
-    <link rel="stylesheet" type="text/css" href="${process.env.NODE_ENV === 'production' ? '/styles.prefixed.css' : '/styles.css'}"/>
+    <link rel="stylesheet" type="text/css" href="/styles.css"/>
     <meta name="twitter:image:src" content="http://tennisvuorot.fi/tennisvuorot.png">
     <meta property="og:image" content="http://tennisvuorot.fi/tennisvuorot.png">
     <meta property="og:locale" content="fi_FI">

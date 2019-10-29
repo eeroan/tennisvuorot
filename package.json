@@ -8,11 +8,9 @@
     "start": "NODE_ENV=production forever ./server.js",
     "dev": "NODE_ENV=test supervisor ./server.js",
     "mongo": "mongod --fork --syslog",
-    "autoprefix": "autoprefixer-cli -b 'last 2 versions, IE >= 10, > 5% in FI' -o public/styles.prefixed.css public/styles.css",
     "update-prices": "scripts/fetchPrices.js",
     "update-locations": "scripts/updateLocations.js",
-    "update-history": "scripts/fetchHistory.js",
-    "postinstall": "npm run autoprefix"
+    "update-history": "scripts/fetchHistory.js"
   },
   "repository": {
     "type": "git",
@@ -25,9 +23,6 @@
   },
   "homepage": "https://github.com/eeroan/tennishelsinki",
   "dependencies": {
-    "autoprefix": "^1.0.1",
-    "autoprefixer": "^9.5.1",
-    "autoprefixer-cli": "^1.0.0",
     "baconjs": "^3.0.3",
     "chartist": "^0.11.0",
     "compression": "^1.7.4",
