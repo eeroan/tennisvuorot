@@ -115,13 +115,16 @@ function getType({type, field, res}) {
 }
 function fetch(isoDate) {
     return Bacon.combineAsArray([
-            slSystems.getMeilahti,
-            slSystems.getHerttoniemi,
-            slSystems.getKulosaari,
-            slSystems.getMerihaka,
-            slSystems.getTapiola,
-            slSystems.getLaajasalo,
-            slSystems.getHiekkaharju
+        slSystems.getMeilahti,
+        slSystems.getHerttoniemi,
+        slSystems.getKulosaari,
+        slSystems.getMerihaka,
+        slSystems.getTapiola,
+        slSystems.getLaajasalo,
+        slSystems.getHiekkaharju,
+        webTimmi.getTaivallahti,
+        webTimmi.getTaliOutdoor,
+        webTimmi.getTaliIndoor
     ].map(fn => fn(isoDate)))
         .map(allData => {
             const freeCourts = _.flatten(allData).filter(reservation => {
