@@ -2,7 +2,6 @@
 const url = require('url')
 const request = require('request')
 const Bacon = require('baconjs')
-const _ = require('lodash')
 
 module.exports = {
     getMeilahti,
@@ -16,36 +15,36 @@ module.exports = {
 }
 
 function getMeilahti(isoDate) {
-    return getTableWithMapper(isoDate, 'meilahti', 1, obj => _.merge(obj, {
-        field:    (obj.res > 5 ? 'Sisä' : 'Kupla') + ' K' + obj.res,
+    return getTableWithMapper(isoDate, 'meilahti', 1, obj => Object.assign(obj, {
+        field:    `${obj.res > 5 ? 'Sisä' : 'Kupla'} K${obj.res}`,
         location: 'meilahti'
     }))
 }
 
 function getHerttoniemi(isoDate) {
-    return getTableWithMapper(isoDate, 'fite', 1, obj => _.merge(obj, {
-        field:    (obj.res > 9 ? 'Massakupla' : (obj.res > 6 ? 'Janus' : 'Sisä')) + ' K' + obj.res,
+    return getTableWithMapper(isoDate, 'fite', 1, obj => Object.assign(obj, {
+        field:    `${obj.res > 9 ? 'Massakupla' : (obj.res > 6 ? 'Janus' : 'Sisä')} K${obj.res}`,
         location: 'herttoniemi'
     }))
 }
 
 function getKulosaari(isoDate) {
-    return getTableWithMapper(isoDate, 'puhoscenter', 1, obj => _.merge(obj, {
-        field:    (obj.res > 2 ? 'Green set' : 'Bolltex' ) + ' Te' + obj.res,
+    return getTableWithMapper(isoDate, 'puhoscenter', 1, obj => Object.assign(obj, {
+        field:    `${obj.res > 2 ? 'Green set' : 'Bolltex'} Te${obj.res}`,
         location: 'kulosaari'
     }))
 }
 
 function getMerihaka(isoDate) {
-    return getTableWithMapper(isoDate, 'meripeli', 3, obj => _.merge(obj, {
+    return getTableWithMapper(isoDate, 'meripeli', 3, obj => Object.assign(obj, {
         field:    'K1',
         location: 'merihaka'
     }))
 }
 
 function getTapiola(isoDate) {
-    return getTableWithMapper(isoDate, 'tennispuisto', 1, obj => _.merge(obj, {
-        field:    'K' + obj.res,
+    return getTableWithMapper(isoDate, 'tennispuisto', 1, obj => Object.assign(obj, {
+        field:    `K${obj.res}`,
         location: 'tapiola'
     }))
 }
@@ -58,7 +57,7 @@ const laajasaloCodes = {
 }
 
 function getLaajasalo(isoDate) {
-    return getTableWithMapper(isoDate, 'laajasalonpalloiluhallit', 1, obj => _.merge(obj, {
+    return getTableWithMapper(isoDate, 'laajasalonpalloiluhallit', 1, obj => Object.assign(obj, {
         field:    laajasaloCodes[obj.res],
         location: 'laajasalo'
     }))
@@ -72,25 +71,24 @@ const hiekkaHarjuCodes = {
     '5': 'Kaarihalli K6'
 }
 function getHiekkaharju(isoDate) {
-    return getTableWithMapper(isoDate, 'hiekkaharjuntenniskeskus', 1, obj => _.merge(obj, {
+    return getTableWithMapper(isoDate, 'hiekkaharjuntenniskeskus', 1, obj => Object.assign(obj, {
         field:    hiekkaHarjuCodes[obj.res],
         location: 'hiekkaharju'
     }))
 }
 
 function getTableWithMapper(isoDate, client, sportTypeId, fn) {
-    return getSlSystemsTable(isoDate, client, sportTypeId).map((res) => _.map(res, fn))
+    return getSlSystemsTable(isoDate, client, sportTypeId).map(res => res.map(fn))
 }
 
 function getSlSystemsTable(isoDate, client, sportTypeId) {
     return Bacon.fromNodeCallback(request.get, {
-        url: 'https://www.slsystems.fi/' + client + '/ftpages/ft-varaus-table-01.php?laji=' + sportTypeId +
-             '&pvm=' + isoDate + '&goto=0'
-    }).map(function(res) { return res.body}).map(table)
+        url: `https://www.slsystems.fi/${client}/ftpages/ft-varaus-table-01.php?laji=${sportTypeId}&pvm=${isoDate}&goto=0`
+    }).map(res => res.body).map(table)
 }
 
 function table(html) {
-    return (html.match(/res=[^"]+/g) || []).map((el) => url.parse('?' + el, true).query).map(fromSlSystemsResult)
+    return (html.match(/res=[^"]+/g) || []).map((el) => url.parse(`?${el}`, true).query).map(fromSlSystemsResult)
 }
 
 function fromSlSystemsResult({kesto, klo, pvm, res}) {
