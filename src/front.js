@@ -87,6 +87,7 @@ function reservationModalMarkup(date, time, fields, selectedLocation) {
             tel: tel,
             date: date,
             time: time,
+            duration: field.duration,
             address: address,
             url: url
         })

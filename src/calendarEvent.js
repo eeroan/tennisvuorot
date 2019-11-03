@@ -13,9 +13,8 @@ function show(req, res) {
     res.send(getCalendarLink(req.query))
 }
 
-function getCalendarLink({location, field, price, tel, date, time, address, url}) {
+function getCalendarLink({location, field, price, tel, date, time, duration, address, url}) {
     const startTime = DateTime.fromIsoDateTime(date + 'T' + time + ':00')
-    const duration = 60
     const summary = `Tennisvuoro ${location} ${field}`
     const description = `Hinta ${price}\\n Puhelin ${tel}`
     return calendarTmpl({
