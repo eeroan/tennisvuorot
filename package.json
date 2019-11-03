@@ -26,7 +26,7 @@
     "baconjs": "^3.0.3",
     "chartist": "^0.11.0",
     "compression": "^1.7.4",
-    "dateutils": "^0.3.1",
+    "dateutils": "^0.4.0",
     "express": "^4.16.4",
     "express-babelify-middleware": "^0.2.1",
     "fastclick": "^1.0.6",

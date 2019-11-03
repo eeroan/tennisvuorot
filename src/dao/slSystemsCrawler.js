@@ -2,6 +2,7 @@
 const url = require('url')
 const request = require('request')
 const Bacon = require('baconjs')
+const Duration = require('dateutils').Duration
 
 module.exports = {
     getMeilahti,
@@ -93,7 +94,7 @@ function table(html) {
 
 function fromSlSystemsResult({kesto, klo, pvm, res}) {
     return {
-        duration: kesto,
+        duration: Duration.fromIsoTime(kesto).asUnit(Duration.MIN),
         time:     (klo || '').substring(0, 5),
         date:     pvm,
         res:      Number(res)
