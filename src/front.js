@@ -13,10 +13,11 @@ const body = document.body
 window.addEventListener('scroll', () => {
     didScroll = true
 })
+const doc = document.documentElement
 setInterval(() => {
     if(didScroll) {
         didScroll = false
-        if(!alreadyLoadingMoreResults && body.scrollTop + window.innerHeight > body.scrollHeight - 400) {
+        if(!alreadyLoadingMoreResults && doc.scrollTop + doc.clientHeight > doc.scrollHeight - 400) {
             loadMoreResults(5)
             ga('send', 'event', 'Scroll to end', today.distanceInDays(activeDate))
         }
