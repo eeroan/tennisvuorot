@@ -30,10 +30,12 @@ function sendFreeCourts(req, res) {
         err => res.status(500).send(err))
 }
 
-function freeCourts(isoDate, days, forceRefresh, callback, errCallback) {
+async function freeCourts(isoDate, days, forceRefresh) {
     if (forceRefresh) {
         console.log('force refresh...')
-        refresh(isoDate, days, data => { doCallback(data) })
+        refresh(isoDate, days, data => {
+            doCallback(data)
+        })
     } else {
         console.log('fetching from db...')
         getFromMongo(isoDate, days, (err, data) => {
@@ -44,10 +46,8 @@ function freeCourts(isoDate, days, forceRefresh, callback, errCallback) {
                 console.log(`fetched from db ${days} days from ${isoDate} with ${_.sumBy(data, 'freeCourts.length')} rows`)
                 doCallback(data)
             } else {
-                console.log(`empty result, refreshing for ${isoDate} for ${days} days...`)
-                refresh(isoDate, days, (data) => {
-                    console.log('refreshed as fallback', data)
-                    doCallback(data)
+                console.log(`empty result, refreshing for ${isoDate} for ${days} days...`)refresh(isoDate, days, (data) => {
+                   console.log('refreshed as fallback', data) doCallback(data)
                 })
             }
         })
@@ -68,60 +68,54 @@ function refresh(isoDate, days, callback) {
 
 }
 
-function getHistoryData(callback) {
-    const start = DateTime.fromDate(2015,10,5)
+async function getHistoryData() {
+    const start = DateTime.fromDate(2015, 10, 5)
     const end = new DateTime()
-    mongoQuery({date: {$gte: start.date, $lte:end.date}}, (err, data) => callback(err, transform(data)) )
+    const data = await mongoQuery({date: {$gte: start.date, $lte: end.date}})
+    return transform(data)
 }
 
 function transform(data) {
     return _.flatten(data.map(row => row.freeCourts))
 }
 
-function getFromMongo(isoDate, days, callback) {
+async function getFromMongo(isoDate, days) {
     const start = DateTime.fromIsoDate(isoDate)
     const end = start.plusDays(days - 1)
     const filter = {date: {$gte: start.date, $lte: end.date}}
-    mongoQuery(filter, callback)
+    return mongoQuery(filter)
 }
 
-function mongoQuery(filter, callback) {
-    mongoConnect((err, db) => {
-        const collection = db.collection('tennishelsinki')
-        collection.find(filter).sort({date: 1}).toArray((err, docs) => {
-            const transformedDoc = docs.map(doc => {
-                doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
-                return doc
-            })
-            callback(err, transformedDoc)
-        })
+async function mongoQuery(filter) {
+    const db = await mongoConnect()
+    const collection = db.collection('tennishelsinki')
+    const docs = await collection.find(filter).sort({date: 1}).toArray()
+    return docs.map(doc => {
+        doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
+        return doc
     })
 }
 
-function upsertToMongo(isoDate, {freeCourts, timestamp}) {
-    mongoConnect((err, db) => {
-        const collection = db.collection('tennishelsinki')
-        const date = new Date(isoDate)
-        collection.replaceOne({date: date}, {
-            date: date,
-            freeCourts: freeCourts,
-            timestamp: timestamp
-        }, {
-            upsert: true
-        }, (err, rs) => {
-            if (err) console.error(err)
-        })
-    })
+async function upsertToMongo(isoDate, {freeCourts, timestamp}) {
+    const db = await mongoConnect()
+    const collection = db.collection('tennishelsinki')
+    const date = new Date(isoDate)
+    await collection.replaceOne({date: date}, {
+        date: date,
+        freeCourts: freeCourts,
+        timestamp: timestamp
+    }, { upsert: true })
 }
 
 function getType({type, field, res}) {
-    if(type) {
+    if (type) {
         return type
     }
     const isBubble = /kupla/i.test(field) || /kupla/i.test(res) || /Kaarihalli.*/i.test(field)
     const isOutdoor = /ulko/i.test(field) || /ulko/i.test(res)
     return isBubble ? 'bubble' : (isOutdoor ? 'outdoor' : 'indoor')
 }
+
 function fetch(isoDate) {
     return Bacon.combineAsArray([
         slSystems.getMeilahti,
@@ -148,8 +142,8 @@ function fetch(isoDate) {
             })
             return {
                 freeCourts: withDoubleLessonInfo(freeCourts),
-                timestamp:  new Date().getTime(),
-                date:       isoDate
+                timestamp: new Date().getTime(),
+                date: isoDate
             }
         })
 }
@@ -181,16 +175,13 @@ function nextHour(time) {
     return (next > 9 ? '' : '0') + next + ':' + hm[1]
 }
 
-function mongoConnect(cb) {
-    if(db) cb(null, db)
-    else {
-        MongoClient.connect(mongoUri, mongoOptions, (err, client) => {
-            if(db) {
-                client.close()
-            } else {
-                db = client.db(mongoDbName)
-            }
-            cb(err, db)
-        })
+async function mongoConnect() {
+    if (db) return db
+    const client = await MongoClient.connect(mongoUri, mongoOptions)
+    if (db) {
+        client.close()
+    } else {
+        db = client.db(mongoDbName)
     }
+    return db
 }
