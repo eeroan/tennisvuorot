@@ -14,11 +14,11 @@ module.exports = {
     show
 }
 
-function show(req, res) {
+async function show(req, res) {
     const refresh = req.query.refresh === 'true'
     res.write(`<!DOCTYPE html>
 <html>`)
-    res.write(headHtml({locations: locations, _:_}))
+    res.write(headHtml({locations: locations, _: _}))
     res.write(`<body class="collapsed">`)
     res.write(`<div class="overlay" style="display: none"></div><div class="reservationModal modal"></div>`)
     res.write(modalsHtml())
@@ -29,17 +29,16 @@ function show(req, res) {
     res.write(quickLinks())
     res.write(`<section class="" id="schedule">`)
     res.write(filters())
-    dao.freeCourts(new DateTime().toISODateString(), 3, refresh, (data) => {
-        res.write(markupForDateRange(data, new DateTime()))
-        res.write('</section></div>')
-        res.write(scriptsHtml({
-            isTest: global.isTest,
-            refresh: refresh,
-            serverDate: new DateTime().toISODateString()
-        }))
-        res.write('</body></html>')
-        res.end()
-    })
+    const data = await dao.freeCourts(new DateTime().toISODateString(), 3, refresh)
+    res.write(markupForDateRange(data, new DateTime()))
+    res.write('</section></div>')
+    res.write(scriptsHtml({
+        isTest: global.isTest,
+        refresh: refresh,
+        serverDate: new DateTime().toISODateString()
+    }))
+    res.write('</body></html>')
+    res.end()
 }
 
 function filters() {

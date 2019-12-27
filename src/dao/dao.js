@@ -18,118 +18,106 @@ let db = null
 module.exports = {
     sendFreeCourts,
     freeCourts,
-    refresh,
     refreshAsync,
     fetch,
     getHistoryData
 }
 
-function sendFreeCourts(req, res) {
+async function sendFreeCourts(req, res) {
     const forceRefresh = req.query.refresh === 'true' || false
-    freeCourts(req.query.date, Number(req.query.days) || 1, forceRefresh,
-        data => res.send(data),
-        err => res.status(500).send(err))
+    try {
+        const data = await freeCourts(req.query.date, Number(req.query.days) || 1, forceRefresh)
+        res.send(data)
+    } catch (err) {
+        res.status(500).send(err)
+    }
 }
 
-function freeCourts(isoDate, days, forceRefresh, callback, errCallback) {
+async function freeCourts(isoDate, days, forceRefresh) {
     if (forceRefresh) {
         console.log('force refresh...')
-        refresh(isoDate, days, data => { doCallback(data) })
+        const refreshed = await refreshAsync(isoDate, days)
+        return wrapIfNeeded(refreshed)
+
     } else {
         console.log('fetching from db...')
-        getFromMongo(isoDate, days, (err, data) => {
-            if (err) {
-                console.log('error while fetching from db', err)
-                errCallback(err)
-            } else if (data.length > 0) {
-                console.log(`fetched from db ${days} days from ${isoDate} with ${_.sumBy(data, 'freeCourts.length')} rows`)
-                doCallback(data)
-            } else {
-                console.log(`empty result, refreshing for ${isoDate} for ${days} days...`)
-                refresh(isoDate, days, (data) => {
-                    console.log('refreshed as fallback', data)
-                    doCallback(data)
-                })
-            }
-        })
+        const data = await getFromMongo(isoDate, days)
+        if (data.length > 0) {
+            console.log(`fetched from db ${days} days from ${isoDate} with ${_.sumBy(data, 'freeCourts.length')} rows`)
+            return wrapIfNeeded(data)
+        } else {
+            console.log(`empty result, refreshing for ${isoDate} for ${days} days...`)
+            const newData = await refreshAsync(isoDate, days)
+            console.log('refreshed as fallback', newData)
+            return wrapIfNeeded(newData)
+        }
     }
 
-    function doCallback(data) {
-        callback(data.timestamp ? [data] : data)
+    function wrapIfNeeded(data) {
+        return data.timestamp ? [data] : data
     }
 }
 
 
 function refreshAsync(isoDate, days) {
     return new Promise((resolve => {
-        refresh(isoDate, days, resolve)
+        console.log(`fetching for ${isoDate} for ${days} days...`)
+        fetch(isoDate).onValue((obj) => {
+            console.log(`fetched ${obj.freeCourts.length} from sites for `, isoDate)
+            upsertToMongo(isoDate, obj)
+            resolve(obj)
+        })
     }))
 }
 
-function refresh(isoDate, days, callback) {
-    console.log(`fetching for ${isoDate} for ${days} days...`)
-    fetch(isoDate).onValue((obj) => {
-        console.log(`fetched ${obj.freeCourts.length} from sites for `, isoDate)
-        upsertToMongo(isoDate, obj)
-        callback(obj)
-    })
-
-}
-
-function getHistoryData(callback) {
-    const start = DateTime.fromDate(2015,10,5)
+async function getHistoryData() {
+    const start = DateTime.fromDate(2015, 10, 5)
     const end = new DateTime()
-    mongoQuery({date: {$gte: start.date, $lte:end.date}}, (err, data) => callback(err, transform(data)) )
+    const data = await mongoQuery({date: {$gte: start.date, $lte: end.date}})
+    return transform(data)
 }
 
 function transform(data) {
     return _.flatten(data.map(row => row.freeCourts))
 }
 
-function getFromMongo(isoDate, days, callback) {
+async function getFromMongo(isoDate, days) {
     const start = DateTime.fromIsoDate(isoDate)
     const end = start.plusDays(days - 1)
     const filter = {date: {$gte: start.date, $lte: end.date}}
-    mongoQuery(filter, callback)
+    return mongoQuery(filter)
 }
 
-function mongoQuery(filter, callback) {
-    mongoConnect((err, db) => {
-        const collection = db.collection('tennishelsinki')
-        collection.find(filter).sort({date: 1}).toArray((err, docs) => {
-            const transformedDoc = docs.map(doc => {
-                doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
-                return doc
-            })
-            callback(err, transformedDoc)
-        })
+async function mongoQuery(filter) {
+    const db = await mongoConnect()
+    const collection = db.collection('tennishelsinki')
+    const docs = await collection.find(filter).sort({date: 1}).toArray()
+    return docs.map(doc => {
+        doc.created = doc._id.getTimestamp && doc._id.getTimestamp().toISOString()
+        return doc
     })
 }
 
-function upsertToMongo(isoDate, {freeCourts, timestamp}) {
-    mongoConnect((err, db) => {
-        const collection = db.collection('tennishelsinki')
-        const date = new Date(isoDate)
-        collection.replaceOne({date: date}, {
-            date: date,
-            freeCourts: freeCourts,
-            timestamp: timestamp
-        }, {
-            upsert: true
-        }, (err, rs) => {
-            if (err) console.error(err)
-        })
-    })
+async function upsertToMongo(isoDate, {freeCourts, timestamp}) {
+    const db = await mongoConnect()
+    const collection = db.collection('tennishelsinki')
+    const date = new Date(isoDate)
+    await collection.replaceOne({date}, {
+        date,
+        freeCourts,
+        timestamp
+    }, {upsert: true})
 }
 
 function getType({type, field, res}) {
-    if(type) {
+    if (type) {
         return type
     }
     const isBubble = /kupla/i.test(field) || /kupla/i.test(res) || /Kaarihalli.*/i.test(field)
     const isOutdoor = /ulko/i.test(field) || /ulko/i.test(res)
     return isBubble ? 'bubble' : (isOutdoor ? 'outdoor' : 'indoor')
 }
+
 function fetch(isoDate) {
     return Bacon.combineAsArray([
         slSystems.getMeilahti,
@@ -148,7 +136,7 @@ function fetch(isoDate) {
                 if (!reservation || !reservation.field) return false
                 return reservation.date === isoDate
             }).map(reservation => {
-                const dateTime = DateTime.fromIsoDateTime(reservation.date + 'T' + reservation.time)
+                const dateTime = DateTime.fromIsoDateTime(`${reservation.date}T${reservation.time}`)
                 const type = getType(reservation)
                 reservation.type = type
                 reservation.price = getPrice(dateTime, reservation.time, reservation.location, type)
@@ -156,8 +144,8 @@ function fetch(isoDate) {
             })
             return {
                 freeCourts: withDoubleLessonInfo(freeCourts),
-                timestamp:  new Date().getTime(),
-                date:       isoDate
+                timestamp: new Date().getTime(),
+                date: isoDate
             }
         })
 }
@@ -174,11 +162,11 @@ function getPrice(dateTime, time, location, type) {
 function withDoubleLessonInfo(freeCourts) {
     const timeAndPlace = {}
     freeCourts.forEach(court => {
-        timeAndPlace[court.date + 'T' + court.time + court.location + court.field] = true
+        timeAndPlace[`${court.date}T${court.time}${court.location}${court.field}`] = true
     })
     return freeCourts.map(court => {
         const nextTime = nextHour(court.time)
-        court.doubleLesson = (court.date + 'T' + nextTime + court.location + court.field) in timeAndPlace
+        court.doubleLesson = (`${court.date}T${nextTime}${court.location}${court.field}`) in timeAndPlace
         return court
     })
 }
@@ -186,19 +174,16 @@ function withDoubleLessonInfo(freeCourts) {
 function nextHour(time) {
     const hm = time.split(':')
     const next = Number(hm[0]) + 1
-    return (next > 9 ? '' : '0') + next + ':' + hm[1]
+    return `${next > 9 ? '' : '0'}${next}:${hm[1]}`
 }
 
-function mongoConnect(cb) {
-    if(db) cb(null, db)
-    else {
-        MongoClient.connect(mongoUri, mongoOptions, (err, client) => {
-            if(db) {
-                client.close()
-            } else {
-                db = client.db(mongoDbName)
-            }
-            cb(err, db)
-        })
+async function mongoConnect() {
+    if (db) return db
+    const client = await MongoClient.connect(mongoUri, mongoOptions)
+    if (db) {
+        client.close()
+    } else {
+        db = client.db(mongoDbName)
     }
+    return db
 }
