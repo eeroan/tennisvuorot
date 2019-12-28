@@ -95,11 +95,11 @@ function upsertToMongo(isoDate, {freeCourts, timestamp}) {
         const collection = db.collection('tennishelsinki')
         const date = new Date(isoDate)
         collection.replaceOne({date: date}, {
-            $set: {
-                date: date,
-                freeCourts: freeCourts,
-                timestamp: timestamp
-            }
+            date: date,
+            freeCourts: freeCourts,
+            timestamp: timestamp
+        }, {
+            upsert: true
         }, (err, rs) => {
             if (err) console.error(err)
         })
