@@ -41,7 +41,10 @@ function freeCourts(isoDate, days, forceRefresh, callback, errCallback) {
                 console.log('fetching from db for date', isoDate, days, data.length)
                 doCallback(data)
             } else {
-                refresh(isoDate, days, (data) => { doCallback(data) })
+                console.log('empty result, refreshing ', isoDate, days, data)
+                refresh(isoDate, days, (data) => {
+                    doCallback(data)
+                })
             }
         })
     }
