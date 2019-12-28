@@ -4,11 +4,12 @@ const _ = require('lodash')
 const webTimmi = require('./webTimmi')
 const DateTime = require('dateutils').DateTime
 const MongoClient = require('mongodb').MongoClient
-const [, mongoUri, mongoDbName ]= (process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test').match('(.*)\/([^/]+)')
+const [, mongoUri, mongoDbName] = (process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test').match('(.*)\/([^/]+)')
 const mongoOptions = {
     useNewUrlParser: true,
     authMechanism: mongoUri.includes('localhost') ? undefined : 'SCRAM-SHA-1',
-    authSource: mongoDbName
+    authSource: mongoDbName,
+    useUnifiedTopology: true
 }
 const rates = require('../../generated/rates')
 const format = require('../format')
