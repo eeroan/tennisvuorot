@@ -32,17 +32,21 @@ function sendFreeCourts(req, res) {
 
 function freeCourts(isoDate, days, forceRefresh, callback, errCallback) {
     if (forceRefresh) {
+        console.log('force refresh...')
         refresh(isoDate, days, data => { doCallback(data) })
     } else {
+        console.log('fetching from db...')
         getFromMongo(isoDate, days, (err, data) => {
             if (err) {
+                console.log('error while fetching from db', err)
                 errCallback(err)
             } else if (data.length > 0) {
-                console.log('fetching from db for date', isoDate, days, data.length)
+                console.log(`fetched from db ${days} days from ${isoDate} with ${_.sumBy(data, 'freeCourts.length')} rows`)
                 doCallback(data)
             } else {
-                console.log('empty result, refreshing ', isoDate, days, data)
+                console.log(`empty result, refreshing for ${isoDate} for ${days} days...`)
                 refresh(isoDate, days, (data) => {
+                    console.log('refreshed as fallback', data)
                     doCallback(data)
                 })
             }
@@ -55,8 +59,9 @@ function freeCourts(isoDate, days, forceRefresh, callback, errCallback) {
 }
 
 function refresh(isoDate, days, callback) {
-    console.log('fetching from servers for date', isoDate)
+    console.log(`fetching for ${isoDate} for ${days} days...`)
     fetch(isoDate).onValue((obj) => {
+        console.log(`fetched ${obj.freeCourts.length} from sites for `, isoDate)
         upsertToMongo(isoDate, obj)
         callback(obj)
     })
