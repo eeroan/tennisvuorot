@@ -16,7 +16,7 @@ async function updateReservations(maxDaysAhead) {
         await delay(1000 * intervalInSeconds)
     }
     async function doRefresh() {
-        await dao.refreshAsync(new DateTime().plusDays(daysAhead).toISODateString(), 1)
+        await dao.refresh(new DateTime().plusDays(daysAhead).toISODateString(), 1)
         if (daysAhead > maxDaysAhead) daysAhead = 0
         else daysAhead++
     }

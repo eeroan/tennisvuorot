@@ -1,5 +1,4 @@
 const slSystems = require('./slSystemsCrawler')
-const Bacon = require('baconjs')
 const _ = require('lodash')
 const webTimmi = require('./webTimmi')
 const DateTime = require('dateutils').DateTime
@@ -18,7 +17,7 @@ let db = null
 module.exports = {
     sendFreeCourts,
     freeCourts,
-    refreshAsync,
+    refresh,
     fetch,
     getHistoryData
 }
@@ -36,7 +35,7 @@ async function sendFreeCourts(req, res) {
 async function freeCourts(isoDate, days, forceRefresh) {
     if (forceRefresh) {
         console.log('force refresh...')
-        const refreshed = await refreshAsync(isoDate, days)
+        const refreshed = await refresh(isoDate, days)
         return wrapIfNeeded(refreshed)
 
     } else {
@@ -47,7 +46,7 @@ async function freeCourts(isoDate, days, forceRefresh) {
             return wrapIfNeeded(data)
         } else {
             console.log(`empty result, refreshing for ${isoDate} for ${days} days...`)
-            const newData = await refreshAsync(isoDate, days)
+            const newData = await refresh(isoDate, days)
             console.log('refreshed as fallback', newData)
             return wrapIfNeeded(newData)
         }
@@ -59,15 +58,11 @@ async function freeCourts(isoDate, days, forceRefresh) {
 }
 
 
-function refreshAsync(isoDate, days) {
-    return new Promise((resolve => {
-        console.log(`fetching for ${isoDate} for ${days} days...`)
-        fetch(isoDate).onValue((obj) => {
-            console.log(`fetched ${obj.freeCourts.length} from sites for `, isoDate)
-            upsertToMongo(isoDate, obj)
-            resolve(obj)
-        })
-    }))
+async function refresh(isoDate, days) {
+    console.log(`fetching for ${isoDate} for ${days} days...`)
+    const obj = await fetch(isoDate)
+    console.log(`fetched ${obj.freeCourts.length} from sites for `, isoDate)
+    await upsertToMongo(isoDate, obj)
 }
 
 async function getHistoryData() {
@@ -118,8 +113,8 @@ function getType({type, field, res}) {
     return isBubble ? 'bubble' : (isOutdoor ? 'outdoor' : 'indoor')
 }
 
-function fetch(isoDate) {
-    return Bacon.combineAsArray([
+async function fetch(isoDate) {
+    const allData = await Promise.all([
         slSystems.getMeilahti,
         slSystems.getHerttoniemi,
         slSystems.getKulosaari,
@@ -131,23 +126,22 @@ function fetch(isoDate) {
         webTimmi.getTaliOutdoor,
         webTimmi.getTaliIndoor
     ].map(fn => fn(isoDate)))
-        .map(allData => {
-            const freeCourts = _.flatten(allData).filter(reservation => {
-                if (!reservation || !reservation.field) return false
-                return reservation.date === isoDate
-            }).map(reservation => {
-                const dateTime = DateTime.fromIsoDateTime(`${reservation.date}T${reservation.time}`)
-                const type = getType(reservation)
-                reservation.type = type
-                reservation.price = getPrice(dateTime, reservation.time, reservation.location, type)
-                return reservation
-            })
-            return {
-                freeCourts: withDoubleLessonInfo(freeCourts),
-                timestamp: new Date().getTime(),
-                date: isoDate
-            }
-        })
+
+    const freeCourts = _.flatten(allData).filter(reservation => {
+        if (!reservation || !reservation.field) return false
+        return reservation.date === isoDate
+    }).map(reservation => {
+        const dateTime = DateTime.fromIsoDateTime(`${reservation.date}T${reservation.time}`)
+        const type = getType(reservation)
+        reservation.type = type
+        reservation.price = getPrice(dateTime, reservation.time, reservation.location, type)
+        return reservation
+    })
+    return {
+        freeCourts: withDoubleLessonInfo(freeCourts),
+        timestamp: new Date().getTime(),
+        date: isoDate
+    }
 }
 
 function getPrice(dateTime, time, location, type) {

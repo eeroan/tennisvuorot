@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 const url = require('url')
 const request = require('request')
-const Bacon = require('baconjs')
 const Duration = require('dateutils').Duration
-
+const util = require('util')
 module.exports = {
     getMeilahti,
     getHerttoniemi,
@@ -78,15 +77,15 @@ function getHiekkaharju(isoDate) {
     }))
 }
 
-function getTableWithMapper(isoDate, client, sportTypeId, fn) {
-    return getSlSystemsTable(isoDate, client, sportTypeId).map(res => res.map(fn))
+async function getTableWithMapper(isoDate, client, sportTypeId, fn) {
+    const slSystemsTable = await getSlSystemsTable(isoDate, client, sportTypeId)
+    return slSystemsTable.map(fn)
 }
 
-function getSlSystemsTable(isoDate, client, sportTypeId) {
-    const url = `https://www.slsystems.fi/${client}/ftpages/ft-varaus-table-01.php?laji=${sportTypeId}&pvm=${isoDate}&goto=0`;
-    const stream = Bacon.fromNodeCallback(request.get, {url})
-    stream.onError(e => console.log(`error fetching for ${url}`, e))
-    return stream.map(res => res.body).map(table)
+async function getSlSystemsTable(isoDate, client, sportTypeId) {
+    const url = `https://www.slsystems.fi/${client}/ftpages/ft-varaus-table-01.php?laji=${sportTypeId}&pvm=${isoDate}&goto=0`
+    const res = await util.promisify(request.get)(url)
+    return table(res.body)
 }
 
 function table(html) {

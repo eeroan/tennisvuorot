@@ -1,14 +1,7 @@
 #!/usr/bin/env node
 const request = require('request')
 //require('request-debug')(request)
-const Bacon = require('baconjs')
-const dateutils = require('dateutils')
-const DateTime = dateutils.DateTime
-const DateFormat = dateutils.DateFormat
-const DateLocale = dateutils.DateLocale
-const profiles = require('../../generated/profiles')
-const date = require('../date')
-const _ = require('lodash')
+const util = require('util')
 
 function table(html) {
     return (html.match(/create-booking([^<])+/g) || [])
@@ -23,11 +16,10 @@ function table(html) {
         }))
 }
 
-const getFor = (isoDate, sportTypeId, expander) => {
+const getFor = async (isoDate, sportTypeId, expander) => {
     const url = `https://varaukset.talintenniskeskus.fi/booking/booking-calendar?BookingCalForm[p_laji]=${sportTypeId}&BookingCalForm[p_pvm]=${isoDate}`;
-    const stream = Bacon.fromNodeCallback(request.get, {url})
-    stream.onError(e => console.log(`error fetching for ${url}`, e))
-    return stream.map(res => res.body).map(table).map(list => list.map(o => Object.assign(o, expander(o))));
+    const res = await util.promisify(request.get)(url)
+    return table(res.body).map(o => Object.assign(o, expander(o)))
 }
 
 const getTaliIndoor = isoDate => getFor(isoDate, 1, o => ({
