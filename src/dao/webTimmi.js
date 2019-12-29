@@ -23,10 +23,12 @@ function table(html) {
         }))
 }
 
-const getFor = (isoDate, sportTypeId, expander) =>
-    Bacon.fromNodeCallback(request.get, {
-        url: `https://varaukset.talintenniskeskus.fi/booking/booking-calendar?BookingCalForm[p_laji]=${sportTypeId}&BookingCalForm[p_pvm]=${isoDate}`
-    }).map(res => res.body).map(table).map(list => list.map(o => Object.assign(o, expander(o))))
+const getFor = (isoDate, sportTypeId, expander) => {
+    const url = `https://varaukset.talintenniskeskus.fi/booking/booking-calendar?BookingCalForm[p_laji]=${sportTypeId}&BookingCalForm[p_pvm]=${isoDate}`;
+    const stream = Bacon.fromNodeCallback(request.get, {url})
+    stream.onError(e => console.log(`error fetching for ${url}`, e))
+    return stream.map(res => res.body).map(table).map(list => list.map(o => Object.assign(o, expander(o))));
+}
 
 const getTaliIndoor = isoDate => getFor(isoDate, 1, o => ({
     field: 'Sisä K' + o.res,

@@ -83,9 +83,10 @@ function getTableWithMapper(isoDate, client, sportTypeId, fn) {
 }
 
 function getSlSystemsTable(isoDate, client, sportTypeId) {
-    return Bacon.fromNodeCallback(request.get, {
-        url: `https://www.slsystems.fi/${client}/ftpages/ft-varaus-table-01.php?laji=${sportTypeId}&pvm=${isoDate}&goto=0`
-    }).map(res => res.body).map(table)
+    const url = `https://www.slsystems.fi/${client}/ftpages/ft-varaus-table-01.php?laji=${sportTypeId}&pvm=${isoDate}&goto=0`;
+    const stream = Bacon.fromNodeCallback(request.get, {url})
+    stream.onError(e => console.log(`error fetching for ${url}`, e))
+    return stream.map(res => res.body).map(table)
 }
 
 function table(html) {
