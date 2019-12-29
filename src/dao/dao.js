@@ -19,6 +19,7 @@ module.exports = {
     sendFreeCourts,
     freeCourts,
     refresh,
+    refreshAsync,
     fetch,
     getHistoryData
 }
@@ -56,6 +57,13 @@ function freeCourts(isoDate, days, forceRefresh, callback, errCallback) {
     function doCallback(data) {
         callback(data.timestamp ? [data] : data)
     }
+}
+
+
+function refreshAsync(isoDate, days) {
+    return new Promise((resolve => {
+        refresh(isoDate, days, resolve)
+    }))
 }
 
 function refresh(isoDate, days, callback) {

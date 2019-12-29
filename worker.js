@@ -3,18 +3,20 @@ const dao = require('./src/dao/dao')
 
 const intervalInSeconds = 60 * 5
 const seconsAfterFirstRefresh = 120
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 updateReservations(2)
 setTimeout(() => updateReservations(60), 1000 * seconsAfterFirstRefresh)
 
-function updateReservations(maxDaysAhead) {
+async function updateReservations(maxDaysAhead) {
     let daysAhead = 0
-    doRefresh()
-    setInterval(() => {
-        doRefresh()
-    }, 1000 * intervalInSeconds)
-
-    function doRefresh() {
-        dao.refresh(new DateTime().plusDays(daysAhead).toISODateString(), 1, () => { })
+    await doRefresh()
+    // noinspection InfiniteLoopJS
+    while(true) {
+        await doRefresh()
+        await delay(1000 * intervalInSeconds)
+    }
+    async function doRefresh() {
+        await dao.refreshAsync(new DateTime().plusDays(daysAhead).toISODateString(), 1)
         if (daysAhead > maxDaysAhead) daysAhead = 0
         else daysAhead++
     }
