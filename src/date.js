@@ -20,9 +20,18 @@ function formatTime(minutes) {
     return `${fill(h)}:${fill(m)}`
 }
 
+function toDayHourMinute(totalMinutes) {
+    const minutes = totalMinutes % 60
+    const totalHours = Math.floor(minutes / 60)
+    const hours = totalHours % 24
+    const days = Math.floor(totalHours / 24)
+    return `${days ? `${days} päivää ` : ''}${hours ? `${hours} tuntia` : ''}${minutes} minuuttia`
+}
+
 module.exports = {
     freeSlots,
     minutes,
     formatTime,
-    notOverlapping
+    notOverlapping,
+    toDayHourMinute
 }

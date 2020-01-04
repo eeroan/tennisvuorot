@@ -3,13 +3,14 @@ const _ = require('lodash')
 const dateutils = require('dateutils')
 const DateTime = dateutils.DateTime
 const format = require('./format')
+const date = require('./date')
 
 module.exports = markupForDateRange
 
 function markupForDateRange(allDataWithDates, today) {
     return allDataWithDates.map(allDataWithDate => {
         const deltaMin = parseInt((new Date().getTime() - allDataWithDate.timestamp) / 60000, 10)
-        const timeStamp = `päivitetty ${deltaMin} minuuttia sitten`
+        const timeStamp = `päivitetty ${date.toDayHourMinute(deltaMin)} sitten`
         const currentDate = getCurrentDate(allDataWithDate.date)
         const data = allDataWithDate.freeCourts
         return groupBySortedAsList(data, 'date')
