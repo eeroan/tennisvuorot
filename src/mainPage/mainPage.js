@@ -52,7 +52,7 @@ function filters() {
             {id: 'tapiola', name: 'Tapiola'},
             {id: 'tali', name: 'Tali'},
             {id: 'laajasalo', name: 'Laajasalo'},
-            {id: 'hiekkaharju', name: 'Hiekkaharju'}
+            {id: 'hiekkaharju', name: 'Hiekkaharju', disabled: true}
         ],
         types: [
             {id: 'bubble', name: 'Kupla'},

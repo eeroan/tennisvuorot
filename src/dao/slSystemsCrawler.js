@@ -11,7 +11,7 @@ module.exports = {
     table,
     getTapiola,
     getLaajasalo,
-    getHiekkaharju
+    //getHiekkaharju
 }
 
 function getMeilahti(isoDate) {
