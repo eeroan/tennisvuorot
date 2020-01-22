@@ -121,7 +121,7 @@ async function fetch(isoDate) {
         slSystems.getMerihaka,
         slSystems.getTapiola,
         slSystems.getLaajasalo,
-        slSystems.getHiekkaharju,
+        //slSystems.getHiekkaharju,
         webTimmi.getTaivallahti,
         webTimmi.getTaliOutdoor,
         webTimmi.getTaliIndoor
