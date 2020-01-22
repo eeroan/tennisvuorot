@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --exit",
-    "start": "NODE_ENV=production forever ./server.js",
+    "start": "NODE_ENV=production forever ./server.js --tls-min-v1.0",
     "dev": "NODE_ENV=test supervisor ./server.js",
     "mongo": "mongod --fork --logpath mongo.log",
     "update-prices": "scripts/fetchPrices.js",
@@ -30,7 +30,7 @@
     "express": "^4.17.1",
     "express-babelify-middleware": "^0.2.1",
     "fastclick": "^1.0.6",
-    "forever": "^1.0.0",
+    "forever": "^2.0.0",
     "lodash": "^4.17.15",
     "mongodb": "^3.4.0",
     "nouislider": "^14.1.1",
@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "flat": "^5.0.0",
     "mocha": "^6.2.2",
     "supervisor": "^0.12.0",
     "zombie": "^6.1.4"
