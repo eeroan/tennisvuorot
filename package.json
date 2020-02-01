@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --exit",
     "start": "NODE_ENV=production forever ./server.js --tls-min-v1.0",
-    "dev": "NODE_ENV=test supervisor ./server.js",
+    "dev": "NODE_ENV=test forever -w  ./server.js --watchIgnore -- --tls-min-v1.0",
     "mongo": "mongod --fork --logpath mongo.log",
     "update-prices": "scripts/fetchPrices.js",
     "update-locations": "scripts/updateLocations.js",
