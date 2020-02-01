@@ -25,7 +25,7 @@ function getHerttoniemi(isoDate) {
     return getTableWithMapper(isoDate, 'fite', 1, obj => Object.assign(obj, {
         field:    `${obj.res > 9 ? 'Massakupla' : (obj.res > 6 ? 'Janus' : 'Sisä')} K${obj.res}`,
         location: 'herttoniemi'
-    }))
+    })).filter(({res}) => ![42,43,47].includes(res))
 }
 
 function getKulosaari(isoDate) {
