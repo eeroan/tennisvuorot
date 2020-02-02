@@ -63,6 +63,7 @@ async function refresh(isoDate, days) {
     const obj = await fetch(isoDate)
     console.log(`fetched ${obj.freeCourts.length} from sites for `, isoDate)
     await upsertToMongo(isoDate, obj)
+    return obj
 }
 
 async function getHistoryData() {
