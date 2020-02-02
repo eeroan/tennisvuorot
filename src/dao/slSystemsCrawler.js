@@ -14,37 +14,42 @@ module.exports = {
     //getHiekkaharju
 }
 
-function getMeilahti(isoDate) {
-    return getTableWithMapper(isoDate, 'meilahti', 1, obj => Object.assign(obj, {
-        field:    `${obj.res > 5 ? 'Sisä' : 'Kupla'} K${obj.res}`,
+async function getMeilahti(isoDate) {
+    const table = await getSlSystemsTable(isoDate, 'meilahti', 1);
+    return table.map(obj => Object.assign(obj, {
+        field: `${obj.res > 5 ? 'Sisä' : 'Kupla'} K${obj.res}`,
         location: 'meilahti'
     }))
 }
 
-function getHerttoniemi(isoDate) {
-    return getTableWithMapper(isoDate, 'fite', 1, obj => Object.assign(obj, {
-        field:    `${obj.res > 9 ? 'Massakupla' : (obj.res > 6 ? 'Janus' : 'Sisä')} K${obj.res}`,
+async function getHerttoniemi(isoDate) {
+    const table = await getSlSystemsTable(isoDate, 'fite', 1);
+    return table.map(obj => Object.assign(obj, {
+        field: `${obj.res > 9 ? 'Massakupla' : (obj.res > 6 ? 'Janus' : 'Sisä')} K${obj.res}`,
         location: 'herttoniemi'
     })).filter(({res}) => ![42,43,47].includes(res))
 }
 
-function getKulosaari(isoDate) {
-    return getTableWithMapper(isoDate, 'puhoscenter', 1, obj => Object.assign(obj, {
-        field:    `${obj.res > 2 ? 'Green set' : 'Bolltex'} Te${obj.res}`,
+async function getKulosaari(isoDate) {
+    const table = await getSlSystemsTable(isoDate, 'puhoscenter', 1);
+    return table.map(obj => Object.assign(obj, {
+        field: `${obj.res > 2 ? 'Green set' : 'Bolltex'} Te${obj.res}`,
         location: 'kulosaari'
     }))
 }
 
-function getMerihaka(isoDate) {
-    return getTableWithMapper(isoDate, 'meripeli', 3, obj => Object.assign(obj, {
-        field:    'K1',
+async function getMerihaka(isoDate) {
+    const table = await getSlSystemsTable(isoDate, 'meripeli', 3);
+    return table.map(obj => Object.assign(obj, {
+        field: 'K1',
         location: 'merihaka'
     }))
 }
 
-function getTapiola(isoDate) {
-    return getTableWithMapper(isoDate, 'tennispuisto', 1, obj => Object.assign(obj, {
-        field:    `K${obj.res}`,
+async function getTapiola(isoDate) {
+    const table = await getSlSystemsTable(isoDate, 'tennispuisto', 1);
+    return table.map(obj => Object.assign(obj, {
+        field: `K${obj.res}`,
         location: 'tapiola'
     }))
 }
@@ -56,12 +61,14 @@ const laajasaloCodes = {
     '4': 'D'
 }
 
-function getLaajasalo(isoDate) {
-    return getTableWithMapper(isoDate, 'laajasalonpalloiluhallit', 1, obj => Object.assign(obj, {
-        field:    laajasaloCodes[obj.res],
+async function getLaajasalo(isoDate) {
+    const table = await getSlSystemsTable(isoDate, 'laajasalonpalloiluhallit', 1);
+    return table.map(obj => Object.assign(obj, {
+        field: laajasaloCodes[obj.res],
         location: 'laajasalo'
     }))
 }
+
 //sisä 7-9, kupla 5-6
 const hiekkaHarjuCodes = {
     '1': 'K7',
@@ -70,16 +77,13 @@ const hiekkaHarjuCodes = {
     '4': 'Kaarihalli K5',
     '5': 'Kaarihalli K6'
 }
-function getHiekkaharju(isoDate) {
-    return getTableWithMapper(isoDate, 'hiekkaharjuntenniskeskus', 1, obj => Object.assign(obj, {
-        field:    hiekkaHarjuCodes[obj.res],
+
+async function getHiekkaharju(isoDate) {
+    const table = await getSlSystemsTable(isoDate, 'hiekkaharjuntenniskeskus', 1);
+    return table.map(obj => Object.assign(obj, {
+        field: hiekkaHarjuCodes[obj.res],
         location: 'hiekkaharju'
     }))
-}
-
-async function getTableWithMapper(isoDate, client, sportTypeId, fn) {
-    const slSystemsTable = await getSlSystemsTable(isoDate, client, sportTypeId)
-    return slSystemsTable.map(fn)
 }
 
 async function getSlSystemsTable(isoDate, client, sportTypeId) {
@@ -95,8 +99,8 @@ function table(html) {
 function fromSlSystemsResult({kesto, klo, pvm, res}) {
     return {
         duration: Duration.fromIsoTime(kesto).asUnit(Duration.MIN),
-        time:     (klo || '').substring(0, 5),
-        date:     pvm,
-        res:      Number(res)
+        time: (klo || '').substring(0, 5),
+        date: pvm,
+        res: Number(res)
     }
 }
