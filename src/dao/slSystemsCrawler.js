@@ -16,7 +16,8 @@ module.exports = {
 
 async function getMeilahti(isoDate) {
     const table = await getSlSystemsTable(isoDate, 'meilahti', 1);
-    return table.map(obj => Object.assign(obj, {
+    return table.map(obj => ({
+        ...obj,
         field: `${obj.res > 5 ? 'Sisä' : 'Kupla'} K${obj.res}`,
         location: 'meilahti'
     }))
@@ -24,15 +25,17 @@ async function getMeilahti(isoDate) {
 
 async function getHerttoniemi(isoDate) {
     const table = await getSlSystemsTable(isoDate, 'fite', 1);
-    return table.map(obj => Object.assign(obj, {
+    return table.map(obj => ({
+        ...obj,
         field: `${obj.res > 9 ? 'Massakupla' : (obj.res > 6 ? 'Janus' : 'Sisä')} K${obj.res}`,
         location: 'herttoniemi'
-    })).filter(({res}) => ![42,43,47].includes(res))
+    })).filter(({res}) => ![42, 43, 47].includes(res))
 }
 
 async function getKulosaari(isoDate) {
     const table = await getSlSystemsTable(isoDate, 'puhoscenter', 1);
-    return table.map(obj => Object.assign(obj, {
+    return table.map(obj => ({
+        ...obj,
         field: `${obj.res > 2 ? 'Green set' : 'Bolltex'} Te${obj.res}`,
         location: 'kulosaari'
     }))
@@ -40,7 +43,8 @@ async function getKulosaari(isoDate) {
 
 async function getMerihaka(isoDate) {
     const table = await getSlSystemsTable(isoDate, 'meripeli', 3);
-    return table.map(obj => Object.assign(obj, {
+    return table.map(obj => ({
+        ...obj,
         field: 'K1',
         location: 'merihaka'
     }))
@@ -48,7 +52,8 @@ async function getMerihaka(isoDate) {
 
 async function getTapiola(isoDate) {
     const table = await getSlSystemsTable(isoDate, 'tennispuisto', 1);
-    return table.map(obj => Object.assign(obj, {
+    return table.map(obj => ({
+        ...obj,
         field: `K${obj.res}`,
         location: 'tapiola'
     }))
@@ -63,7 +68,8 @@ const laajasaloCodes = {
 
 async function getLaajasalo(isoDate) {
     const table = await getSlSystemsTable(isoDate, 'laajasalonpalloiluhallit', 1);
-    return table.map(obj => Object.assign(obj, {
+    return table.map(obj => ({
+        ...obj,
         field: laajasaloCodes[obj.res],
         location: 'laajasalo'
     }))
@@ -80,7 +86,8 @@ const hiekkaHarjuCodes = {
 
 async function getHiekkaharju(isoDate) {
     const table = await getSlSystemsTable(isoDate, 'hiekkaharjuntenniskeskus', 1);
-    return table.map(obj => Object.assign(obj, {
+    return table.map(obj => ({
+        ...obj,
         field: hiekkaHarjuCodes[obj.res],
         location: 'hiekkaharju'
     }))
