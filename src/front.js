@@ -97,7 +97,8 @@ function reservationModalMarkup(date, time, fields, selectedLocation) {
             'fieldLabel',
             selectedLocation,
             field.type,
-            format.durationClass(field.doubleLesson)
+            format.durationClass(field.doubleLesson),
+            'duration'+ field.duration
         ].join(' ')
         return `<a href="/calendar?${urlParams}" class="${classes}">${field.field}<br/>${format.formatPrice(field.price)}</a>`
     }

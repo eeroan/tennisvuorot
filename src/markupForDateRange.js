@@ -60,7 +60,8 @@ function compact(fields) {
             type:         f.type,
             doubleLesson: f.doubleLesson,
             field:        f.field,
-            price:        f.price
+            price:        f.price,
+            duration:     f.duration
         }))
     }
 }
