@@ -43,6 +43,12 @@ const getKulosaari = isoDate => getFor('https://puhoscenter.slsystems.fi', isoDa
     type:     'indoor'
 }))
 
+const getMeilahti = isoDate => getFor('https://meilahti.slsystems.fi', isoDate, 1, o => ({
+    ...o,
+    field: `${o.res > 5 ? 'Sisä' : 'Kupla'} K${o.res}`,
+    location: 'meilahti'
+}))
+
 const getHerttoniemi = async isoDate => {
     const result = await getFor('https://smashcenter.slsystems.fi', isoDate, 1, o => {
         if (o.res === 45) {
@@ -62,5 +68,6 @@ module.exports = {
     getTaliOutdoor,
     getTaivallahti,
     getKulosaari,
-    getHerttoniemi
+    getHerttoniemi,
+    getMeilahti
 }

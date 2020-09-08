@@ -4,21 +4,11 @@ const request = require('request')
 const Duration = require('dateutils').Duration
 const util = require('util')
 module.exports = {
-    getMeilahti,
     getMerihaka,
     table,
     getTapiola,
     getLaajasalo,
     //getHiekkaharju
-}
-
-async function getMeilahti(isoDate) {
-    const table = await getSlSystemsTable(isoDate, 'meilahti', 1);
-    return table.map(obj => ({
-        ...obj,
-        field: `${obj.res > 5 ? 'Sisä' : 'Kupla'} K${obj.res}`,
-        location: 'meilahti'
-    }))
 }
 
 async function getMerihaka(isoDate) {

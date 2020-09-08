@@ -116,7 +116,7 @@ function getType({type, field, res}) {
 
 async function fetch(isoDate) {
     const allData = await Promise.all([
-        slSystems.getMeilahti,
+        webTimmi.getMeilahti,
         webTimmi.getHerttoniemi,
         webTimmi.getKulosaari,
         slSystems.getMerihaka,
