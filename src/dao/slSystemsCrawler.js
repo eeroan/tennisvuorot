@@ -64,7 +64,7 @@ async function getHiekkaharju(isoDate) {
 }
 
 async function getSlSystemsTable(isoDate, client, sportTypeId) {
-    const url = `https://www.slsystems.fi/${client}/ftpages/ft-varaus-table-01.php?laji=${sportTypeId}&pvm=${isoDate}&goto=0`
+    const url = `https://vj.slsystems.fi/${client}/ftpages/ft-varaus-table-01.php?laji=${sportTypeId}&pvm=${isoDate}&goto=0`
     const res = await util.promisify(request.get)(url)
     return table(res.body)
 }
