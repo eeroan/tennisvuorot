@@ -5,7 +5,6 @@ const Duration = require('dateutils').Duration
 const util = require('util')
 module.exports = {
     getMeilahti,
-    getHerttoniemi,
     getMerihaka,
     table,
     getTapiola,
@@ -20,15 +19,6 @@ async function getMeilahti(isoDate) {
         field: `${obj.res > 5 ? 'Sisä' : 'Kupla'} K${obj.res}`,
         location: 'meilahti'
     }))
-}
-
-async function getHerttoniemi(isoDate) {
-    const table = await getSlSystemsTable(isoDate, 'fite', 1);
-    return table.map(obj => ({
-        ...obj,
-        field: `${obj.res > 9 ? 'Massakupla' : (obj.res > 6 ? 'Janus' : 'Sisä')} K${obj.res}`,
-        location: 'herttoniemi'
-    })).filter(({res}) => ![42, 43, 47].includes(res))
 }
 
 async function getMerihaka(isoDate) {

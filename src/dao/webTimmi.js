@@ -37,16 +37,30 @@ const getTaivallahti = isoDate => getFor(`https://varaukset.talintenniskeskus.fi
     type:     'indoor'
 }))
 
-const getKulosaari = isoDate => getFor(`https://puhoscenter.slsystems.fi`, isoDate, 1, o => ({
+const getKulosaari = isoDate => getFor('https://puhoscenter.slsystems.fi', isoDate, 1, o => ({
     field: `${o.res > 2 ? 'Green set' : 'Bolltex'} Te${o.res}`,
     location: 'kulosaari',
     type:     'indoor'
 }))
+
+const getHerttoniemi = async isoDate => {
+    const result = await getFor('https://smashcenter.slsystems.fi', isoDate, 1, o => {
+        if (o.res === 45) {
+            o.res = 14
+        }
+        return {
+            field:    `${o.res > 9 ? 'Massakupla' : (o.res > 6 ? 'Janus' : 'Sisä')} K${o.res}`,
+            location: 'herttoniemi'
+        }
+    })
+    return result.filter(({ res }) => ![42, 43, 46].includes(res))
+}
 
 module.exports = {
     table,
     getTaliIndoor,
     getTaliOutdoor,
     getTaivallahti,
-    getKulosaari
+    getKulosaari,
+    getHerttoniemi
 }
