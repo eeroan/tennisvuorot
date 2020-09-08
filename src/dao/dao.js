@@ -118,7 +118,7 @@ async function fetch(isoDate) {
     const allData = await Promise.all([
         slSystems.getMeilahti,
         slSystems.getHerttoniemi,
-        slSystems.getKulosaari,
+        webTimmi.getKulosaari,
         slSystems.getMerihaka,
         slSystems.getTapiola,
         slSystems.getLaajasalo,

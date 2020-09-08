@@ -6,7 +6,6 @@ const util = require('util')
 module.exports = {
     getMeilahti,
     getHerttoniemi,
-    getKulosaari,
     getMerihaka,
     table,
     getTapiola,
@@ -30,15 +29,6 @@ async function getHerttoniemi(isoDate) {
         field: `${obj.res > 9 ? 'Massakupla' : (obj.res > 6 ? 'Janus' : 'Sisä')} K${obj.res}`,
         location: 'herttoniemi'
     })).filter(({res}) => ![42, 43, 47].includes(res))
-}
-
-async function getKulosaari(isoDate) {
-    const table = await getSlSystemsTable(isoDate, 'puhoscenter', 1);
-    return table.map(obj => ({
-        ...obj,
-        field: `${obj.res > 2 ? 'Green set' : 'Bolltex'} Te${obj.res}`,
-        location: 'kulosaari'
-    }))
 }
 
 async function getMerihaka(isoDate) {
