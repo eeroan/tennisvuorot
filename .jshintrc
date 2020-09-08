@@ -1,4 +1,5 @@
 {
+  "esversion" : 9,
   "eqeqeq": true,
   "quotmark": "single",
   "undef": true,
@@ -23,7 +24,6 @@
     "navigator",
     "history"
   ],
-  "esnext": true,
   "debug": false,
   // Allow debugger statements e.g. browser breakpoints.
   "devel": false,
