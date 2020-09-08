@@ -16,8 +16,7 @@ const sheets = {
     herttoniemi: {indoor: 1178514552, bubble: 198222769},
     merihaka:    1502483638,
     tapiola:     145296495,
-    laajasalo:   1910750595,
-    hiekkaharju: {indoor: 1018267466, bubble: 692647002}
+    laajasalo:   1910750595
 }
 
 function fetchFor(id) {

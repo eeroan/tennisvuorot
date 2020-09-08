@@ -1,6 +1,7 @@
 const slSystems = require('./slSystemsCrawler')
 const _ = require('lodash')
 const webTimmi = require('./webTimmi')
+const playtomic = require('./playtomic')
 const DateTime = require('dateutils').DateTime
 const MongoClient = require('mongodb').MongoClient
 const [, mongoUri, mongoDbName] = (process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test').match('(.*)\/([^/]+)')
@@ -122,7 +123,7 @@ async function fetch(isoDate) {
         slSystems.getMerihaka,
         slSystems.getTapiola,
         slSystems.getLaajasalo,
-        //slSystems.getHiekkaharju,
+        playtomic.getHiekkaharju,
         webTimmi.getTaivallahti,
         webTimmi.getTaliOutdoor,
         webTimmi.getTaliIndoor
@@ -135,7 +136,7 @@ async function fetch(isoDate) {
         const dateTime = DateTime.fromIsoDateTime(`${reservation.date}T${reservation.time}`)
         const type = getType(reservation)
         reservation.type = type
-        reservation.price = getPrice(dateTime, reservation.time, reservation.location, type)
+        reservation.price = reservation.price || getPrice(dateTime, reservation.time, reservation.location, type)
         return reservation
     })
     return {

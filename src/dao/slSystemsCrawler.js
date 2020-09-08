@@ -8,7 +8,6 @@ module.exports = {
     table,
     getTapiola,
     getLaajasalo,
-    //getHiekkaharju
 }
 
 async function getMerihaka(isoDate) {
@@ -42,24 +41,6 @@ async function getLaajasalo(isoDate) {
         ...obj,
         field: laajasaloCodes[obj.res],
         location: 'laajasalo'
-    }))
-}
-
-//sisä 7-9, kupla 5-6
-const hiekkaHarjuCodes = {
-    '1': 'K7',
-    '2': 'K8',
-    '3': 'K9',
-    '4': 'Kaarihalli K5',
-    '5': 'Kaarihalli K6'
-}
-
-async function getHiekkaharju(isoDate) {
-    const table = await getSlSystemsTable(isoDate, 'hiekkaharjuntenniskeskus', 1);
-    return table.map(obj => ({
-        ...obj,
-        field: hiekkaHarjuCodes[obj.res],
-        location: 'hiekkaharju'
     }))
 }
 
